@@ -74,3 +74,22 @@ This repository tracks my journey from basic design patterns to complex distribu
 | **Dockerized Job Cluster** | Docker Compose, Scaling | [View Problem](./infrastructure_challenges/dockerized_job_scheduler/PROBLEM.md) |
 | **Redis Rate Limiter** | Redis, Atomic Operations | [View Problem](./infrastructure_challenges/redis_rate_limiter/PROBLEM.md) |
 | **Socket Chat App** | TCP Sockets, Multi-threading | [View Problem](./infrastructure_challenges/socket_chat_app/PROBLEM.md) |
+
+## 🏗️ Level 7: High-Level Design (HLD)
+*Focus: Scaling, Availability, Distributed Data, and Performance Trade-offs.*
+
+| Category | Challenge | Core Complexity |
+| :--- | :--- | :--- |
+| **Pillars** | **Fundamental HLD** | [View Pillars](./system_design_hld/pillars/CONCEPTS.md) |
+| **Pillars** | **Microservices** | [Architecture Patterns](./system_design_hld/pillars/microservices/ARCHITECTURE_PATTERNS.md) |
+| **Pillars** | **DB & Caching** | [Scaling Strategies](./system_design_hld/pillars/database_scaling/SCALING_STRATEGIES.md) |
+| **Pillars** | **Security** | [Security & Crypto](./system_design_hld/pillars/security_concurrency/SECURITY_CRYPTO.md) |
+| **Social** | **WhatsApp HLD** | [View Architecture](./system_design_hld/architectures/social_media/WHATSAPP.md) |
+| **Social** | **FB Capacity** | [Back-of-the-envelope](./system_design_hld/architectures/social_media/FACEBOOK_CAPACITY.md) |
+| **Streaming** | **Netflix HLD** | [View Architecture](./system_design_hld/architectures/streaming/NETFLIX.md) |
+| **Matching** | **Uber Global HLD** | [View Architecture](./system_design_hld/architectures/payment_systems/UBER_HLD.md) |
+| **Storage** | **S3 Lite HLD** | [View Architecture](./system_design_hld/architectures/distributed_storage/S3_LITE.md) |
+| **Storage** | **KV Store** | [View Architecture](./system_design_hld/architectures/distributed_storage/KV_STORE.md) |
+| **Utilities** | **URL Shortener** | [View Architecture](./system_design_hld/architectures/utilities/URL_SHORTENER.md) |
+| **Utilities** | **Rate Limiter** | [View Architecture](./system_design_hld/architectures/utilities/RATE_LIMITER.md) |
+| **Utilities** | **Ticket Booking** | [Thundering Herd](./system_design_hld/architectures/utilities/TICKET_BOOKING.md) |

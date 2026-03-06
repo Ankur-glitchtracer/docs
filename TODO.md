@@ -62,5 +62,24 @@
 - [ ] **Redis:** [Distributed Rate Limiter](./infrastructure_challenges/redis_rate_limiter/PROBLEM.md)
 - [ ] **Networking:** [Socket Chat App](./infrastructure_challenges/socket_chat_app/PROBLEM.md)
 
+## 🏗️ Level 7: High-Level Design (HLD)
+### Architectural Challenges
+- [ ] **WhatsApp:** [Real-time Messenger](./system_design_hld/architectures/social_media/WHATSAPP.md)
+- [ ] **Netflix:** [Video Streaming Service](./system_design_hld/architectures/streaming/NETFLIX.md)
+- [ ] **Uber Global:** [Geospatial Matching](./system_design_hld/architectures/payment_systems/UBER_HLD.md)
+- [ ] **S3 Lite:** [Distributed Blob Store](./system_design_hld/architectures/distributed_storage/S3_LITE.md)
+- [ ] **KV Store:** [Scalable Key-Value Store](./system_design_hld/architectures/distributed_storage/KV_STORE.md)
+- [ ] **URL Shortener:** [Redirection & Capacity](./system_design_hld/architectures/utilities/URL_SHORTENER.md)
+- [ ] **API Rate Limiter:** [Traffic Control](./system_design_hld/architectures/utilities/RATE_LIMITER.md)
+- [ ] **Ticket Booking:** [Flash Sale Concurrency](./system_design_hld/architectures/utilities/TICKET_BOOKING.md)
+- [ ] **FB Capacity:** [Back-of-the-envelope Estimations](./system_design_hld/architectures/social_media/FACEBOOK_CAPACITY.md)
+
+### Knowledge Pillars (Document your findings)
+- [ ] **Microservices:** [Architecture Patterns, Saga, CQRS](./system_design_hld/pillars/microservices/ARCHITECTURE_PATTERNS.md)
+- [ ] **DB Scaling:** [Sharding, Caching, 2PC/3PC](./system_design_hld/pillars/database_scaling/SCALING_STRATEGIES.md)
+- [ ] **Security:** [OAuth2, JWT, Crypto, Web Attacks](./system_design_hld/pillars/security_concurrency/SECURITY_CRYPTO.md)
+- [ ] **Networking:** Load Balancers, API Gateways, gRPC.
+- [ ] **Consensus:** Raft, Leader Election, Zookeeper.
+
 ## 📚 Bonus
 - [ ] **Documentation:** [Setup Docs Portal](./DOCS_PORTAL.md)

@@ -97,6 +97,22 @@ nav:
     - Docker Job Scheduler: infrastructure_challenges/dockerized_job_scheduler/PROBLEM.md
     - Redis Rate Limiter: infrastructure_challenges/redis_rate_limiter/PROBLEM.md
     - Socket Chat: infrastructure_challenges/socket_chat_app/PROBLEM.md
+  - High-Level Design (HLD):
+    - Pillars:
+      - Fundamentals: system_design_hld/pillars/CONCEPTS.md
+      - Microservices & Patterns: system_design_hld/pillars/microservices/ARCHITECTURE_PATTERNS.md
+      - DB Scaling & Caching: system_design_hld/pillars/database_scaling/SCALING_STRATEGIES.md
+      - Security & Crypto: system_design_hld/pillars/security_concurrency/SECURITY_CRYPTO.md
+    - Architectures:
+      - WhatsApp: system_design_hld/architectures/social_media/WHATSAPP.md
+      - Facebook Capacity: system_design_hld/architectures/social_media/FACEBOOK_CAPACITY.md
+      - Netflix: system_design_hld/architectures/streaming/NETFLIX.md
+      - Uber Global: system_design_hld/architectures/payment_systems/UBER_HLD.md
+      - S3 Lite (Storage): system_design_hld/architectures/distributed_storage/S3_LITE.md
+      - Key-Value Store: system_design_hld/architectures/distributed_storage/KV_STORE.md
+      - URL Shortener: system_design_hld/architectures/utilities/URL_SHORTENER.md
+      - API Rate Limiter: system_design_hld/architectures/utilities/RATE_LIMITER.md
+      - Ticket Booking: system_design_hld/architectures/utilities/TICKET_BOOKING.md
 
 markdown_extensions:
   - admonition
