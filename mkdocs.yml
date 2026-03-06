@@ -1,0 +1,112 @@
+site_name: System Design & LLD Portfolio
+site_description: A comprehensive collection of design patterns, machine coding, and distributed systems.
+repo_url: https://github.com/yourusername/python-examples # Update this later
+
+docs_dir: docs
+
+site_url: http://127.0.0.1:8000/
+
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+
+theme:
+  name: material
+  features:
+    - navigation.expand
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - scheme: slate
+      primary: teal
+      accent: purple
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      primary: teal
+      accent: purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+nav:
+  - Home: index.md
+  - Progress Tracker: todo.md
+  - Documentation Setup: docs_portal.md
+  - Design Patterns:
+    - Insights: design_patterns/INSIGHTS.md
+    - Creational:
+      - Abstract Factory: design_patterns/creational/abstract_factory/ui_toolkit/PROBLEM.md
+      - Builder: design_patterns/creational/builder/custom_pc_builder/PROBLEM.md
+      - Factory (Coupon): design_patterns/creational/factory/coupon_factory/PROBLEM.md
+      - Factory (Document): design_patterns/creational/factory/document_factory/PROBLEM.md
+      - Singleton: design_patterns/creational/singleton/singleton_pattern/PROBLEM.md
+      - Object Pool: design_patterns/creational/object_pool/db_connection_pool/PROBLEM.md
+      - Prototype: design_patterns/creational/prototype/PROBLEM.md
+    - Structural:
+      - Adapter: design_patterns/structural/adapter/format_translator/PROBLEM.md
+      - Bridge: design_patterns/structural/bridge/remote_control/PROBLEM.md
+      - Composite: design_patterns/structural/composite/organisation_chart/PROBLEM.md
+      - Decorator: design_patterns/structural/decorator/pizza_builder_decorator/PROBLEM.md
+      - Facade: design_patterns/structural/facade/smart_home_facade/PROBLEM.md
+      - Flyweight: design_patterns/structural/flyweight/forest_simulator/PROBLEM.md
+      - Proxy: design_patterns/structural/proxy/lazy_loading_proxy/PROBLEM.md
+    - Behavioral:
+      - Command: design_patterns/behavioral/command/smart_home_hub/PROBLEM.md
+      - Interpreter: design_patterns/behavioral/interpreter/rule_engine/PROBLEM.md
+      - Iterator: design_patterns/behavioral/iterator/menu_iterator/PROBLEM.md
+      - Memento (History): design_patterns/behavioral/memento/text_editor_history/PROBLEM.md
+      - Memento (Advanced): design_patterns/behavioral/memento/advanced_text_editor/PROBLEM.md
+      - Observer (IoT): design_patterns/behavioral/observer/iot_notification_system/PROBLEM.md
+      - Observer (Basic): design_patterns/behavioral/observer/basic_observer/PROBLEM.md
+      - State (Workflow): design_patterns/behavioral/state/document_workflow/PROBLEM.md
+      - State (Vending): design_patterns/behavioral/state/gumball_machine_vending/PROBLEM.md
+      - Strategy: design_patterns/behavioral/strategy/sprinkler_system/PROBLEM.md
+      - Template: design_patterns/behavioral/template/data_exporter/PROBLEM.md
+      - Null Object: design_patterns/behavioral/null_object/discount_system/PROBLEM.md
+      - Visitor: design_patterns/behavioral/visitor/PROBLEM.md
+      - Mediator: design_patterns/behavioral/mediator/PROBLEM.md
+      - Chain of Responsibility: design_patterns/behavioral/chain_of_responsibility/PROBLEM.md
+      - MVC: design_patterns/behavioral/mvc/PROBLEM.md
+  - Machine Coding:
+    - Insights: machine_coding/INSIGHTS.md
+    - Games:
+      - Snake & Ladder: machine_coding/games/snake_ladder/PROBLEM.md
+      - Tic-Tac-Toe: machine_coding/games/tic_tac_toe/PROBLEM.md
+    - Systems:
+      - Elevator: machine_coding/systems/elevator/PROBLEM.md
+      - Instagram: machine_coding/systems/instagram/PROBLEM.md
+      - Parking Lot: machine_coding/systems/parking_lot/PROBLEM.md
+      - Cache System: machine_coding/systems/cache_system/PROBLEM.md
+    - Distributed:
+      - Job Scheduler: machine_coding/distributed/job_scheduler/PROBLEM.md
+      - Rate Limiter: machine_coding/distributed/rate_limiter/PROBLEM.md
+      - Pub-Sub: machine_coding/distributed/pub_sub/PROBLEM.md
+      - Workflow Orchestrator: machine_coding/distributed/workflow_orchestrator/PROBLEM.md
+  - Real World Systems:
+    - E-Commerce: machine_coding/real_world_systems/e_commerce_order_system/PROBLEM.md
+    - Ride Sharing: machine_coding/real_world_systems/ride_sharing_service/PROBLEM.md
+    - CI/CD Pipeline: machine_coding/real_world_systems/ci_cd_pipeline/PROBLEM.md
+  - Infrastructure:
+    - Docker Job Scheduler: infrastructure_challenges/dockerized_job_scheduler/PROBLEM.md
+    - Redis Rate Limiter: infrastructure_challenges/redis_rate_limiter/PROBLEM.md
+    - Socket Chat: infrastructure_challenges/socket_chat_app/PROBLEM.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      base_path: ["."]
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables

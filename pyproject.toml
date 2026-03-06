@@ -1,0 +1,38 @@
+[project]
+name = "python-system-design"
+version = "0.1.0"
+description = "A comprehensive collection of LLD patterns, machine coding solutions, and distributed system challenges."
+requires-python = ">=3.14"
+dependencies = [
+    "pydantic>=2.0.0",
+    "redis>=5.0.0",  # For the Redis challenges
+    "requests>=2.31.0",
+    "fastapi>=0.100.0", # For exposing systems as APIs
+    "uvicorn>=0.23.0",
+    "mkdocs>=1.6.1,<2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "mypy>=1.5.0",
+    "ruff>=0.1.0",
+    "mkdocs-material>=9.0.0", # For the "UI" documentation portal
+    "pymdown-extensions>=10.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]
