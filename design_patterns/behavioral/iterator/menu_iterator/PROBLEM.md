@@ -10,21 +10,14 @@ The **Iterator Pattern** provides a way to access the elements of an aggregate o
 ## 🚀 Problem Statement
 Two restaurants have merged. One stores its menu in a `List`, the other in a `Dictionary`. The waitress needs to print both menus, but writing separate `for` loops for each data structure is repetitive and brittle.
 
+## 🧠 Thinking Process & Approach
+Accessing different collection types (List vs Map) usually requires different loops. The approach is to wrap any structure in a standard Iterator interface (`next`, `has_next`), allowing the client to traverse data uniformly.
+
+### Key Observations:
+- Standardized traversal protocol.
+- Abstraction of underlying data structures.
+
 ### Technical Constraints
 - **Polymorphism:** The client (Waitress) should work with a common `Iterator` interface.
 - **Separation of Concerns:** The menu class should handle storage, while the iterator class handles traversal.
 
-## 🛠️ Requirements
-1.  **Iterator Interface:** Methods like `next()` and `has_next()`.
-2.  **Concrete Iterators:** Traversal logic for `List` and `Dictionary` storage.
-3.  **Aggregate Interface:** A `create_iterator()` method for menus.
-4.  **Client Refactor:** The `Waitress` should use the iterators to print items in a single, clean loop.
-
-## 💻 Solution Implementation
-
-```python
---8<-- "design_patterns/behavioral/iterator/menu_iterator/menu_iterator.py"
-```
-
-!!! success "Why this works"
-    It decouples the traversal algorithm from the collection's structure. If the restaurant decides to switch to a more complex data structure (like a binary tree), the waitress's printing code remains completely unchanged.

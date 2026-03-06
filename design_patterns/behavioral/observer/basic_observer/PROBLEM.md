@@ -10,20 +10,14 @@ The **Observer Pattern** is the fundamental building block for reactive programm
 ## 🚀 Problem Statement
 Implement a minimal version of the observer pattern to demonstrate the core mechanics of registration and notification. The goal is to show how a change in a `Subject` can trigger actions in multiple `Observers` without direct coupling.
 
+## 🧠 Thinking Process & Approach
+Hardcoding notifications into a sensor makes it rigid. The approach uses an Event Bus or a Subject that maintains a dynamic list of subscribers. This allows any part of the system to 'react' to an event without the source ever knowing who they are.
+
+### Key Observations:
+- Loose coupling through event dispatching.
+- Dynamic subscription management at runtime.
+
 ### Technical Constraints
 - **Simplicity:** Focus on the "bare-bones" structure: a list of listeners and a `notify()` loop.
 - **Reliability:** Ensure that removing an observer during a notification loop doesn't crash the system.
 
-## 🛠️ Requirements
-1.  **Simple Subject:** A class that manages a collection of observer objects.
-2.  **Simple Observer:** An interface with a basic `update()` method.
-3.  **Notification Test:** Demonstrate one subject triggering updates across multiple observer instances.
-
-## 💻 Solution Implementation
-
-```python
---8<-- "design_patterns/behavioral/observer/basic_observer/basic_observer.py"
-```
-
-!!! success "Why this works"
-    It establishes a clean communication channel. The Subject remains focused on its state, while the Observers focus on their reaction, fulfilling the Single Responsibility Principle and enabling highly flexible system architectures.

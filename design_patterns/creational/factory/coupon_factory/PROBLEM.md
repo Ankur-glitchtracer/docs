@@ -10,21 +10,14 @@ The **Factory Pattern** provides an interface for creating objects in a supercla
 ## 🚀 Problem Statement
 An e-commerce system receives coupon data from external sources like JSON or databases. The `DiscountEngine` is currently responsible for both calculating discounts and deciding which coupon object to create, leading to tight coupling and maintenance headaches when new coupon types are added.
 
+## 🧠 Thinking Process & Approach
+Decoupling object creation from business logic is key. The approach uses a central Factory class that parses raw data (like JSON or DB records) and decides which class to instantiate, keeping the main engine focused purely on processing.
+
+### Key Observations:
+- Centralized mapping of types to classes.
+- Business logic works only with interfaces, never concrete types.
+
 ### Technical Constraints
 - **Extensibility:** Adding a new coupon type (e.g., "Buy One Get One") should not require changes to the `DiscountEngine`.
 - **Interface Consistency:** All coupon objects must adhere to a common `apply_discount` contract.
 
-## 🛠️ Requirements
-1.  **Coupon Interface:** An abstract base class with an `apply_discount(price)` method.
-2.  **Concrete Coupons:** Implement `PercentageCoupon`, `FlatCoupon`, and `NoDiscountCoupon`.
-3.  **Coupon Factory:** A central `get_coupon(code, type, value)` method to return the correct object.
-4.  **Engine Refactor:** Update the `DiscountEngine` to use the factory for all coupon generation.
-
-## 💻 Solution Implementation
-
-```python
---8<-- "design_patterns/creational/factory/coupon_factory/coupon_factory.py"
-```
-
-!!! success "Why this works"
-    By separating **Creation Logic** from **Business Logic**, the system becomes modular. The engine remains "closed for modification" while the factory stays "open for extension," allowing for easy addition of new discount strategies.

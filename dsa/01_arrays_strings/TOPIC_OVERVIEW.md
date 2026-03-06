@@ -23,6 +23,8 @@ Arrays and Strings are the foundational blocks of DSA. Mastery here involves pat
 | **Group Anagrams** | Hashing | Medium |
 | **Valid Palindrome** | Two Pointers | Easy |
 | **Valid Anagram** | Hashing | Easy |
+| **Subarray Sum Equals K** | Prefix Sum + Hashing | Medium |
+| **Subarray with XOR K** | Prefix XOR + Hashing | Medium |
 | **Trapping Rain Water** | Two Pointers / Monotonic Stack | Hard |
 | **Minimum Window Substring** | Sliding Window | Hard |
 

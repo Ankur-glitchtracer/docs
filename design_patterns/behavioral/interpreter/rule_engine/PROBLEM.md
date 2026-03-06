@@ -10,21 +10,14 @@ The **Interpreter Pattern** defines a representation for a grammar along with an
 ## 🚀 Problem Statement
 You are building a Smart Home Hub where users can write their own automation rules, such as `"TEMP > 30 AND HUMIDITY > 70"`. You need a way to parse these strings and evaluate them against real-time sensor data.
 
+## 🧠 Thinking Process & Approach
+Complex boolean logic entered as strings requires a grammar. The approach is to break the string into tokens and build a recursive tree where each node (Expression) knows how to evaluate itself against a given context.
+
+### Key Observations:
+- Recursive tree evaluation.
+- Separation of parsing logic from execution logic.
+
 ### Technical Constraints
 - **Recursive Grammar:** Support nested logic (e.g., `(A AND B) OR C`).
 - **Extensibility:** Adding a new operator (like `NOT` or `!=`) should only require adding a new class, not changing the parser or existing expressions.
 
-## 🛠️ Requirements
-1.  **Expression Interface:** An abstract `Expression` with an `interpret(context)` method.
-2.  **Terminal Expressions:** Implement `Variable` and `Constant` classes.
-3.  **Non-Terminal Expressions:** Implement `AndExpression`, `OrExpression`, and `GreaterThanExpression`.
-4.  **Context:** A dictionary-like object to hold current sensor values.
-
-## 💻 Solution Implementation
-
-```python
---8<-- "design_patterns/behavioral/interpreter/rule_engine/rule_engine.py"
-```
-
-!!! success "Why this works"
-    It turns a complex string-parsing problem into a clean, object-oriented structure. By representing the grammar as classes, you can build incredibly flexible and powerful logic engines that are easy to debug and extend.

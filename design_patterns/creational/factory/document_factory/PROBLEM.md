@@ -10,21 +10,14 @@ The **Factory Method** pattern defines an interface for creating an object, but 
 ## 🚀 Problem Statement
 You are building a Document Management System that supports multiple formats like PDF and Word. If the main application logic explicitly checks types to create objects (e.g., `if type == "pdf"`), it becomes brittle and difficult to extend with new formats like Excel or Markdown.
 
+## 🧠 Thinking Process & Approach
+Decoupling object creation from business logic is key. The approach uses a central Factory class that parses raw data (like JSON or DB records) and decides which class to instantiate, keeping the main engine focused purely on processing.
+
+### Key Observations:
+- Centralized mapping of types to classes.
+- Business logic works only with interfaces, never concrete types.
+
 ### Technical Constraints
 - **Loose Coupling:** The client code (Application) should only interact with the abstract `Document` interface.
 - **Type Safety:** Ensure each application variant returns the correct document type without casting.
 
-## 🛠️ Requirements
-1.  **Abstract Product:** Define a `Document` class with an `open()` method.
-2.  **Concrete Products:** Implement `PDFDocument` and `WordDocument`.
-3.  **Abstract Creator:** An `Application` class with an abstract `create_document()` factory method.
-4.  **Concrete Creators:** `PDFApplication` and `WordApplication` that return their respective document types.
-
-## 💻 Solution Implementation
-
-```python
---8<-- "design_patterns/creational/factory/document_factory/document_factory.py"
-```
-
-!!! success "Why this works"
-    It removes the need to bind application-specific classes into the code. The code only deals with the `Document` interface; therefore, it can work with any user-defined concrete document classes.

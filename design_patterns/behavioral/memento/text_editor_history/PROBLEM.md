@@ -10,20 +10,14 @@ The **Memento Pattern** is the "Ctrl+Z" of software design. It allows an object 
 ## 🚀 Problem Statement
 You are building a professional text editor where users frequently need to undo mistakes. The editor has multiple private fields: `content`, `cursor_position`, and `selection_range`. You need a way to save these fields without allowing other classes to touch the editor's private state directly.
 
+## 🧠 Thinking Process & Approach
+Implementing Undo requires saving state without exposing private data. The approach uses an opaque Memento object that stores a snapshot. The Editor (Originator) creates it, and the History (Caretaker) manages the stack, ensuring 'time-travel' is possible.
+
+### Key Observations:
+- Encapsulation preservation (Caretaker can't read Memento).
+- Deep copying state to prevent side effects.
+
 ### Technical Constraints
 - **Memory Management:** Snapshots should only be triggered on significant actions (e.g., after a word or a line) to avoid exhausting memory.
 - **Identity:** The `History` should treat mementos as opaque objects.
 
-## 🛠️ Requirements
-1.  **Originator:** The `TextEditor` class with private state and snapshot methods.
-2.  **Memento:** An immutable object storing `content`, `cursor`, and `selection`.
-3.  **Caretaker:** A `History` class that pushes and pops mementos from a stack.
-
-## 💻 Solution Implementation
-
-```python
---8<-- "design_patterns/behavioral/memento/text_editor_history/text_editor_history.py"
-```
-
-!!! success "Why this works"
-    It provides a clean "time-travel" mechanism for objects. By isolating the state-saving logic into a Memento, you ensure that the Originator's internal details don't leak into the rest of the application, keeping the design robust and maintainable.

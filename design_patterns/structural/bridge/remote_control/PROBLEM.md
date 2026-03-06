@@ -10,21 +10,14 @@ The **Bridge Pattern** decouples an abstraction from its implementation so that 
 ## 🚀 Problem Statement
 You have `Shape` subclasses like `Circle` and `Square`. Adding colors like `Red` and `Blue` via inheritance leads to `RedCircle`, `BlueCircle`, `RedSquare`, `BlueSquare`, etc. Adding one new shape or color requires creating multiple new classes, leading to a "Class Explosion."
 
+## 🧠 Thinking Process & Approach
+When we have two independent dimensions of growth (e.g., Remotes and Devices), inheritance fails. The approach is to bridge them via composition, so a Remote *has* a Device, allowing both to evolve without a class explosion.
+
+### Key Observations:
+- Prefer composition over inheritance.
+- Independent scaling of hierarchies.
+
 ### Technical Constraints
 - **Independence:** Adding a new `AdvancedRemoteControl` should not require any changes to the `TV` or `Radio` classes.
 - **Extensibility:** You should be able to add a `SonyTV` or a `BoseRadio` (new implementations) without touching the `RemoteControl` logic.
 
-## 🛠️ Requirements
-1.  **Implementation Interface:** A `Device` interface with low-level controls like `enable()` and `set_volume()`.
-2.  **Concrete Implementations:** Implement `TV` and `Radio` classes.
-3.  **Abstraction:** A `RemoteControl` class that holds a reference to a `Device`.
-4.  **Refined Abstraction:** An `AdvancedRemoteControl` that adds features like `mute()` using existing `Device` methods.
-
-## 💻 Solution Implementation
-
-```python
---8<-- "design_patterns/structural/bridge/remote_control/remote_control.py"
-```
-
-!!! success "Why this works"
-    It breaks the binding between abstraction and implementation at compile time, allowing them to be swapped or extended at runtime. This keeps the class hierarchy flat and manageable, even as the number of features and platforms grows.

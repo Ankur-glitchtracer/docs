@@ -10,6 +10,13 @@ Design and implement a classic **Snake & Ladder** game. This challenge focuses o
 ## 🚀 Problem Statement
 The goal is to build a functional Snake & Ladder game on a 10x10 board. Players move based on dice rolls, navigating through ladders (shortcuts) and snakes (setbacks) to be the first to reach exactly square 100.
 
+## 🧠 Thinking Process & Approach
+The core of Snake & Ladder is a state-driven game loop. The approach is to model the game using a `Board` that contains `Cells`, where some cells have special properties (Snakes/Ladders). A `Game` controller manages the turn-based logic, dice rolling, and player movement, ensuring that the first player to hit the final square wins.
+
+### Key Observations:
+- **Jump Logic:** Snakes and Ladders are essentially "jump" pointers to other cells.
+- **Fairness:** The game must maintain a strict queue of players.
+
 ### Technical Constraints
 - **Board Integrity:** Ensure no infinite loops (e.g., a snake leading back to the same ladder).
 - **Exact Finish:** A player must roll the exact number required to land on square 100; otherwise, they remain in place.

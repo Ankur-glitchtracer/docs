@@ -41,14 +41,25 @@ nav:
   - Documentation Setup: docs_portal.md
   - Data Structures & Algorithms:
     - Template: dsa/DSA_TEMPLATE.md
-    - Arrays & Strings: dsa/01_arrays_strings/
-    - Linked Lists: dsa/02_linked_lists/
-    - Trees & Graphs: dsa/03_trees_graphs/
-    - Dynamic Programming: dsa/04_dynamic_programming/
-    - Sorting & Searching: dsa/05_sorting_searching/
-    - Greedy & Backtracking: dsa/06_greedy_backtracking/
-    - Heaps, Stacks, Queues: dsa/07_heaps_stacks_queues/
-    - Bit Manipulation: dsa/08_bit_manipulation_math/
+    - Arrays & Strings:
+        - Overview: dsa/01_arrays_strings/TOPIC_OVERVIEW.md
+        - Two Sum: dsa/01_arrays_strings/two_sum/PROBLEM.md
+        - Longest Substring: dsa/01_arrays_strings/longest_substring/PROBLEM.md
+        - Subarray Sum Equals K: dsa/01_arrays_strings/subarray_sum_k/PROBLEM.md
+        - Subarray with XOR K: dsa/01_arrays_strings/subarrays_xor_k/PROBLEM.md
+    - Linked Lists:
+        - Overview: dsa/02_linked_lists/TOPIC_OVERVIEW.md
+        - Reverse List: dsa/02_linked_lists/reverse_list/PROBLEM.md
+    - Trees & Graphs:
+        - Overview: dsa/03_trees_graphs/TOPIC_OVERVIEW.md
+        - Level Order: dsa/03_trees_graphs/level_order_traversal/PROBLEM.md
+    - Dynamic Programming:
+        - Overview: dsa/04_dynamic_programming/TOPIC_OVERVIEW.md
+        - Climbing Stairs: dsa/04_dynamic_programming/climbing_stairs/PROBLEM.md
+    - Sorting & Searching: dsa/05_sorting_searching/TOPIC_OVERVIEW.md
+    - Greedy & Backtracking: dsa/06_greedy_backtracking/TOPIC_OVERVIEW.md
+    - Heaps, Stacks, Queues: dsa/07_heaps_stacks_queues/TOPIC_OVERVIEW.md
+    - Bit Manipulation: dsa/08_bit_manipulation_math/TOPIC_OVERVIEW.md
   - Design Patterns:
     - Insights: design_patterns/INSIGHTS.md
     - Creational:

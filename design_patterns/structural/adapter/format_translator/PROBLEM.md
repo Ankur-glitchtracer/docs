@@ -10,20 +10,14 @@ The **Adapter Pattern** acts as a bridge between two incompatible interfaces. It
 ## 🚀 Problem Statement
 Your application expects data in JSON format via a `JsonParser` interface. However, you need to integrate a powerful third-party analytics tool, `XmlAnalytics`, which only provides data in XML. You cannot modify the third-party tool or your existing JSON-based architecture.
 
+## 🧠 Thinking Process & Approach
+Legacy or 3rd party code often has incompatible interfaces. The approach is to create a translator (Adapter) that wraps the incompatible object and exposes the interface the rest of our application expects.
+
+### Key Observations:
+- Interface translation without source modification.
+- Seamless integration of third-party libraries.
+
 ### Technical Constraints
 - **Decoupling:** The client code should remain unaware that it is actually communicating with an XML source.
 - **Format Conversion:** The adapter must handle the logic of translating XML structures into JSON strings on the fly.
 
-## 🛠️ Requirements
-1.  **Target Interface:** Define the `JsonParser` contract that your app expects.
-2.  **Adaptee:** The existing `XmlAnalytics` class with the incompatible `get_xml_data()` method.
-3.  **Adapter:** A class that implements `JsonParser` and internally translates `XmlAnalytics` data.
-
-## 💻 Solution Implementation
-
-```python
---8<-- "design_patterns/structural/adapter/format_translator/format_translator.py"
-```
-
-!!! success "Why this works"
-    It follows the Open/Closed Principle by allowing you to add support for new data sources (like CSV or Protobuf) by simply creating a new adapter, without ever touching the core application logic or the external library.

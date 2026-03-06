@@ -10,20 +10,14 @@ The **Memento Pattern** captures and externalizes an object's internal state wit
 ## 🚀 Problem Statement
 You need to expand a basic text editor to handle complex state saving, including text content, cursor position, and formatting styles. The challenge is implementing an Undo/Redo stack that doesn't expose the editor's private fields to the history manager.
 
+## 🧠 Thinking Process & Approach
+Implementing Undo requires saving state without exposing private data. The approach uses an opaque Memento object that stores a snapshot. The Editor (Originator) creates it, and the History (Caretaker) manages the stack, ensuring 'time-travel' is possible.
+
+### Key Observations:
+- Encapsulation preservation (Caretaker can't read Memento).
+- Deep copying state to prevent side effects.
+
 ### Technical Constraints
 - **Immutability:** Once a `Memento` is created, its state must never change.
 - **Deep Copying:** Ensure that saving a state captures the actual values, not just references that might change later.
 
-## 🛠️ Requirements
-1.  **Complex Originator:** A `TextEditor` with multiple attributes (text, cursor, formatting).
-2.  **Undo/Redo Stack:** Implement a `History` class that supports moving both backwards and forwards.
-3.  **State Capture:** Methods to `save()` and `restore()` from `Memento` objects.
-
-## 💻 Solution Implementation
-
-```python
---8<-- "design_patterns/behavioral/memento/advanced_text_editor/advanced_text_editor.py"
-```
-
-!!! success "Why this works"
-    It preserves encapsulation. The `History` object (Caretaker) manages the snapshots but never "looks inside" them. Only the `TextEditor` knows how to translate a `Memento` back into an active state, keeping the internal logic secure and clean.

@@ -10,21 +10,14 @@ The **Decorator Pattern** allows you to dynamically attach new behaviors to an o
 ## 🚀 Problem Statement
 You are building a POS system for a pizza parlor. Customers can add any combination of toppings to a base pizza. Using inheritance to create classes like `CheesePepperoniMushroomPizza` is impossible due to the sheer number of combinations and the possibility of "double" toppings.
 
+## 🧠 Thinking Process & Approach
+Complex objects with many optional parameters lead to 'telescoping constructors'. The approach is to use a step-by-step builder that separates the configuration of the parts from the final assembly. Adding a validation step in `build()` ensures the object is always born in a valid state.
+
+### Key Observations:
+- Fluent interface for readable configuration.
+- Internal validation before final object return.
+
 ### Technical Constraints
 - **Identity:** The decorated object must still be recognized as a `Pizza` by the system.
 - **Cumulative Behavior:** Both `get_cost()` and `get_description()` must correctly aggregate values from all layers of the "onion."
 
-## 🛠️ Requirements
-1.  **Component Interface:** A `Pizza` interface with `get_cost()` and `get_description()`.
-2.  **Base Component:** `PlainPizza` representing the starting point.
-3.  **Abstract Decorator:** `ToppingDecorator` that implements `Pizza` and stores a reference to a `Pizza`.
-4.  **Concrete Decorators:** Implement `Cheese`, `Pepperoni`, and `Mushroom`.
-
-## 💻 Solution Implementation
-
-```python
---8<-- "design_patterns/structural/decorator/pizza_builder_decorator/pizza_builder_decorator.py"
-```
-
-!!! success "Why this works"
-    It follows the Single Responsibility Principle by allowing each topping to be its own class. You can add, remove, or reorder toppings at runtime, providing maximum flexibility without the maintenance nightmare of a massive class hierarchy.

@@ -1,7 +1,7 @@
 # 📝 Project Progress TODO
 
 ## 🔵 Level 0: Data Structures & Algorithms
-- [ ] **Arrays & Strings:** (e.g. Two Sum, Longest Substring)
+- [ ] **Arrays & Strings:** Two Sum, Longest Substring, Subarray Sum K, Subarray XOR K
 - [ ] **Linked Lists:** (e.g. Reverse List, Merge Sorted)
 - [ ] **Trees & Graphs:** (e.g. Level Order, Dijkstra)
 - [ ] **Dynamic Programming:** (e.g. Knapsack, LIS)
