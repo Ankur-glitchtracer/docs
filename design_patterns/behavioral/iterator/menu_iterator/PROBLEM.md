@@ -21,3 +21,17 @@ Accessing different collection types (List vs Map) usually requires different lo
 - **Polymorphism:** The client (Waitress) should work with a common `Iterator` interface.
 - **Separation of Concerns:** The menu class should handle storage, while the iterator class handles traversal.
 
+## 🛠️ Requirements
+1. Iterator Interface.
+2. Concrete Iterator.
+3. Aggregate Interface.
+4. Concrete Aggregate.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/behavioral/iterator/menu_iterator/menu_iterator.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

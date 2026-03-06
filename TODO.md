@@ -1,7 +1,7 @@
 # 📝 Project Progress TODO
 
 ## 🔵 Level 0: Data Structures & Algorithms
-- [ ] **Arrays & Strings:** Two Sum, Longest Substring, Subarray Sum K, Subarray XOR K
+- [ ] **Arrays & Strings:** [Two Sum](./dsa/01_arrays_strings/two_sum/PROBLEM.md), [Longest Substring](./dsa/01_arrays_strings/longest_substring/PROBLEM.md), [Subarray Sum K](./dsa/01_arrays_strings/subarray_sum_k/PROBLEM.md), [Subarray XOR K](./dsa/01_arrays_strings/subarrays_xor_k/PROBLEM.md)
 - [ ] **Linked Lists:** (e.g. Reverse List, Merge Sorted)
 - [ ] **Trees & Graphs:** (e.g. Level Order, Dijkstra)
 - [ ] **Dynamic Programming:** (e.g. Knapsack, LIS)
@@ -89,4 +89,4 @@
 - [ ] **Consensus:** Raft, Leader Election, Zookeeper.
 
 ## 📚 Bonus
-- [ ] **Documentation:** [Setup Docs Portal](./DOCS_PORTAL.md)
+- [ ] **Documentation:** [Setup Docs Portal](./docs_portal.md)

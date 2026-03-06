@@ -21,3 +21,16 @@ When we have interchangeable algorithms (like watering schedules), we avoid hard
 - **Runtime Flexibility:** The system must be able to change its active schedule without restarting or re-instantiating the `Sprinkler`.
 - **Standardized Interface:** All schedules must follow a common `get_watering_duration()` contract.
 
+## 🛠️ Requirements
+1. Strategy Interface.
+2. Concrete Strategies.
+3. Context uses strategy.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/behavioral/strategy/sprinkler_system/sprinkler_system.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

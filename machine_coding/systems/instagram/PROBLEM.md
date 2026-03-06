@@ -21,3 +21,15 @@ Social feeds are a massive data synchronization problem. The approach uses the O
 - **Chronological Sorting:** Posts in the feed must be strictly ordered from newest to oldest.
 - **Data Integrity:** Ensure that unfollowing a user immediately removes their future posts from the follower's feed.
 
+## 🛠️ Requirements
+1. Implement the core logic as described in the overview.
+2. Ensure proper decoupling and adherence to the pattern.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "machine_coding/systems/instagram/social_media_feed.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

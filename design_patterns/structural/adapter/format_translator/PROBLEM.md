@@ -21,3 +21,16 @@ Legacy or 3rd party code often has incompatible interfaces. The approach is to c
 - **Decoupling:** The client code should remain unaware that it is actually communicating with an XML source.
 - **Format Conversion:** The adapter must handle the logic of translating XML structures into JSON strings on the fly.
 
+## 🛠️ Requirements
+1. Target Interface: Interface client expects.
+2. Adaptee: Incompatible existing class.
+3. Adapter: Translator class.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/structural/adapter/format_translator/format_translator.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

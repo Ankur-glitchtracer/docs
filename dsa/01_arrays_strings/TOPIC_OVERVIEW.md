@@ -38,10 +38,10 @@ Arrays and Strings are the foundational blocks of DSA. Mastery here involves pat
 | Sorting + 2 Pointers | $O(N \log N)$ | $O(1)$ |
 
 ## 📚 Recommended Reading (CP-Algorithms)
-- [Maximum Subarray Sum (Kadane's)](https://cp-algorithms.com/others/maximum_subarray_sum.html)
+- [Maximum Subarray Sum (Kadane's)](https://cp-algorithms.com/others/maximum_average_segment.html#algorithm-2)
 - [String Hashing Fundamentals](https://cp-algorithms.com/string/string-hashing.html)
 - [Rabin-Karp for Pattern Matching](https://cp-algorithms.com/string/rabin-karp.html)
-- [Prefix Function & KMP Algorithm](https://cp-algorithms.com/string/prefix_function.html)
+- [Prefix Function & KMP Algorithm](https://cp-algorithms.com/string/prefix-function.html)
 - [Z-Function for String Search](https://cp-algorithms.com/string/z-function.html)
 
 ## 🔗 External References

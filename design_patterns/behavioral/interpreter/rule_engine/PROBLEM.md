@@ -21,3 +21,17 @@ Complex boolean logic entered as strings requires a grammar. The approach is to 
 - **Recursive Grammar:** Support nested logic (e.g., `(A AND B) OR C`).
 - **Extensibility:** Adding a new operator (like `NOT` or `!=`) should only require adding a new class, not changing the parser or existing expressions.
 
+## 🛠️ Requirements
+1. Abstract Expression.
+2. Terminal Expressions.
+3. Non-terminal Expressions.
+4. Context object.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/behavioral/interpreter/rule_engine/rule_engine.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

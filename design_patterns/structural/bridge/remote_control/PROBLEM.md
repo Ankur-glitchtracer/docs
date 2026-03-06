@@ -21,3 +21,16 @@ When we have two independent dimensions of growth (e.g., Remotes and Devices), i
 - **Independence:** Adding a new `AdvancedRemoteControl` should not require any changes to the `TV` or `Radio` classes.
 - **Extensibility:** You should be able to add a `SonyTV` or a `BoseRadio` (new implementations) without touching the `RemoteControl` logic.
 
+## 🛠️ Requirements
+1. Abstraction: High-level commands.
+2. Implementor: Low-level interface.
+3. Concrete Implementors: TV, Radio.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/structural/bridge/remote_control/remote_control.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

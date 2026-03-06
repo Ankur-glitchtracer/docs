@@ -23,3 +23,15 @@ Distributed scheduling requires handling dependencies and node failures. The app
 - **Idempotency:** Prevent duplicate executions of the same job.
 - **Worker Heartbeats:** Maintain a mechanism to detect and handle node failures.
 
+## 🛠️ Requirements
+1. Implement the core logic as described in the overview.
+2. Ensure proper decoupling and adherence to the pattern.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "machine_coding/distributed/job_scheduler/job_scheduling_system.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

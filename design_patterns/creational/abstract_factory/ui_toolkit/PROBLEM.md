@@ -21,3 +21,16 @@ When we have families of related products (like Windows vs Mac buttons), we need
 - **Consistency:** The factory must guarantee that all returned products are compatible with each other.
 - **Open/Closed Principle:** Switching the entire app's look and feel should ideally require changing only a single line of code.
 
+## 🛠️ Requirements
+1. Product Interfaces: Create Button and Checkbox interfaces.
+2. Concrete Products: Implement Windows and Mac variants.
+3. Abstract Factory Interface: create_button() and create_checkbox().
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/creational/abstract_factory/ui_toolkit/ui_toolkit.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

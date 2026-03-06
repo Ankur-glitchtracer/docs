@@ -33,13 +33,13 @@ Mastering non-linear data structures involves understanding traversal (DFS/BFS) 
 | Topological Sort | $O(V + E)$ | $O(V)$ |
 
 ## 📚 Recommended Reading (CP-Algorithms)
-- [Breadth-First Search (BFS)](https://cp-algorithms.com/graph/bfs.html)
-- [Depth-First Search (DFS)](https://cp-algorithms.com/graph/dfs.html)
+- [Breadth-First Search (BFS)](https://cp-algorithms.com/graph/breadth-first-search.html)
+- [Depth-First Search (DFS)](https://cp-algorithms.com/graph/depth-first-search.html)
 - [Dijkstra's Algorithm (Shortest Paths)](https://cp-algorithms.com/graph/dijkstra.html)
 - [Disjoint Set Union (DSU/Union-Find)](https://cp-algorithms.com/data_structures/disjoint_set_union.html)
 - [Topological Sort (Kahn's & DFS)](https://cp-algorithms.com/graph/topological-sort.html)
 - [Lowest Common Ancestor (LCA)](https://cp-algorithms.com/graph/lca.html)
-- [Trie (Prefix Tree) Implementation](https://cp-algorithms.com/string/trie.html)
+- [Trie (Prefix Tree) Implementation](https://cp-algorithms.com/string/aho_corasick.html#aho-corasick-algorithm)
 
 ## 🔗 External References
 - [Graph Traversal Visualizations (VisuAlgo)](https://visualgo.net/en/dfsbfs)

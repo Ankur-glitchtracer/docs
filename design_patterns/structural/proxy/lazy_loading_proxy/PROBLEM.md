@@ -21,3 +21,16 @@ Creating heavy objects (like video files) at startup wastes resources. The appro
 - **Transparency:** The `ProxyVideo` must implement the exact same interface as the `RealVideo` so the client can't tell the difference.
 - **Deferred Instantiation:** The "Loading..." message must only appear when `display()` is actually called, not when the object is created.
 
+## 🛠️ Requirements
+1. Subject Interface.
+2. Real Subject.
+3. Proxy placeholder.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/structural/proxy/lazy_loading_proxy/lazy_loading_proxy.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

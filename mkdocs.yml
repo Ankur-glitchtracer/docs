@@ -121,6 +121,7 @@ nav:
   - High-Level Design (HLD):
     - Pillars:
       - Fundamentals: system_design_hld/pillars/CONCEPTS.md
+      - Concept Template: system_design_hld/pillars/CONCEPT_TEMPLATE.md
       - Microservices & Patterns: system_design_hld/pillars/microservices/ARCHITECTURE_PATTERNS.md
       - DB Scaling & Caching: system_design_hld/pillars/database_scaling/SCALING_STRATEGIES.md
       - Security & Crypto: system_design_hld/pillars/security_concurrency/SECURITY_CRYPTO.md

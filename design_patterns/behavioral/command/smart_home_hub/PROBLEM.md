@@ -23,3 +23,17 @@ Triggering actions directly couples the invoker to the receiver. The approach is
 - **Invoker (Remote):** Must hold 4 programmable slots and a reference to the last command for undoing.
 - **Decoupling:** Adding a new device should require a new `Command` class, not modifications to the `Remote` class.
 
+## 🛠️ Requirements
+1. Command Interface (execute/undo).
+2. Concrete Commands.
+3. Receiver objects.
+4. Invoker triggers.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/behavioral/command/smart_home_hub/smart_home_hub.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

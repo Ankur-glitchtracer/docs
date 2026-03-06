@@ -38,5 +38,7 @@ void backtrack(State& curr, Choices& choices) {
 ```
 
 ## 📚 Recommended Reading (CP-Algorithms)
-- [Greedy Algorithms](https://cp-algorithms.com/others/maximum_subarray_sum.html) (Logic overlaps)
-- [Heuristics](https://cp-algorithms.com/others/randomized_algorithms.html)
+<!-- - [Greedy Algorithms](https://cp-algorithms.com/others/maximum_subarray_sum.html) (Logic overlaps) -->
+- [Search subarray with maximum/minimum sum](https://cp-algorithms.com/others/maximum_average_segment.html)
+- [Gauss method for solving system  of linear equations](https://cp-algorithms.com/linear_algebra/linear-system-gauss.html)
+<!-- - [Heuristics](https://cp-algorithms.com/others/randomized_algorithms.html) -->

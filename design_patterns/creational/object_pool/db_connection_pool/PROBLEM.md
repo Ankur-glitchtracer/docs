@@ -22,3 +22,16 @@ Creating expensive resources like DB connections on every request creates latenc
 - **State Reset:** Ensuring a connection is "cleaned" of any leftover session data before being handed to the next user.
 - **Capacity Limits:** Handling requests when the pool is empty and the maximum connection limit is reached.
 
+## 🛠️ Requirements
+1. Connection Pool: Maintain collection of objects.
+2. Acquire/Release methods.
+3. Capacity Management.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/creational/object_pool/db_connection_pool/db_connection_pool.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

@@ -21,3 +21,16 @@ Implementing Undo requires saving state without exposing private data. The appro
 - **Immutability:** Once a `Memento` is created, its state must never change.
 - **Deep Copying:** Ensure that saving a state captures the actual values, not just references that might change later.
 
+## 🛠️ Requirements
+1. Originator: Snapshot creator.
+2. Memento: Immutable state store.
+3. Caretaker: History manager.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/behavioral/memento/advanced_text_editor/advanced_text_editor.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

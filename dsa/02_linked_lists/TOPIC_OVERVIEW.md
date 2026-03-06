@@ -34,9 +34,8 @@ Linked Lists test your mastery of pointers and memory management. Unlike arrays,
 
 ## 📚 Recommended Reading (CP-Algorithms)
 - [Stack and Queue Modification](https://cp-algorithms.com/data_structures/stack_queue_modification.html) (Implementation concepts)
-- [Fundamentals: Time/Space Complexity](https://www.freecodecamp.org/news/big-o-notation-why-it-matters-and-why-it-doesnt-1674a803d0c1/)
+- [Fundamentals: Time/Space Complexity](https://www.freecodecamp.org/news/big-o-notation-why-it-matters-and-why-it-doesnt-1674cfa8a23c/)
 
 ## 🔗 External References
 - [Floyd's Cycle-Finding Algorithm (Visualization)](https://visualgo.net/en/list)
 - [Linked List Data Structure (GeeksForGeeks)](https://www.geeksforgeeks.org/data-structures/linked-list/)
-- [Dummy Nodes in Linked Lists](https://www.linkedin.com/pulse/dummy-nodes-linked-lists-amit-kumar-/)

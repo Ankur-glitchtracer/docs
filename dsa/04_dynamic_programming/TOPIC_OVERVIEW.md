@@ -31,12 +31,14 @@ DP is an optimization technique. It solves problems by breaking them down into s
 | Space Optimized | $O(N \times \text{States})$ | $O(1)$ or $O(N)$ (Row only) |
 
 ## 📚 Recommended Reading (CP-Algorithms)
-- [Dynamic Programming - Introduction](https://cp-algorithms.com/dynamic_programming/intro.html)
+- [Dynamic Programming - Introduction](https://cp-algorithms.com/dynamic_programming/intro-to-dp.html)
 - [0/1 Knapsack & Variatons](https://cp-algorithms.com/dynamic_programming/knapsack.html)
-- [Longest Increasing Subsequence (LIS)](https://cp-algorithms.com/sequences/lis.html)
-- [Edit Distance / Levenshtein](https://cp-algorithms.com/string/main.html#string-edit-distance)
-- [Bitmask DP (Traveling Salesperson)](https://cp-algorithms.com/dynamic_programming/profile-dp.html)
+- [Longest Increasing Subsequence (LIS)](https://cp-algorithms.com/dynamic_programming/longest_increasing_subsequence.html)
+<!-- - [Edit Distance / Levenshtein](https://cp-algorithms.com/string/main.html#string-edit-distance) -->
+- [Manhattan Distance](https://cp-algorithms.com/geometry/manhattan-distance.html)
+- [Submask Enumeration](https://cp-algorithms.com/algebra/all-submasks.html)
+- [Simulated Annealing (Traveling Salesperson)](https://cp-algorithms.com/num_methods/simulated_annealing.html#simulated-annealing)
 
 ## 🔗 External References
 - [Dynamic Programming Patterns (LeetCode Discuss)](https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns)
-- [MIT 6.006: Dynamic Programming I](https://www.youtube.com/watch?v=OQ5dgkfKW9U)
+- [MIT 6.006: Dynamic Programming I](https://www.youtube.com/watch?v=r4-cftqTcdI)

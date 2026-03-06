@@ -21,3 +21,16 @@ Repeating 'if obj is not None' clutters code. The approach is to create a 'do-no
 - **Interface Adherence:** The `NoDiscount` object must implement the same `apply_discount` method as real coupons.
 - **Zero Impact:** Applying a `NoDiscount` coupon must return the original price without any side effects.
 
+## 🛠️ Requirements
+1. Abstract Interface.
+2. Real Implementation.
+3. Null Object do-nothing class.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/behavioral/null_object/discount_system/discount_system.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

@@ -21,3 +21,16 @@ Massive if-else blocks for status-based logic are hard to maintain. The approach
 - **Admin Overrides:** Transitions in the `Moderation` state should only proceed to `Published` if the user has admin privileges.
 - **Action Idempotency:** Calling `publish()` on a document that is already `Published` should have no effect.
 
+## 🛠️ Requirements
+1. State Interface.
+2. Concrete States.
+3. Context: State management.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/behavioral/state/document_workflow/document_workflow.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

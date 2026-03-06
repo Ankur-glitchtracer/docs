@@ -22,3 +22,16 @@ Creating millions of identical objects exhausts RAM. The approach is to split st
 - **Memory Efficiency:** Identical tree types (e.g., "Oak", "Pine") must share the same memory address.
 - **Data Separation:** Extrinsic state (coordinates) must be passed to the flyweight at drawing time, not stored within it.
 
+## 🛠️ Requirements
+1. Flyweight (shared state).
+2. Context (unique state).
+3. Flyweight Factory.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/structural/flyweight/forest_simulator/forest_simulator.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

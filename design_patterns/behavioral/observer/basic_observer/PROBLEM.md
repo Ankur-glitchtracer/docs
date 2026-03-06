@@ -21,3 +21,16 @@ Hardcoding notifications into a sensor makes it rigid. The approach uses an Even
 - **Simplicity:** Focus on the "bare-bones" structure: a list of listeners and a `notify()` loop.
 - **Reliability:** Ensure that removing an observer during a notification loop doesn't crash the system.
 
+## 🛠️ Requirements
+1. Subject/EventBus.
+2. Observer Interface.
+3. Concrete Observers.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/behavioral/observer/basic_observer/basic_observer.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

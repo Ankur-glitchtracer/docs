@@ -21,3 +21,15 @@ Game logic requires a clear separation of board state and winning rules. The app
 - **Input Validation:** Prevent players from choosing a square that is already occupied.
 - **Efficiency:** The win-check algorithm should ideally be optimized for $O(1)$ or $O(N)$ performance where $N$ is the board size.
 
+## 🛠️ Requirements
+1. Implement the core logic as described in the overview.
+2. Ensure proper decoupling and adherence to the pattern.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "machine_coding/games/tic_tac_toe/tic_tac_toe_game.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

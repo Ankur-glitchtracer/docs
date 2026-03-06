@@ -21,3 +21,15 @@ The core of a parking lot is resource allocation. The approach uses a list of sp
 - **Thread Safety:** Multiple vehicles entering via different gates simultaneously must be handled without race conditions.
 - **Pricing Rules:** Support configurable rates based on time spent and vehicle category.
 
+## 🛠️ Requirements
+1. Implement the core logic as described in the overview.
+2. Ensure proper decoupling and adherence to the pattern.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "machine_coding/systems/parking_lot/parking_lot.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

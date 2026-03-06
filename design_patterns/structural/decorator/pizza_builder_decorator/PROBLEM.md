@@ -21,3 +21,16 @@ Complex objects with many optional parameters lead to 'telescoping constructors'
 - **Identity:** The decorated object must still be recognized as a `Pizza` by the system.
 - **Cumulative Behavior:** Both `get_cost()` and `get_description()` must correctly aggregate values from all layers of the "onion."
 
+## 🛠️ Requirements
+1. Product: A complex Computer object.
+2. Builder Interface: Defines steps to build the computer.
+3. Validation: Ensure the computer is in a valid state before build returns.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/structural/decorator/pizza_builder_decorator/pizza_builder_decorator.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

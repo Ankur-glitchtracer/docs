@@ -21,3 +21,15 @@ The core challenge is ensuring a single instance across the entire application. 
 - **Identity Guarantee:** Multiple calls to the constructor must return the exact same memory address.
 - **Thread Safety:** In a concurrent environment, the instance must be created safely without race conditions.
 
+## 🛠️ Requirements
+1. Unique Instance: The class must guarantee that only one instance is created.
+2. Global Access: Provide a static method or property to retrieve the instance.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/creational/singleton/singleton_pattern/singleton_pattern.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

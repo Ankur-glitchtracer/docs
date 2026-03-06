@@ -22,3 +22,16 @@ Complex objects with many optional parameters lead to 'telescoping constructors'
 - **Validation:** Prevent the creation of "impossible" PCs (e.g., missing a CPU or insufficient PSU for a high-end GPU).
 - **Immutability:** Once `build()` is called, the resulting `Computer` object should be in a final, valid state.
 
+## 🛠️ Requirements
+1. Product: A complex Computer object.
+2. Builder Interface: Defines steps to build the computer.
+3. Validation: Ensure the computer is in a valid state before build returns.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/creational/builder/custom_pc_builder/custom_pc_builder.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

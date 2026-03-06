@@ -21,3 +21,15 @@ Elevator scheduling is a classic optimization problem. The approach uses an even
 - **Directional Logic:** An elevator moving Up should prioritize all Up requests on floors above it before switching directions.
 - **Load Balancing:** Avoid sending all elevators to the same floor for a single request.
 
+## 🛠️ Requirements
+1. Implement the core logic as described in the overview.
+2. Ensure proper decoupling and adherence to the pattern.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "machine_coding/systems/elevator/elevator_management_system.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

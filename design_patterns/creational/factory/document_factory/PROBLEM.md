@@ -21,3 +21,16 @@ Decoupling object creation from business logic is key. The approach uses a centr
 - **Loose Coupling:** The client code (Application) should only interact with the abstract `Document` interface.
 - **Type Safety:** Ensure each application variant returns the correct document type without casting.
 
+## 🛠️ Requirements
+1. Coupon Interface: ABC with applyDiscount.
+2. Concrete Coupons: Percentage, Flat, NoDiscount.
+3. Coupon Factory: Decoupled creation logic.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/creational/factory/document_factory/document_factory.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

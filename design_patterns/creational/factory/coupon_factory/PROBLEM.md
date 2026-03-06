@@ -21,3 +21,16 @@ Decoupling object creation from business logic is key. The approach uses a centr
 - **Extensibility:** Adding a new coupon type (e.g., "Buy One Get One") should not require changes to the `DiscountEngine`.
 - **Interface Consistency:** All coupon objects must adhere to a common `apply_discount` contract.
 
+## 🛠️ Requirements
+1. Coupon Interface: ABC with applyDiscount.
+2. Concrete Coupons: Percentage, Flat, NoDiscount.
+3. Coupon Factory: Decoupled creation logic.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/creational/factory/coupon_factory/coupon_factory.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

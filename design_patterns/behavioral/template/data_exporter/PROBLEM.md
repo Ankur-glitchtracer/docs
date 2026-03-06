@@ -21,3 +21,15 @@ When multiple algorithms share a high-level sequence but differ in details, we u
 - **Algorithm Enforcement:** All exporters must strictly follow the sequence: `Read -> Format -> Write`.
 - **Hook Methods:** Provide optional "hooks" (like sending a notification) that subclasses can choose to implement or ignore.
 
+## 🛠️ Requirements
+1. Abstract Class: Template method skeleton.
+2. Concrete Classes: Primitive implementations.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/behavioral/template/data_exporter/data_exporter.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

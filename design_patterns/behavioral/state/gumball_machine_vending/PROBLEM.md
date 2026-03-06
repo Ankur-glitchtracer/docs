@@ -21,3 +21,16 @@ Massive if-else blocks for status-based logic are hard to maintain. The approach
 - **Action Consistency:** Every action (e.g., `insert_quarter`) must be defined for every possible state.
 - **No Global Logic:** The machine's core should only delegate to the current state object.
 
+## 🛠️ Requirements
+1. State Interface.
+2. Concrete States.
+3. Context: State management.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/behavioral/state/gumball_machine_vending/gumball_machine_vending.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

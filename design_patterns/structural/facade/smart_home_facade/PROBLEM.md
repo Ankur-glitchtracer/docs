@@ -21,3 +21,15 @@ Interacting with a complex subsystem (e.g., Home Theater) requires calling multi
 - **Coordination:** The Facade must ensure that subsystem actions happen in the correct logical sequence (e.g., dimming lights before starting the projector).
 - **Dependency Injection:** The Facade should ideally receive subsystem instances rather than creating them, allowing for easier testing and swapping.
 
+## 🛠️ Requirements
+1. Subsystems: Complex classes.
+2. Facade: Unified entry point.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/structural/facade/smart_home_facade/smart_home_facade.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

@@ -39,4 +39,3 @@ vector<int> nextGreater(vector<int>& nums) {
 
 ## 📚 Recommended Reading (CP-Algorithms)
 - [Minimum Stack / Minimum Queue](https://cp-algorithms.com/data_structures/stack_queue_modification.html)
-- [Heaps (Priority Queue)](https://cp-algorithms.com/data_structures/heap.html)

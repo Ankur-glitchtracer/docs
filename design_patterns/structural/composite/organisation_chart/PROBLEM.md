@@ -21,3 +21,16 @@ Managing part-whole hierarchies (like Org Charts) usually requires different log
 - **Hierarchy Transparency:** A `Department` should be able to contain any `Entity`, whether it's a `Developer` (leaf) or another `Department` (composite).
 - **Recursive Summation:** Calling `get_salary()` on the root node should automatically trigger a recursive traversal of the entire tree.
 
+## 🛠️ Requirements
+1. Component Interface.
+2. Leaf: Individual objects.
+3. Composite: Recursive containers.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/structural/composite/organisation_chart/organisation_chart.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.

@@ -21,3 +21,16 @@ Implementing Undo requires saving state without exposing private data. The appro
 - **Memory Management:** Snapshots should only be triggered on significant actions (e.g., after a word or a line) to avoid exhausting memory.
 - **Identity:** The `History` should treat mementos as opaque objects.
 
+## 🛠️ Requirements
+1. Originator: Snapshot creator.
+2. Memento: Immutable state store.
+3. Caretaker: History manager.
+
+## 💻 Solution Implementation
+
+```python
+--8<-- "design_patterns/behavioral/memento/text_editor_history/text_editor_history.py"
+```
+
+!!! success "Why this works"
+    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.
