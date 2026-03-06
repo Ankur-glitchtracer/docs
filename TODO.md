@@ -1,5 +1,12 @@
 # 📝 Project Progress TODO
 
+## 🔵 Level 0: Data Structures & Algorithms
+- [ ] **Arrays & Strings:** (e.g. Two Sum, Longest Substring)
+- [ ] **Linked Lists:** (e.g. Reverse List, Merge Sorted)
+- [ ] **Trees & Graphs:** (e.g. Level Order, Dijkstra)
+- [ ] **Dynamic Programming:** (e.g. Knapsack, LIS)
+- [ ] **Backtracking:** (e.g. N-Queens, Sudoku)
+
 ## 🟢 Level 1: Creational Patterns
 - [x] **Abstract Factory:** [UI Toolkit](./design_patterns/creational/abstract_factory/ui_toolkit/PROBLEM.md)
 - [x] **Builder:** [Custom PC Builder](./design_patterns/creational/builder/custom_pc_builder/PROBLEM.md)

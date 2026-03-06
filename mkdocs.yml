@@ -39,6 +39,16 @@ nav:
   - Home: index.md
   - Progress Tracker: todo.md
   - Documentation Setup: docs_portal.md
+  - Data Structures & Algorithms:
+    - Template: dsa/DSA_TEMPLATE.md
+    - Arrays & Strings: dsa/01_arrays_strings/
+    - Linked Lists: dsa/02_linked_lists/
+    - Trees & Graphs: dsa/03_trees_graphs/
+    - Dynamic Programming: dsa/04_dynamic_programming/
+    - Sorting & Searching: dsa/05_sorting_searching/
+    - Greedy & Backtracking: dsa/06_greedy_backtracking/
+    - Heaps, Stacks, Queues: dsa/07_heaps_stacks_queues/
+    - Bit Manipulation: dsa/08_bit_manipulation_math/
   - Design Patterns:
     - Insights: design_patterns/INSIGHTS.md
     - Creational:

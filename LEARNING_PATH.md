@@ -1,6 +1,15 @@
 # 🎓 My SDE Learning Path
 
-This repository tracks my journey from basic design patterns to complex distributed systems. Each module is tagged with a difficulty level to show progression.
+This repository tracks my journey from basic data structures to complex distributed systems. Each module is tagged with a difficulty level to show progression.
+
+## 🔵 Level 0: Data Structures & Algorithms (DSA)
+*Focus: Problem solving, complexity analysis, and algorithmic logic.*
+
+| Category | Mastery Topics | Link |
+| :--- | :--- | :--- |
+| **Linear** | Arrays, Strings, Linked Lists | [Browse Problems](./dsa/) |
+| **Non-Linear** | Trees, Graphs, Heaps | [Browse Problems](./dsa/) |
+| **Logic** | Dynamic Programming, Greedy, Backtracking | [Browse Problems](./dsa/) |
 
 ## 🟢 Level 1: Fundamental Patterns (Creational)
 *Focus: How objects are created.*
