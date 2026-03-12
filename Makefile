@@ -1,4 +1,4 @@
-.PHONY: serve update test lint
+.PHONY: serve update test lint clear
 
 serve:
 	uv run mkdocs serve
@@ -12,3 +12,6 @@ test:
 lint:
 	uv run ruff check .
 	uv run mypy .
+
+clear:
+	uv run python scripts/clear_solutions.py

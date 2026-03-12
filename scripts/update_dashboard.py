@@ -1,6 +1,5 @@
 import subprocess
 from pathlib import Path
-import sys
 
 DASHBOARD_FILE = "DOCS_PORTAL.md"
 
