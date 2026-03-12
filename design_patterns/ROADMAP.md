@@ -11,8 +11,8 @@ subgraph Creational
     C2[Singleton]
     C3[Builder]
     C4[Prototype]
-    C5[To be detailed...]
-    C6[To be detailed...]
+    C5[Abstract Factory]
+    C6[Object Pool]
 end
 
 subgraph Structural
@@ -36,11 +36,11 @@ subgraph Behavioral
     B6[Iterator]
     B7[Mediator]
     B8[Memento]
-    B9[To be detailed...]
+    B9[Chain Of Responsibility]
     B10[Visitor]
-    B11[To be detailed...]
+    B11[Interpreter]
     B12[MVC]
-    B13[To be detailed...]
+    B13[Null Object]
 end
 
 Creational --> Structural

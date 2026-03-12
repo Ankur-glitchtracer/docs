@@ -6,38 +6,38 @@ flowchart TD
 Start((Start))
 
 subgraph Fundamentals
-A(To be detailed...)
-B(To be detailed...)
+A(Array & Hashing)
+B(Two Pointers)
 C[Stack]
-D(To be detailed...)
+D(Sliding Window)
 end
 
 subgraph Search
-E(To be detailed...)
+E(Binary Search)
 end
 
 subgraph Linked_Structures
-F(To be detailed...)
+F(Linked List)
 end
 
 subgraph Trees_and_Heaps
 G[Trees]
 H[Tries]
-I(To be detailed...)
+I(Heap / Priority Queue)
 end
 
 subgraph Recursion_and_Backtracking
-J(To be detailed...)
+J(Backtracking)
 end
 
 subgraph Graphs
 K[Graphs]
-L(To be detailed...)
+L(Advanced Graphs)
 end
 
 subgraph Dynamic_Programming
-M(To be detailed...)
-N(To be detailed...)
+M(1-D DP)
+N(2-D DP)
 end
 
 subgraph Greedy_and_Intervals
@@ -46,8 +46,8 @@ P[Intervals]
 end
 
 subgraph Misc
-Q(To be detailed...)
-R(To be detailed...)
+Q(Bit Manipulation)
+R(Math & Geometry)
 S[Sorting]
 end
 
