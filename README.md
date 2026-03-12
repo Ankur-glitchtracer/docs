@@ -13,8 +13,8 @@ This repository is designed to help engineers master software engineering fundam
 ### Installation
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/python-examples.git
-    cd python-examples
+    git clone https://github.com/Ankur-glitchtracer/docs.git
+    cd docs
     ```
 
 2.  **Install dependencies:**
