@@ -43,6 +43,7 @@ venv.bak/
 .coverage
 htmlcov/
 .ruff_cache/
+site/
 
 # Runtime Data (Simulated DBs/Logs)
 *.log

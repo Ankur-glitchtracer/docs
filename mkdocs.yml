@@ -1,5 +1,5 @@
-site_name: Engineering Mastery Portfolio
-site_description: A comprehensive collection of design patterns, machine coding, and distributed systems.
+site_name: Software Engineering Mastery Handbook
+site_description: A professional-grade collection of architectural patterns, system designs, and algorithmic challenges.
 repo_url: https://github.com/Ankur-glitchtracer/docs
 site_url: https://Ankur-glitchtracer.github.io/docs/
 
@@ -37,7 +37,7 @@ nav:
   - Interview Playbook: interview_playbook.md
   - Repo Index: repo_index.md
   - Progress Tracker: todo.md
-  - Documentation Setup: docs_portal.md
+  - Engineering Metrics: engineering_metrics.md
   - Data Structures & Algorithms:
     - Roadmap: dsa/ROADMAP.md
     - Insights: dsa/INSIGHTS.md

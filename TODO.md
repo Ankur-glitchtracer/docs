@@ -1,5 +1,6 @@
-# 📝 Project Progress TODO
-## 🔵 Level 0: Data Structures & Algorithms (NeetCode 150)
+# 📝 Mastery Progress Tracker
+
+## 🔵 Pillar 1: Data Structures & Algorithms (DSA Lab)
 
 ### 01. Arrays & Hashing
 - [ ] [Contains Duplicate](./dsa/01_arrays_hashing/contains_duplicate/PROBLEM.md)
@@ -194,23 +195,77 @@
 - [ ] [Merge Sort](./dsa/19_sorting/merge_sort/PROBLEM.md)
 - [ ] [Quick Sort](./dsa/19_sorting/quick_sort/PROBLEM.md)
 
-## 🟢 Level 1: Machine Coding (LLD)
-- [ ] **Parking Lot:** `machine_coding/systems/parking_lot/parking_lot.py`
-- [ ] **Elevator System:** `machine_coding/systems/elevator/elevator_management_system.py`
-- [ ] **Pub/Sub System:** `machine_coding/distributed/pub_sub/PROBLEM.md`
+## 🟢 Pillar 2: Architectural Patterns (Design Patterns)
+
+### Creational Patterns
+- [x] Abstract Factory
+- [x] Builder
+- [x] Factory
+- [x] Object Pool
+- [x] Prototype
+- [x] Singleton
+
+### Structural Patterns
+- [x] Adapter
+- [x] Bridge
+- [x] Composite
+- [x] Decorator
+- [x] Facade
+- [x] Flyweight
+- [x] Proxy
+
+### Behavioral Patterns
+- [x] Chain of Responsibility
+- [x] Command
+- [x] Interpreter
+- [x] Iterator
+- [x] Mediator
+- [x] Memento
+- [x] MVC
+- [x] Null Object
+- [x] Observer
+- [x] State
+- [x] Strategy
+- [x] Template
+- [x] Visitor
+
+## 🟠 Pillar 3: Machine Coding & LLD Systems
+
+### Systems & Games
+- [x] **Parking Lot:** `machine_coding/systems/parking_lot/parking_lot.py`
+- [x] **Elevator System:** `machine_coding/systems/elevator/elevator_management_system.py`
+- [x] **Snake & Ladder:** `machine_coding/games/snake_ladder/PROBLEM.md`
+- [x] **Tic-Tac-Toe:** `machine_coding/games/tic_tac_toe/PROBLEM.md`
+- [x] **Instagram Feed:** `machine_coding/systems/instagram/PROBLEM.md`
+- [x] **Cache System:** `machine_coding/systems/cache_system/PROBLEM.md`
 - [ ] **Vending Machine:** `machine_coding/systems/vending_machine/PROBLEM.md`
+
+### Distributed & Real-World
+- [ ] **Pub/Sub System:** `machine_coding/distributed/pub_sub/PROBLEM.md`
+- [ ] **Job Scheduler:** `machine_coding/distributed/job_scheduler/PROBLEM.md`
+- [ ] **Rate Limiter (distributed):** `machine_coding/distributed/rate_limiter/PROBLEM.md`
+- [ ] **Workflow Orchestrator:** `machine_coding/distributed/workflow_orchestrator/PROBLEM.md`
+- [ ] **E-Commerce Engine:** `machine_coding/real_world_systems/e_commerce_order_system/PROBLEM.md`
+- [ ] **Ride-Sharing Service:** `machine_coding/real_world_systems/ride_sharing_service/PROBLEM.md`
+- [ ] **CI/CD Pipeline:** `machine_coding/real_world_systems/ci_cd_pipeline/PROBLEM.md`
 - [ ] **Distributed LLD:** `machine_coding/distributed/id_generator/snowflake.py`
 
-## 🟡 Level 2: Infrastructure & Resiliency
+## 🔴 Pillar 4: Distributed Systems & Infrastructure
 - [ ] **Dockerized Cluster:** `infrastructure_challenges/dockerized_job_scheduler/PROBLEM.md`
 - [ ] **Redis Rate Limiter:** `infrastructure_challenges/redis_rate_limiter/PROBLEM.md`
+- [ ] **Socket Chat App:** `infrastructure_challenges/socket_chat_app/PROBLEM.md`
 - [ ] **Circuit Breaker:** `infrastructure_challenges/resiliency/circuit_breaker.py`
 - [ ] **Service Mesh Basics:** `infrastructure_challenges/envoy_proxy/SETUP.md`
 
-## 🔴 Level 3: High-Level Design (HLD)
+## 🏗️ Pillar 5: High-Level Design (HLD)
 - [ ] **KV Store:** `system_design_hld/architectures/distributed_storage/KV_STORE.md`
 - [ ] **S3 Lite:** `system_design_hld/architectures/distributed_storage/S3_LITE.md`
-- [ ] **Video Streaming:** `system_design_hld/architectures/streaming/NETFLIX.md`
+- [ ] **Video Streaming (Netflix):** `system_design_hld/architectures/streaming/NETFLIX.md`
+- [ ] **WhatsApp:** `system_design_hld/architectures/social_media/WHATSAPP.md`
+- [ ] **Facebook Capacity:** `system_design_hld/architectures/social_media/FACEBOOK_CAPACITY.md`
+- [ ] **URL Shortener:** `system_design_hld/architectures/utilities/URL_SHORTENER.md`
+- [ ] **API Rate Limiter:** `system_design_hld/architectures/utilities/RATE_LIMITER.md`
+- [ ] **Ticket Booking:** `system_design_hld/architectures/utilities/TICKET_BOOKING.md`
 - [ ] **Search Engine:** `system_design_hld/architectures/utilities/ELASTICSEARCH_HLD.md`
 - [ ] **Ad-Click Aggregator:** `system_design_hld/architectures/data_pipelines/AD_CLICKS.md`
 
@@ -219,5 +274,4 @@
 - [ ] Add `conftest.py` with shared pytest fixtures
 - [ ] Add unit tests for DSA solutions (input → expected output)
 - [ ] Add integration tests for machine coding systems
-- [ ] Set up CI pipeline to run `make test` and `make lint`
-
+- [x] Set up CI pipeline to run `make test` and `make lint`

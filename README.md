@@ -1,78 +1,73 @@
-# Python System Design & Interview Preparation
+# Software Engineering Mastery: Systems, Design & Algorithms
 
-A comprehensive collection of Low-Level Design (LLD) patterns, Machine Coding solutions, Data Structures and Algorithms (DSA), and Distributed System challenges.
+[![Python 3.14+](https://img.shields.io/badge/python-3.14%2B-blue.svg)](https://www.python.org/downloads/release/python-3140/)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![Checked with mypy](http://www.mypy-lang.org/static/badge.svg)](http://mypy-lang.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This repository is designed to help engineers master software engineering fundamentals through hands-on practice.
+A curated, professional-grade repository showcasing core software engineering competencies: **Low-Level Design (LLD)**, **High-Level Design (HLD)**, **Distributed Systems**, and **Data Structures & Algorithms (DSA)**.
+
+This repository is built as an interactive engineering handbook, demonstrating a commitment to architectural excellence, clean code, and automated tooling.
+
+---
+
+## 🏗️ Architectural Pillars
+
+- **[Design Patterns](./design_patterns/)**: Production-ready implementations of Creational, Structural, and Behavioral patterns using modern Python `Protocols` and type safety.
+- **[Machine Coding & LLD](./machine_coding/)**: End-to-end system implementations (Snake & Ladder, Parking Lot, Elevator) focusing on SOLID principles and extensibility.
+- **[Distributed Systems](./infrastructure_challenges/)**: Hands-on challenges covering Rate Limiters, Job Schedulers, and real-time Socket communication.
+- **[High-Level Design](./system_design_hld/)**: Comprehensive analysis of industry-scale architectures (Netflix, Uber, S3) and core HLD pillars.
+- **[DSA Lab](./dsa/)**: A systematic approach to 150+ algorithms, complete with "Thinking Process" breakdowns and complexity analysis.
+
+---
+
+## 🛠️ Engineering Toolkit
+
+Beyond code implementations, this repository features custom engineering tools to facilitate continuous learning:
+
+### 1. **Interactive Documentation Portal**
+Explore the entire repository through a beautifully rendered, searchable documentation portal built with **MkDocs**.
+```bash
+make serve  # Launches the portal at http://127.0.0.1:8000
+```
+
+### 2. **Multi-Language Practice Automation**
+A custom utility script (`scripts/clear_solutions.py`) that uses AST-based logic to strip implementations while preserving structure—enabling active-recall practice across **Python, Java, Go, C++, and JS/TS**.
+```bash
+uv run python scripts/clear_solutions.py
+```
+
+---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- **Python 3.14+** (Recommended)
-- **[uv](https://github.com/astral-sh/uv)**: A fast Python package installer and resolver.
+- **Python 3.14+**
+- **[uv](https://github.com/astral-sh/uv)**: A lightning-fast Python package installer and resolver.
 
-### Installation
-1.  **Clone the repository:**
+### Installation & Quality Checks
+1.  **Clone & Sync:**
     ```bash
     git clone https://github.com/Ankur-glitchtracer/docs.git
-    cd docs
+    cd docs && uv sync
     ```
-
-2.  **Install dependencies:**
+2.  **Verify Integrity:**
     ```bash
-    uv sync
+    make lint  # Runs Ruff (Linter) & MyPy (Static Type Checker)
+    make test  # Runs Pytest (Unit Testing)
     ```
-
-## 🛠️ How to Use
-
-### 1. Fork for Personal Practice
-Fork this repository to your own account to track your progress and customize the solutions.
-
-### 2. Clear Solutions for Practice
-If you want to solve the problems yourself without seeing the implementations, use our multi-language utility script:
-```bash
-uv run python scripts/clear_solutions.py
-```
-This script recursively processes `dsa/`, `design_patterns/`, and `machine_coding/` to remove implementation logic while preserving structure (functions, classes, and method signatures).
-
-**Supported Languages:**
-- **Python**: Replaces bodies with `pass`.
-- **Java / C++ / JS / TS**: Replaces bodies with an exception/error throw.
-- **Go**: Replaces bodies with a `panic`.
-
-*Tip: You can use `# <solution>` and `# </solution>` markers (or the equivalent comment style for your language) for precise control over what gets cleared.*
-
-### 3. Running the Documentation Portal
-We use MkDocs for a beautiful documentation portal.
-```bash
-make serve
-# OR
-uv run mkdocs serve
-```
-Open `http://127.0.0.1:8000` in your browser to explore the roadmap and problem details.
-
-## 🌐 Publishing Your Own Portal
-This repository uses the `mkdocs gh-deploy` tool to automatically build and push your documentation to the `gh-pages` branch.
-
-1.  **Go to Repository Settings** > **Pages**.
-2.  Set **Build and deployment** > **Source** to "Deploy from a branch".
-3.  Under **Branch**, select `gh-pages` and `/ (root)`.
-4.  Click **Save**.
-
-On every push to the `main` branch, the GitHub Action will update your `gh-pages` branch, and your portal will be live at `https://<your-username>.github.io/<repo-name>/`.
-
-## 📁 Repository Structure
-- `design_patterns/`: Implementation of Creational, Structural, and Behavioral patterns.
-- `dsa/`: Curated list of Data Structures and Algorithms problems.
-- `machine_coding/`: Real-world system design and implementation (Snake & Ladder, Parking Lot, etc.).
-- `infrastructure_challenges/`: Dockerized jobs, Rate Limiters, etc.
-- `system_design_hld/`: High-Level Design pillars and architectures.
-
-## ✅ Quality Standards
-Ensure your code follows the project's quality standards:
-```bash
-make lint  # Runs Ruff and MyPy
-make test  # Runs Pytest
-```
 
 ---
-Happy Coding! 🚀
+
+## 📈 Engineering Dashboard
+We track technical growth and mastery levels through our [Engineering Mastery Dashboard](./engineering_metrics.md), which logs confidence scores and review schedules for key patterns and systems.
+
+---
+
+## 🔗 Quick Navigation
+- [Full Repository Index](./repo_index.md)
+- [Learning Path & Roadmap](./index.md)
+- [System Design Insights](./system_design_hld/INSIGHTS.md)
+
+---
+*Crafted with 🧠 and 🐍 by [Ankur Kumar](https://github.com/Ankur-glitchtracer)*

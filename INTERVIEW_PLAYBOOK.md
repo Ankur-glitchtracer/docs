@@ -32,15 +32,15 @@ Your battle-tested strategy guide for technical interviews. Use this as a pre-in
 
 ## 🧠 Pattern Quick-Reference
 
-Use the INSIGHTS files as deep-dives for each domain:
+Use the deep-dive INSIGHTS files to master specific domains:
 
-| Domain | Quick Reference | Deep Dive |
+| Domain | Quick Reference | Technical Deep Dive |
 | :--- | :--- | :--- |
-| **DSA Patterns** | Sliding Window, Two Pointers, BFS/DFS, DP | [DSA Insights](./dsa/INSIGHTS.md) |
-| **Design Patterns** | Creational, Structural, Behavioral (GoF) | [Design Pattern Insights](./design_patterns/INSIGHTS.md) |
-| **Machine Coding** | Entity separation, State machines, Concurrency | [Machine Coding Insights](./machine_coding/INSIGHTS.md) |
-| **System Design** | Sharding, Pub/Sub, LSM Trees, CAP | [HLD Insights](./system_design_hld/INSIGHTS.md) |
-| **Infrastructure** | Docker, Rate Limiting, Sockets, Heartbeats | [Infra Insights](./infrastructure_challenges/INSIGHTS.md) |
+| **DSA Patterns** | Sliding Window, BFS/DFS, DP | [DSA Insights](./dsa/INSIGHTS.md) |
+| **Design Patterns** | Creational, Structural, Behavioral | [Design Pattern Insights](./design_patterns/INSIGHTS.md) |
+| **Machine Coding** | Entity separation, Concurrency | [Machine Coding Insights](./machine_coding/INSIGHTS.md) |
+| **System Design** | Sharding, LSM Trees, CAP | [HLD Insights](./system_design_hld/INSIGHTS.md) |
+| **Infrastructure** | Docker, Rate Limiting, Sockets | [Infra Insights](./infrastructure_challenges/INSIGHTS.md) |
 
 ---
 
@@ -88,9 +88,8 @@ Use the INSIGHTS files as deep-dives for each domain:
 
 ## 📋 Pre-Interview Checklist
 
-- [ ] Review the [DSA Roadmap](./dsa/ROADMAP.md) for topic dependencies
-- [ ] Skim the [Engineering Dashboard](./DOCS_PORTAL.md) for low-confidence topics
-- [ ] Re-solve 2-3 problems from the [TODO list](./TODO.md) marked as low confidence
-- [ ] Review the relevant INSIGHTS file for the interview type
-- [ ] Practice explaining one problem using the REACTO method aloud
-- [ ] Prepare 3 STAR stories for behavioral questions
+- [ ] Review the [Learning Path & Roadmap](./index.md) for architectural pillars.
+- [ ] Skim the [Engineering Mastery Dashboard](./engineering_metrics.md) for low-confidence topics.
+- [ ] Re-solve 2-3 problems from the [Mastery Progress Tracker](./todo.md).
+- [ ] Review the relevant INSIGHTS file for the specific interview type.
+- [ ] Prepare 3 STAR-method stories for behavioral alignment.
