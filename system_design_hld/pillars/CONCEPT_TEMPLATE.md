@@ -1,23 +1,23 @@
-# 🏗️ HLD Concept: [Concept Name]
+# 🏗️ HLD Concept: (To be detailed...)
 
 ## 📝 Definition
-[Provide a clear, concise definition of the concept.]
+(To be detailed...)
 
 ## 🚀 Why it matters
-[Explain the specific problem this concept solves in large-scale systems.]
+(To be detailed...)
 
 ## ⚖️ Trade-offs & Decisions
 | Choice A | Choice B | When to use what? |
 | :--- | :--- | :--- |
-| [e.g. SQL] | [e.g. NoSQL] | [Describe the decision criteria] |
+| (Constraints to be detailed...) | (Constraints to be detailed...) | (To be detailed...) |
 
 ## 🛠️ Implementation Strategies
-- **[Strategy 1]:** [Description]
-- **[Strategy 2]:** [Description]
+- **[Strategy 1]:** (To be detailed...)
+- **[Strategy 2]:** (To be detailed...)
 
 ## 🧠 Interview Talk-Track
-- **Key Insight:** [A "senior-level" observation about this concept]
-- **Common Pitfall:** [What beginners get wrong]
+- **Key Insight:** (To be detailed...)
+- **Common Pitfall:** (To be detailed...)
 
 !!! abstract "Core Takeaway"
-    [A one-sentence summary of how this fits into global architectures.]
+    (To be detailed...)

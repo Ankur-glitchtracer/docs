@@ -7,9 +7,10 @@ This repository tracks my journey from basic data structures to complex distribu
 
 | Category | Mastery Topics | Link |
 | :--- | :--- | :--- |
-| **Linear** | Arrays, Strings, Linked Lists | [Arrays](./dsa/01_arrays_strings/TOPIC_OVERVIEW.md) ([Sum K](./dsa/01_arrays_strings/subarray_sum_k/PROBLEM.md) / [XOR K](./dsa/01_arrays_strings/subarrays_xor_k/PROBLEM.md)) / [Lists](./dsa/02_linked_lists/TOPIC_OVERVIEW.md) |
-| **Non-Linear** | Trees, Graphs, Heaps | [Trees](./dsa/03_trees_graphs/TOPIC_OVERVIEW.md) / [Heaps](./dsa/07_heaps_stacks_queues/TOPIC_OVERVIEW.md) |
-| **Logic** | DP, Greedy, Backtracking | [DP](./dsa/04_dynamic_programming/TOPIC_OVERVIEW.md) / [Greedy](./dsa/06_greedy_backtracking/TOPIC_OVERVIEW.md) |
+| **Roadmap** | Complete Learning Path | [Roadmap](./dsa/ROADMAP.md) / [Insights](./dsa/INSIGHTS.md) |
+| **Linear** | Arrays, Hashing, Linked Lists | [Arrays & Hashing](./dsa/01_arrays_hashing/contains_duplicate/PROBLEM.md) / [Lists](./dsa/06_linked_list/reverse_list/PROBLEM.md) |
+| **Search** | Binary Search, Trees, Graphs | [Binary Search](./dsa/05_binary_search/binary_search/PROBLEM.md) / [Trees](./dsa/07_trees/invert_binary_tree/PROBLEM.md) / [Graphs](./dsa/11_graphs/number_of_islands/PROBLEM.md) |
+| **Logic** | DP, Greedy, Backtracking | [DP](./dsa/13_1d_dynamic_programming/climbing_stairs/PROBLEM.md) / [Greedy](./dsa/15_greedy/maximum_subarray/PROBLEM.md) / [Backtracking](./dsa/10_backtracking/subsets/PROBLEM.md) |
 
 ## 🟢 Level 1: Fundamental Patterns (Creational)
 *Focus: How objects are created.*

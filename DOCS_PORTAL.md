@@ -1,66 +1,27 @@
-# 📚 Documentation Portal Setup
+# 📊 Engineering Mastery Dashboard
 
-Transform your folder structure into a beautiful, searchable documentation website using `mkdocs-material`.
-
-## 1. Installation
-If you haven't already, install the dependencies (configured in `pyproject.toml`):
-
-```bash
-pip install mkdocs-material
-# OR if using uv/poetry
-uv pip install mkdocs-material
-```
-
-## 2. Configuration
-Create a file named `mkdocs.yml` in the root of your project:
-
-```yaml
-site_name: System Design & LLD Patterns
-theme:
-  name: material
-  features:
-    - navigation.expand
-    - content.code.copy
-  palette:
-    scheme: slate  # Dark mode
-    primary: teal
-    accent: purple
-
-nav:
-  - Home: LEARNING_PATH.md
-  - Design Patterns:
-    - Creational:
-      - Abstract Factory: design_patterns/creational/abstract_factory/ui_toolkit/PROBLEM.md
-      - Builder: design_patterns/creational/builder/custom_pc_builder/PROBLEM.md
-      # Add other creational patterns...
-    - Structural:
-      - Adapter: design_patterns/structural/adapter/format_translator/PROBLEM.md
-      # Add other structural patterns...
-    - Behavioral:
-      - Observer: design_patterns/behavioral/observer/iot_notification_system/PROBLEM.md
-      # Add other behavioral patterns...
-  - Machine Coding:
-    - Games:
-      - Snake & Ladder: machine_coding/games/snake_ladder/PROBLEM.md
-      # Add other games...
-    - Systems:
-      - Elevator: machine_coding/systems/elevator/PROBLEM.md
-      # Add other systems...
-  - Real World Systems:
-    - E-Commerce: machine_coding/real_world_systems/e_commerce_order_system/PROBLEM.md
-    - Ride Sharing: machine_coding/real_world_systems/ride_sharing_service/PROBLEM.md
-    - CI/CD: machine_coding/real_world_systems/ci_cd_pipeline/PROBLEM.md
-  - Infrastructure Challenges:
-    - Docker Job Scheduler: infrastructure_challenges/dockerized_job_scheduler/PROBLEM.md
-    - Redis Rate Limiter: infrastructure_challenges/redis_rate_limiter/PROBLEM.md
-    - Socket Chat: infrastructure_challenges/socket_chat_app/PROBLEM.md
-```
-
-## 3. Serving the UI
-Run the following command to start a local server:
-
-```bash
-mkdocs serve
-```
-
-Open your browser to `http://127.0.0.1:8000`. You will see a structured, searchable website containing all your problem statements and code documentation.
+| Topic | File Path | Impact | Last Reviewed | Confidence | Next Review |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Singleton** | `design_patterns/creational/singleton/singleton_pattern/singleton_pattern.py` | High | 2026-03-07 | 5/5 | 2026-05-07 |
+| **Abstract Factory** | `design_patterns/creational/abstract_factory/ui_toolkit/ui_toolkit.py` | High | 2026-03-07 | 4/5 | 2026-04-07 |
+| **Builder** | `design_patterns/creational/builder/custom_pc_builder/custom_pc_builder.py` | High | 2026-03-07 | 4/5 | 2026-04-07 |
+| **Object Pool** | `design_patterns/creational/object_pool/db_connection_pool/db_connection_pool.py` | High | 2026-03-07 | 4/5 | 2026-04-07 |
+| **Observer** | `design_patterns/behavioral/observer/basic_observer/basic_observer.py` | High | 2026-03-07 | 5/5 | 2026-05-07 |
+| **Strategy** | `design_patterns/behavioral/strategy/sprinkler_system/sprinkler_system.py` | High | 2026-03-07 | 4/5 | 2026-04-07 |
+| **Elevator System** | `machine_coding/systems/elevator/elevator_management_system.py` | High | 2026-03-07 | 3/5 | 2026-03-21 |
+| **Parking Lot** | `machine_coding/systems/parking_lot/parking_lot.py` | High | 2026-03-07 | 4/5 | 2026-03-21 |
+| **Job Scheduler** | `machine_coding/distributed/job_scheduler/job_scheduling_system.py` | High | 2026-03-07 | 3/5 | 2026-03-21 |
+| **Two Sum** | `dsa/01_arrays_hashing/two_sum/PROBLEM.md` | High | 2026-03-07 | 5/5 | 2026-06-07 |
+| **Trapping Water** | `dsa/02_two_pointers/trapping_rain_water/PROBLEM.md` | High | 2026-03-07 | 3/5 | 2026-03-21 |
+| **Number of Islands** | `dsa/11_graphs/number_of_islands/PROBLEM.md` | High | 2026-03-07 | 4/5 | 2026-03-21 |
+| **LCS DP** | `dsa/14_2d_dynamic_programming/longest_common_subsequence/PROBLEM.md` | High | 2026-03-07 | 3/5 | 2026-03-21 |
+| **Binary Search** | `dsa/05_binary_search/binary_search/PROBLEM.md` | High | 2026-03-07 | 5/5 | 2026-06-07 |
+| **Single Number** | `dsa/18_bit_manipulation/single_number/PROBLEM.md` | Medium | 2026-03-07 | 5/5 | 2026-06-07 |
+| **KV Store** | `system_design_hld/architectures/distributed_storage/KV_STORE.md` | High | 2026-03-07 | 4/5 | 2026-04-07 |
+| **S3 Lite HLD** | `system_design_hld/architectures/distributed_storage/S3_LITE.md` | High | 2026-03-07 | 4/5 | 2026-04-07 |
+| **Uber HLD** | `system_design_hld/architectures/payment_systems/UBER_HLD.md` | High | 2026-03-07 | 4/5 | 2026-04-07 |
+| **WhatsApp HLD** | `system_design_hld/architectures/social_media/WHATSAPP.md` | High | 2026-03-07 | 4/5 | 2026-04-07 |
+| **Netflix HLD** | `system_design_hld/architectures/streaming/NETFLIX.md` | High | 2026-03-07 | 4/5 | 2026-04-07 |
+| **Redis Rate Limit** | `infrastructure_challenges/redis_rate_limiter/PROBLEM.md` | High | 2026-03-07 | 3/5 | 2026-03-21 |
+| **Docker Scheduler** | `infrastructure_challenges/dockerized_job_scheduler/PROBLEM.md` | High | 2026-03-07 | 4/5 | 2026-03-21 |
+| **Socket Chat** | `infrastructure_challenges/socket_chat_app/PROBLEM.md` | Medium | 2026-03-07 | 3/5 | 2026-03-21 |

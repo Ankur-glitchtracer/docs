@@ -1,10 +1,7 @@
-site_name: System Design & LLD Portfolio
+site_name: Engineering Mastery Portfolio
 site_description: A comprehensive collection of design patterns, machine coding, and distributed systems.
-repo_url: https://github.com/yourusername/python-examples # Update this later
-
-docs_dir: docs
-
-site_url: http://127.0.0.1:8000/
+repo_url: https://github.com/Ankur-glitchtracer/docs
+site_url: https://Ankur-glitchtracer.github.io/docs/
 
 validation:
   omitted_files: warn
@@ -37,31 +34,193 @@ theme:
 
 nav:
   - Home: index.md
+  - Interview Playbook: interview_playbook.md
+  - Repo Index: repo_index.md
   - Progress Tracker: todo.md
   - Documentation Setup: docs_portal.md
   - Data Structures & Algorithms:
-    - Template: dsa/DSA_TEMPLATE.md
-    - Arrays & Strings:
-        - Overview: dsa/01_arrays_strings/TOPIC_OVERVIEW.md
-        - Two Sum: dsa/01_arrays_strings/two_sum/PROBLEM.md
-        - Longest Substring: dsa/01_arrays_strings/longest_substring/PROBLEM.md
-        - Subarray Sum Equals K: dsa/01_arrays_strings/subarray_sum_k/PROBLEM.md
-        - Subarray with XOR K: dsa/01_arrays_strings/subarrays_xor_k/PROBLEM.md
-    - Linked Lists:
-        - Overview: dsa/02_linked_lists/TOPIC_OVERVIEW.md
-        - Reverse List: dsa/02_linked_lists/reverse_list/PROBLEM.md
-    - Trees & Graphs:
-        - Overview: dsa/03_trees_graphs/TOPIC_OVERVIEW.md
-        - Level Order: dsa/03_trees_graphs/level_order_traversal/PROBLEM.md
-    - Dynamic Programming:
-        - Overview: dsa/04_dynamic_programming/TOPIC_OVERVIEW.md
-        - Climbing Stairs: dsa/04_dynamic_programming/climbing_stairs/PROBLEM.md
-    - Sorting & Searching: dsa/05_sorting_searching/TOPIC_OVERVIEW.md
-    - Greedy & Backtracking: dsa/06_greedy_backtracking/TOPIC_OVERVIEW.md
-    - Heaps, Stacks, Queues: dsa/07_heaps_stacks_queues/TOPIC_OVERVIEW.md
-    - Bit Manipulation: dsa/08_bit_manipulation_math/TOPIC_OVERVIEW.md
+    - Roadmap: dsa/ROADMAP.md
+    - Insights: dsa/INSIGHTS.md
+    - Problem Template: dsa/DSA_TEMPLATE.md
+    - 01. Arrays & Hashing:
+        - Contains Duplicate: dsa/01_arrays_hashing/contains_duplicate/PROBLEM.md
+        - Valid Anagram: dsa/01_arrays_hashing/valid_anagram/PROBLEM.md
+        - Two Sum: dsa/01_arrays_hashing/two_sum/PROBLEM.md
+        - Group Anagrams: dsa/01_arrays_hashing/group_anagrams/PROBLEM.md
+        - Top K Frequent: dsa/01_arrays_hashing/top_k_frequent_elements/PROBLEM.md
+        - Product Except Self: dsa/01_arrays_hashing/product_of_array_except_self/PROBLEM.md
+        - Valid Sudoku: dsa/01_arrays_hashing/valid_sudoku/PROBLEM.md
+        - Encode and Decode: dsa/01_arrays_hashing/encode_and_decode_strings/PROBLEM.md
+        - Longest Consecutive: dsa/01_arrays_hashing/longest_consecutive_sequence/PROBLEM.md
+    - 02. Two Pointers:
+        - Valid Palindrome: dsa/02_two_pointers/valid_palindrome/PROBLEM.md
+        - Two Sum II: dsa/02_two_pointers/two_sum_ii/PROBLEM.md
+        - 3Sum: dsa/02_two_pointers/3sum/PROBLEM.md
+        - Container With Most Water: dsa/02_two_pointers/container_with_most_water/PROBLEM.md
+        - Trapping Rain Water: dsa/02_two_pointers/trapping_rain_water/PROBLEM.md
+    - 03. Sliding Window:
+        - Best Time to Buy/Sell Stock: dsa/03_sliding_window/best_time_to_buy_sell_stock/PROBLEM.md
+        - Longest Substring: dsa/03_sliding_window/longest_substring_without_repeating_characters/PROBLEM.md
+        - Longest Repeating Replacement: dsa/03_sliding_window/longest_repeating_character_replacement/PROBLEM.md
+        - Permutation in String: dsa/03_sliding_window/permutation_in_string/PROBLEM.md
+        - Minimum Window Substring: dsa/03_sliding_window/minimum_window_substring/PROBLEM.md
+        - Sliding Window Maximum: dsa/03_sliding_window/sliding_window_maximum/PROBLEM.md
+    - 04. Stack:
+        - Valid Parentheses: dsa/04_stack/valid_parentheses/PROBLEM.md
+        - Min Stack: dsa/04_stack/min_stack/PROBLEM.md
+        - Evaluate RPN: dsa/04_stack/evaluate_reverse_polish_notation/PROBLEM.md
+        - Generate Parentheses: dsa/04_stack/generate_parentheses/PROBLEM.md
+        - Daily Temperatures: dsa/04_stack/daily_temperatures/PROBLEM.md
+        - Car Fleet: dsa/04_stack/car_fleet/PROBLEM.md
+        - Largest Rectangle: dsa/04_stack/largest_rectangle_in_histogram/PROBLEM.md
+    - 05. Binary Search:
+        - Binary Search: dsa/05_binary_search/binary_search/PROBLEM.md
+        - Search 2D Matrix: dsa/05_binary_search/search_2d_matrix/PROBLEM.md
+        - Koko Eating Bananas: dsa/05_binary_search/koko_eating_bananas/PROBLEM.md
+        - Find Min in Rotated: dsa/05_binary_search/find_minimum_in_rotated_sorted_array/PROBLEM.md
+        - Search in Rotated: dsa/05_binary_search/search_in_rotated_sorted_array/PROBLEM.md
+        - Time Based KV Store: dsa/05_binary_search/time_based_key_value_store/PROBLEM.md
+        - Median of Two Sorted: dsa/05_binary_search/median_of_two_sorted_arrays/PROBLEM.md
+    - 06. Linked List:
+        - Reverse List: dsa/06_linked_list/reverse_list/PROBLEM.md
+        - Merge Two Sorted: dsa/06_linked_list/merge_sorted_lists/PROBLEM.md
+        - Reorder List: dsa/06_linked_list/reorder_list/PROBLEM.md
+        - Remove Nth Node: dsa/06_linked_list/remove_nth_node_from_end_of_list/PROBLEM.md
+        - Copy List Random Pointer: dsa/06_linked_list/copy_list_with_random_pointer/PROBLEM.md
+        - Add Two Numbers: dsa/06_linked_list/add_two_numbers/PROBLEM.md
+        - List Cycle: dsa/06_linked_list/linked_list_cycle/PROBLEM.md
+        - Find Duplicate Number: dsa/06_linked_list/find_the_duplicate_number/PROBLEM.md
+        - LRU Cache: dsa/06_linked_list/lru_cache/PROBLEM.md
+        - Merge K Sorted Lists: dsa/06_linked_list/merge_k_sorted_lists/PROBLEM.md
+        - Reverse Nodes in K-Group: dsa/06_linked_list/reverse_nodes_in_k_group/PROBLEM.md
+        - Palindrome List: dsa/06_linked_list/palindrome_linked_list/PROBLEM.md
+    - 07. Trees:
+        - Invert Tree: dsa/07_trees/invert_binary_tree/PROBLEM.md
+        - Max Depth: dsa/07_trees/maximum_depth_of_binary_tree/PROBLEM.md
+        - Diameter of Tree: dsa/07_trees/diameter_of_binary_tree/PROBLEM.md
+        - Balanced Tree: dsa/07_trees/balanced_binary_tree/PROBLEM.md
+        - Same Tree: dsa/07_trees/same_tree/PROBLEM.md
+        - Subtree of Another: dsa/07_trees/subtree_of_another_tree/PROBLEM.md
+        - LCA of BST: dsa/07_trees/lowest_common_ancestor_bst/PROBLEM.md
+        - Level Order Traversal: dsa/07_trees/binary_tree_level_order_traversal/PROBLEM.md
+        - Right Side View: dsa/07_trees/binary_tree_right_side_view/PROBLEM.md
+        - Count Good Nodes: dsa/07_trees/count_good_nodes_in_binary_tree/PROBLEM.md
+        - Validate BST: dsa/07_trees/validate_binary_search_tree/PROBLEM.md
+        - Kth Smallest in BST: dsa/07_trees/kth_smallest_element_in_bst/PROBLEM.md
+        - Build Tree Pre/Inorder: dsa/07_trees/construct_binary_tree_from_preorder_and_inorder/PROBLEM.md
+        - Max Path Sum: dsa/07_trees/binary_tree_maximum_path_sum/PROBLEM.md
+        - Serialize/Deserialize: dsa/07_trees/serialize_and_deserialize_binary_tree/PROBLEM.md
+    - 08. Tries:
+        - Implement Trie: dsa/08_tries/implement_trie/PROBLEM.md
+        - Add and Search Word: dsa/08_tries/design_add_and_search_words_data_structure/PROBLEM.md
+        - Word Search II: dsa/08_tries/word_search_ii/PROBLEM.md
+    - 09. Heap / Priority Queue:
+        - Kth Largest in Stream: dsa/09_heap_priority_queue/kth_largest_element_in_a_stream/PROBLEM.md
+        - Last Stone Weight: dsa/09_heap_priority_queue/last_stone_weight/PROBLEM.md
+        - K Closest Points: dsa/09_heap_priority_queue/k_closest_points_to_origin/PROBLEM.md
+        - Kth Largest in Array: dsa/09_heap_priority_queue/kth_largest_element_in_an_array/PROBLEM.md
+        - Task Scheduler: dsa/09_heap_priority_queue/task_scheduler/PROBLEM.md
+        - Design Twitter: dsa/09_heap_priority_queue/design_twitter/PROBLEM.md
+        - Find Median from Stream: dsa/09_heap_priority_queue/find_median_from_data_stream/PROBLEM.md
+    - 10. Backtracking:
+        - Subsets: dsa/10_backtracking/subsets/PROBLEM.md
+        - Combination Sum: dsa/10_backtracking/combination_sum/PROBLEM.md
+        - Permutations: dsa/10_backtracking/permutations/PROBLEM.md
+        - Subsets II: dsa/10_backtracking/subsets_ii/PROBLEM.md
+        - Combination Sum II: dsa/10_backtracking/combination_sum_ii/PROBLEM.md
+        - Word Search: dsa/10_backtracking/word_search/PROBLEM.md
+        - Palindrome Partitioning: dsa/10_backtracking/palindrome_partitioning/PROBLEM.md
+        - Letter Combinations: dsa/10_backtracking/letter_combinations_of_a_phone_number/PROBLEM.md
+        - N-Queens: dsa/10_backtracking/n_queens/PROBLEM.md
+    - 11. Graphs:
+        - Number of Islands: dsa/11_graphs/number_of_islands/PROBLEM.md
+        - Max Area of Island: dsa/11_graphs/max_area_of_island/PROBLEM.md
+        - Clone Graph: dsa/11_graphs/clone_graph/PROBLEM.md
+        - Walls and Gates: dsa/11_graphs/walls_and_gates/PROBLEM.md
+        - Rotting Oranges: dsa/11_graphs/rotting_oranges/PROBLEM.md
+        - Pacific Atlantic: dsa/11_graphs/pacific_atlantic_water_flow/PROBLEM.md
+        - Surrounded Regions: dsa/11_graphs/surrounded_regions/PROBLEM.md
+        - Course Schedule: dsa/11_graphs/course_schedule/PROBLEM.md
+        - Course Schedule II: dsa/11_graphs/course_schedule_ii/PROBLEM.md
+        - Graph Valid Tree: dsa/11_graphs/graph_valid_tree/PROBLEM.md
+        - Connected Components: dsa/11_graphs/number_of_connected_components_in_graph/PROBLEM.md
+        - Redundant Connection: dsa/11_graphs/redundant_connection/PROBLEM.md
+        - Word Ladder: dsa/11_graphs/word_ladder/PROBLEM.md
+    - 12. Advanced Graphs:
+        - Reconstruct Itinerary: dsa/12_advanced_graphs/reconstruct_itinerary/PROBLEM.md
+        - Min Cost to Connect: dsa/12_advanced_graphs/min_cost_to_connect_all_points/PROBLEM.md
+        - Network Delay Time: dsa/12_advanced_graphs/network_delay_time/PROBLEM.md
+        - Swim in Rising Water: dsa/12_advanced_graphs/swim_in_rising_water/PROBLEM.md
+        - Alien Dictionary: dsa/12_advanced_graphs/alien_dictionary/PROBLEM.md
+        - Cheapest Flights K Stops: dsa/12_advanced_graphs/cheapest_flights_within_k_stops/PROBLEM.md
+    - 13. 1D Dynamic Programming:
+        - Climbing Stairs: dsa/13_1d_dynamic_programming/climbing_stairs/PROBLEM.md
+        - Min Cost Climbing: dsa/13_1d_dynamic_programming/min_cost_climbing_stairs/PROBLEM.md
+        - House Robber: dsa/13_1d_dynamic_programming/house_robber/PROBLEM.md
+        - House Robber II: dsa/13_1d_dynamic_programming/house_robber_ii/PROBLEM.md
+        - Longest Palindromic Substr: dsa/13_1d_dynamic_programming/longest_palindromic_substring/PROBLEM.md
+        - Palindromic Substrings: dsa/13_1d_dynamic_programming/palindromic_substrings/PROBLEM.md
+        - Decode Ways: dsa/13_1d_dynamic_programming/decode_ways/PROBLEM.md
+        - Coin Change: dsa/13_1d_dynamic_programming/coin_change/PROBLEM.md
+        - Max Product Subarray: dsa/13_1d_dynamic_programming/maximum_product_subarray/PROBLEM.md
+        - Word Break: dsa/13_1d_dynamic_programming/word_break/PROBLEM.md
+        - Longest Increasing Subseq: dsa/13_1d_dynamic_programming/longest_increasing_subsequence/PROBLEM.md
+        - Partition Equal Subset: dsa/13_1d_dynamic_programming/partition_equal_subset_sum/PROBLEM.md
+    - 14. 2D Dynamic Programming:
+        - Unique Paths: dsa/14_2d_dynamic_programming/unique_paths/PROBLEM.md
+        - Longest Common Subseq: dsa/14_2d_dynamic_programming/longest_common_subsequence/PROBLEM.md
+        - Stock with Cooldown: dsa/14_2d_dynamic_programming/best_time_to_buy_and_sell_stock_with_cooldown/PROBLEM.md
+        - Coin Change II: dsa/14_2d_dynamic_programming/coin_change_ii/PROBLEM.md
+        - Target Sum: dsa/14_2d_dynamic_programming/target_sum/PROBLEM.md
+        - Interleaving String: dsa/14_2d_dynamic_programming/interleaving_string/PROBLEM.md
+        - Longest Increasing Path: dsa/14_2d_dynamic_programming/longest_increasing_path_in_matrix/PROBLEM.md
+        - Distinct Subsequences: dsa/14_2d_dynamic_programming/distinct_subsequences/PROBLEM.md
+        - Edit Distance: dsa/14_2d_dynamic_programming/edit_distance/PROBLEM.md
+        - Burst Balloons: dsa/14_2d_dynamic_programming/burst_balloons/PROBLEM.md
+        - Regular Expression Match: dsa/14_2d_dynamic_programming/regular_expression_matching/PROBLEM.md
+    - 15. Greedy:
+        - Maximum Subarray: dsa/15_greedy/maximum_subarray/PROBLEM.md
+        - Jump Game: dsa/15_greedy/jump_game/PROBLEM.md
+        - Jump Game II: dsa/15_greedy/jump_game_ii/PROBLEM.md
+        - Gas Station: dsa/15_greedy/gas_station/PROBLEM.md
+        - Hand of Straights: dsa/15_greedy/hand_of_straights/PROBLEM.md
+        - Merge Triplets: dsa/15_greedy/merge_triplets_to_form_target_triplet/PROBLEM.md
+        - Partition Labels: dsa/15_greedy/partition_labels/PROBLEM.md
+        - Valid Parenthesis String: dsa/15_greedy/valid_parenthesis_string/PROBLEM.md
+    - 16. Intervals:
+        - Insert Interval: dsa/16_intervals/insert_interval/PROBLEM.md
+        - Merge Intervals: dsa/16_intervals/merge_intervals/PROBLEM.md
+        - Non-overlapping Intervals: dsa/16_intervals/non_overlapping_intervals/PROBLEM.md
+        - Meeting Rooms: dsa/16_intervals/meeting_rooms/PROBLEM.md
+        - Meeting Rooms II: dsa/16_intervals/meeting_rooms_ii/PROBLEM.md
+        - Min Interval Each Query: dsa/16_intervals/minimum_interval_to_include_each_query/PROBLEM.md
+    - 17. Math & Geometry:
+        - Rotate Image: dsa/17_math_geometry/rotate_image/PROBLEM.md
+        - Spiral Matrix: dsa/17_math_geometry/spiral_matrix/PROBLEM.md
+        - Set Matrix Zeroes: dsa/17_math_geometry/set_matrix_zeroes/PROBLEM.md
+        - Happy Number: dsa/17_math_geometry/happy_number/PROBLEM.md
+        - Plus One: dsa/17_math_geometry/plus_one/PROBLEM.md
+        - Pow(x, n): dsa/17_math_geometry/pow_x_n/PROBLEM.md
+        - Multiply Strings: dsa/17_math_geometry/multiply_strings/PROBLEM.md
+        - Detect Squares: dsa/17_math_geometry/detect_squares/PROBLEM.md
+    - 18. Bit Manipulation:
+        - Single Number: dsa/18_bit_manipulation/single_number/PROBLEM.md
+        - Number of 1 Bits: dsa/18_bit_manipulation/number_of_1_bits/PROBLEM.md
+        - Counting Bits: dsa/18_bit_manipulation/counting_bits/PROBLEM.md
+        - Reverse Bits: dsa/18_bit_manipulation/reverse_bits/PROBLEM.md
+        - Missing Number: dsa/18_bit_manipulation/missing_number/PROBLEM.md
+        - Sum of Two Integers: dsa/18_bit_manipulation/sum_of_two_integers/PROBLEM.md
+        - Reverse Integer: dsa/18_bit_manipulation/reverse_integer/PROBLEM.md
+    - 19. Sorting:
+        - Bubble Sort: dsa/19_sorting/bubble_sort/PROBLEM.md
+        - Insertion Sort: dsa/19_sorting/insertion_sort/PROBLEM.md
+        - Selection Sort: dsa/19_sorting/selection_sort/PROBLEM.md
+        - Merge Sort: dsa/19_sorting/merge_sort/PROBLEM.md
+        - Quick Sort: dsa/19_sorting/quick_sort/PROBLEM.md
   - Design Patterns:
+    - Roadmap: design_patterns/ROADMAP.md
     - Insights: design_patterns/INSIGHTS.md
+    - Pattern Template: design_patterns/PATTERN_TEMPLATE.md
     - Creational:
       - Abstract Factory: design_patterns/creational/abstract_factory/ui_toolkit/PROBLEM.md
       - Builder: design_patterns/creational/builder/custom_pc_builder/PROBLEM.md
@@ -96,7 +255,9 @@ nav:
       - Chain of Responsibility: design_patterns/behavioral/chain_of_responsibility/PROBLEM.md
       - MVC: design_patterns/behavioral/mvc/PROBLEM.md
   - Machine Coding:
+    - Roadmap: machine_coding/ROADMAP.md
     - Insights: machine_coding/INSIGHTS.md
+    - Machine Coding Template: machine_coding/MACHINE_CODING_TEMPLATE.md
     - Games:
       - Snake & Ladder: machine_coding/games/snake_ladder/PROBLEM.md
       - Tic-Tac-Toe: machine_coding/games/tic_tac_toe/PROBLEM.md
@@ -115,10 +276,42 @@ nav:
     - Ride Sharing: machine_coding/real_world_systems/ride_sharing_service/PROBLEM.md
     - CI/CD Pipeline: machine_coding/real_world_systems/ci_cd_pipeline/PROBLEM.md
   - Infrastructure:
+    - Roadmap: infrastructure_challenges/ROADMAP.md
+    - Insights: infrastructure_challenges/INSIGHTS.md
+    - Infra Template: infrastructure_challenges/INFRA_TEMPLATE.md
     - Docker Job Scheduler: infrastructure_challenges/dockerized_job_scheduler/PROBLEM.md
     - Redis Rate Limiter: infrastructure_challenges/redis_rate_limiter/PROBLEM.md
     - Socket Chat: infrastructure_challenges/socket_chat_app/PROBLEM.md
   - High-Level Design (HLD):
+    - Roadmap: system_design_hld/ROADMAP.md
+    - Mastery Program:
+      - Overview: system_design_hld/mastery_program/index.md
+      - "Phase 1: Foundations":
+        - "M1: Network": system_design_hld/mastery_program/phase_1/m1_network.md
+        - "M2: Storage": system_design_hld/mastery_program/phase_1/m2_storage.md
+        - "M3: Caching": system_design_hld/mastery_program/phase_1/m3_caching.md
+        - "M4: Load Balancing": system_design_hld/mastery_program/phase_1/m4_load_balancing.md
+        - "M5: API Design": system_design_hld/mastery_program/phase_1/m5_api_design.md
+      - "Phase 2: Distributed Systems":
+        - "M6: Partitioning": system_design_hld/mastery_program/phase_2/m6_partitioning.md
+        - "M7: Replication": system_design_hld/mastery_program/phase_2/m7_replication.md
+        - "M8: Message Queues": system_design_hld/mastery_program/phase_2/m8_queues.md
+        - "M9: Microservices": system_design_hld/mastery_program/phase_2/m9_microservices.md
+        - "M10: Transactions": system_design_hld/mastery_program/phase_2/m10_transactions.md
+        - "M11: Observability": system_design_hld/mastery_program/phase_2/m11_observability.md
+      - "Phase 3: Data & GenAI":
+        - "M12: Pipelines": system_design_hld/mastery_program/phase_3/m12_pipelines.md
+        - "M13: Search": system_design_hld/mastery_program/phase_3/m13_search.md
+        - "M14: ML Serving": system_design_hld/mastery_program/phase_3/m14_ml_serving.md
+        - "M15: RAG Scale": system_design_hld/mastery_program/phase_3/m15_rag.md
+        - "M16: LLM Orchestration": system_design_hld/mastery_program/phase_3/m16_llm_orchestration.md
+      - "Phase 4: Advanced Architecture":
+        - "M17: SaaS": system_design_hld/mastery_program/phase_4/m17_saas.md
+        - "M18: Collaboration": system_design_hld/mastery_program/phase_4/m18_collaboration.md
+        - "M19: Cost Optimization": system_design_hld/mastery_program/phase_4/m19_cost.md
+        - "M20: Interview Prep": system_design_hld/mastery_program/phase_4/m20_interviews.md
+    - Insights: system_design_hld/INSIGHTS.md
+    - HLD Template: system_design_hld/HLD_TEMPLATE.md
     - Pillars:
       - Fundamentals: system_design_hld/pillars/CONCEPTS.md
       - Concept Template: system_design_hld/pillars/CONCEPT_TEMPLATE.md
@@ -139,7 +332,10 @@ nav:
 markdown_extensions:
   - admonition
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
@@ -148,3 +344,10 @@ markdown_extensions:
   - pymdownx.tabbed:
       alternate_style: true
   - tables
+  - pymdownx.arithmatex:
+      generic: true 
+
+extra_javascript:
+  - js/mermaid-init.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js

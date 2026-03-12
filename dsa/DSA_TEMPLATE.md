@@ -1,29 +1,58 @@
-# [Icon] [Topic]: [Problem Name]
+# (To be detailed...) [Topic]: (To be detailed...)
 
 ## 📝 Description
-[Link to LeetCode/GeeksForGeeks]
-[Briefly describe the problem statement.]
-
-!!! info "Complexity Analysis"
-    - **Time Complexity:** $O(N)$ [Explain why]
-    - **Space Complexity:** $O(1)$ [Explain why]
-
-## 🚀 Approach & Intuition
-[Explain your thought process. Did you use a Two-Pointer approach? A Hash Map? Recursion with Memoization?]
-
-### Key Observations:
-- [Observation 1]
-- [Observation 2]
+(To be detailed...)
+(Problem description coming soon...)
 
 ## 🛠️ Requirements/Constraints
-- [e.g. $1 <= nums.length <= 10^4$]
-- [e.g. $nums[i]$ can be negative]
+
+- (Constraints to be detailed...)
+- (Constraints to be detailed...)$ can be negative]
+
+## 🧠 The Engineering Story
+
+**The Villain:** (To be detailed...)
+
+**The Hero:** (To be detailed...)
+
+**The Plot:**
+
+1. (To be detailed...)
+2. (To be detailed...)
+
+**The Twist (Failure):** (To be detailed...)
+
+**Interview Signal:** (To be detailed...)
+
+## 🚀 Approach & Intuition
+(To be detailed...)
+
+### Key Observations:
+
+- (Observation to be detailed...)
+- (Observation to be detailed...)
+
+!!! info "Complexity Analysis"
+
+    - **Time Complexity:** $O(N)$ (To be detailed...)
+    - **Space Complexity:** $O(1)$ (To be detailed...)
 
 ## 💻 Solution Implementation
 
 ```python
---8<-- "dsa/path/to/solution.py"
+--8<-- "(Implementation to be added)"
 ```
 
 !!! success "Aha! Moment"
-    [What was the trick to solving this efficiently? e.g., "The sorted nature of the input allowed for Binary Search."]
+    (To be detailed...)
+
+## 🎤 Interview Follow-ups
+
+- **Harder Variant:** (To be detailed...)
+- **Scale Question:** (To be detailed...)
+- **Edge Case Probe:** (To be detailed...)
+
+## 🔗 Related Problems
+
+- `[Related Problem 1](#)` — (To be detailed...)
+- `[Related Problem 2](#)` — (To be detailed...)

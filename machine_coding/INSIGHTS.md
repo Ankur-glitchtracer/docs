@@ -1,32 +1,41 @@
 # 🏗️ Machine Coding & System Design Insights
 
-Focus on how multiple patterns work together to build a complete system.
+## 🟢 Game Systems (Snake & Ladder)
 
-## 🟢 Games (Snake & Ladder, Tic-Tac-Toe)
-### AI Insights:
-- **Game Loops:** Good separation of `Game`, `Board`, and `Player` logic.
-- **Rule Decoupling:** Consider extracting winning rules into a separate `RuleEngine` to make games more extensible.
+**The Villain:** "The God Class." Putting board logic, player logic, and dice logic into one giant file.
 
-### 💡 Manual Insights:
-- [Add your thoughts here...]
+**The Hero:** "The Entity-Component Separation."
 
----
+**The Plot:**
 
-## 🟡 Systems (Elevator, Instagram)
-### AI Insights:
-- **Elevator System:** Good use of Enums for `Status` and `Direction`. To improve, implement an `ElevatorController` that uses a strategy pattern for picking the next floor.
-- **Instagram Feed:** Focus on how to handle "Followers" vs "Following" efficiently. An observer pattern is a natural fit for feed updates.
+1. `Board` handles layout and jumps (Snakes/Ladders).
+2. `Game` manages turns and win conditions.
+3. `Dice` is a standalone utility.
 
-### 💡 Manual Insights:
-- [Add your thoughts here...]
+**The Twist:** "The Infinite Loop." A snake leading to a ladder that leads back to the same snake.
 
----
+## 🟡 Concurrency (Elevator System)
+
+**The Villain:** "The Race Condition." Two people on different floors calling the same elevator, causing it to jitter.
+
+**The Hero:** "The Request Queue & State Machine."
+
+**The Plot:**
+
+1. Collect all requests in a thread-safe queue.
+2. Use a `Strategy` to decide which floor to visit next (SCAN algorithm).
+
+**The Twist:** "The Starvation." The elevator keeps serving middle floors, leaving the top floor waiting forever.
 
 ## 🔴 Distributed Systems (Job Scheduler)
-### AI Insights:
-- **Idempotency:** Crucial for distributed systems. Ensure that if a job is retried, it doesn't cause duplicate side effects.
-- **DAG Handling:** Use a Topological Sort algorithm for processing jobs with dependencies.
-- **Fault Tolerance:** How does the system handle a worker node going down? Implement a "heartbeat" mechanism.
 
-### 💡 Manual Insights:
-- [Add your thoughts here...]
+**The Villain:** "The Double Execution." Two workers picking up the same job from the DB simultaneously.
+
+**The Hero:** "The Distributed Lock" (Redis/Zookeeper).
+
+**The Plot:**
+
+1. Use `SETNX` to claim a job ID.
+2. Heartbeat to ensure the worker hasn't died.
+
+**The Twist:** "The Zombie Job." A worker crashes without releasing the lock, blocking the job until it expires.
