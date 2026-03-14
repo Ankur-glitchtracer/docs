@@ -35,6 +35,7 @@ Given an `m x n` integers `matrix`, return the length of the longest increasing 
 Cache results for each cell.
 
 ### C++ Pseudo-Code
+{% raw %}
 ```cpp
 class Solution {
     int m, n;
@@ -45,18 +46,18 @@ public:
         m = matrix.size(); n = matrix[0].size();
         memo.resize(m, vector<int>(n, 0));
         int maxLen = 0;
-        
+
         for (int r = 0; r < m; r++)
             for (int c = 0; c < n; c++)
                 maxLen = max(maxLen, dfs(matrix, r, c));
-                
+
         return maxLen;
     }
-    
+
     int dfs(vector<vector<int>>& mat, int r, int c) {
         if (memo[r][c] != 0) return memo[r][c];
         int len = 1;
-        
+
         for (auto& d : dirs) {
             int nr = r + d[0], nc = c + d[1];
             if (nr >= 0 && nr < m && nc >= 0 && nc < n && mat[nr][nc] > mat[r][c]) {
@@ -67,6 +68,7 @@ public:
     }
 };
 ```
+{% endraw %}
 
 ### Key Observations:
 
