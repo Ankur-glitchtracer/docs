@@ -514,7 +514,9 @@ source = { virtual = "." }
 dependencies = [
     { name = "fastapi" },
     { name = "mkdocs" },
+    { name = "mkdocs-material" },
     { name = "pydantic" },
+    { name = "pymdown-extensions" },
     { name = "redis" },
     { name = "requests" },
     { name = "uvicorn" },
@@ -533,9 +535,11 @@ dev = [
 requires-dist = [
     { name = "fastapi", specifier = ">=0.100.0" },
     { name = "mkdocs", specifier = ">=1.6.1,<2.0.0" },
+    { name = "mkdocs-material", specifier = ">=9.7.4" },
     { name = "mkdocs-material", marker = "extra == 'dev'", specifier = ">=9.0.0" },
     { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.5.0" },
     { name = "pydantic", specifier = ">=2.0.0" },
+    { name = "pymdown-extensions", specifier = ">=10.21" },
     { name = "pymdown-extensions", marker = "extra == 'dev'", specifier = ">=10.0" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=7.0.0" },
     { name = "redis", specifier = ">=5.0.0" },

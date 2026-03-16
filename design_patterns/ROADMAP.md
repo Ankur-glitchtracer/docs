@@ -4,48 +4,74 @@ A high-level guide to mastering GoF design patterns and architectural best pract
 
 ```mermaid
 flowchart TD
+    DP[Design Patterns]
 
-subgraph Creational
-    direction TB
-    C1[Factory]
-    C2[Singleton]
-    C3[Builder]
-    C4[Prototype]
-    C5[Abstract Factory]
-    C6[Object Pool]
-end
-
-subgraph Structural
-    direction TB
-    S1[Adapter]
-    S2[Bridge]
-    S3[Composite]
-    S4[Decorator]
-    S5[Facade]
-    S6[Flyweight]
-    S7[Proxy]
-end
-
-subgraph Behavioral
-    direction TB
-    B1[Strategy]
-    B2[Observer]
-    B3[Command]
-    B4[State]
-    B5[Template]
-    B6[Iterator]
-    B7[Mediator]
-    B8[Memento]
-    B9[Chain Of Responsibility]
-    B10[Visitor]
-    B11[Interpreter]
-    B12[MVC]
-    B13[Null Object]
-end
-
-Creational --> Structural
-Structural --> Behavioral
+    DP --> CRE[Creational Patterns]
+    DP --> STR[Structural Patterns]
+    DP --> BEH[Behavioral Patterns]
 ```
+
+---
+
+```mermaid
+flowchart TD
+    CRE[Creational Patterns]
+
+    CRE --> C1[Factory]
+    CRE --> C2[Singleton]
+    CRE --> C3[Builder]
+    CRE --> C4[Prototype]
+    CRE --> C5[Abstract Factory]
+    CRE --> C6[Object Pool]
+```
+
+---
+
+```mermaid
+flowchart TD
+    STR[Structural Patterns]
+
+    STR --> S1[Adapter]
+    STR --> S2[Bridge]
+    STR --> S3[Composite]
+    STR --> S4[Decorator]
+    STR --> S5[Facade]
+    STR --> S6[Flyweight]
+    STR --> S7[Proxy]
+```
+
+---
+
+```mermaid
+flowchart TB
+    BEH1[Behavioral Patterns - Core]
+
+    BEH1 --> B1[Strategy]
+    BEH1 --> B2[Observer]
+    BEH1 --> B3[Command]
+    BEH1 --> B4[State]
+    BEH1 --> B5[Template Method]
+```
+```mermaid
+flowchart TB
+    BEH2[Behavioral Patterns - Interaction]
+
+    BEH2 --> B6[Mediator]
+    BEH2 --> B7[Chain Of Responsibility]
+    BEH2 --> B8[Visitor]
+    BEH2 --> B9[Iterator]
+```
+```mermaid
+flowchart TB
+    BEH3[Behavioral Patterns - State & Language]
+
+    BEH3 --> B10[Memento]
+    BEH3 --> B11[Interpreter]
+    BEH3 --> B12[MVC]
+    BEH3 --> B13[Null Object]
+```
+
+
 
 ## 📊 Topic Progress
 

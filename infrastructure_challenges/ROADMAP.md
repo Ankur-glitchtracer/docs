@@ -8,25 +8,29 @@ A deep dive into building reliable, scalable, and high-performance **Middleware*
 ## 📋 Program Roadmap
 
 ```mermaid
-graph TD
-    A["Phase 1: Containerization & Orchestration"] --> B["Phase 2: High-Performance Middleware"]
-    B --> C["Phase 3: Real-Time Networking at Scale"]
+sequenceDiagram
+    %% Participants represent each phase
+    participant P1 as Phase 1
+    participant P2 as Phase 2
+    participant P3 as Phase 3
 
-    subgraph "Phase 1: Foundations"
-        A1["M1: Dockerized Job Scheduler"]
-    end
+    %% Phase 1 activities
+    Note over P1: Phase 1: Containerization & Orchestration
+    P1->>P1: M1: Dockerized Job Scheduler
 
-    subgraph "Phase 2: Performance Middleware"
-        B1["M2: Redis Rate Limiter"]
-    end
+    %% Move to Phase 2
+    P1-->>P2: Complete Phase 1
 
-    subgraph "Phase 3: Real-Time Systems"
-        C1["M3: Socket Chat Application"]
-    end
+    %% Phase 2 activities
+    Note over P2: Phase 2: High‑Performance Middleware
+    P2->>P2: M2: Redis Rate Limiter
 
-    A -.-> A1
-    B -.-> B1
-    C -.-> C1
+    %% Move to Phase 3
+    P2-->>P3: Complete Phase 2
+
+    %% Phase 3 activities
+    Note over P3: Phase 3: Real‑Time Networking at Scale
+    P3->>P3: M3: Socket Chat Application
 ```
 
 ---

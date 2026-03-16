@@ -8,35 +8,33 @@ A comprehensive guide to mastering **Object-Oriented Design (OOD)**, **Concurren
 ## 📋 Program Roadmap
 
 ```mermaid
-graph TD
-    A["Phase 1: Game Systems & OOD"] --> B["Phase 2: Concurrency & Resource Management"]
-    B --> C["Phase 3: Distributed Components & Real-World Engines"]
+sequenceDiagram
+    participant P1 as Phase 1
+    participant P2 as Phase 2
+    participant P3 as Phase 3
 
-    subgraph "Phase 1: Foundations"
-        A1["M1: Snake & Ladder"]
-        A2["M2: Tic-Tac-Toe"]
-    end
+    Note right of P1: Foundations<br/>Game Systems & OOD
+    P1->>P1: M1: Snake & Ladder
+    P1->>P1: M2: Tic-Tac-Toe
 
-    subgraph "Phase 2: Core Systems"
-        B1["M3: Elevator System"]
-        B2["M4: Parking Lot"]
-        B3["M5: Cache System"]
-        B4["M6: Instagram Feed"]
-    end
+    P1-->>P2: Complete Phase 1
 
-    subgraph "Phase 3: Advanced Systems"
-        C1["M7: Job Scheduler"]
-        C2["M8: Rate Limiter"]
-        C3["M9: Pub-Sub System"]
-        C4["M10: Workflow Orchestrator"]
-        C5["M11: E-Commerce Engine"]
-        C6["M12: Ride-Sharing Service"]
-        C7["M13: CI/CD Pipeline"]
-    end
+    Note right of P2: Core Systems<br/>Concurrency & Resources
+    P2->>P2: M3: Elevator System
+    P2->>P2: M4: Parking Lot
+    P2->>P2: M5: Cache System
+    P2->>P2: M6: Instagram Feed
 
-    A -.-> A1
-    B -.-> B1
-    C -.-> C1
+    P2-->>P3: Complete Phase 2
+
+    Note right of P3: Advanced Systems<br/>Distributed & Real World
+    P3->>P3: M7: Job Scheduler
+    P3->>P3: M8: Rate Limiter
+    P3->>P3: M9: Pub-Sub System
+    P3->>P3: M10: Workflow Orchestrator
+    P3->>P3: M11: E-Commerce Engine
+    P3->>P3: M12: Ride-Sharing Service
+    P3->>P3: M13: CI/CD Pipeline
 ```
 
 ---

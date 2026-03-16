@@ -3,24 +3,25 @@
 A guide to mastering High-Level Design (HLD) for large-scale distributed systems.
 
 ```mermaid
-flowchart TD
-    subgraph Theory ["1. Theoretical Curriculum"]
-        M[Mastery Program]
-    end
+sequenceDiagram
+    %% Participants for each major category
+    participant Ph1 as "Phase 1 Theoretical Curriculum"
+    participant Ph2 as "Phase 2 Architectural Case Studies"
 
-    subgraph CaseStudies ["2. Architectural Case Studies"]
-        A[Social Media & Messaging]
-        B[Streaming & Content Delivery]
-        C[Payment & Real-time Booking]
-        D[Distributed Storage & Databases]
-        E[Utility Services]
-    end
+    %% Phase 1 activities
+    Note right of Ph1: 1. Theoretical Curriculum
+    Ph1->>Ph1: Mastery Program
 
-    M --> A
-    M --> B
-    M --> C
-    M --> D
-    M --> E
+    %% Move to Phase 2
+    Ph1-->>Ph2: Complete Theory
+
+    %% Phase 2 activities
+    Note right of Ph2: 2. Architectural Case Studies
+    Ph2->>Ph2: Social Media & Messaging
+    Ph2->>Ph2: Streaming & Content Delivery
+    Ph2->>Ph2: Payment & Real‑Time Booking
+    Ph2->>Ph2: Distributed Storage & Databases
+    Ph2->>Ph2: Utility Services
 ```
 
 ## 📘 Theoretical Curriculum
