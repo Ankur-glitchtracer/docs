@@ -13,8 +13,10 @@
         <link rel="canonical" href="https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/utilities/TICKET_BOOKING/">
       
       
-        <link rel="prev" href="../RATE_LIMITER/">
+        <link rel="prev" href="../URL_SHORTENER/">
       
+      
+        <link rel="next" href="../../payment_systems/UBER_HLD/">
       
       
         
@@ -25,7 +27,7 @@
     
     
       
-        <title>Ticket Booking - Software Engineering Mastery Handbook</title>
+        <title>Ticket Booking (Ticketmaster) - Software Engineering Mastery Handbook</title>
       
     
     
@@ -76,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#system-design-high-concurrency-ticket-booking-thundering-herd" class="md-skip">
+        <a href="#system-design-high-concurrency-ticket-booking-ticketmaster-bookmyshow" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Ticket Booking
+              Ticket Booking (Ticketmaster)
             
           </span>
         </div>
@@ -9700,6 +9702,780 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/KEY_CHARACTERISTICS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Key Characteristics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/DISTRIBUTED_THEOREMS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Theorems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/ARCHITECTURE_PATTERNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/CAPACITY_CHEAT_SHEET/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capacity Cheat Sheet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/LOAD_BALANCING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load Balancing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/CACHING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caching Strategies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/DATA_PARTITIONING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Partitioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/microservices/PROXIES_AND_NETWORKING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proxies & Networking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/database_scaling/SQL_VS_NOSQL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL vs NoSQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_6" id="__nav_11_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microservices & LLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Microservices & LLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/microservices/MICROSERVICES_DECOUPLING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decoupling & Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/microservices/API_GATEWAY_AND_MESSAGING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Gateway & Messaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/LLD_DESIGN_PRINCIPLES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Design Principles (SOLID)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_7" id="__nav_11_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Storage Internals
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Distributed Storage Internals
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/DYNAMO_AND_CASSANDRA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dynamo & Cassandra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/NOSQL_INTERNALS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NoSQL (Dynamo/Cassandra/BigTable)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/CONFLICT_RESOLUTION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conflict Resolution (Vector Clocks)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/CASSANDRA_TOMBSTONES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cassandra Tombstones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/GFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Google File System (GFS)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/HDFS_HIGH_AVAILABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hadoop (HDFS) High Availability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/BIGTABLE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BigTable Recovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/CHUBBY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chubby Lock Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/KAFKA_DEEP_DIVE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kafka Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/KAFKA_SPLIT_BRAIN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kafka Split Brain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/KAFKA_AND_HDFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kafka & HDFS High-Level
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -9733,17 +10509,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_8" checked>
         
           
-          <label class="md-nav__link" for="__nav_11_6" id="__nav_11_6_label" tabindex="">
+          <label class="md-nav__link" for="__nav_11_8" id="__nav_11_8_label" tabindex="">
             
   
   
   <span class="md-ellipsis">
     
   
-    Architectures
+    Applied Architectures
   
 
     
@@ -9754,16 +10530,98 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_11_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11_8">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Architectures
+    Applied Architectures
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_8_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_8_1" id="__nav_11_8_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Social Media
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_11_8_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_8_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Social Media
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../social_media/MASTER_ARCHITECTURE_TEMPLATE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Master Architecture Template
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -9780,6 +10638,34 @@
     
   
     WhatsApp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../social_media/FACEBOOK_NEWSFEED/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Facebook Newsfeed
   
 
     
@@ -9828,6 +10714,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../../social_media/FACEBOOK_MESSENGER/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Facebook Messenger
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../social_media/INSTAGRAM_HLD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instagram HLD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../social_media/TWITTER_HLD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Twitter Timeline & Sharding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../streaming/NETFLIX/" class="md-nav__link">
         
   
@@ -9849,6 +10819,68 @@
 
               
             
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_8_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_8_2" id="__nav_11_8_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Streaming & Storage
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_11_8_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_8_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Streaming & Storage
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
               
                 
   
@@ -9856,14 +10888,42 @@
   
   
     <li class="md-nav__item">
-      <a href="../../payment_systems/UBER_HLD/" class="md-nav__link">
+      <a href="../../social_media/YOUTUBE_NETFLIX_STREAMING/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Uber Global
+    Netflix & YouTube
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/DROPBOX_GOOGLE_DRIVE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dropbox / Google Drive
   
 
     
@@ -9933,6 +10993,68 @@
 
               
             
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_8_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_11_8_3" id="__nav_11_8_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities & Search
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_11_8_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11_8_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Utilities & Search
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
               
                 
   
@@ -9940,14 +11062,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../URL_SHORTENER/" class="md-nav__link">
+      <a href="../RATE_LIMITER/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    URL Shortener
+    API Rate Limiter
   
 
     
@@ -9968,14 +11090,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../RATE_LIMITER/" class="md-nav__link">
+      <a href="../URL_SHORTENER/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    API Rate Limiter
+    URL Shortener
   
 
     
@@ -10012,7 +11134,7 @@
   <span class="md-ellipsis">
     
   
-    Ticket Booking
+    Ticket Booking (Ticketmaster)
   
 
     
@@ -10030,7 +11152,7 @@
   <span class="md-ellipsis">
     
   
-    Ticket Booking
+    Ticket Booking (Ticketmaster)
   
 
     
@@ -10056,26 +11178,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#1-functional-non-functional-requirements" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📝 Overview
+        1. Functional &amp; Non-Functional Requirements
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#functional-non-functional-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛠️ Functional &amp; Non-Functional Requirements
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🛠️ Functional &amp; Non-Functional Requirements">
+    <nav class="md-nav" aria-label="1. Functional &amp; Non-Functional Requirements">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -10106,10 +11217,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-engineering-story" class="md-nav__link">
+  <a href="#2-the-engineering-story" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🧠 The Engineering Story
+        2. The Engineering Story
       
     </span>
   </a>
@@ -10117,22 +11228,44 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#high-level-architecture" class="md-nav__link">
+  <a href="#3-high-level-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ High-Level Architecture
+        3. High-Level Architecture
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🏗️ High-Level Architecture">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-concurrency-database-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Concurrency &amp; Database Isolation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Concurrency &amp; Database Isolation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#key-design-challenges" class="md-nav__link">
+  <a href="#the-write-lock-transaction-isolation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Key Design Challenges:
+        The Write Lock &amp; Transaction Isolation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimistic-locking-alternativesecondary-measure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimistic Locking (Alternative/Secondary Measure)
       
     </span>
   </a>
@@ -10145,33 +11278,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#deep-dives" class="md-nav__link">
+  <a href="#5-database-schema-data-modeling" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🔍 Deep Dives
+        5. Database Schema &amp; Data Modeling
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#data-modeling-api-design" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📊 Data Modeling &amp; API Design
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="📊 Data Modeling &amp; API Design">
+    <nav class="md-nav" aria-label="5. Database Schema &amp; Data Modeling">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#data-model" class="md-nav__link">
+  <a href="#core-entities" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Data Model
+        Core Entities
       
     </span>
   </a>
@@ -10179,10 +11301,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#api-design" class="md-nav__link">
+  <a href="#show_seat-table" class="md-nav__link">
     <span class="md-ellipsis">
       
-        API Design
+        Show_Seat Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#booking-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Booking Table
       
     </span>
   </a>
@@ -10195,10 +11328,71 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#scalability-bottlenecks" class="md-nav__link">
+  <a href="#6-decoupled-daemon-services-workflows" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📈 Scalability &amp; Bottlenecks
+        6. Decoupled Daemon Services &amp; Workflows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Decoupled Daemon Services &amp; Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#seat-state-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Seat State Machine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-activereservationsservice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. ActiveReservationsService
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-waitingusersservice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. WaitingUsersService
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-primary-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. Primary Workflows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-key-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Key APIs
       
     </span>
   </a>
@@ -10206,21 +11400,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#interview-follow-ups" class="md-nav__link">
+  <a href="#8-practical-implementation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🎤 Interview Follow-ups
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-architectures" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔗 Related Architectures
+        8. Practical Implementation
       
     </span>
   </a>
@@ -10230,6 +11413,126 @@
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../payment_systems/UBER_HLD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Geospatial (Uber/Yelp)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../WEB_CRAWLER/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Crawler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../search_systems/TYPEAHEAD_SUGGESTION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Typeahead Suggestion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../search_systems/TWITTER_SEARCH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Twitter Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -10278,26 +11581,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#1-functional-non-functional-requirements" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📝 Overview
+        1. Functional &amp; Non-Functional Requirements
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#functional-non-functional-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛠️ Functional &amp; Non-Functional Requirements
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🛠️ Functional &amp; Non-Functional Requirements">
+    <nav class="md-nav" aria-label="1. Functional &amp; Non-Functional Requirements">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -10328,10 +11620,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-engineering-story" class="md-nav__link">
+  <a href="#2-the-engineering-story" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🧠 The Engineering Story
+        2. The Engineering Story
       
     </span>
   </a>
@@ -10339,22 +11631,44 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#high-level-architecture" class="md-nav__link">
+  <a href="#3-high-level-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ High-Level Architecture
+        3. High-Level Architecture
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🏗️ High-Level Architecture">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-concurrency-database-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Concurrency &amp; Database Isolation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Concurrency &amp; Database Isolation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#key-design-challenges" class="md-nav__link">
+  <a href="#the-write-lock-transaction-isolation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Key Design Challenges:
+        The Write Lock &amp; Transaction Isolation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimistic-locking-alternativesecondary-measure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimistic Locking (Alternative/Secondary Measure)
       
     </span>
   </a>
@@ -10367,33 +11681,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#deep-dives" class="md-nav__link">
+  <a href="#5-database-schema-data-modeling" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🔍 Deep Dives
+        5. Database Schema &amp; Data Modeling
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#data-modeling-api-design" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📊 Data Modeling &amp; API Design
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="📊 Data Modeling &amp; API Design">
+    <nav class="md-nav" aria-label="5. Database Schema &amp; Data Modeling">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#data-model" class="md-nav__link">
+  <a href="#core-entities" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Data Model
+        Core Entities
       
     </span>
   </a>
@@ -10401,10 +11704,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#api-design" class="md-nav__link">
+  <a href="#show_seat-table" class="md-nav__link">
     <span class="md-ellipsis">
       
-        API Design
+        Show_Seat Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#booking-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Booking Table
       
     </span>
   </a>
@@ -10417,10 +11731,71 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#scalability-bottlenecks" class="md-nav__link">
+  <a href="#6-decoupled-daemon-services-workflows" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📈 Scalability &amp; Bottlenecks
+        6. Decoupled Daemon Services &amp; Workflows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Decoupled Daemon Services &amp; Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#seat-state-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Seat State Machine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-activereservationsservice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. ActiveReservationsService
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-waitingusersservice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. WaitingUsersService
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-primary-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. Primary Workflows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-key-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Key APIs
       
     </span>
   </a>
@@ -10428,21 +11803,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#interview-follow-ups" class="md-nav__link">
+  <a href="#8-practical-implementation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🎤 Interview Follow-ups
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-architectures" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔗 Related Architectures
+        8. Practical Implementation
       
     </span>
   </a>
@@ -10469,73 +11833,123 @@
   
 
 
-<h1 id="system-design-high-concurrency-ticket-booking-thundering-herd">🎫 System Design: High-Concurrency Ticket Booking (Thundering Herd)</h1>
-<h2 id="overview">📝 Overview</h2>
-<p>A <strong>High-Concurrency Ticket Booking</strong> platform designed to handle extreme traffic spikes during flash sales, such as world tour concerts or major sporting events. It utilizes advanced locking strategies, virtual waiting rooms, and idempotent payment processing to ensure reliable seat allocation and prevent system collapse under a "thundering herd" of requests.</p>
-<div class="admonition abstract">
-<p class="admonition-title">Core Concepts</p>
-<ul>
-<li><strong>Thundering Herd Effect:</strong> A massive, simultaneous spike in requests hitting the same resource (e.g., a popular concert's seat map).</li>
-<li><strong>Virtual Waiting Rooms:</strong> Implementing a queue-based entry system to throttle traffic to the core booking engine.</li>
-<li><strong>Optimistic vs. Pessimistic Locking:</strong> Balancing performance and consistency when reserving highly contested resources.</li>
-</ul>
-</div>
-<h2 id="functional-non-functional-requirements">🛠️ Functional &amp; Non-Functional Requirements</h2>
+<h1 id="system-design-high-concurrency-ticket-booking-ticketmaster-bookmyshow">🎫 System Design: High-Concurrency Ticket Booking (Ticketmaster / BookMyShow)</h1>
+<p>Designing a highly concurrent ticketing system requires solving the <strong>"Fast-Changing Temporary State"</strong> problem. When tens of thousands of fans attempt to book the exact same highly anticipated concert seats simultaneously during a flash sale, the system must guarantee absolute data integrity (ACID properties), prevent double-booking, and avoid collapsing under the immense load.</p>
+<hr />
+<h2 id="1-functional-non-functional-requirements">1. Functional &amp; Non-Functional Requirements</h2>
 <h3 id="functional-requirements">Functional Requirements</h3>
-<ol>
-<li><strong>Seat Reservation:</strong> Implement a temporary lock (TTL) on a seat for 10-15 minutes while the user completes the payment.</li>
-<li><strong>Dynamic Inventory Updates:</strong> Provide real-time feedback on seat availability to users in the waiting room.</li>
-<li><strong>Secure Transaction Processing:</strong> Complete ticket purchases via integrated payment gateways with high reliability.</li>
-</ol>
+<ul>
+<li><strong>Seat Reservation:</strong> Implement a temporary lock (TTL) on a seat (e.g., 5-10 minutes) while the user completes payment.</li>
+<li><strong>Dynamic Inventory Updates:</strong> Provide real-time feedback on seat availability to all users.</li>
+<li><strong>Secure Transactions:</strong> Process payments reliably and finalize seat ownership.</li>
+</ul>
 <h3 id="non-functional-requirements">Non-Functional Requirements</h3>
-<ol>
-<li><strong>Extreme Scalability:</strong> System must handle 100x-1000x normal load during flash sale windows.</li>
-<li><strong>Data Integrity:</strong> Zero tolerance for double-booking; every seat must be sold to exactly one person.</li>
-<li><strong>Low Latency:</strong> The seat selection and reservation flow must be highly responsive to minimize abandonment.</li>
-</ol>
-<h2 id="the-engineering-story">🧠 The Engineering Story</h2>
-<p><strong>The Villain:</strong> "The Thundering Herd." 1M Taylor Swift fans hitting the "Buy" button at 10:00:00 AM, instantly melting your database with row-level locks on the same 1,000 seats.</p>
-<p><strong>The Hero:</strong> "The Virtual Waiting Room." A message queue or gateway that throttles traffic, only letting 5,000 users into the booking flow at a time.</p>
-<p><strong>The Plot:</strong></p>
-<ol>
-<li><strong>Waiting Room:</strong> Queue users at the entry point and issue session-based tokens to control flow.</li>
-<li><strong>Seat Selection:</strong> Use Redis-based distributed locks or DB optimistic locking to reserve a seat temporarily.</li>
-<li><strong>Payment:</strong> Hand off to a reliable payment service with unique idempotent keys to prevent double charging.</li>
-</ol>
-<p><strong>The Twist (Failure):</strong> "The Phantom Seat." A user locks a seat, goes to pay, their internet dies, and the seat is "stuck" in a locked state for 15 minutes while other fans can't buy it.</p>
-<p><strong>Interview Signal:</strong> Mastery of <strong>Concurrency Control</strong>, <strong>Message Queuing</strong>, and <strong>Failure-Mode Analysis</strong>.</p>
-<h2 id="high-level-architecture">🏗️ High-Level Architecture</h2>
-<p>Design a system like Ticketmaster or IRCTC that handles extreme traffic spikes during a "flash sale" (e.g., world tour tickets) while ensuring data integrity and a fair user experience.</p>
-<h3 id="key-design-challenges">Key Design Challenges:</h3>
 <ul>
-<li><strong>Thundering Herd Effect:</strong> Managing thousands of requests hitting the same DB record simultaneously.</li>
-<li><strong>Locking Strategies:</strong> Choosing between Optimistic (high performance) vs. Pessimistic (high safety) locks for seat allocation.</li>
-<li><strong>Queueing Architecture:</strong> Implementing a robust waiting room to manage user expectations and system load.</li>
-<li><strong>Idempotency:</strong> Ensuring a user isn't charged twice if they click "Pay" multiple times due to slow responses.</li>
-<li><strong>Resilience:</strong> Using the Circuit Breaker pattern to protect the internal services when third-party payment gateways become unstable.</li>
+<li><strong>Extreme Scalability:</strong> Handle 100x traffic spikes during world-tour-level concert sales.</li>
+<li><strong>Data Integrity (ACID):</strong> Zero tolerance for double-booking; every seat must be sold to exactly one user.</li>
+<li><strong>Low Latency:</strong> High responsiveness during seat selection to minimize abandonment.</li>
 </ul>
-<h2 id="deep-dives">🔍 Deep Dives</h2>
-<p>(To be detailed...)</p>
-<h2 id="data-modeling-api-design">📊 Data Modeling &amp; API Design</h2>
-<h3 id="data-model">Data Model</h3>
+<hr />
+<h2 id="2-the-engineering-story">2. The Engineering Story</h2>
+<p><strong>The Villain:</strong> "The Thundering Herd." 1M fans hit the "Buy" button at 10:00:00 AM, instantly melting the database with row-level locks on the same 1,000 seats.</p>
+<p><strong>The Hero:</strong> "The Virtual Waiting Room." A gateway or message queue that acts as a token/leaky bucket, throttling traffic and only letting a sustainable number of users (e.g., 5,000) into the booking flow at a time so internal services are not overwhelmed.</p>
+<p><strong>The Plot:</strong>
+1.  <strong>Waiting Room:</strong> Queue users at the entry point and issue session-based tokens to control flow.
+2.  <strong>Seat Selection:</strong> Use distributed/database locking to reserve a seat temporarily.
+3.  <strong>Payment:</strong> Hand off to a payment service with unique idempotent keys to prevent double-charging.</p>
+<p><strong>The Twist (Failure):</strong> "The Phantom Seat." A user locks a seat, starts paying, but their internet dies. The seat remains "stuck" in a locked state, preventing other fans from buying it until the TTL expires.</p>
+<hr />
+<h2 id="3-high-level-architecture">3. High-Level Architecture</h2>
+<p>To handle massive concurrency, state management is offloaded to specialized microservices, protecting the primary database.</p>
+<pre class="mermaid"><code>graph TD
+    Client --&gt; LB[Load Balancer]
+    LB --&gt; Gateway[Virtual Waiting Room / API Gateway]
+
+    Gateway --&gt;|Throttle| Auth[Auth Service]
+    Gateway --&gt;|Token Valid| Booking[Booking Service]
+
+    subgraph "State Management"
+        Booking &lt;--&gt; ActiveSvc[ActiveReservations Service]
+        ActiveSvc &lt;--&gt; Redis[(Redis Cluster)]
+        Booking &lt;--&gt; WaitSvc[WaitingUsers Service]
+    end
+
+    Booking --&gt; DB[(Primary SQL DB)]
+    Booking --&gt; Pay[Payment Gateway]</code></pre>
+<hr />
+<h2 id="4-concurrency-database-isolation">4. Concurrency &amp; Database Isolation</h2>
+<p>To safely handle highly concurrent environments, the core reservation process relies on strict SQL database transactions to prevent two users from paying for the same seat. </p>
+<h3 id="the-write-lock-transaction-isolation">The Write Lock &amp; Transaction Isolation</h3>
+<p>The system utilizes the <strong>SERIALIZABLE Transaction Isolation Level</strong> or explicit pessimistic locking (<code>SELECT ... FOR UPDATE</code>). </p>
+<p>When a user attempts to hold a seat, the database initiates a transaction and queries the target rows to verify availability. Because the transaction operates at the highest isolation level, read rows are immediately secured with a <strong>write lock (exclusive lock)</strong>. While one user's transaction evaluates the seat, no other transaction can read, modify, or lock those exact rows. </p>
+<p>This inherently prevents catastrophic booking errors:
+* <strong>Dirty Reads:</strong> Concurrent users cannot read uncommitted, intermediate hold statuses.
+* <strong>Non-Repeatable Reads:</strong> The targeted seat's status cannot be altered by a concurrent transaction mid-evaluation.
+* <strong>Phantom Reads:</strong> No new, conflicting records can be inserted into the transaction's read range.</p>
+<h3 id="optimistic-locking-alternativesecondary-measure">Optimistic Locking (Alternative/Secondary Measure)</h3>
+<p>Adding a <code>version</code> number to each seat row can act as another layer of defense.
+* <code>UPDATE seats SET status='Booked', version=version+1 WHERE id=? AND version=current_version;</code>
+* If the version changes between the read and write, the transaction fails safely.</p>
+<p>Only if the initial transaction securely confirms the seats are free does it proceed to update the tables to finalize the temporary hold and <strong>commit the transaction</strong>.</p>
+<hr />
+<h2 id="5-database-schema-data-modeling">5. Database Schema &amp; Data Modeling</h2>
+<p>To support rapid state transitions, the database must clearly track the lifecycle of every seat and booking.</p>
+<h3 id="core-entities">Core Entities</h3>
 <ul>
-<li><strong>(To be detailed...)</strong>: (To be detailed...)</li>
+<li><strong>Event:</strong> EventID, Name, Date.</li>
+<li><strong>Show:</strong> ShowID, EventID, VenueID, StartTime.</li>
 </ul>
-<h3 id="api-design">API Design</h3>
+<h3 id="show_seat-table">Show_Seat Table</h3>
+<p>Tracks the physical seats for a specific show.
+* <strong>Fields:</strong> <code>ShowID</code>, <code>SeatID</code>, <code>Status</code>
+* <strong>Status Codes:</strong> Available (0), Reserved (1), Booked (2)</p>
+<h3 id="booking-table">Booking Table</h3>
+<p>Tracks the user's order and financial transaction.
+* <strong>Fields:</strong> <code>BookingID</code>, <code>UserID</code>, <code>ShowID</code>, <code>SeatIDs</code>, <code>Status</code>, <code>CreationTimestamp</code>, <code>ExpiryTime</code>
+* <strong>Status Codes:</strong> Pending, Confirmed, Expired, Cancelled</p>
+<hr />
+<h2 id="6-decoupled-daemon-services-workflows">6. Decoupled Daemon Services &amp; Workflows</h2>
+<p>Once the database transaction commits the temporary hold, state management is handed over to highly concurrent, in-memory daemon services. </p>
+<h3 id="seat-state-machine">Seat State Machine</h3>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; Available
+    Available --&gt; Held : User selects seat (TTL Lock acquired)
+    Held --&gt; Booked : Payment Successful
+    Held --&gt; Available : Payment Timeout (TTL Expired)
+    Held --&gt; Available : User Cancels
+    Booked --&gt; [*]</code></pre>
+<h3 id="a-activereservationsservice">A. ActiveReservationsService</h3>
+<p>Strictly manages seats in a "Held" state awaiting payment.</p>
 <ul>
-<li><strong>(To be detailed...)</strong>: (To be detailed...)</li>
+<li><strong>In-Memory/Distributed Tracking:</strong> Holds are maintained in a Redis Cluster or an in-memory <code>LinkedHashMap</code> for extremely fast TTL expiration tracking. The <code>LinkedHashMap</code> inherently maintains insertion order, easily identifying the oldest expired reservations at the head.</li>
+<li><strong>Database State:</strong> Persisted in parallel within the <code>Booking</code> table (Status = Reserved).</li>
+<li><strong>Timeout Buffering:</strong> Includes a <strong>five-second buffer</strong> on the server-side expiration timer to safeguard against slight network delays or out-of-sync UI timers, preventing the server from rigidly dropping a DB hold right as a payment goes through.</li>
 </ul>
-<h2 id="scalability-bottlenecks">📈 Scalability &amp; Bottlenecks</h2>
-<p>(To be detailed...)</p>
-<h2 id="interview-follow-ups">🎤 Interview Follow-ups</h2>
+<h3 id="b-waitingusersservice">B. WaitingUsersService</h3>
+<p>Tracks users attempting to book a currently held seat, ensuring a fair FIFO (First-In-First-Out) distributed queue system.</p>
 <ul>
-<li><strong>Harder Variant:</strong> (To be detailed...)</li>
-<li><strong>Scale Question:</strong> (To be detailed...)</li>
-<li><strong>Edge Case Probe:</strong> (To be detailed...)</li>
+<li><strong>Queue Management:</strong> Users clicking a Reserved seat are added to a distributed queue (e.g., Redis Queue).</li>
+<li><strong>Real-Time Notification:</strong> If a hold expires, <code>ActiveReservationsService</code> broadcasts an alert. This service pops the longest-waiting customer from the queue and sends a WebSockets or push notification indicating the seat is available.</li>
 </ul>
-<h2 id="related-architectures">🔗 Related Architectures</h2>
+<h3 id="c-primary-workflows">C. Primary Workflows</h3>
 <ul>
-<li><a href="../RATE_LIMITER/">Rate Limiter</a> — For traffic control and thundering herd mitigation.</li>
+<li><strong>Successful Booking:</strong> The database Status updates to Booked (2), and the reservation is purged from the in-memory cache/Redis.</li>
+<li><strong>Expiration:</strong> The <code>ActiveReservationsService</code> flags the timeout. The database booking is set to Expired, physical seats revert to Available (0), and the memory is purged.</li>
+<li><strong>Cancellation:</strong> User abandons the cart, triggering an immediate early-expiration workflow without waiting for the TTL.</li>
+</ul>
+<hr />
+<h2 id="7-key-apis">7. Key APIs</h2>
+<ul>
+<li><code>POST /v1/reservations</code>: Reserve a seat temporarily (returns TTL and ReservationID).</li>
+<li><code>POST /v1/bookings/confirm</code>: Finalize the purchase with a payment token (Idempotent).</li>
+</ul>
+<hr />
+<h2 id="8-practical-implementation">8. Practical Implementation</h2>
+<p>Explore these machine coding implementations related to concurrent resource allocation, SOLID principles, and e-commerce transactions:</p>
+<ul>
+<li><strong>Resource Allocation:</strong> <a href="../../../../machine_coding/systems/parking_lot/PROBLEM/">Machine Coding: Parking Lot</a></li>
+<li><strong>Transactional Workflows:</strong> <a href="../../../../machine_coding/real_world_systems/e_commerce_order_system/PROBLEM/">Machine Coding: E-Commerce Order System</a></li>
+<li><strong>Traffic Control:</strong> <a href="../RATE_LIMITER/">System Design: Rate Limiter</a></li>
 </ul>
 
 

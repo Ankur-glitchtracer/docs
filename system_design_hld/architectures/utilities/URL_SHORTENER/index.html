@@ -13,10 +13,10 @@
         <link rel="canonical" href="https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/utilities/URL_SHORTENER/">
       
       
-        <link rel="prev" href="../../distributed_storage/KV_STORE/">
+        <link rel="prev" href="../RATE_LIMITER/">
       
       
-        <link rel="next" href="../RATE_LIMITER/">
+        <link rel="next" href="../TICKET_BOOKING/">
       
       
         
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#system-design-url-shortener-tinyurl" class="md-skip">
+        <a href="#designing-a-url-shortener-tinyurl" class="md-skip">
           Skip to content
         </a>
       
@@ -9702,6 +9702,780 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/KEY_CHARACTERISTICS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Key Characteristics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/DISTRIBUTED_THEOREMS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Theorems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/ARCHITECTURE_PATTERNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/CAPACITY_CHEAT_SHEET/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capacity Cheat Sheet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/LOAD_BALANCING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load Balancing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/CACHING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caching Strategies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/DATA_PARTITIONING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Partitioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/microservices/PROXIES_AND_NETWORKING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proxies & Networking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/database_scaling/SQL_VS_NOSQL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL vs NoSQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_6" id="__nav_11_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microservices & LLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Microservices & LLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/microservices/MICROSERVICES_DECOUPLING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decoupling & Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/microservices/API_GATEWAY_AND_MESSAGING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Gateway & Messaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/LLD_DESIGN_PRINCIPLES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Design Principles (SOLID)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_7" id="__nav_11_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Storage Internals
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Distributed Storage Internals
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/DYNAMO_AND_CASSANDRA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dynamo & Cassandra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/NOSQL_INTERNALS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NoSQL (Dynamo/Cassandra/BigTable)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/CONFLICT_RESOLUTION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conflict Resolution (Vector Clocks)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/CASSANDRA_TOMBSTONES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cassandra Tombstones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/GFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Google File System (GFS)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/HDFS_HIGH_AVAILABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hadoop (HDFS) High Availability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/BIGTABLE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BigTable Recovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/CHUBBY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chubby Lock Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/KAFKA_DEEP_DIVE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kafka Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/KAFKA_SPLIT_BRAIN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kafka Split Brain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/KAFKA_AND_HDFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kafka & HDFS High-Level
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -9735,17 +10509,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_8" checked>
         
           
-          <label class="md-nav__link" for="__nav_11_6" id="__nav_11_6_label" tabindex="">
+          <label class="md-nav__link" for="__nav_11_8" id="__nav_11_8_label" tabindex="">
             
   
   
   <span class="md-ellipsis">
     
   
-    Architectures
+    Applied Architectures
   
 
     
@@ -9756,16 +10530,98 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_11_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11_8">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Architectures
+    Applied Architectures
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_8_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_8_1" id="__nav_11_8_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Social Media
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_11_8_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_8_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Social Media
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../social_media/MASTER_ARCHITECTURE_TEMPLATE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Master Architecture Template
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -9782,6 +10638,34 @@
     
   
     WhatsApp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../social_media/FACEBOOK_NEWSFEED/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Facebook Newsfeed
   
 
     
@@ -9830,6 +10714,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../../social_media/FACEBOOK_MESSENGER/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Facebook Messenger
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../social_media/INSTAGRAM_HLD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instagram HLD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../social_media/TWITTER_HLD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Twitter Timeline & Sharding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../streaming/NETFLIX/" class="md-nav__link">
         
   
@@ -9851,6 +10819,68 @@
 
               
             
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_8_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_8_2" id="__nav_11_8_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Streaming & Storage
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_11_8_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_8_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Streaming & Storage
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
               
                 
   
@@ -9858,14 +10888,42 @@
   
   
     <li class="md-nav__item">
-      <a href="../../payment_systems/UBER_HLD/" class="md-nav__link">
+      <a href="../../social_media/YOUTUBE_NETFLIX_STREAMING/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Uber Global
+    Netflix & YouTube
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/DROPBOX_GOOGLE_DRIVE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dropbox / Google Drive
   
 
     
@@ -9922,6 +10980,96 @@
     
   
     Key-Value Store
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_8_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_11_8_3" id="__nav_11_8_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities & Search
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_11_8_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11_8_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Utilities & Search
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RATE_LIMITER/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Rate Limiter
   
 
     
@@ -10002,10 +11150,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#system-overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📝 Overview
+        System Overview
       
     </span>
   </a>
@@ -10013,18 +11161,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#functional-non-functional-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛠️ Functional &amp; Non-Functional Requirements
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🛠️ Functional &amp; Non-Functional Requirements">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#functional-requirements" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10034,28 +11170,23 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#non-functional-requirements" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#database-schema" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Non-Functional Requirements
+        Database Schema
       
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
       
         <li class="md-nav__item">
-  <a href="#the-engineering-story" class="md-nav__link">
+  <a href="#key-generation-service-kgs" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🧠 The Engineering Story
+        Key Generation Service (KGS)
       
     </span>
   </a>
@@ -10066,63 +11197,7 @@
   <a href="#high-level-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ High-Level Architecture
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🏗️ High-Level Architecture">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#key-design-challenges" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Key Design Challenges:
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Key Design Challenges:">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#capacity-planning-back-of-the-envelope" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Capacity Planning (Back-of-the-envelope)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#technical-challenges" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Technical Challenges
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#deep-dives" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔍 Deep Dives
+        High-Level Architecture
       
     </span>
   </a>
@@ -10130,49 +11205,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#data-modeling-api-design" class="md-nav__link">
+  <a href="#optimizations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📊 Data Modeling &amp; API Design
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="📊 Data Modeling &amp; API Design">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#data-model" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Data Model
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#api-design" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        API Design
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#scalability-bottlenecks" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📈 Scalability &amp; Bottlenecks
+        Optimizations
       
     </span>
   </a>
@@ -10180,21 +11216,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#interview-follow-ups" class="md-nav__link">
+  <a href="#4-practical-implementation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🎤 Interview Follow-ups
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-architectures" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔗 Related Architectures
+        4. Practical Implementation
       
     </span>
   </a>
@@ -10217,14 +11242,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../RATE_LIMITER/" class="md-nav__link">
+      <a href="../TICKET_BOOKING/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    API Rate Limiter
+    Ticket Booking (Ticketmaster)
   
 
     
@@ -10245,14 +11270,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../TICKET_BOOKING/" class="md-nav__link">
+      <a href="../../payment_systems/UBER_HLD/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Ticket Booking
+    Geospatial (Uber/Yelp)
   
 
     
@@ -10261,6 +11286,98 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../WEB_CRAWLER/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Crawler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../search_systems/TYPEAHEAD_SUGGESTION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Typeahead Suggestion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../search_systems/TWITTER_SEARCH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Twitter Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -10308,10 +11425,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#system-overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📝 Overview
+        System Overview
       
     </span>
   </a>
@@ -10319,18 +11436,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#functional-non-functional-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛠️ Functional &amp; Non-Functional Requirements
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🛠️ Functional &amp; Non-Functional Requirements">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#functional-requirements" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10340,28 +11445,23 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#non-functional-requirements" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#database-schema" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Non-Functional Requirements
+        Database Schema
       
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
       
         <li class="md-nav__item">
-  <a href="#the-engineering-story" class="md-nav__link">
+  <a href="#key-generation-service-kgs" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🧠 The Engineering Story
+        Key Generation Service (KGS)
       
     </span>
   </a>
@@ -10372,63 +11472,7 @@
   <a href="#high-level-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ High-Level Architecture
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🏗️ High-Level Architecture">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#key-design-challenges" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Key Design Challenges:
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Key Design Challenges:">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#capacity-planning-back-of-the-envelope" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Capacity Planning (Back-of-the-envelope)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#technical-challenges" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Technical Challenges
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#deep-dives" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔍 Deep Dives
+        High-Level Architecture
       
     </span>
   </a>
@@ -10436,49 +11480,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#data-modeling-api-design" class="md-nav__link">
+  <a href="#optimizations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📊 Data Modeling &amp; API Design
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="📊 Data Modeling &amp; API Design">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#data-model" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Data Model
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#api-design" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        API Design
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#scalability-bottlenecks" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📈 Scalability &amp; Bottlenecks
+        Optimizations
       
     </span>
   </a>
@@ -10486,21 +11491,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#interview-follow-ups" class="md-nav__link">
+  <a href="#4-practical-implementation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🎤 Interview Follow-ups
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-architectures" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔗 Related Architectures
+        4. Practical Implementation
       
     </span>
   </a>
@@ -10527,81 +11521,63 @@
   
 
 
-<h1 id="system-design-url-shortener-tinyurl">🔗 System Design: URL Shortener (TinyURL)</h1>
-<h2 id="overview">📝 Overview</h2>
-<p>A <strong>URL Shortener</strong> is a service that creates short, unique aliases for long URLs. Its primary goal is to provide a compact link that is easy to share while ensuring rapid redirection to the original destination, even under extreme read loads.</p>
-<div class="admonition abstract">
-<p class="admonition-title">Core Concepts</p>
-<ul>
-<li><strong>Base62 Encoding:</strong> Converting a unique numeric ID into a compact 7-character string using <code>[a-zA-Z0-9]</code>.</li>
-<li><strong>Unique ID Generation:</strong> Using distributed systems like Snowflake or database sequences to guarantee uniqueness without coordination overhead.</li>
-<li><strong>Heavy-Read Optimization:</strong> Utilizing intensive caching (Redis) for the most popular links to handle the high read-to-write ratio.</li>
-</ul>
-</div>
-<h2 id="functional-non-functional-requirements">🛠️ Functional &amp; Non-Functional Requirements</h2>
-<h3 id="functional-requirements">Functional Requirements</h3>
+<h1 id="designing-a-url-shortener-tinyurl">Designing a URL Shortener (TinyURL)</h1>
+<h2 id="system-overview">System Overview</h2>
+<p>A URL shortener service creates short aliases for long URLs (e.g., <code>tinyurl.com/xyz</code> -&gt; <code>example.com/very/long/path</code>). The system must be highly available and provide low-latency redirections.</p>
+<h2 id="functional-requirements">Functional Requirements</h2>
 <ol>
-<li><strong>URL Shortening:</strong> Accept a long URL and return a unique 7-character alias.</li>
-<li><strong>Redirection:</strong> Redirect short URL requests to the original long URL with minimal latency.</li>
-<li><strong>Custom Aliases:</strong> Allow users to provide their own custom short aliases.</li>
+<li>Generate a unique short alias for a given URL.</li>
+<li>Redirect the short alias to the original URL.</li>
+<li>Optional: Custom aliases and expiration times.</li>
 </ol>
-<h3 id="non-functional-requirements">Non-Functional Requirements</h3>
+<h2 id="database-schema">Database Schema</h2>
+<p>We require a scalable NoSQL store (e.g., DynamoDB, Cassandra) or a sharded RDBMS to handle billions of mappings.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Table</th>
+<th style="text-align: left;">Columns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>URL Mapping</strong></td>
+<td style="text-align: left;"><code>ShortKey</code> (PK), <code>OriginalURL</code>, <code>CreationDate</code>, <code>ExpirationDate</code>, <code>UserID</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>User</strong></td>
+<td style="text-align: left;"><code>UserID</code> (PK), <code>Name</code>, <code>Email</code>, <code>CreationDate</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="key-generation-service-kgs">Key Generation Service (KGS)</h2>
+<p>To ensure uniqueness and avoid collision checking on every write, we pre-generate keys.
+*   <strong>Offline Generation</strong>: A standalone service generates random 6-character strings (base64) and stores them in a <code>Key-DB</code>.
+*   <strong>Concurrency</strong>: Servers fetch a batch of keys into memory. Used keys are marked in the DB.</p>
+<h2 id="high-level-architecture">High-Level Architecture</h2>
+<pre class="mermaid"><code>graph LR
+    Client --&gt;|Shorten URL| AppServer
+    Client --&gt;|Access URL| LB[Load Balancer]
+    LB --&gt; AppServer
+    AppServer --&gt;|Get Key| KGS[Key Gen Service]
+    KGS --&gt;|Fetch| KeyDB
+    AppServer --&gt;|Store| DB[Url Mapping DB]
+    AppServer --&gt;|Check| Cache</code></pre>
+<h2 id="optimizations">Optimizations</h2>
 <ol>
-<li><strong>High Availability:</strong> The redirection service must be 99.999% available (it's useless if links don't work).</li>
-<li><strong>Low Latency:</strong> Redirects should happen in under 100ms.</li>
-<li><strong>Unpredictability:</strong> Shortened URLs should not be easily guessable to prevent bulk scraping of data.</li>
+<li><strong>Caching</strong>: Cache the most frequently accessed URLs (20% of URLs generate 80% of traffic). Use LRU eviction.</li>
+<li><strong>301 vs 302 Redirect</strong>:<ul>
+<li><strong>301 (Permanent)</strong>: Browser caches the redirect. Reduces server load but invalidates analytics.</li>
+<li><strong>302 (Temporary)</strong>: Request always hits the server. Good for analytics.</li>
+</ul>
+</li>
+<li><strong>Cleanup</strong>: Lazy cleanup. Delete expired links only when accessed or via a scheduled background job.</li>
 </ol>
-<h2 id="the-engineering-story">🧠 The Engineering Story</h2>
-<p><strong>The Villain:</strong> "The Duplicate Key." You use a random 7-character string for every URL. After 1 billion URLs, the chance of a collision (two URLs getting the same ID) becomes a certainty, breaking the web.</p>
-<p><strong>The Hero:</strong> "The Distributed Counter (Base62)." Using a unique 64-bit ID from a central generator (like Snowflake or a DB auto-increment) and encoding it into <code>a-zA-Z0-9</code>.</p>
-<p><strong>The Plot:</strong></p>
-<ol>
-<li><strong>ID Generation:</strong> Get a unique number (e.g., <code>1234567</code>).</li>
-<li><strong>Encoding:</strong> Convert the number to Base62 (e.g., <code>8cb</code>).</li>
-<li><strong>Storage:</strong> Map <code>8cb</code> -&gt; <code>https://long-url.com</code> in a KV store.</li>
-<li><strong>Caching:</strong> Cache the top 1% of URLs to handle 90% of traffic.</li>
-</ol>
-<p><strong>The Twist (Failure):</strong> <strong>The Prediction Attack.</strong> If you use sequential IDs, a competitor can script a crawl of every URL you've ever shortened by just incrementing the ID.</p>
-<p><strong>Interview Signal:</strong> mastery of <strong>Unique ID Generation</strong>, <strong>Encoding vs Hashing</strong>, and <strong>Read-Heavy Caching</strong>.</p>
-<h2 id="high-level-architecture">🏗️ High-Level Architecture</h2>
-<p>Design a service that converts long URLs into short, 7-character aliases (e.g., <code>bit.ly/xyz123</code>).</p>
-<h3 id="key-design-challenges">Key Design Challenges:</h3>
-<h4 id="capacity-planning-back-of-the-envelope">Capacity Planning (Back-of-the-envelope)</h4>
+<h2 id="4-practical-implementation">4. Practical Implementation</h2>
+<p>Explore low-level implementations of high-performance caches and unique ID generation:</p>
 <ul>
-<li><strong>Traffic:</strong> 100M new URLs per month.</li>
-<li><strong>Read/Write Ratio:</strong> 100:1 (Heavy reads).</li>
-<li><strong>Storage:</strong> 100M * 500 bytes = 5GB per month. 10 years = 600GB.</li>
-<li><strong>QPS:</strong> ~40 write QPS, ~4000 read QPS.</li>
-</ul>
-<h4 id="technical-challenges">Technical Challenges</h4>
-<ul>
-<li><strong>Key Generation:</strong> Base62 encoding vs. MD5 hashing.</li>
-<li><strong>Scaling Reads:</strong> Using a cache (Redis) for the top 20% of URLs.</li>
-<li><strong>Database Choice:</strong> Deciding between NoSQL (DynamoDB/Cassandra) for horizontal scale and SQL for structured management.</li>
-<li><strong>Redirection Latency:</strong> Minimizing the round-trip time for the redirect.</li>
-</ul>
-<h2 id="deep-dives">🔍 Deep Dives</h2>
-<p>(To be detailed...)</p>
-<h2 id="data-modeling-api-design">📊 Data Modeling &amp; API Design</h2>
-<h3 id="data-model">Data Model</h3>
-<ul>
-<li><strong>(To be detailed...)</strong>: (To be detailed...)</li>
-</ul>
-<h3 id="api-design">API Design</h3>
-<ul>
-<li><strong>(To be detailed...)</strong>: (To be detailed...)</li>
-</ul>
-<h2 id="scalability-bottlenecks">📈 Scalability &amp; Bottlenecks</h2>
-<p>(To be detailed...)</p>
-<h2 id="interview-follow-ups">🎤 Interview Follow-ups</h2>
-<ul>
-<li><strong>Harder Variant:</strong> (To be detailed...)</li>
-<li><strong>Scale Question:</strong> (To be detailed...)</li>
-<li><strong>Edge Case Probe:</strong> (To be detailed...)</li>
-</ul>
-<h2 id="related-architectures">🔗 Related Architectures</h2>
-<ul>
-<li><a href="../RATE_LIMITER/">Rate Limiter</a> — For link creation throttling.</li>
+<li><a href="../../../../machine_coding/systems/cache_system/PROBLEM/">Machine Coding: Cache System</a></li>
+<li><a href="../../social_media/TWITTER_HLD/">System Design: Twitter Feed (Snowflake ID)</a></li>
 </ul>
 
 

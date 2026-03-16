@@ -13,10 +13,10 @@
         <link rel="canonical" href="https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/payment_systems/UBER_HLD/">
       
       
-        <link rel="prev" href="../../streaming/NETFLIX/">
+        <link rel="prev" href="../../utilities/TICKET_BOOKING/">
       
       
-        <link rel="next" href="../../distributed_storage/S3_LITE/">
+        <link rel="next" href="../../utilities/WEB_CRAWLER/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Uber Global - Software Engineering Mastery Handbook</title>
+        <title>Geospatial (Uber/Yelp) - Software Engineering Mastery Handbook</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#system-design-ride-sharing-global-matcher-uber-global" class="md-skip">
+        <a href="#designing-uber-ride-hailing-system" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Uber Global
+              Geospatial (Uber/Yelp)
             
           </span>
         </div>
@@ -9702,6 +9702,780 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/KEY_CHARACTERISTICS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Key Characteristics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/DISTRIBUTED_THEOREMS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Theorems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/ARCHITECTURE_PATTERNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/CAPACITY_CHEAT_SHEET/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capacity Cheat Sheet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/LOAD_BALANCING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load Balancing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/CACHING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caching Strategies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/DATA_PARTITIONING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Partitioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/microservices/PROXIES_AND_NETWORKING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proxies & Networking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/database_scaling/SQL_VS_NOSQL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL vs NoSQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_6" id="__nav_11_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microservices & LLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Microservices & LLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/microservices/MICROSERVICES_DECOUPLING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decoupling & Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/microservices/API_GATEWAY_AND_MESSAGING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Gateway & Messaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/LLD_DESIGN_PRINCIPLES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Design Principles (SOLID)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_7" id="__nav_11_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Storage Internals
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Distributed Storage Internals
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/DYNAMO_AND_CASSANDRA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dynamo & Cassandra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/NOSQL_INTERNALS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NoSQL (Dynamo/Cassandra/BigTable)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/CONFLICT_RESOLUTION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conflict Resolution (Vector Clocks)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/CASSANDRA_TOMBSTONES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cassandra Tombstones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/GFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Google File System (GFS)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/HDFS_HIGH_AVAILABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hadoop (HDFS) High Availability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/BIGTABLE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BigTable Recovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/CHUBBY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chubby Lock Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/KAFKA_DEEP_DIVE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kafka Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/KAFKA_SPLIT_BRAIN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kafka Split Brain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/KAFKA_AND_HDFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kafka & HDFS High-Level
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -9735,17 +10509,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_8" checked>
         
           
-          <label class="md-nav__link" for="__nav_11_6" id="__nav_11_6_label" tabindex="">
+          <label class="md-nav__link" for="__nav_11_8" id="__nav_11_8_label" tabindex="">
             
   
   
   <span class="md-ellipsis">
     
   
-    Architectures
+    Applied Architectures
   
 
     
@@ -9756,16 +10530,98 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_11_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11_8">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Architectures
+    Applied Architectures
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_8_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_8_1" id="__nav_11_8_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Social Media
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_11_8_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_8_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Social Media
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../social_media/MASTER_ARCHITECTURE_TEMPLATE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Master Architecture Template
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -9782,6 +10638,34 @@
     
   
     WhatsApp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../social_media/FACEBOOK_NEWSFEED/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Facebook Newsfeed
   
 
     
@@ -9830,6 +10714,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../../social_media/FACEBOOK_MESSENGER/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Facebook Messenger
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../social_media/INSTAGRAM_HLD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instagram HLD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../social_media/TWITTER_HLD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Twitter Timeline & Sharding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../streaming/NETFLIX/" class="md-nav__link">
         
   
@@ -9851,30 +10819,47 @@
 
               
             
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
               
                 
   
   
+  
+  
     
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+    
+    
+    
       
       
         
       
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
+        
+        
           
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_8_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_8_2" id="__nav_11_8_2_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
     
   
-    Uber Global
+    Streaming & Storage
   
 
     
@@ -9882,17 +10867,35 @@
   
   
 
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_11_8_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_8_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Streaming & Storage
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../social_media/YOUTUBE_NETFLIX_STREAMING/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Uber Global
+    Netflix & YouTube
   
 
     
@@ -9901,198 +10904,34 @@
   
 
       </a>
-      
-        
+    </li>
+  
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+              
+            
+              
+                
   
   
   
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/DROPBOX_GOOGLE_DRIVE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
     
   
+    Dropbox / Google Drive
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📝 Overview
-      
-    </span>
-  </a>
+
+    
+  </span>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#functional-non-functional-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛠️ Functional &amp; Non-Functional Requirements
-      
-    </span>
-  </a>
   
-    <nav class="md-nav" aria-label="🛠️ Functional &amp; Non-Functional Requirements">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#functional-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Functional Requirements
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#non-functional-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Non-Functional Requirements
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-engineering-story" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🧠 The Engineering Story
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#high-level-architecture" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🏗️ High-Level Architecture
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🏗️ High-Level Architecture">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#key-design-challenges" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Key Design Challenges:
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#deep-dives" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔍 Deep Dives
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#data-modeling-api-design" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📊 Data Modeling &amp; API Design
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="📊 Data Modeling &amp; API Design">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#data-model" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Data Model
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#api-design" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        API Design
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#scalability-bottlenecks" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📈 Scalability &amp; Bottlenecks
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#interview-follow-ups" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🎤 Interview Follow-ups
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-architectures" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔗 Related Architectures
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
+
+      </a>
     </li>
   
 
@@ -10154,21 +10993,47 @@
 
               
             
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
               
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../utilities/URL_SHORTENER/" class="md-nav__link">
+  
+    
+    
+    
+    
+      
+      
         
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_8_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_11_8_3" id="__nav_11_8_3_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
     
   
-    URL Shortener
+    Utilities & Search
   
 
     
@@ -10176,11 +11041,19 @@
   
   
 
-      </a>
-    </li>
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_11_8_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11_8_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Utilities & Search
   
 
-              
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -10217,14 +11090,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../utilities/TICKET_BOOKING/" class="md-nav__link">
+      <a href="../../utilities/URL_SHORTENER/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Ticket Booking
+    URL Shortener
   
 
     
@@ -10233,6 +11106,367 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../utilities/TICKET_BOOKING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ticket Booking (Ticketmaster)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Geospatial (Uber/Yelp)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Geospatial (Uber/Yelp)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#system-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Components
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geospatial-indexing-quadtrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Geospatial Indexing: QuadTrees
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aggregator-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aggregator Service
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-sharding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Sharding
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-spatial-indexing-challenge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Spatial Indexing Challenge
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. The Spatial Indexing Challenge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-base-solution-quadtrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Base Solution: QuadTrees
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-yelp-static-workloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Yelp: Static Workloads
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-uber-high-frequency-dynamic-workloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Uber: High-Frequency Dynamic Workloads
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Uber: High-Frequency Dynamic Workloads">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decoupling-via-driverlocationht" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decoupling via DriverLocationHT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grid-cushioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grid Cushioning
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-real-time-notification-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Real-Time Notification Service
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical Implementation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../utilities/WEB_CRAWLER/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Crawler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../search_systems/TYPEAHEAD_SUGGESTION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Typeahead Suggestion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../search_systems/TWITTER_SEARCH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Twitter Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -10280,10 +11514,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#system-overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📝 Overview
+        System Overview
       
     </span>
   </a>
@@ -10291,33 +11525,77 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#functional-non-functional-requirements" class="md-nav__link">
+  <a href="#core-components" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🛠️ Functional &amp; Non-Functional Requirements
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🛠️ Functional &amp; Non-Functional Requirements">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#functional-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Functional Requirements
+        Core Components
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#non-functional-requirements" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#geospatial-indexing-quadtrees" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Non-Functional Requirements
+        Geospatial Indexing: QuadTrees
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aggregator-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aggregator Service
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-sharding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Sharding
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-spatial-indexing-challenge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Spatial Indexing Challenge
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. The Spatial Indexing Challenge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-base-solution-quadtrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Base Solution: QuadTrees
       
     </span>
   </a>
@@ -10330,10 +11608,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-engineering-story" class="md-nav__link">
+  <a href="#2-yelp-static-workloads" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🧠 The Engineering Story
+        2. Yelp: Static Workloads
       
     </span>
   </a>
@@ -10341,22 +11619,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#high-level-architecture" class="md-nav__link">
+  <a href="#3-uber-high-frequency-dynamic-workloads" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ High-Level Architecture
+        3. Uber: High-Frequency Dynamic Workloads
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🏗️ High-Level Architecture">
+    <nav class="md-nav" aria-label="3. Uber: High-Frequency Dynamic Workloads">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#key-design-challenges" class="md-nav__link">
+  <a href="#decoupling-via-driverlocationht" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Key Design Challenges:
+        Decoupling via DriverLocationHT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grid-cushioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grid Cushioning
       
     </span>
   </a>
@@ -10369,10 +11658,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#deep-dives" class="md-nav__link">
+  <a href="#4-real-time-notification-service" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🔍 Deep Dives
+        4. Real-Time Notification Service
       
     </span>
   </a>
@@ -10380,71 +11669,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#data-modeling-api-design" class="md-nav__link">
+  <a href="#practical-implementation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📊 Data Modeling &amp; API Design
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="📊 Data Modeling &amp; API Design">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#data-model" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Data Model
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#api-design" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        API Design
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#scalability-bottlenecks" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📈 Scalability &amp; Bottlenecks
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#interview-follow-ups" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🎤 Interview Follow-ups
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-architectures" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔗 Related Architectures
+        Practical Implementation
       
     </span>
   </a>
@@ -10471,72 +11699,110 @@
   
 
 
-<h1 id="system-design-ride-sharing-global-matcher-uber-global">🚖 System Design: Ride-Sharing Global Matcher (Uber Global)</h1>
-<h2 id="overview">📝 Overview</h2>
-<p>A <strong>Global Ride-Sharing Matcher</strong> designed for high-frequency location tracking and efficient rider-driver matchmaking. It leverages advanced geospatial indexing to handle millions of real-time updates and localized demand spikes, ensuring riders are matched with the nearest available drivers in seconds.</p>
-<div class="admonition abstract">
-<p class="admonition-title">Core Concepts</p>
+<h1 id="designing-uber-ride-hailing-system">Designing Uber (Ride-Hailing System)</h1>
+<h2 id="system-overview">System Overview</h2>
+<p>The system connects passengers with nearby drivers. It requires real-time location tracking, efficient geospatial querying, and high consistency for trip management.</p>
+<h2 id="core-components">Core Components</h2>
 <ul>
-<li><strong>Geospatial Indexing (H3/S2):</strong> Partitioning the globe into manageable cells (hexagons or squares) to enable efficient localized searches.</li>
-<li><strong>High-Frequency Pings:</strong> Managing millions of concurrent GPS updates from driver apps with minimal latency.</li>
-<li><strong>Distributed Locking:</strong> Ensuring atomic assignment of drivers to riders to prevent double-matching in a high-concurrency environment.</li>
+<li><strong>Driver Location Service</strong>: Receives location updates (every 3 seconds) from active drivers.</li>
+<li><strong>Passenger Service</strong>: Handles ride requests and payment.</li>
+<li><strong>Trip Service</strong>: Manages the state of a ride (Requested, Accepted, In-Progress, Completed).</li>
 </ul>
-</div>
-<h2 id="functional-non-functional-requirements">🛠️ Functional &amp; Non-Functional Requirements</h2>
-<h3 id="functional-requirements">Functional Requirements</h3>
-<ol>
-<li><strong>Location Tracking:</strong> Collect and process high-frequency GPS updates from millions of driver apps.</li>
-<li><strong>Real-time Matchmaking:</strong> Connect riders to the nearest available drivers in under 5 seconds.</li>
-<li><strong>Dynamic Surge Pricing:</strong> Calculate and apply price multipliers based on real-time supply and demand in specific geographic cells.</li>
-</ol>
-<h3 id="non-functional-requirements">Non-Functional Requirements</h3>
-<ol>
-<li><strong>Write-Heavy Performance:</strong> System must ingest and process millions of location pings per second with sub-second latency.</li>
-<li><strong>High Availability &amp; Partition Tolerance:</strong> Local matching services must remain functional even during regional network partitions.</li>
-<li><strong>Low Latency Matchmaking:</strong> The end-to-end matching process must be fast enough to prevent rider abandonment.</li>
-</ol>
-<h2 id="the-engineering-story">🧠 The Engineering Story</h2>
-<p><strong>The Villain:</strong> "The <span class="arithmatex">\(O(N)\)</span> Location Search." A rider in Manhattan asks for a car. If the server scans all 1M drivers globally to find the closest one, the request times out before the rider even sees a spinner.</p>
-<p><strong>The Hero:</strong> "The Geospatial Index (Quadtree/H3)." Partitioning the world into small boxes or hexagons so you only search the 50 drivers within 2 miles.</p>
-<p><strong>The Plot:</strong></p>
-<ol>
-<li><strong>Location Pings:</strong> Drivers send GPS updates every 5 seconds.</li>
-<li><strong>Index:</strong> Store locations in a geospatial index (e.g., Redis Geo or Google S2).</li>
-<li><strong>Matcher:</strong> Query the index for nearby available drivers.</li>
-<li><strong>Transaction:</strong> Use a distributed lock to ensure only one rider can "grab" a driver at a time.</li>
-</ol>
-<p><strong>The Twist (Failure):</strong> <strong>The New Year's Eve Spike.</strong> Demand in Times Square is 1,000x normal, crushing the geospatial shard for that specific GPS coordinate.</p>
-<p><strong>Interview Signal:</strong> Mastery of <strong>Geospatial Data Structures</strong>, <strong>High-Frequency Writes</strong>, and <strong>Distributed Locking</strong>.</p>
-<h2 id="high-level-architecture">🏗️ High-Level Architecture</h2>
-<p>Design the high-level architecture for a system that matches millions of riders with drivers globally while handling dynamic pricing and real-time location updates.</p>
-<h3 id="key-design-challenges">Key Design Challenges:</h3>
+<h2 id="geospatial-indexing-quadtrees">Geospatial Indexing: QuadTrees</h2>
+<p>To efficiently find drivers within a radius, we use a QuadTree.
+*   <strong>Structure</strong>: A tree where each node represents a geographical region. If a region contains too many points (drivers), it splits into four quadrants.
+*   <strong>Dynamic Updates</strong>: Drivers move constantly. Updating the QuadTree for every movement is expensive.
+    *   <em>Optimization</em>: Update the data structure only if the driver moves across a grid boundary.
+    *   <em>Hash Table</em>: Keep latest lat/long in a Hash Table for quick lookup; use QuadTree for range queries.</p>
+<pre class="mermaid"><code>graph TD
+    Root[World] --&gt; NW[North West]
+    Root --&gt; NE[North East]
+    Root --&gt; SW[South West]
+    Root --&gt; SE[South East]
+    NW --&gt; NW1[...]</code></pre>
+<h2 id="architecture">Architecture</h2>
+<pre class="mermaid"><code>graph LR
+    Driver --&gt;|Location Update| LB[Load Balancer]
+    Passenger --&gt;|Request Ride| LB
+    LB --&gt; Dispatch[Dispatch Service]
+    Dispatch --&gt;|Range Query| QuadTree[QuadTree Service]
+    Dispatch --&gt;|Find| DriverDB[Driver DB]
+    QuadTree --&gt;|Return IDs| Dispatch
+    Dispatch --&gt;|Notify| Driver</code></pre>
+<h2 id="aggregator-service">Aggregator Service</h2>
+<p>Since QuadTrees might be sharded, an Aggregator Service queries multiple QuadTree servers to gather results for a wide search radius, merges them, and returns the best matches to the Dispatch Service.</p>
+<h2 id="data-sharding">Data Sharding</h2>
 <ul>
-<li><strong>Geospatial Indexing:</strong> Choosing between Quadtrees, Google S2, or Uber H3 based on the need for uniform cell shapes and efficient neighbor searches.</li>
-<li><strong>Consistency &amp; Concurrency:</strong> Preventing race conditions where multiple riders are matched to the same driver simultaneously using distributed locks.</li>
-<li><strong>Handling Flash Crowds:</strong> Architecting for massive localized demand spikes (e.g., concerts or sports events) that can overwhelm specific geospatial shards.</li>
+<li><strong>Sharding by City/Region</strong>: Good for local queries but can cause hotspots (e.g., Manhattan vs. rural area).</li>
+<li><strong>Sharding by DriverID</strong>: Distributes load evenly but requires querying all shards to find nearby drivers.</li>
+<li><strong>Hybrid</strong>: Use H3 or S2 geometry libraries (Google) for uniform cell-based indexing.</li>
 </ul>
-<h2 id="deep-dives">🔍 Deep Dives</h2>
-<p>(To be detailed...)</p>
-<h2 id="data-modeling-api-design">📊 Data Modeling &amp; API Design</h2>
-<h3 id="data-model">Data Model</h3>
+<p>Design: Uber &amp; Yelp (Geospatial Architectures)</p>
+<p>Designing geospatial architectures requires solving fundamentally different problems based on the volatility of the data. This document outlines the differences between designing for static proximity services (Yelp) versus highly dynamic ride-hailing backends (Uber).</p>
+<h2 id="1-the-spatial-indexing-challenge">1. The Spatial Indexing Challenge</h2>
+<p>Storing locations in a standard relational database (Lat, Long) and querying via a bounding box (<code>BETWEEN X1 AND X2</code>) is extremely slow at scale because it requires intersecting massive datasets in memory.</p>
+<h3 id="the-base-solution-quadtrees">The Base Solution: QuadTrees</h3>
+<p>A QuadTree is a memory-efficient tree data structure where each node represents a geospatial region.</p>
 <ul>
-<li><strong>(To be detailed...)</strong>: (To be detailed...)</li>
+<li><strong>Node Capacity:</strong> A node splits into 4 child quadrants (NW, NE, SW, SE) when it contains more than a specific threshold (e.g., 500 locations).</li>
+<li><strong>Memory Footprint:</strong> Storing 500 million places/drivers requires just 24 bytes per record (LocationID + Lat/Long).<br />
+<code>500M * 24 bytes = 12 GB</code>, easily fitting entirely in RAM.</li>
 </ul>
-<h3 id="api-design">API Design</h3>
+<hr />
+<h2 id="2-yelp-static-workloads">2. Yelp: Static Workloads</h2>
+<p>For a static service like Yelp, the QuadTree works perfectly.</p>
 <ul>
-<li><strong>(To be detailed...)</strong>: (To be detailed...)</li>
+<li><strong>Stability:</strong> Because physical places (restaurants, monuments) do not move, the structural integrity of the QuadTree is highly stable.</li>
+<li><strong>Off-Peak Batching:</strong> Even for dynamic attributes like a place's popularity or rating, Yelp actively avoids updating the QuadTree in real-time, as doing so consumes significant CPU resources and degrades search throughput. Instead, updates are batched and applied once or twice a day during off-peak hours.</li>
 </ul>
-<h2 id="scalability-bottlenecks">📈 Scalability &amp; Bottlenecks</h2>
-<p>(To be detailed...)</p>
-<h2 id="interview-follow-ups">🎤 Interview Follow-ups</h2>
+<hr />
+<h2 id="3-uber-high-frequency-dynamic-workloads">3. Uber: High-Frequency Dynamic Workloads</h2>
+<p>Uber's active drivers are constantly moving, pinging their exact coordinates every 3 seconds.</p>
+<p>If Uber updated the distributed QuadTree synchronously with every 3-second ping, the system would melt down. Drivers crossing grid boundaries would constantly trigger computationally expensive node insertions, deletions, partitions, and merges.</p>
+<h3 id="decoupling-via-driverlocationht">Decoupling via DriverLocationHT</h3>
+<p>To prevent overwhelming the QuadTree, Uber decouples the rapid location updates from the spatial index using a distributed hash table.</p>
 <ul>
-<li><strong>Harder Variant:</strong> (To be detailed...)</li>
-<li><strong>Scale Question:</strong> (To be detailed...)</li>
-<li><strong>Edge Case Probe:</strong> (To be detailed...)</li>
+<li><strong>DriverLocationHT (Redis):</strong> The system stores the absolute latest driver positions in this hash table. It holds a highly compact record (35 bytes) for each driver:</li>
+<li>DriverID (3B)</li>
+<li>Old Lat/Long (16B)</li>
+<li>
+<p>New Lat/Long (16B)</p>
+</li>
+<li>
+<p><strong>Real-time Broadcasting:</strong> The servers holding this Hash Table immediately broadcast the new locations to any customers actively subscribed to a driver's journey.</p>
+</li>
+<li>
+<p><strong>Asynchronous QuadTree Updates:</strong> The Driver Location servers batch the updates and notify the QuadTree servers at a slower, asynchronous cadence (e.g., every 10 to 15 seconds). This drastically reduces the write load on the tree structure.</p>
+</li>
 </ul>
-<h2 id="related-architectures">🔗 Related Architectures</h2>
+<h3 id="grid-cushioning">Grid Cushioning</h3>
+<p>To further mitigate the risk of tree thrashing (continuous partitioning and merging of grids due to drivers hovering on a boundary), Uber implements a dynamic "cushion."</p>
+<p>Grids are allowed to temporarily grow or shrink by an extra 10% beyond their predefined limit (e.g., 550 drivers instead of 500) before a structural partition or merge is strictly enforced.</p>
+<pre class="mermaid"><code>graph TD
+    Driver[Driver App] --&gt;|Lat/Long every 3s| API[API Gateway]
+    API --&gt; DHT[(DriverLocationHT - Redis)]
+
+    DHT -.-&gt;|Batched Updates (10-15s)| QT[(QuadTree Servers)]
+
+    Customer[Customer App] --&gt;|Request Ride| Agg[Aggregator Service]
+    Agg --&gt; QT
+    QT --&gt;|Returns Nearby Drivers| Agg
+    Agg --&gt; DHT
+    DHT --&gt;|Fetches exact current coords| Agg
+    Agg --&gt;|Dispatches| Driver</code></pre>
+<hr />
+<h2 id="4-real-time-notification-service">4. Real-Time Notification Service</h2>
+<p>Once a customer opens the app, they must see the cars moving in real-time.</p>
 <ul>
-<li><a href="../../utilities/TICKET_BOOKING/">Ticket Booking</a> — For high-concurrency reservation patterns.</li>
+<li><strong>Publisher/Subscriber Model:</strong> The customer subscribes to the 5–10 closest drivers.</li>
+<li><strong>Bandwidth Estimate:</strong> If 500K active customers subscribe to 5 drivers each, the system manages <strong>2.5M active subscriptions</strong>. Broadcasting <strong>19 bytes</strong> of data per driver every 3 seconds requires approximately <strong>47.5 MB/s of egress bandwidth</strong>.</li>
+</ul>
+<hr />
+<h2 id="practical-implementation">Practical Implementation</h2>
+<p>Explore the low-level system implementations of this architecture within the repository:</p>
+<ul>
+<li><a href="../../../../machine_coding/real_world_systems/ride_sharing_service/PROBLEM/">Machine Coding: Ride Sharing Service</a></li>
+<li><a href="../../../../infrastructure_challenges/redis_rate_limiter/PROBLEM/">Infrastructure: Redis Rate Limiter</a></li>
 </ul>
 
 

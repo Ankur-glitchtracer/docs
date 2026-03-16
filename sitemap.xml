@@ -2,1030 +2,1162 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/engineering_metrics/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/interview_playbook/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/repo_index/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/todo/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/INSIGHTS/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/PATTERN_TEMPLATE/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/ROADMAP/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/behavioral/chain_of_responsibility/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/behavioral/command/smart_home_hub/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/behavioral/interpreter/rule_engine/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/behavioral/iterator/menu_iterator/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/behavioral/mediator/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/behavioral/memento/advanced_text_editor/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/behavioral/memento/text_editor_history/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/behavioral/mvc/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/behavioral/null_object/discount_system/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/behavioral/observer/basic_observer/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/behavioral/observer/iot_notification_system/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/behavioral/state/document_workflow/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/behavioral/state/gumball_machine_vending/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/behavioral/strategy/sprinkler_system/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/behavioral/template/data_exporter/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/behavioral/visitor/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/creational/abstract_factory/ui_toolkit/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/creational/builder/custom_pc_builder/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/creational/factory/coupon_factory/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/creational/factory/document_factory/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/creational/object_pool/db_connection_pool/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/creational/prototype/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/creational/singleton/singleton_pattern/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/structural/adapter/format_translator/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/structural/bridge/remote_control/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/structural/composite/organisation_chart/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/structural/decorator/pizza_builder_decorator/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/structural/facade/smart_home_facade/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/structural/flyweight/forest_simulator/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/design_patterns/structural/proxy/lazy_loading_proxy/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/DSA_TEMPLATE/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/INSIGHTS/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/ROADMAP/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/01_arrays_hashing/contains_duplicate/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/01_arrays_hashing/encode_and_decode_strings/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/01_arrays_hashing/group_anagrams/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/01_arrays_hashing/longest_consecutive_sequence/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/01_arrays_hashing/product_of_array_except_self/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/01_arrays_hashing/top_k_frequent_elements/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/01_arrays_hashing/two_sum/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/01_arrays_hashing/valid_anagram/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/01_arrays_hashing/valid_sudoku/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/02_two_pointers/3sum/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/02_two_pointers/container_with_most_water/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/02_two_pointers/trapping_rain_water/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/02_two_pointers/two_sum_ii/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/02_two_pointers/valid_palindrome/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/03_sliding_window/best_time_to_buy_sell_stock/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/03_sliding_window/longest_repeating_character_replacement/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/03_sliding_window/longest_substring_without_repeating_characters/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/03_sliding_window/minimum_window_substring/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/03_sliding_window/permutation_in_string/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/03_sliding_window/sliding_window_maximum/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/04_stack/car_fleet/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/04_stack/daily_temperatures/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/04_stack/evaluate_reverse_polish_notation/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/04_stack/generate_parentheses/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/04_stack/largest_rectangle_in_histogram/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/04_stack/min_stack/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/04_stack/valid_parentheses/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/05_binary_search/binary_search/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/05_binary_search/find_minimum_in_rotated_sorted_array/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/05_binary_search/koko_eating_bananas/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/05_binary_search/median_of_two_sorted_arrays/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/05_binary_search/search_2d_matrix/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/05_binary_search/search_in_rotated_sorted_array/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/05_binary_search/time_based_key_value_store/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/06_linked_list/add_two_numbers/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/06_linked_list/copy_list_with_random_pointer/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/06_linked_list/find_the_duplicate_number/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/06_linked_list/linked_list_cycle/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/06_linked_list/lru_cache/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/06_linked_list/merge_k_sorted_lists/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/06_linked_list/merge_sorted_lists/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/06_linked_list/palindrome_linked_list/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/06_linked_list/remove_nth_node_from_end_of_list/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/06_linked_list/reorder_list/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/06_linked_list/reverse_list/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/06_linked_list/reverse_nodes_in_k_group/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/07_trees/balanced_binary_tree/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/07_trees/binary_tree_level_order_traversal/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/07_trees/binary_tree_maximum_path_sum/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/07_trees/binary_tree_right_side_view/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/07_trees/construct_binary_tree_from_preorder_and_inorder/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/07_trees/count_good_nodes_in_binary_tree/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/07_trees/diameter_of_binary_tree/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/07_trees/invert_binary_tree/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/07_trees/kth_smallest_element_in_bst/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/07_trees/lowest_common_ancestor_bst/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/07_trees/maximum_depth_of_binary_tree/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/07_trees/same_tree/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/07_trees/serialize_and_deserialize_binary_tree/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/07_trees/subtree_of_another_tree/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/07_trees/validate_binary_search_tree/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/08_tries/design_add_and_search_words_data_structure/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/08_tries/implement_trie/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/08_tries/word_search_ii/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/09_heap_priority_queue/design_twitter/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/09_heap_priority_queue/find_median_from_data_stream/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/09_heap_priority_queue/k_closest_points_to_origin/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/09_heap_priority_queue/kth_largest_element_in_a_stream/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/09_heap_priority_queue/kth_largest_element_in_an_array/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/09_heap_priority_queue/last_stone_weight/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/09_heap_priority_queue/task_scheduler/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/10_backtracking/combination_sum/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/10_backtracking/combination_sum_ii/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/10_backtracking/letter_combinations_of_a_phone_number/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/10_backtracking/n_queens/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/10_backtracking/palindrome_partitioning/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/10_backtracking/permutations/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/10_backtracking/subsets/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/10_backtracking/subsets_ii/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/10_backtracking/word_search/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/11_graphs/clone_graph/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/11_graphs/course_schedule/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/11_graphs/course_schedule_ii/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/11_graphs/graph_valid_tree/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/11_graphs/max_area_of_island/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/11_graphs/number_of_connected_components_in_graph/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/11_graphs/number_of_islands/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/11_graphs/pacific_atlantic_water_flow/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/11_graphs/redundant_connection/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/11_graphs/rotting_oranges/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/11_graphs/surrounded_regions/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/11_graphs/walls_and_gates/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/11_graphs/word_ladder/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/12_advanced_graphs/alien_dictionary/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/12_advanced_graphs/cheapest_flights_within_k_stops/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/12_advanced_graphs/min_cost_to_connect_all_points/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/12_advanced_graphs/network_delay_time/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/12_advanced_graphs/reconstruct_itinerary/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/12_advanced_graphs/swim_in_rising_water/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/13_1d_dynamic_programming/climbing_stairs/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/13_1d_dynamic_programming/coin_change/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/13_1d_dynamic_programming/decode_ways/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/13_1d_dynamic_programming/house_robber/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/13_1d_dynamic_programming/house_robber_ii/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/13_1d_dynamic_programming/longest_increasing_subsequence/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/13_1d_dynamic_programming/longest_palindromic_substring/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/13_1d_dynamic_programming/maximum_product_subarray/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/13_1d_dynamic_programming/min_cost_climbing_stairs/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/13_1d_dynamic_programming/palindromic_substrings/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/13_1d_dynamic_programming/partition_equal_subset_sum/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/13_1d_dynamic_programming/word_break/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/14_2d_dynamic_programming/best_time_to_buy_and_sell_stock_with_cooldown/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/14_2d_dynamic_programming/burst_balloons/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/14_2d_dynamic_programming/coin_change_ii/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/14_2d_dynamic_programming/distinct_subsequences/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/14_2d_dynamic_programming/edit_distance/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/14_2d_dynamic_programming/interleaving_string/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/14_2d_dynamic_programming/longest_common_subsequence/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/14_2d_dynamic_programming/longest_increasing_path_in_matrix/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/14_2d_dynamic_programming/regular_expression_matching/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/14_2d_dynamic_programming/target_sum/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/14_2d_dynamic_programming/unique_paths/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/15_greedy/gas_station/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/15_greedy/hand_of_straights/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/15_greedy/jump_game/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/15_greedy/jump_game_ii/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/15_greedy/maximum_subarray/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/15_greedy/merge_triplets_to_form_target_triplet/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/15_greedy/partition_labels/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/15_greedy/valid_parenthesis_string/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/16_intervals/insert_interval/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/16_intervals/meeting_rooms/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/16_intervals/meeting_rooms_ii/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/16_intervals/merge_intervals/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/16_intervals/minimum_interval_to_include_each_query/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/16_intervals/non_overlapping_intervals/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/17_math_geometry/detect_squares/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/17_math_geometry/happy_number/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/17_math_geometry/multiply_strings/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/17_math_geometry/plus_one/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/17_math_geometry/pow_x_n/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/17_math_geometry/rotate_image/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/17_math_geometry/set_matrix_zeroes/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/17_math_geometry/spiral_matrix/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/18_bit_manipulation/counting_bits/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/18_bit_manipulation/missing_number/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/18_bit_manipulation/number_of_1_bits/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/18_bit_manipulation/reverse_bits/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/18_bit_manipulation/reverse_integer/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/18_bit_manipulation/single_number/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/18_bit_manipulation/sum_of_two_integers/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/19_sorting/bubble_sort/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/19_sorting/insertion_sort/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/19_sorting/merge_sort/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/19_sorting/quick_sort/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/dsa/19_sorting/selection_sort/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/infrastructure_challenges/INFRA_TEMPLATE/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/infrastructure_challenges/INSIGHTS/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/infrastructure_challenges/ROADMAP/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/infrastructure_challenges/dockerized_job_scheduler/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/infrastructure_challenges/redis_rate_limiter/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/infrastructure_challenges/socket_chat_app/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/machine_coding/INSIGHTS/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/machine_coding/MACHINE_CODING_TEMPLATE/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/machine_coding/ROADMAP/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/machine_coding/distributed/job_scheduler/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/machine_coding/distributed/pub_sub/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/machine_coding/distributed/rate_limiter/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/machine_coding/distributed/workflow_orchestrator/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/machine_coding/games/snake_ladder/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/machine_coding/games/tic_tac_toe/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/machine_coding/real_world_systems/ci_cd_pipeline/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/machine_coding/real_world_systems/e_commerce_order_system/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/machine_coding/real_world_systems/ride_sharing_service/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/machine_coding/systems/cache_system/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/machine_coding/systems/elevator/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/machine_coding/systems/instagram/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/machine_coding/systems/parking_lot/PROBLEM/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/HLD_TEMPLATE/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/INSIGHTS/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/ROADMAP/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/distributed_storage/BIGTABLE/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/distributed_storage/CASSANDRA_TOMBSTONES/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/distributed_storage/CHUBBY/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/distributed_storage/CONFLICT_RESOLUTION/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/distributed_storage/DROPBOX_GOOGLE_DRIVE/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/distributed_storage/DYNAMO_AND_CASSANDRA/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/distributed_storage/GFS/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/distributed_storage/HDFS_HIGH_AVAILABILITY/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/distributed_storage/KAFKA_AND_HDFS/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/distributed_storage/KAFKA_DEEP_DIVE/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/distributed_storage/KAFKA_SPLIT_BRAIN/</loc>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/distributed_storage/KV_STORE/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/distributed_storage/NOSQL_INTERNALS/</loc>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/distributed_storage/S3_LITE/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/payment_systems/UBER_HLD/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/search_systems/TWITTER_SEARCH/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/search_systems/TYPEAHEAD_SUGGESTION/</loc>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/social_media/FACEBOOK_CAPACITY/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/social_media/FACEBOOK_MESSENGER/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/social_media/FACEBOOK_NEWSFEED/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/social_media/INSTAGRAM_HLD/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/social_media/MASTER_ARCHITECTURE_TEMPLATE/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/social_media/TWITTER_HLD/</loc>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/social_media/WHATSAPP/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/social_media/YOUTUBE_NETFLIX_STREAMING/</loc>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/streaming/NETFLIX/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/utilities/RATE_LIMITER/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/utilities/TICKET_BOOKING/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/utilities/URL_SHORTENER/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/utilities/WEB_CRAWLER/</loc>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/mastery_program/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/mastery_program/phase_1/m1_network/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/mastery_program/phase_1/m2_storage/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/mastery_program/phase_1/m3_caching/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/mastery_program/phase_1/m4_load_balancing/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/mastery_program/phase_1/m5_api_design/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/mastery_program/phase_2/m10_transactions/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/mastery_program/phase_2/m11_observability/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/mastery_program/phase_2/m6_partitioning/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/mastery_program/phase_2/m7_replication/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/mastery_program/phase_2/m8_queues/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/mastery_program/phase_2/m9_microservices/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/mastery_program/phase_3/m12_pipelines/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/mastery_program/phase_3/m13_search/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/mastery_program/phase_3/m14_ml_serving/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/mastery_program/phase_3/m15_rag/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/mastery_program/phase_3/m16_llm_orchestration/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/mastery_program/phase_4/m17_saas/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/mastery_program/phase_4/m18_collaboration/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/mastery_program/phase_4/m19_cost/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/mastery_program/phase_4/m20_interviews/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/pillars/ARCHITECTURE_PATTERNS/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/pillars/CACHING/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/pillars/CAPACITY_CHEAT_SHEET/</loc>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/pillars/CONCEPTS/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/pillars/CONCEPT_TEMPLATE/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/pillars/DATA_PARTITIONING/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/pillars/DISTRIBUTED_THEOREMS/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/pillars/KEY_CHARACTERISTICS/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/pillars/LLD_DESIGN_PRINCIPLES/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/pillars/LOAD_BALANCING/</loc>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/pillars/database_scaling/SCALING_STRATEGIES/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/pillars/database_scaling/SQL_VS_NOSQL/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/pillars/microservices/API_GATEWAY_AND_MESSAGING/</loc>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/pillars/microservices/ARCHITECTURE_PATTERNS/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/pillars/microservices/MICROSERVICES_DECOUPLING/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/pillars/microservices/PROXIES_AND_NETWORKING/</loc>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://Ankur-glitchtracer.github.io/docs/system_design_hld/pillars/security_concurrency/SECURITY_CRYPTO/</loc>
-         <lastmod>2026-03-14</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
 </urlset>

@@ -13,10 +13,10 @@
         <link rel="canonical" href="https://Ankur-glitchtracer.github.io/docs/system_design_hld/architectures/utilities/RATE_LIMITER/">
       
       
-        <link rel="prev" href="../URL_SHORTENER/">
+        <link rel="prev" href="../../distributed_storage/KV_STORE/">
       
       
-        <link rel="next" href="../TICKET_BOOKING/">
+        <link rel="next" href="../URL_SHORTENER/">
       
       
         
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#system-design-rate-limiter" class="md-skip">
+        <a href="#design-api-rate-limiter" class="md-skip">
           Skip to content
         </a>
       
@@ -9702,6 +9702,780 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/KEY_CHARACTERISTICS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Key Characteristics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/DISTRIBUTED_THEOREMS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Theorems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/ARCHITECTURE_PATTERNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/CAPACITY_CHEAT_SHEET/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capacity Cheat Sheet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/LOAD_BALANCING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load Balancing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/CACHING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caching Strategies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/DATA_PARTITIONING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Partitioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/microservices/PROXIES_AND_NETWORKING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proxies & Networking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/database_scaling/SQL_VS_NOSQL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL vs NoSQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_6" id="__nav_11_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microservices & LLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Microservices & LLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/microservices/MICROSERVICES_DECOUPLING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decoupling & Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/microservices/API_GATEWAY_AND_MESSAGING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Gateway & Messaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pillars/LLD_DESIGN_PRINCIPLES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Design Principles (SOLID)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_7" id="__nav_11_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Storage Internals
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Distributed Storage Internals
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/DYNAMO_AND_CASSANDRA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dynamo & Cassandra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/NOSQL_INTERNALS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NoSQL (Dynamo/Cassandra/BigTable)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/CONFLICT_RESOLUTION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conflict Resolution (Vector Clocks)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/CASSANDRA_TOMBSTONES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cassandra Tombstones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/GFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Google File System (GFS)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/HDFS_HIGH_AVAILABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hadoop (HDFS) High Availability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/BIGTABLE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BigTable Recovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/CHUBBY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chubby Lock Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/KAFKA_DEEP_DIVE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kafka Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/KAFKA_SPLIT_BRAIN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kafka Split Brain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/KAFKA_AND_HDFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kafka & HDFS High-Level
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -9735,17 +10509,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_8" checked>
         
           
-          <label class="md-nav__link" for="__nav_11_6" id="__nav_11_6_label" tabindex="">
+          <label class="md-nav__link" for="__nav_11_8" id="__nav_11_8_label" tabindex="">
             
   
   
   <span class="md-ellipsis">
     
   
-    Architectures
+    Applied Architectures
   
 
     
@@ -9756,16 +10530,98 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_11_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11_8">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Architectures
+    Applied Architectures
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_8_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_8_1" id="__nav_11_8_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Social Media
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_11_8_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_8_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Social Media
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../social_media/MASTER_ARCHITECTURE_TEMPLATE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Master Architecture Template
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -9782,6 +10638,34 @@
     
   
     WhatsApp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../social_media/FACEBOOK_NEWSFEED/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Facebook Newsfeed
   
 
     
@@ -9830,6 +10714,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../../social_media/FACEBOOK_MESSENGER/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Facebook Messenger
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../social_media/INSTAGRAM_HLD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instagram HLD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../social_media/TWITTER_HLD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Twitter Timeline & Sharding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../streaming/NETFLIX/" class="md-nav__link">
         
   
@@ -9851,6 +10819,68 @@
 
               
             
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_8_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_8_2" id="__nav_11_8_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Streaming & Storage
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_11_8_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_8_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Streaming & Storage
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
               
                 
   
@@ -9858,14 +10888,42 @@
   
   
     <li class="md-nav__item">
-      <a href="../../payment_systems/UBER_HLD/" class="md-nav__link">
+      <a href="../../social_media/YOUTUBE_NETFLIX_STREAMING/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Uber Global
+    Netflix & YouTube
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_storage/DROPBOX_GOOGLE_DRIVE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dropbox / Google Drive
   
 
     
@@ -9935,21 +10993,47 @@
 
               
             
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
               
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../URL_SHORTENER/" class="md-nav__link">
+  
+    
+    
+    
+    
+      
+      
         
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_8_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_11_8_3" id="__nav_11_8_3_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
     
   
-    URL Shortener
+    Utilities & Search
   
 
     
@@ -9957,11 +11041,19 @@
   
   
 
-      </a>
-    </li>
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_11_8_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11_8_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Utilities & Search
   
 
-              
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -10030,33 +11122,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#1-rate-limiting-algorithms" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📝 Overview
+        1. Rate Limiting Algorithms
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#functional-non-functional-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛠️ Functional &amp; Non-Functional Requirements
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🛠️ Functional &amp; Non-Functional Requirements">
+    <nav class="md-nav" aria-label="1. Rate Limiting Algorithms">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#functional-requirements" class="md-nav__link">
+  <a href="#a-token-bucket" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Functional Requirements
+        A. Token Bucket
       
     </span>
   </a>
@@ -10064,10 +11145,32 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#non-functional-requirements" class="md-nav__link">
+  <a href="#b-fixed-window-counter" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Non-Functional Requirements
+        B. Fixed Window Counter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-sliding-window-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. Sliding Window Log
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-sliding-window-counter-hybrid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D. Sliding Window Counter (Hybrid)
       
     </span>
   </a>
@@ -10080,10 +11183,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-engineering-story" class="md-nav__link">
+  <a href="#2-high-level-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🧠 The Engineering Story
+        2. High-Level Architecture
       
     </span>
   </a>
@@ -10091,34 +11194,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#high-level-architecture" class="md-nav__link">
+  <a href="#3-distributed-challenges-solutions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ High-Level Architecture
+        3. Distributed Challenges &amp; Solutions
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🏗️ High-Level Architecture">
+    <nav class="md-nav" aria-label="3. Distributed Challenges &amp; Solutions">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#key-design-challenges" class="md-nav__link">
+  <a href="#synchronization" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Key Design Challenges:
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Key Design Challenges:">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#algorithms-to-evaluate" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Algorithms to Evaluate
+        Synchronization
       
     </span>
   </a>
@@ -10126,54 +11217,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#distributed-challenges" class="md-nav__link">
+  <a href="#atomicity-race-conditions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Distributed Challenges
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#deep-dives" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔍 Deep Dives
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#data-modeling-api-design" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📊 Data Modeling &amp; API Design
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="📊 Data Modeling &amp; API Design">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#data-model" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Data Model
+        Atomicity (Race Conditions)
       
     </span>
   </a>
@@ -10181,10 +11228,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#api-design" class="md-nav__link">
+  <a href="#latency-caching" class="md-nav__link">
     <span class="md-ellipsis">
       
-        API Design
+        Latency &amp; Caching
       
     </span>
   </a>
@@ -10197,10 +11244,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#scalability-bottlenecks" class="md-nav__link">
+  <a href="#4-throttling-strategies" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📈 Scalability &amp; Bottlenecks
+        4. Throttling Strategies
       
     </span>
   </a>
@@ -10208,21 +11255,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#interview-follow-ups" class="md-nav__link">
+  <a href="#5-practical-implementation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🎤 Interview Follow-ups
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-architectures" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔗 Related Architectures
+        5. Practical Implementation
       
     </span>
   </a>
@@ -10245,14 +11281,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../TICKET_BOOKING/" class="md-nav__link">
+      <a href="../URL_SHORTENER/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Ticket Booking
+    URL Shortener
   
 
     
@@ -10261,6 +11297,154 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TICKET_BOOKING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ticket Booking (Ticketmaster)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../payment_systems/UBER_HLD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Geospatial (Uber/Yelp)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../WEB_CRAWLER/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Crawler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../search_systems/TYPEAHEAD_SUGGESTION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Typeahead Suggestion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../search_systems/TWITTER_SEARCH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Twitter Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -10308,33 +11492,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#1-rate-limiting-algorithms" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📝 Overview
+        1. Rate Limiting Algorithms
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#functional-non-functional-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛠️ Functional &amp; Non-Functional Requirements
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🛠️ Functional &amp; Non-Functional Requirements">
+    <nav class="md-nav" aria-label="1. Rate Limiting Algorithms">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#functional-requirements" class="md-nav__link">
+  <a href="#a-token-bucket" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Functional Requirements
+        A. Token Bucket
       
     </span>
   </a>
@@ -10342,10 +11515,32 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#non-functional-requirements" class="md-nav__link">
+  <a href="#b-fixed-window-counter" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Non-Functional Requirements
+        B. Fixed Window Counter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-sliding-window-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. Sliding Window Log
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-sliding-window-counter-hybrid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D. Sliding Window Counter (Hybrid)
       
     </span>
   </a>
@@ -10358,10 +11553,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-engineering-story" class="md-nav__link">
+  <a href="#2-high-level-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🧠 The Engineering Story
+        2. High-Level Architecture
       
     </span>
   </a>
@@ -10369,34 +11564,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#high-level-architecture" class="md-nav__link">
+  <a href="#3-distributed-challenges-solutions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ High-Level Architecture
+        3. Distributed Challenges &amp; Solutions
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🏗️ High-Level Architecture">
+    <nav class="md-nav" aria-label="3. Distributed Challenges &amp; Solutions">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#key-design-challenges" class="md-nav__link">
+  <a href="#synchronization" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Key Design Challenges:
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Key Design Challenges:">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#algorithms-to-evaluate" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Algorithms to Evaluate
+        Synchronization
       
     </span>
   </a>
@@ -10404,54 +11587,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#distributed-challenges" class="md-nav__link">
+  <a href="#atomicity-race-conditions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Distributed Challenges
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#deep-dives" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔍 Deep Dives
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#data-modeling-api-design" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📊 Data Modeling &amp; API Design
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="📊 Data Modeling &amp; API Design">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#data-model" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Data Model
+        Atomicity (Race Conditions)
       
     </span>
   </a>
@@ -10459,10 +11598,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#api-design" class="md-nav__link">
+  <a href="#latency-caching" class="md-nav__link">
     <span class="md-ellipsis">
       
-        API Design
+        Latency &amp; Caching
       
     </span>
   </a>
@@ -10475,10 +11614,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#scalability-bottlenecks" class="md-nav__link">
+  <a href="#4-throttling-strategies" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📈 Scalability &amp; Bottlenecks
+        4. Throttling Strategies
       
     </span>
   </a>
@@ -10486,21 +11625,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#interview-follow-ups" class="md-nav__link">
+  <a href="#5-practical-implementation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🎤 Interview Follow-ups
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-architectures" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔗 Related Architectures
+        5. Practical Implementation
       
     </span>
   </a>
@@ -10527,79 +11655,86 @@
   
 
 
-<h1 id="system-design-rate-limiter">🚦 System Design: Rate Limiter</h1>
-<h2 id="overview">📝 Overview</h2>
-<p>A <strong>Rate Limiter</strong> is a critical security and stability component that controls the rate of traffic sent by a client to a server. It protects services from being overwhelmed by a "noisy neighbor" or malicious attacks, ensuring fair resource distribution across all users.</p>
-<div class="admonition abstract">
-<p class="admonition-title">Core Concepts</p>
+<h1 id="design-api-rate-limiter">Design: API Rate Limiter</h1>
+<p>A Rate Limiter restricts the number of requests an entity (User, IP, or Service) can send to an API within a specified time window. It prevents DoS attacks, limits infrastructure costs, and prevents resource starvation.</p>
+<hr />
+<h2 id="1-rate-limiting-algorithms">1. Rate Limiting Algorithms</h2>
+<p>There are several mathematical approaches to throttling traffic, each with distinct memory and accuracy trade-offs.</p>
+<h3 id="a-token-bucket">A. Token Bucket</h3>
 <ul>
-<li><strong>Token Bucket Algorithm:</strong> A flexible algorithm allowing for bursts while maintaining a steady average rate.</li>
-<li><strong>Distributed State:</strong> Using centralized stores like Redis to synchronize limits across multiple API nodes.</li>
-<li><strong>Atomic Operations:</strong> Utilizing Redis Lua scripts to prevent race conditions during concurrent request processing.</li>
+<li><strong>Mechanism</strong>: A bucket is assigned to a user and holds a maximum of <span class="arithmatex">\(N\)</span> tokens. Tokens are refilled at a constant rate. Each request consumes 1 token. If the bucket is empty, the request is dropped (HTTP 429).</li>
+<li><strong>Pros</strong>: Memory efficient. Allows for short bursts of traffic.</li>
+<li><strong>Cons</strong>: Tuning the bucket size and refill rate in a distributed environment can be complex.</li>
 </ul>
-</div>
-<h2 id="functional-non-functional-requirements">🛠️ Functional &amp; Non-Functional Requirements</h2>
-<h3 id="functional-requirements">Functional Requirements</h3>
-<ol>
-<li><strong>Request Throttling:</strong> Limit requests based on user ID, IP address, or API key.</li>
-<li><strong>Customizable Rules:</strong> Support different rate limits for different API endpoints or user tiers.</li>
-<li><strong>Informative Headers:</strong> Provide standard <code>X-RateLimit-*</code> headers to inform clients of their current status.</li>
-</ol>
-<h3 id="non-functional-requirements">Non-Functional Requirements</h3>
-<ol>
-<li><strong>Low Latency:</strong> Minimal overhead (e.g., &lt; 2ms) added to the request path.</li>
-<li><strong>Fault Tolerance:</strong> If the rate limiter service fails, it should fail-open to ensure service availability.</li>
-<li><strong>Accuracy:</strong> Precise tracking of request counts even in a distributed environment.</li>
-</ol>
-<h2 id="the-engineering-story">🧠 The Engineering Story</h2>
-<p><strong>The Villain:</strong> "The DDoS/Noisy Neighbor." One rogue script taking down the entire API for everyone.</p>
-<p><strong>The Hero:</strong> "The Token Bucket."</p>
-<p><strong>The Plot:</strong></p>
-<ol>
-<li>Refill tokens at a fixed rate.</li>
-<li>Allow bursts if tokens are available.</li>
-</ol>
-<p><strong>The Twist:</strong> "The Distributed Race Condition." Multiple API nodes updating the same bucket in Redis.</p>
-<p><strong>Interview Signal:</strong> Mastery of <strong>Traffic Control</strong>, <strong>Distributed State Management</strong>, and <strong>Redis Lua Scripting</strong>.</p>
-<h2 id="high-level-architecture">🏗️ High-Level Architecture</h2>
-<p>Design a rate limiter that can be deployed at the edge (API Gateway) to protect services from being overwhelmed.</p>
-<h3 id="key-design-challenges">Key Design Challenges:</h3>
-<h4 id="algorithms-to-evaluate">Algorithms to Evaluate</h4>
-<ol>
-<li><strong>Token Bucket:</strong> Allows bursts, simple to implement.</li>
-<li><strong>Leaky Bucket:</strong> Constant output rate, smooths traffic.</li>
-<li><strong>Fixed Window Counter:</strong> Simple but has "edge" problems (double traffic at window borders).</li>
-<li><strong>Sliding Window Logs:</strong> Precise but memory-heavy.</li>
-<li><strong>Sliding Window Counter:</strong> Best trade-off between precision and memory.</li>
-</ol>
-<h4 id="distributed-challenges">Distributed Challenges</h4>
+<h3 id="b-fixed-window-counter">B. Fixed Window Counter</h3>
 <ul>
-<li><strong>Shared State:</strong> Using Redis for centralized counting.</li>
-<li><strong>Performance:</strong> Minimizing latency added to every request.</li>
-<li><strong>Race Conditions:</strong> Using Lua scripts in Redis for atomic "check-and-increment."</li>
+<li><strong>Mechanism</strong>: Counts requests in fixed time blocks (e.g., 10:00:00 to 10:01:00).</li>
+<li><strong>Flaw (Spike at Edges)</strong>: If the limit is 100 requests/minute, a user could send 100 requests at 10:00:59, and another 100 requests at 10:01:01. The server processes 200 requests in 2 seconds, bypassing the intended load limit.</li>
 </ul>
-<h2 id="deep-dives">🔍 Deep Dives</h2>
-<p>(To be detailed...)</p>
-<h2 id="data-modeling-api-design">📊 Data Modeling &amp; API Design</h2>
-<h3 id="data-model">Data Model</h3>
+<h3 id="c-sliding-window-log">C. Sliding Window Log</h3>
 <ul>
-<li><strong>(To be detailed...)</strong>: (To be detailed...)</li>
+<li><strong>Mechanism</strong>: Stores the exact Unix timestamp of every request in a Redis Sorted Set. Removes timestamps older than the current window.</li>
+<li><strong>Pros</strong>: 100% accurate rate limiting.</li>
+<li><strong>Cons</strong>: Extremely high memory footprint. Tracking 1 million users with a limit of 500 req/hour requires ~12GB of Redis memory.</li>
 </ul>
-<h3 id="api-design">API Design</h3>
+<h3 id="d-sliding-window-counter-hybrid">D. Sliding Window Counter (Hybrid)</h3>
 <ul>
-<li><strong>(To be detailed...)</strong>: (To be detailed...)</li>
+<li><strong>Mechanism</strong>: Combines the Fixed Window and the Log. Calculates a weighted average of the previous window's count based on the overlap percentage of the current window.</li>
+<li><strong>Pros</strong>: Highly memory efficient (uses 86% less memory than the Log method) while successfully smoothing out edge spikes.</li>
 </ul>
-<h2 id="scalability-bottlenecks">📈 Scalability &amp; Bottlenecks</h2>
-<p>(To be detailed...)</p>
-<h2 id="interview-follow-ups">🎤 Interview Follow-ups</h2>
+<hr />
+<h2 id="2-high-level-architecture">2. High-Level Architecture</h2>
+<p>In a distributed cluster, Rate Limiters must <strong>synchronize state</strong> to prevent a user from bypassing the limit by hitting different API gateways.</p>
+<pre class="mermaid"><code>graph TD
+    Client --&gt; LB[Load Balancer]
+    LB --&gt; API1[API Gateway 1]
+    LB --&gt; API2[API Gateway 2]
+
+    API1 --&gt; RL1[Rate Limiter Middleware]
+    API2 --&gt; RL2[Rate Limiter Middleware]
+
+    RL1 &lt;--&gt; Redis[(Central Redis Cluster)]
+    RL2 &lt;--&gt; Redis
+
+    RL1 --&gt;|Allow| Svc[Backend Microservices]
+    RL1 --&gt;|Deny| 429[HTTP 429 Too Many Requests]</code></pre>
+<hr />
+<h2 id="3-distributed-challenges-solutions">3. Distributed Challenges &amp; Solutions</h2>
+<h3 id="synchronization">Synchronization</h3>
+<p>Sticky sessions can avoid synchronization issues by routing a user to the same server, but this leads to unbalanced loads and is not scalable. A <strong>centralized Redis cluster</strong> is the preferred solution for sharing counters across stateless API gateways.</p>
+<h3 id="atomicity-race-conditions">Atomicity (Race Conditions)</h3>
+<p>When reading and updating counters in Redis concurrently, race conditions can occur.
+*   <strong>Problem:</strong> Two servers read <code>counter = 10</code> simultaneously and both increment to <code>11</code>, effectively losing one request count.
+*   <strong>Solution:</strong> Use <strong>Redis INCR atomic operations</strong> or <strong>Lua Scripts</strong> to ensure the read-and-increment operation is atomic.</p>
+<h3 id="latency-caching">Latency &amp; Caching</h3>
+<p>Reading from Redis on every request adds latency.
+*   <strong>Optimization:</strong> API gateways often <strong>cache recent rate-limit states locally</strong> in memory for a short duration and use an <strong>asynchronous Write-Back</strong> strategy to update the central Redis cluster.</p>
+<hr />
+<h2 id="4-throttling-strategies">4. Throttling Strategies</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Hard Throttling</strong></td>
+<td style="text-align: left;">Strict limit. Requests beyond the limit are rejected immediately (HTTP 429).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Soft Throttling</strong></td>
+<td style="text-align: left;">Allows a small percentage of requests to exceed the limit for a short duration.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-practical-implementation">5. Practical Implementation</h2>
+<p>Explore low-level code and infrastructure implementations of this architecture within this repository:</p>
 <ul>
-<li><strong>Harder Variant:</strong> (To be detailed...)</li>
-<li><strong>Scale Question:</strong> (To be detailed...)</li>
-<li><strong>Edge Case Probe:</strong> (To be detailed...)</li>
-</ul>
-<h2 id="related-architectures">🔗 Related Architectures</h2>
-<ul>
-<li><a href="../TICKET_BOOKING/">Ticket Booking</a> — For concurrency and reservation patterns.</li>
+<li><strong>Infrastructure Challenge</strong>: <a href="../../../../infrastructure_challenges/redis_rate_limiter/redis_rate_limiter.py">Redis Rate Limiter</a></li>
+<li><strong>Machine Coding</strong>: <a href="../../../../machine_coding/distributed/rate_limiter/rate_limiter.py">Distributed Rate Limiter</a></li>
 </ul>
 
 
