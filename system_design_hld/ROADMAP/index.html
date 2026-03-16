@@ -11413,24 +11413,25 @@
 
 <h1 id="system-design-roadmap">🗺️ System Design Roadmap</h1>
 <p>A guide to mastering High-Level Design (HLD) for large-scale distributed systems.</p>
-<pre class="mermaid"><code>flowchart TD
-    subgraph Theory ["1. Theoretical Curriculum"]
-        M[Mastery Program]
-    end
+<pre class="mermaid"><code>sequenceDiagram
+    %% Participants for each major category
+    participant Ph1 as "Phase 1 Theoretical Curriculum"
+    participant Ph2 as "Phase 2 Architectural Case Studies"
 
-    subgraph CaseStudies ["2. Architectural Case Studies"]
-        A[Social Media &amp; Messaging]
-        B[Streaming &amp; Content Delivery]
-        C[Payment &amp; Real-time Booking]
-        D[Distributed Storage &amp; Databases]
-        E[Utility Services]
-    end
+    %% Phase 1 activities
+    Note right of Ph1: 1. Theoretical Curriculum
+    Ph1-&gt;&gt;Ph1: Mastery Program
 
-    M --&gt; A
-    M --&gt; B
-    M --&gt; C
-    M --&gt; D
-    M --&gt; E</code></pre>
+    %% Move to Phase 2
+    Ph1--&gt;&gt;Ph2: Complete Theory
+
+    %% Phase 2 activities
+    Note right of Ph2: 2. Architectural Case Studies
+    Ph2-&gt;&gt;Ph2: Social Media &amp; Messaging
+    Ph2-&gt;&gt;Ph2: Streaming &amp; Content Delivery
+    Ph2-&gt;&gt;Ph2: Payment &amp; Real‑Time Booking
+    Ph2-&gt;&gt;Ph2: Distributed Storage &amp; Databases
+    Ph2-&gt;&gt;Ph2: Utility Services</code></pre>
 <h2 id="theoretical-curriculum">📘 Theoretical Curriculum</h2>
 <ul>
 <li><a href="../mastery_program/">🎓 System Design Mastery Program</a> — 4 Phases, 20 Modules covering Foundations to GenAI.</li>
@@ -11523,9 +11524,9 @@
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../js/mermaid-init.js"></script>
+        <script src="../../javascripts/mermaid.mjs" type="module"></script>
       
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-polyfills/0.1.43/polyfill.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

@@ -11657,25 +11657,29 @@
 <p>A deep dive into building reliable, scalable, and high-performance <strong>Middleware</strong>, <strong>Networking Layer</strong>, and <strong>Distributed Orchestration</strong> systems.</p>
 <hr />
 <h2 id="program-roadmap">📋 Program Roadmap</h2>
-<pre class="mermaid"><code>graph TD
-    A["Phase 1: Containerization &amp; Orchestration"] --&gt; B["Phase 2: High-Performance Middleware"]
-    B --&gt; C["Phase 3: Real-Time Networking at Scale"]
+<pre class="mermaid"><code>sequenceDiagram
+    %% Participants represent each phase
+    participant P1 as Phase 1
+    participant P2 as Phase 2
+    participant P3 as Phase 3
 
-    subgraph "Phase 1: Foundations"
-        A1["M1: Dockerized Job Scheduler"]
-    end
+    %% Phase 1 activities
+    Note over P1: Phase 1: Containerization &amp; Orchestration
+    P1-&gt;&gt;P1: M1: Dockerized Job Scheduler
 
-    subgraph "Phase 2: Performance Middleware"
-        B1["M2: Redis Rate Limiter"]
-    end
+    %% Move to Phase 2
+    P1--&gt;&gt;P2: Complete Phase 1
 
-    subgraph "Phase 3: Real-Time Systems"
-        C1["M3: Socket Chat Application"]
-    end
+    %% Phase 2 activities
+    Note over P2: Phase 2: High‑Performance Middleware
+    P2-&gt;&gt;P2: M2: Redis Rate Limiter
 
-    A -.-&gt; A1
-    B -.-&gt; B1
-    C -.-&gt; C1</code></pre>
+    %% Move to Phase 3
+    P2--&gt;&gt;P3: Complete Phase 2
+
+    %% Phase 3 activities
+    Note over P3: Phase 3: Real‑Time Networking at Scale
+    P3-&gt;&gt;P3: M3: Socket Chat Application</code></pre>
 <hr />
 <h2 id="phase-1-containerization-orchestration">🚀 Phase 1: Containerization &amp; Orchestration</h2>
 <p><strong>Focus:</strong> Immutable infrastructure, environment parity, and multi-service orchestration.</p>
@@ -11777,9 +11781,9 @@
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../js/mermaid-init.js"></script>
+        <script src="../../javascripts/mermaid.mjs" type="module"></script>
       
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-polyfills/0.1.43/polyfill.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

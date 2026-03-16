@@ -11386,47 +11386,55 @@
 <h1 id="design-patterns-roadmap">🗺️ Design Patterns Roadmap</h1>
 <p>A high-level guide to mastering GoF design patterns and architectural best practices.</p>
 <pre class="mermaid"><code>flowchart TD
+    DP[Design Patterns]
 
-subgraph Creational
-    direction TB
-    C1[Factory]
-    C2[Singleton]
-    C3[Builder]
-    C4[Prototype]
-    C5[Abstract Factory]
-    C6[Object Pool]
-end
+    DP --&gt; CRE[Creational Patterns]
+    DP --&gt; STR[Structural Patterns]
+    DP --&gt; BEH[Behavioral Patterns]</code></pre>
+<hr />
+<pre class="mermaid"><code>flowchart TD
+    CRE[Creational Patterns]
 
-subgraph Structural
-    direction TB
-    S1[Adapter]
-    S2[Bridge]
-    S3[Composite]
-    S4[Decorator]
-    S5[Facade]
-    S6[Flyweight]
-    S7[Proxy]
-end
+    CRE --&gt; C1[Factory]
+    CRE --&gt; C2[Singleton]
+    CRE --&gt; C3[Builder]
+    CRE --&gt; C4[Prototype]
+    CRE --&gt; C5[Abstract Factory]
+    CRE --&gt; C6[Object Pool]</code></pre>
+<hr />
+<pre class="mermaid"><code>flowchart TD
+    STR[Structural Patterns]
 
-subgraph Behavioral
-    direction TB
-    B1[Strategy]
-    B2[Observer]
-    B3[Command]
-    B4[State]
-    B5[Template]
-    B6[Iterator]
-    B7[Mediator]
-    B8[Memento]
-    B9[Chain Of Responsibility]
-    B10[Visitor]
-    B11[Interpreter]
-    B12[MVC]
-    B13[Null Object]
-end
+    STR --&gt; S1[Adapter]
+    STR --&gt; S2[Bridge]
+    STR --&gt; S3[Composite]
+    STR --&gt; S4[Decorator]
+    STR --&gt; S5[Facade]
+    STR --&gt; S6[Flyweight]
+    STR --&gt; S7[Proxy]</code></pre>
+<hr />
+<p><pre class="mermaid"><code>flowchart TB
+    BEH1[Behavioral Patterns - Core]
 
-Creational --&gt; Structural
-Structural --&gt; Behavioral</code></pre>
+    BEH1 --&gt; B1[Strategy]
+    BEH1 --&gt; B2[Observer]
+    BEH1 --&gt; B3[Command]
+    BEH1 --&gt; B4[State]
+    BEH1 --&gt; B5[Template Method]</code></pre>
+<pre class="mermaid"><code>flowchart TB
+    BEH2[Behavioral Patterns - Interaction]
+
+    BEH2 --&gt; B6[Mediator]
+    BEH2 --&gt; B7[Chain Of Responsibility]
+    BEH2 --&gt; B8[Visitor]
+    BEH2 --&gt; B9[Iterator]</code></pre>
+<pre class="mermaid"><code>flowchart TB
+    BEH3[Behavioral Patterns - State &amp; Language]
+
+    BEH3 --&gt; B10[Memento]
+    BEH3 --&gt; B11[Interpreter]
+    BEH3 --&gt; B12[MVC]
+    BEH3 --&gt; B13[Null Object]</code></pre></p>
 <h2 id="topic-progress">📊 Topic Progress</h2>
 <ol>
 <li>
@@ -11532,9 +11540,9 @@ Structural --&gt; Behavioral</code></pre>
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../js/mermaid-init.js"></script>
+        <script src="../../javascripts/mermaid.mjs" type="module"></script>
       
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-polyfills/0.1.43/polyfill.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
