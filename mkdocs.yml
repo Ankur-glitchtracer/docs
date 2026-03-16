@@ -318,16 +318,54 @@ nav:
       - Microservices & Patterns: system_design_hld/pillars/microservices/ARCHITECTURE_PATTERNS.md
       - DB Scaling & Caching: system_design_hld/pillars/database_scaling/SCALING_STRATEGIES.md
       - Security & Crypto: system_design_hld/pillars/security_concurrency/SECURITY_CRYPTO.md
-    - Architectures:
-      - WhatsApp: system_design_hld/architectures/social_media/WHATSAPP.md
-      - Facebook Capacity: system_design_hld/architectures/social_media/FACEBOOK_CAPACITY.md
-      - Netflix: system_design_hld/architectures/streaming/NETFLIX.md
-      - Uber Global: system_design_hld/architectures/payment_systems/UBER_HLD.md
-      - S3 Lite (Storage): system_design_hld/architectures/distributed_storage/S3_LITE.md
-      - Key-Value Store: system_design_hld/architectures/distributed_storage/KV_STORE.md
-      - URL Shortener: system_design_hld/architectures/utilities/URL_SHORTENER.md
-      - API Rate Limiter: system_design_hld/architectures/utilities/RATE_LIMITER.md
-      - Ticket Booking: system_design_hld/architectures/utilities/TICKET_BOOKING.md
+      - Key Characteristics: system_design_hld/pillars/KEY_CHARACTERISTICS.md
+      - Distributed Theorems: system_design_hld/pillars/DISTRIBUTED_THEOREMS.md
+      - Architecture Patterns: system_design_hld/pillars/ARCHITECTURE_PATTERNS.md
+      - Capacity Cheat Sheet: system_design_hld/pillars/CAPACITY_CHEAT_SHEET.md
+      - Load Balancing: system_design_hld/pillars/LOAD_BALANCING.md
+      - Caching Strategies: system_design_hld/pillars/CACHING.md
+      - Data Partitioning: system_design_hld/pillars/DATA_PARTITIONING.md
+      - Proxies & Networking: system_design_hld/pillars/microservices/PROXIES_AND_NETWORKING.md
+      - SQL vs NoSQL: system_design_hld/pillars/database_scaling/SQL_VS_NOSQL.md
+    - Microservices & LLD:
+      - Decoupling & Architecture: system_design_hld/pillars/microservices/MICROSERVICES_DECOUPLING.md
+      - API Gateway & Messaging: system_design_hld/pillars/microservices/API_GATEWAY_AND_MESSAGING.md
+      - LLD Design Principles (SOLID): system_design_hld/pillars/LLD_DESIGN_PRINCIPLES.md
+    - Distributed Storage Internals:
+      - Dynamo & Cassandra: system_design_hld/architectures/distributed_storage/DYNAMO_AND_CASSANDRA.md
+      - NoSQL (Dynamo/Cassandra/BigTable): system_design_hld/architectures/distributed_storage/NOSQL_INTERNALS.md
+      - Conflict Resolution (Vector Clocks): system_design_hld/architectures/distributed_storage/CONFLICT_RESOLUTION.md
+      - Cassandra Tombstones: system_design_hld/architectures/distributed_storage/CASSANDRA_TOMBSTONES.md
+      - Google File System (GFS): system_design_hld/architectures/distributed_storage/GFS.md
+      - Hadoop (HDFS) High Availability: system_design_hld/architectures/distributed_storage/HDFS_HIGH_AVAILABILITY.md
+      - BigTable Recovery: system_design_hld/architectures/distributed_storage/BIGTABLE.md
+      - Chubby Lock Service: system_design_hld/architectures/distributed_storage/CHUBBY.md
+      - Kafka Deep Dive: system_design_hld/architectures/distributed_storage/KAFKA_DEEP_DIVE.md
+      - Kafka Split Brain: system_design_hld/architectures/distributed_storage/KAFKA_SPLIT_BRAIN.md
+      - Kafka & HDFS High-Level: system_design_hld/architectures/distributed_storage/KAFKA_AND_HDFS.md
+    - Applied Architectures:
+      - Social Media:
+        - Master Architecture Template: system_design_hld/architectures/social_media/MASTER_ARCHITECTURE_TEMPLATE.md
+        - WhatsApp: system_design_hld/architectures/social_media/WHATSAPP.md
+        - Facebook Newsfeed: system_design_hld/architectures/social_media/FACEBOOK_NEWSFEED.md
+        - Facebook Capacity: system_design_hld/architectures/social_media/FACEBOOK_CAPACITY.md
+        - Facebook Messenger: system_design_hld/architectures/social_media/FACEBOOK_MESSENGER.md
+        - Instagram HLD: system_design_hld/architectures/social_media/INSTAGRAM_HLD.md
+        - Twitter Timeline & Sharding: system_design_hld/architectures/social_media/TWITTER_HLD.md
+        - Netflix: system_design_hld/architectures/streaming/NETFLIX.md
+      - Streaming & Storage:
+        - Netflix & YouTube: system_design_hld/architectures/social_media/YOUTUBE_NETFLIX_STREAMING.md
+        - Dropbox / Google Drive: system_design_hld/architectures/distributed_storage/DROPBOX_GOOGLE_DRIVE.md
+        - S3 Lite (Storage): system_design_hld/architectures/distributed_storage/S3_LITE.md
+        - Key-Value Store: system_design_hld/architectures/distributed_storage/KV_STORE.md
+      - Utilities & Search:
+        - API Rate Limiter: system_design_hld/architectures/utilities/RATE_LIMITER.md
+        - URL Shortener: system_design_hld/architectures/utilities/URL_SHORTENER.md
+        - Ticket Booking (Ticketmaster): system_design_hld/architectures/utilities/TICKET_BOOKING.md
+        - Geospatial (Uber/Yelp): system_design_hld/architectures/payment_systems/UBER_HLD.md
+        - Web Crawler: system_design_hld/architectures/utilities/WEB_CRAWLER.md
+        - Typeahead Suggestion: system_design_hld/architectures/search_systems/TYPEAHEAD_SUGGESTION.md
+        - Twitter Search: system_design_hld/architectures/search_systems/TWITTER_SEARCH.md
 
 markdown_extensions:
   - admonition

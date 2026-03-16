@@ -1,83 +1,48 @@
-# 🔗 System Design: URL Shortener (TinyURL)
+# Designing a URL Shortener (TinyURL)
 
-## 📝 Overview
-A **URL Shortener** is a service that creates short, unique aliases for long URLs. Its primary goal is to provide a compact link that is easy to share while ensuring rapid redirection to the original destination, even under extreme read loads.
+## System Overview
+A URL shortener service creates short aliases for long URLs (e.g., `tinyurl.com/xyz` -> `example.com/very/long/path`). The system must be highly available and provide low-latency redirections.
 
-!!! abstract "Core Concepts"
+## Functional Requirements
+1.  Generate a unique short alias for a given URL.
+2.  Redirect the short alias to the original URL.
+3.  Optional: Custom aliases and expiration times.
 
-    - **Base62 Encoding:** Converting a unique numeric ID into a compact 7-character string using `[a-zA-Z0-9]`.
-    - **Unique ID Generation:** Using distributed systems like Snowflake or database sequences to guarantee uniqueness without coordination overhead.
-    - **Heavy-Read Optimization:** Utilizing intensive caching (Redis) for the most popular links to handle the high read-to-write ratio.
+## Database Schema
+We require a scalable NoSQL store (e.g., DynamoDB, Cassandra) or a sharded RDBMS to handle billions of mappings.
 
-## 🛠️ Functional & Non-Functional Requirements
-### Functional Requirements
+| Table | Columns |
+| :--- | :--- |
+| **URL Mapping** | `ShortKey` (PK), `OriginalURL`, `CreationDate`, `ExpirationDate`, `UserID` |
+| **User** | `UserID` (PK), `Name`, `Email`, `CreationDate` |
 
-1. **URL Shortening:** Accept a long URL and return a unique 7-character alias.
-2. **Redirection:** Redirect short URL requests to the original long URL with minimal latency.
-3. **Custom Aliases:** Allow users to provide their own custom short aliases.
+## Key Generation Service (KGS)
+To ensure uniqueness and avoid collision checking on every write, we pre-generate keys.
+*   **Offline Generation**: A standalone service generates random 6-character strings (base64) and stores them in a `Key-DB`.
+*   **Concurrency**: Servers fetch a batch of keys into memory. Used keys are marked in the DB.
 
-### Non-Functional Requirements
+## High-Level Architecture
 
-1. **High Availability:** The redirection service must be 99.999% available (it's useless if links don't work).
-2. **Low Latency:** Redirects should happen in under 100ms.
-3. **Unpredictability:** Shortened URLs should not be easily guessable to prevent bulk scraping of data.
+```mermaid
+graph LR
+    Client -->|Shorten URL| AppServer
+    Client -->|Access URL| LB[Load Balancer]
+    LB --> AppServer
+    AppServer -->|Get Key| KGS[Key Gen Service]
+    KGS -->|Fetch| KeyDB
+    AppServer -->|Store| DB[Url Mapping DB]
+    AppServer -->|Check| Cache
+```
 
-## 🧠 The Engineering Story
+## Optimizations
+1.  **Caching**: Cache the most frequently accessed URLs (20% of URLs generate 80% of traffic). Use LRU eviction.
+2.  **301 vs 302 Redirect**:
+    *   **301 (Permanent)**: Browser caches the redirect. Reduces server load but invalidates analytics.
+    *   **302 (Temporary)**: Request always hits the server. Good for analytics.
+3.  **Cleanup**: Lazy cleanup. Delete expired links only when accessed or via a scheduled background job.
+## 4. Practical Implementation
 
-**The Villain:** "The Duplicate Key." You use a random 7-character string for every URL. After 1 billion URLs, the chance of a collision (two URLs getting the same ID) becomes a certainty, breaking the web.
+Explore low-level implementations of high-performance caches and unique ID generation:
 
-**The Hero:** "The Distributed Counter (Base62)." Using a unique 64-bit ID from a central generator (like Snowflake or a DB auto-increment) and encoding it into `a-zA-Z0-9`.
-
-**The Plot:**
-
-1. **ID Generation:** Get a unique number (e.g., `1234567`).
-2. **Encoding:** Convert the number to Base62 (e.g., `8cb`).
-3. **Storage:** Map `8cb` -> `https://long-url.com` in a KV store.
-4. **Caching:** Cache the top 1% of URLs to handle 90% of traffic.
-
-**The Twist (Failure):** **The Prediction Attack.** If you use sequential IDs, a competitor can script a crawl of every URL you've ever shortened by just incrementing the ID.
-
-**Interview Signal:** mastery of **Unique ID Generation**, **Encoding vs Hashing**, and **Read-Heavy Caching**.
-
-## 🏗️ High-Level Architecture
-Design a service that converts long URLs into short, 7-character aliases (e.g., `bit.ly/xyz123`).
-
-### Key Design Challenges:
-#### Capacity Planning (Back-of-the-envelope)
-
-- **Traffic:** 100M new URLs per month.
-- **Read/Write Ratio:** 100:1 (Heavy reads).
-- **Storage:** 100M * 500 bytes = 5GB per month. 10 years = 600GB.
-- **QPS:** ~40 write QPS, ~4000 read QPS.
-
-#### Technical Challenges
-
-- **Key Generation:** Base62 encoding vs. MD5 hashing.
-- **Scaling Reads:** Using a cache (Redis) for the top 20% of URLs.
-- **Database Choice:** Deciding between NoSQL (DynamoDB/Cassandra) for horizontal scale and SQL for structured management.
-- **Redirection Latency:** Minimizing the round-trip time for the redirect.
-
-## 🔍 Deep Dives
-(To be detailed...)
-
-## 📊 Data Modeling & API Design
-### Data Model
-
-- **(To be detailed...)**: (To be detailed...)
-
-### API Design
-
-- **(To be detailed...)**: (To be detailed...)
-
-## 📈 Scalability & Bottlenecks
-(To be detailed...)
-
-## 🎤 Interview Follow-ups
-
-- **Harder Variant:** (To be detailed...)
-- **Scale Question:** (To be detailed...)
-- **Edge Case Probe:** (To be detailed...)
-
-## 🔗 Related Architectures
-
-- [Rate Limiter](./RATE_LIMITER.md) — For link creation throttling.
+* [Machine Coding: Cache System](../../../machine_coding/systems/cache_system/PROBLEM.md)
+* [System Design: Twitter Feed (Snowflake ID)](../social_media/TWITTER_HLD.md)

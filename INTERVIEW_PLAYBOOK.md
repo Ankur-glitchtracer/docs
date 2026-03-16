@@ -44,15 +44,64 @@ Use the deep-dive INSIGHTS files to master specific domains:
 
 ---
 
-## 🏗️ System Design Interview Framework (30-40 min)
+## 🏗️ System Design Interview Framework (35–40 min)
 
-| Phase | Time | What To Do |
+System design interviews are notoriously challenging due to their unstructured nature. Candidates are asked to tackle open-ended problems that lack a single standard answer, typically within a strict **35–40 minute window**. Success relies heavily on a highly organized, structured approach.
+
+| Step | Time | Goal |
 | :--- | :--- | :--- |
-| **1. Requirements** | 5 min | Functional vs. Non-functional. _"How many users? Read-heavy or write-heavy?"_ |
-| **2. Estimation** | 3 min | Back-of-the-envelope: QPS, storage, bandwidth. |
-| **3. High-Level Design** | 10 min | Draw the major components (API Gateway, DB, Cache, Queue). |
-| **4. Deep Dive** | 10 min | Interviewer picks 1-2 components. Go deep: schema, API contracts, failure modes. |
-| **5. Trade-offs** | 5 min | Discuss CAP, consistency vs. availability, scaling bottlenecks. |
+| **1. Requirements** | 5 min | Clarify functional & non-functional reqs (scale, scope). |
+| **2. API Interface** | 3 min | Define system contracts (REST/gRPC) & signatures. |
+| **3. Estimation** | 3 min | Estimate QPS, storage (5yr), bandwidth. |
+| **4. Data Model** | 5 min | Identify entities, schema, and SQL vs NoSQL. |
+| **5. High-Level Design** | 5 min | Draw macro architecture (Client → LB → App → DB). |
+| **6. Detailed Design** | 10 min | Deep dive: Partitioning, caching, hot users. |
+| **7. Bottlenecks** | 5 min | Analyze SPOFs, replication, observability. |
+
+### Step 1: Requirements Clarification
+Because design questions are open-ended, the very first step must be to clarify ambiguities and define the exact scope.
+- **Action**: Ask specific boundary questions.
+- **Example**: If designing Twitter:
+    - Are we building the frontend and backend?
+    - Will tweets contain heavy media (photos/videos)?
+    - Do we need to support push notifications or trending topics?
+
+### Step 2: System Interface Definition
+Define the exact APIs expected from the system to establish a contract.
+- **Action**: Write out API signatures (e.g., `POST /tweet`, `GET /feed`).
+- **Purpose**: Acts as a safety check to ensure you haven't misunderstood core requirements.
+
+### Step 3: Back-of-the-Envelope Estimation
+Estimate the scale to identify potential bottlenecks early.
+- **Action**: Calculate:
+    - Expected traffic (**QPS**)
+    - Total storage required (over **5 years**)
+    - Anticipated network bandwidth usage (**ingress/egress**)
+- **Purpose**: Mathematically justify decisions regarding load balancing, caching, and sharding.
+
+### Step 4: Defining Data Model
+Identify the entities and how they interact.
+- **Action**: Define the **schema**, **relationships**, and **data flow**.
+- **Purpose**: Justify whether a **Relational (MySQL / ACID)** or **NoSQL (Cassandra / AP)** database best fits the read/write patterns.
+
+### Step 5: High-Level Design (HLD)
+Draw a block diagram with **5-6 core components**.
+- **Flow**: `Client → Load Balancers → Application Servers → Databases / Caches → Blob Storage`
+- **Purpose**: Establish macro-architecture before getting bogged down in details.
+
+### Step 6: Detailed Design
+Dig deeper into **2-3 specific components** based on interviewer feedback.
+- **Key Discussions**:
+    - **Partitioning**: How to split massive data (Sharding strategies).
+    - **Hot Users**: Handling "celebrity" problems.
+    - **Caching**: Eviction policies (LRU/LFU) to speed up reads.
+
+### Step 7: Bottlenecks & Trade-offs
+Analyze the design for breaking points.
+- **Action**: Discuss:
+    - **Single Points of Failure (SPOFs)**.
+    - **Replication**: Strategies to survive server losses.
+    - **Observability**: Logging, tracing, and metrics.
 
 ---
 

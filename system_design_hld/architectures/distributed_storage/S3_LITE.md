@@ -70,6 +70,10 @@ Design a highly available and durable object storage service capable of storing 
 - **Scale Question:** (To be detailed...)
 - **Edge Case Probe:** (To be detailed...)
 
-## 🔗 Related Architectures
+## Practical Implementation
 
-- [KV Store](./KV_STORE.md) — For metadata storage patterns.
+Explore the low-level implementations of distributed storage and metadata management:
+
+* [System Design: Distributed KV Store](./KV_STORE.md)
+* [System Design: Distributed Storage (GFS)](./GFS.md)
+* [Machine Coding: Cache System](../../../machine_coding/systems/cache_system/PROBLEM.md)

@@ -81,6 +81,10 @@ Perform a back-of-the-envelope estimation for a platform with 2 Billion Daily Ac
 - **Scale Question:** (To be detailed...)
 - **Edge Case Probe:** (To be detailed...)
 
-## 🔗 Related Architectures
+## Practical Implementation
 
-- [WhatsApp](./WHATSAPP.md) — For real-world scale examples.
+Explore the infrastructure constraints and capacity planning of hyper-scale systems:
+
+* [System Design: WhatsApp Lite](./WHATSAPP.md)
+* [System Design: Twitter Feed](./TWITTER_HLD.md)
+* [Infrastructure: Redis Rate Limiter](../../../infrastructure_challenges/redis_rate_limiter/PROBLEM.md)

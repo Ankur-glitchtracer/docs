@@ -1,81 +1,83 @@
-# 🚦 System Design: Rate Limiter
+# Design: API Rate Limiter
 
-## 📝 Overview
-A **Rate Limiter** is a critical security and stability component that controls the rate of traffic sent by a client to a server. It protects services from being overwhelmed by a "noisy neighbor" or malicious attacks, ensuring fair resource distribution across all users.
+A Rate Limiter restricts the number of requests an entity (User, IP, or Service) can send to an API within a specified time window. It prevents DoS attacks, limits infrastructure costs, and prevents resource starvation.
 
-!!! abstract "Core Concepts"
+---
 
-    - **Token Bucket Algorithm:** A flexible algorithm allowing for bursts while maintaining a steady average rate.
-    - **Distributed State:** Using centralized stores like Redis to synchronize limits across multiple API nodes.
-    - **Atomic Operations:** Utilizing Redis Lua scripts to prevent race conditions during concurrent request processing.
+## 1. Rate Limiting Algorithms
 
-## 🛠️ Functional & Non-Functional Requirements
-### Functional Requirements
+There are several mathematical approaches to throttling traffic, each with distinct memory and accuracy trade-offs.
 
-1. **Request Throttling:** Limit requests based on user ID, IP address, or API key.
-2. **Customizable Rules:** Support different rate limits for different API endpoints or user tiers.
-3. **Informative Headers:** Provide standard `X-RateLimit-*` headers to inform clients of their current status.
+### A. Token Bucket
+*   **Mechanism**: A bucket is assigned to a user and holds a maximum of $N$ tokens. Tokens are refilled at a constant rate. Each request consumes 1 token. If the bucket is empty, the request is dropped (HTTP 429).
+*   **Pros**: Memory efficient. Allows for short bursts of traffic.
+*   **Cons**: Tuning the bucket size and refill rate in a distributed environment can be complex.
 
-### Non-Functional Requirements
+### B. Fixed Window Counter
+*   **Mechanism**: Counts requests in fixed time blocks (e.g., 10:00:00 to 10:01:00).
+*   **Flaw (Spike at Edges)**: If the limit is 100 requests/minute, a user could send 100 requests at 10:00:59, and another 100 requests at 10:01:01. The server processes 200 requests in 2 seconds, bypassing the intended load limit.
 
-1. **Low Latency:** Minimal overhead (e.g., < 2ms) added to the request path.
-2. **Fault Tolerance:** If the rate limiter service fails, it should fail-open to ensure service availability.
-3. **Accuracy:** Precise tracking of request counts even in a distributed environment.
+### C. Sliding Window Log
+*   **Mechanism**: Stores the exact Unix timestamp of every request in a Redis Sorted Set. Removes timestamps older than the current window.
+*   **Pros**: 100% accurate rate limiting.
+*   **Cons**: Extremely high memory footprint. Tracking 1 million users with a limit of 500 req/hour requires ~12GB of Redis memory.
 
-## 🧠 The Engineering Story
+### D. Sliding Window Counter (Hybrid)
+*   **Mechanism**: Combines the Fixed Window and the Log. Calculates a weighted average of the previous window's count based on the overlap percentage of the current window.
+*   **Pros**: Highly memory efficient (uses 86% less memory than the Log method) while successfully smoothing out edge spikes.
 
-**The Villain:** "The DDoS/Noisy Neighbor." One rogue script taking down the entire API for everyone.
+---
 
-**The Hero:** "The Token Bucket."
+## 2. High-Level Architecture
 
-**The Plot:**
+In a distributed cluster, Rate Limiters must **synchronize state** to prevent a user from bypassing the limit by hitting different API gateways.
 
-1. Refill tokens at a fixed rate.
-2. Allow bursts if tokens are available.
+```mermaid
+graph TD
+    Client --> LB[Load Balancer]
+    LB --> API1[API Gateway 1]
+    LB --> API2[API Gateway 2]
+    
+    API1 --> RL1[Rate Limiter Middleware]
+    API2 --> RL2[Rate Limiter Middleware]
+    
+    RL1 <--> Redis[(Central Redis Cluster)]
+    RL2 <--> Redis
+    
+    RL1 -->|Allow| Svc[Backend Microservices]
+    RL1 -->|Deny| 429[HTTP 429 Too Many Requests]
+```
 
-**The Twist:** "The Distributed Race Condition." Multiple API nodes updating the same bucket in Redis.
+---
 
-**Interview Signal:** Mastery of **Traffic Control**, **Distributed State Management**, and **Redis Lua Scripting**.
+## 3. Distributed Challenges & Solutions
 
-## 🏗️ High-Level Architecture
-Design a rate limiter that can be deployed at the edge (API Gateway) to protect services from being overwhelmed.
+### Synchronization
+Sticky sessions can avoid synchronization issues by routing a user to the same server, but this leads to unbalanced loads and is not scalable. A **centralized Redis cluster** is the preferred solution for sharing counters across stateless API gateways.
 
-### Key Design Challenges:
-#### Algorithms to Evaluate
+### Atomicity (Race Conditions)
+When reading and updating counters in Redis concurrently, race conditions can occur.
+*   **Problem:** Two servers read `counter = 10` simultaneously and both increment to `11`, effectively losing one request count.
+*   **Solution:** Use **Redis INCR atomic operations** or **Lua Scripts** to ensure the read-and-increment operation is atomic.
 
-1. **Token Bucket:** Allows bursts, simple to implement.
-2. **Leaky Bucket:** Constant output rate, smooths traffic.
-3. **Fixed Window Counter:** Simple but has "edge" problems (double traffic at window borders).
-4. **Sliding Window Logs:** Precise but memory-heavy.
-5. **Sliding Window Counter:** Best trade-off between precision and memory.
+### Latency & Caching
+Reading from Redis on every request adds latency.
+*   **Optimization:** API gateways often **cache recent rate-limit states locally** in memory for a short duration and use an **asynchronous Write-Back** strategy to update the central Redis cluster.
 
-#### Distributed Challenges
+---
 
-- **Shared State:** Using Redis for centralized counting.
-- **Performance:** Minimizing latency added to every request.
-- **Race Conditions:** Using Lua scripts in Redis for atomic "check-and-increment."
+## 4. Throttling Strategies
 
-## 🔍 Deep Dives
-(To be detailed...)
+| Type | Description |
+| :--- | :--- |
+| **Hard Throttling** | Strict limit. Requests beyond the limit are rejected immediately (HTTP 429). |
+| **Soft Throttling** | Allows a small percentage of requests to exceed the limit for a short duration. |
 
-## 📊 Data Modeling & API Design
-### Data Model
+---
 
-- **(To be detailed...)**: (To be detailed...)
+## 5. Practical Implementation
 
-### API Design
+Explore low-level code and infrastructure implementations of this architecture within this repository:
 
-- **(To be detailed...)**: (To be detailed...)
-
-## 📈 Scalability & Bottlenecks
-(To be detailed...)
-
-## 🎤 Interview Follow-ups
-
-- **Harder Variant:** (To be detailed...)
-- **Scale Question:** (To be detailed...)
-- **Edge Case Probe:** (To be detailed...)
-
-## 🔗 Related Architectures
-
-- [Ticket Booking](./TICKET_BOOKING.md) — For concurrency and reservation patterns.
+*   **Infrastructure Challenge**: [Redis Rate Limiter](../../../infrastructure_challenges/redis_rate_limiter/redis_rate_limiter.py)
+*   **Machine Coding**: [Distributed Rate Limiter](../../../machine_coding/distributed/rate_limiter/rate_limiter.py)
