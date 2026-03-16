@@ -71,6 +71,10 @@ Design a highly scalable and available Key-Value store, similar to DynamoDB, Cas
 - **Scale Question:** (To be detailed...)
 - **Edge Case Probe:** (To be detailed...)
 
-## 🔗 Related Architectures
+## Practical Implementation
 
-- [S3 Lite](./S3_LITE.md) — For object storage patterns.
+Explore the low-level implementations of distributed key-value stores and conflict resolution:
+
+* [System Design: S3 Lite](./S3_LITE.md)
+* [System Design: NoSQL Internals](./NOSQL_INTERNALS.md)
+* [Machine Coding: Cache System](../../../machine_coding/systems/cache_system/PROBLEM.md)

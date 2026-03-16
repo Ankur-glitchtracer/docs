@@ -69,6 +69,9 @@ Design a platform capable of ingesting, processing, and streaming high-quality v
 - **Scale Question:** (To be detailed...)
 - **Edge Case Probe:** (To be detailed...)
 
-## 🔗 Related Architectures
+## Practical Implementation
 
-- [S3 Lite](../distributed_storage/S3_LITE.md) — For video storage patterns.
+Explore the low-level implementations of distributed object storage and adaptive streaming:
+
+* [System Design: S3 Lite](../distributed_storage/S3_LITE.md)
+* [System Design: YouTube & Netflix Architecture](../social_media/YOUTUBE_NETFLIX_STREAMING.md)

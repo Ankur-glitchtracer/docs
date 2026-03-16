@@ -70,6 +70,10 @@ Design a real-time messaging system that supports millions of users, global mess
 - **Scale Question:** (To be detailed...)
 - **Edge Case Probe:** (To be detailed...)
 
-## 🔗 Related Architectures
+## Practical Implementation
 
-- [Facebook Capacity](./FACEBOOK_CAPACITY.md) — For scaling the backend infrastructure.
+Explore the real-time networking and data modeling of global messaging platforms:
+
+* [System Design: Facebook Capacity](./FACEBOOK_CAPACITY.md)
+* [Machine Coding: Kafka Lite](../distributed_storage/KAFKA_DEEP_DIVE.md)
+* [Infrastructure: Socket Chat App](../../../infrastructure_challenges/socket_chat_app/PROBLEM.md)

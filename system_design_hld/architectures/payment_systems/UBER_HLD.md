@@ -1,74 +1,132 @@
-# 🚖 System Design: Ride-Sharing Global Matcher (Uber Global)
+# Designing Uber (Ride-Hailing System)
 
-## 📝 Overview
-A **Global Ride-Sharing Matcher** designed for high-frequency location tracking and efficient rider-driver matchmaking. It leverages advanced geospatial indexing to handle millions of real-time updates and localized demand spikes, ensuring riders are matched with the nearest available drivers in seconds.
+## System Overview
+The system connects passengers with nearby drivers. It requires real-time location tracking, efficient geospatial querying, and high consistency for trip management.
 
-!!! abstract "Core Concepts"
+## Core Components
+*   **Driver Location Service**: Receives location updates (every 3 seconds) from active drivers.
+*   **Passenger Service**: Handles ride requests and payment.
+*   **Trip Service**: Manages the state of a ride (Requested, Accepted, In-Progress, Completed).
 
-    - **Geospatial Indexing (H3/S2):** Partitioning the globe into manageable cells (hexagons or squares) to enable efficient localized searches.
-    - **High-Frequency Pings:** Managing millions of concurrent GPS updates from driver apps with minimal latency.
-    - **Distributed Locking:** Ensuring atomic assignment of drivers to riders to prevent double-matching in a high-concurrency environment.
+## Geospatial Indexing: QuadTrees
+To efficiently find drivers within a radius, we use a QuadTree.
+*   **Structure**: A tree where each node represents a geographical region. If a region contains too many points (drivers), it splits into four quadrants.
+*   **Dynamic Updates**: Drivers move constantly. Updating the QuadTree for every movement is expensive.
+    *   *Optimization*: Update the data structure only if the driver moves across a grid boundary.
+    *   *Hash Table*: Keep latest lat/long in a Hash Table for quick lookup; use QuadTree for range queries.
 
-## 🛠️ Functional & Non-Functional Requirements
-### Functional Requirements
+```mermaid
+graph TD
+    Root[World] --> NW[North West]
+    Root --> NE[North East]
+    Root --> SW[South West]
+    Root --> SE[South East]
+    NW --> NW1[...]
+```
 
-1. **Location Tracking:** Collect and process high-frequency GPS updates from millions of driver apps.
-2. **Real-time Matchmaking:** Connect riders to the nearest available drivers in under 5 seconds.
-3. **Dynamic Surge Pricing:** Calculate and apply price multipliers based on real-time supply and demand in specific geographic cells.
+## Architecture
 
-### Non-Functional Requirements
+```mermaid
+graph LR
+    Driver -->|Location Update| LB[Load Balancer]
+    Passenger -->|Request Ride| LB
+    LB --> Dispatch[Dispatch Service]
+    Dispatch -->|Range Query| QuadTree[QuadTree Service]
+    Dispatch -->|Find| DriverDB[Driver DB]
+    QuadTree -->|Return IDs| Dispatch
+    Dispatch -->|Notify| Driver
+```
 
-1. **Write-Heavy Performance:** System must ingest and process millions of location pings per second with sub-second latency.
-2. **High Availability & Partition Tolerance:** Local matching services must remain functional even during regional network partitions.
-3. **Low Latency Matchmaking:** The end-to-end matching process must be fast enough to prevent rider abandonment.
+## Aggregator Service
+Since QuadTrees might be sharded, an Aggregator Service queries multiple QuadTree servers to gather results for a wide search radius, merges them, and returns the best matches to the Dispatch Service.
 
-## 🧠 The Engineering Story
+## Data Sharding
+*   **Sharding by City/Region**: Good for local queries but can cause hotspots (e.g., Manhattan vs. rural area).
+*   **Sharding by DriverID**: Distributes load evenly but requires querying all shards to find nearby drivers.
+*   **Hybrid**: Use H3 or S2 geometry libraries (Google) for uniform cell-based indexing.
 
-**The Villain:** "The $O(N)$ Location Search." A rider in Manhattan asks for a car. If the server scans all 1M drivers globally to find the closest one, the request times out before the rider even sees a spinner.
 
-**The Hero:** "The Geospatial Index (Quadtree/H3)." Partitioning the world into small boxes or hexagons so you only search the 50 drivers within 2 miles.
+Design: Uber & Yelp (Geospatial Architectures)
 
-**The Plot:**
+Designing geospatial architectures requires solving fundamentally different problems based on the volatility of the data. This document outlines the differences between designing for static proximity services (Yelp) versus highly dynamic ride-hailing backends (Uber).
 
-1. **Location Pings:** Drivers send GPS updates every 5 seconds.
-2. **Index:** Store locations in a geospatial index (e.g., Redis Geo or Google S2).
-3. **Matcher:** Query the index for nearby available drivers.
-4. **Transaction:** Use a distributed lock to ensure only one rider can "grab" a driver at a time.
+## 1. The Spatial Indexing Challenge
 
-**The Twist (Failure):** **The New Year's Eve Spike.** Demand in Times Square is 1,000x normal, crushing the geospatial shard for that specific GPS coordinate.
+Storing locations in a standard relational database (Lat, Long) and querying via a bounding box (`BETWEEN X1 AND X2`) is extremely slow at scale because it requires intersecting massive datasets in memory.
 
-**Interview Signal:** Mastery of **Geospatial Data Structures**, **High-Frequency Writes**, and **Distributed Locking**.
+### The Base Solution: QuadTrees
 
-## 🏗️ High-Level Architecture
-Design the high-level architecture for a system that matches millions of riders with drivers globally while handling dynamic pricing and real-time location updates.
+A QuadTree is a memory-efficient tree data structure where each node represents a geospatial region.
 
-### Key Design Challenges:
+- **Node Capacity:** A node splits into 4 child quadrants (NW, NE, SW, SE) when it contains more than a specific threshold (e.g., 500 locations).
+- **Memory Footprint:** Storing 500 million places/drivers requires just 24 bytes per record (LocationID + Lat/Long).  
+  `500M * 24 bytes = 12 GB`, easily fitting entirely in RAM.
 
-- **Geospatial Indexing:** Choosing between Quadtrees, Google S2, or Uber H3 based on the need for uniform cell shapes and efficient neighbor searches.
-- **Consistency & Concurrency:** Preventing race conditions where multiple riders are matched to the same driver simultaneously using distributed locks.
-- **Handling Flash Crowds:** Architecting for massive localized demand spikes (e.g., concerts or sports events) that can overwhelm specific geospatial shards.
+---
 
-## 🔍 Deep Dives
-(To be detailed...)
+## 2. Yelp: Static Workloads
 
-## 📊 Data Modeling & API Design
-### Data Model
+For a static service like Yelp, the QuadTree works perfectly.
 
-- **(To be detailed...)**: (To be detailed...)
+- **Stability:** Because physical places (restaurants, monuments) do not move, the structural integrity of the QuadTree is highly stable.
+- **Off-Peak Batching:** Even for dynamic attributes like a place's popularity or rating, Yelp actively avoids updating the QuadTree in real-time, as doing so consumes significant CPU resources and degrades search throughput. Instead, updates are batched and applied once or twice a day during off-peak hours.
 
-### API Design
+---
 
-- **(To be detailed...)**: (To be detailed...)
+## 3. Uber: High-Frequency Dynamic Workloads
 
-## 📈 Scalability & Bottlenecks
-(To be detailed...)
+Uber's active drivers are constantly moving, pinging their exact coordinates every 3 seconds.
 
-## 🎤 Interview Follow-ups
+If Uber updated the distributed QuadTree synchronously with every 3-second ping, the system would melt down. Drivers crossing grid boundaries would constantly trigger computationally expensive node insertions, deletions, partitions, and merges.
 
-- **Harder Variant:** (To be detailed...)
-- **Scale Question:** (To be detailed...)
-- **Edge Case Probe:** (To be detailed...)
+### Decoupling via DriverLocationHT
 
-## 🔗 Related Architectures
+To prevent overwhelming the QuadTree, Uber decouples the rapid location updates from the spatial index using a distributed hash table.
 
-- [Ticket Booking](../utilities/TICKET_BOOKING.md) — For high-concurrency reservation patterns.
+- **DriverLocationHT (Redis):** The system stores the absolute latest driver positions in this hash table. It holds a highly compact record (35 bytes) for each driver:
+  - DriverID (3B)
+  - Old Lat/Long (16B)
+  - New Lat/Long (16B)
+
+- **Real-time Broadcasting:** The servers holding this Hash Table immediately broadcast the new locations to any customers actively subscribed to a driver's journey.
+
+- **Asynchronous QuadTree Updates:** The Driver Location servers batch the updates and notify the QuadTree servers at a slower, asynchronous cadence (e.g., every 10 to 15 seconds). This drastically reduces the write load on the tree structure.
+
+### Grid Cushioning
+
+To further mitigate the risk of tree thrashing (continuous partitioning and merging of grids due to drivers hovering on a boundary), Uber implements a dynamic "cushion."
+
+Grids are allowed to temporarily grow or shrink by an extra 10% beyond their predefined limit (e.g., 550 drivers instead of 500) before a structural partition or merge is strictly enforced.
+
+```mermaid
+graph TD
+    Driver[Driver App] -->|Lat/Long every 3s| API[API Gateway]
+    API --> DHT[(DriverLocationHT - Redis)]
+    
+    DHT -.->|Batched Updates (10-15s)| QT[(QuadTree Servers)]
+    
+    Customer[Customer App] -->|Request Ride| Agg[Aggregator Service]
+    Agg --> QT
+    QT -->|Returns Nearby Drivers| Agg
+    Agg --> DHT
+    DHT -->|Fetches exact current coords| Agg
+    Agg -->|Dispatches| Driver
+```
+
+---
+
+## 4. Real-Time Notification Service
+
+Once a customer opens the app, they must see the cars moving in real-time.
+
+- **Publisher/Subscriber Model:** The customer subscribes to the 5–10 closest drivers.
+- **Bandwidth Estimate:** If 500K active customers subscribe to 5 drivers each, the system manages **2.5M active subscriptions**. Broadcasting **19 bytes** of data per driver every 3 seconds requires approximately **47.5 MB/s of egress bandwidth**.
+
+---
+
+## Practical Implementation
+
+Explore the low-level system implementations of this architecture within the repository:
+
+* [Machine Coding: Ride Sharing Service](../../../machine_coding/real_world_systems/ride_sharing_service/PROBLEM.md)
+* [Infrastructure: Redis Rate Limiter](../../../infrastructure_challenges/redis_rate_limiter/PROBLEM.md)
