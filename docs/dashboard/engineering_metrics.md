@@ -54,6 +54,21 @@ python scripts/update_dashboard.py --today
 <!-- REVIEW_TABLE_START -->
 | Topic | Category | Impact | Last Reviewed | Confidence | Next Review |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| Longest Repeating Character Replacement | DSA | "Medium"    # Low | Medium | High | 2026-03-19 | 1/5 | 2026-03-19 |
+| Best Time To Buy Sell Stock | DSA | "Medium"    # Low | Medium | High | 2026-03-19 | 1/5 | 2026-03-19 |
+| Longest Substring Without Repeating Characters | DSA | "Medium"    # Low | Medium | High | 2026-03-19 | 1/5 | 2026-03-19 |
+| Pizza Builder Decorator | Design Pattern | "Medium"    # Low | Medium | High | 2026-03-19 | 1/5 | 2026-03-19 |
+| Forest Simulator | Design Pattern | "Medium"    # Low | Medium | High | 2026-03-19 | 1/5 | 2026-03-19 |
+| Lazy Loading Proxy | Design Pattern | "Medium"    # Low | Medium | High | 2026-03-19 | 1/5 | 2026-03-19 |
+| Organisation Chart | Design Pattern | "Medium"    # Low | Medium | High | 2026-03-19 | 1/5 | 2026-03-19 |
+| Remote Control | Design Pattern | "Medium"    # Low | Medium | High | 2026-03-19 | 1/5 | 2026-03-19 |
+| Format Translator | Design Pattern | "Medium"    # Low | Medium | High | 2026-03-19 | 1/5 | 2026-03-19 |
+| Smart Home Facade | Design Pattern | "Medium"    # Low | Medium | High | 2026-03-19 | 1/5 | 2026-03-19 |
+| Visitor | Design Pattern | "Low"       # Low | Medium | High | 2026-03-19 | 1/5 | 2026-03-19 |
+| Chain Of Responsibility | Design Pattern | "Medium"    # Low | Medium | High | 2026-03-19 | 1/5 | 2026-03-19 |
+| Mvc | Design Pattern | "High"      # Low | Medium | High | 2026-03-19 | 1/5 | 2026-03-19 |
+| Mediator | Design Pattern | "Medium"    # Low | Medium | High | 2026-03-19 | 1/5 | 2026-03-19 |
+| Rule Engine | Design Pattern | "Low"       # Low | Medium | High | 2026-03-19 | 1/5 | 2026-03-19 |
 <!-- REVIEW_TABLE_END -->
 
 ---
@@ -63,9 +78,9 @@ python scripts/update_dashboard.py --today
 *(Auto-generated — charts + distribution)*
 
 <!-- STATS_START -->
-* Active Topics: 216
-* Needs Review: 0
-* Weak Areas (≤2): 183
+* Active Topics: 209
+* Needs Review: 33
+* Weak Areas (≤2): 209
 <!-- STATS_END -->
 
 ---

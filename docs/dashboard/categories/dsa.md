@@ -19,12 +19,9 @@
  | Subsets | DSA | "High" | 2026-03-19 | 0/5 | 2026-03-20 | 
  | N Queens | DSA | "Hard" | 2026-03-19 | 0/5 | 2026-03-20 | 
  | Combination Sum Ii | DSA | "Medium" | 2026-03-19 | 0/5 | 2026-03-20 | 
- | Longest Repeating Character Replacement | DSA | "Medium"    # Low | Medium | High | 2026-03-19 | High | 2026-03-20 | 0/5 | TBD | 
  | Permutation In String | DSA | "Medium" | 2026-03-19 | 0/5 | 2026-03-20 | 
  | Minimum Window Substring | DSA | "Medium" | 2026-03-19 | 0/5 | 2026-03-20 | 
- | Best Time To Buy Sell Stock | DSA | "Medium"    # Low | Medium | High | 2026-03-19 | High | 2026-03-20 | 0/5 | TBD | 
  | Sliding Window Maximum | DSA | "Hard" | 2026-03-19 | 0/5 | 2026-03-20 | 
- | Longest Substring Without Repeating Characters | DSA | "Medium"    # Low | Medium | High | 2026-03-19 | High | 2026-03-20 | 0/5 | TBD | 
  | Reconstruct Itinerary | DSA | "Medium" | 2026-03-19 | 0/5 | 2026-03-20 | 
  | Min Cost To Connect All Points | DSA | "Medium" | 2026-03-19 | 0/5 | 2026-03-20 | 
  | Swim In Rising Water | DSA | "Hard" | 2026-03-19 | 0/5 | 2026-03-20 | 
@@ -161,3 +158,6 @@
  | Walls And Gates | DSA | "Medium" | 2026-03-19 | 0/5 | 2026-03-20 | 
  | Rotting Oranges | DSA | "Medium" | 2026-03-19 | 0/5 | 2026-03-20 | 
  | Clone Graph | DSA | "Medium" | 2026-03-19 | 0/5 | 2026-03-20 | 
+ | Longest Repeating Character Replacement | DSA | "Medium"    # Low | Medium | High | 2026-03-19 | 1/5 | 2026-03-19 | High | 2026-03-20 | 0/5 | TBD | 
+ | Best Time To Buy Sell Stock | DSA | "Medium"    # Low | Medium | High | 2026-03-19 | 1/5 | 2026-03-19 | High | 2026-03-20 | 0/5 | TBD | 
+ | Longest Substring Without Repeating Characters | DSA | "Medium"    # Low | Medium | High | 2026-03-19 | 1/5 | 2026-03-19 | High | 2026-03-20 | 0/5 | TBD | 
