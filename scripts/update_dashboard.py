@@ -127,7 +127,8 @@ def write_category_files(active_rows, review_rows, dry_run=False):
         lines.append("| :--- | :--- | :--- | :--- | :--- | :--- |")
 
         for r in rows:
-            lines.append(" | ".join(r))
+            cleaned = [cell.strip() for cell in r if cell.strip() != ""]
+            lines.append("| " + " | ".join(cleaned) + " |")
 
         content = "\n".join(lines) + "\n"
 
@@ -210,7 +211,7 @@ def combine_dashboard_files(active_rows, review_rows, dry_run=False):
 # MAIN ENGINE
 # ==============================
 
-def update_dashboard(dry_run=False, no_issues=False, no_chart=False, show_today=False):
+def update_dashboard(dry_run=False, no_issues=False, no_chart=False, show_today=False, auto_add=False):
     root = Path(__file__).parent.parent
     topic_map = build_topic_map(root)
     today = datetime.now()
@@ -283,18 +284,21 @@ def update_dashboard(dry_run=False, no_issues=False, no_chart=False, show_today=
 
                 break
 
-    # Add new topics
-    for topic, topic_info in topic_map.items():
-        if normalize(topic) not in existing:
-            path_md = topic_info["path"]
-            category = topic_info["category"]
-            meta = extract_frontmatter(path_md)
-            impact = meta["impact"]
+    # Add new topics (Opt-in only)
+    if auto_add:
+        for topic, topic_info in topic_map.items():
+            if normalize(topic) not in existing:
+                path_md = topic_info["path"]
+                category = topic_info["category"]
+                meta = extract_frontmatter(path_md)
+                impact = meta["impact"]
 
-            print(f"[NEW] {topic}")
-            row = ["", topic, category, impact, "N/A", "0/5", "TBD", ""]
-            active.append(row)
-            added += 1
+                print(f"[NEW] {topic}")
+                row = ["", topic, category, impact, "N/A", "0/5", "TBD", ""]
+                active.append(row)
+                added += 1
+    else:
+        print("[INFO] Topic auto-discovery skipped. Use --auto-add to enable.")
 
     # TODAY PLAN 🔥
     if show_today:
@@ -337,6 +341,7 @@ if __name__ == "__main__":
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--no-issues", action="store_true")
     parser.add_argument("--no-chart", action="store_true")
+    parser.add_argument("--auto-add", action="store_true", help="Automatically add new topics to dashboard")
     parser.add_argument("--today", action="store_true", help="Show today's study plan")
 
     args = parser.parse_args()
@@ -345,5 +350,6 @@ if __name__ == "__main__":
         dry_run=args.dry_run,
         no_issues=args.no_issues,
         no_chart=args.no_chart,
-        show_today=args.today
+        show_today=args.today,
+        auto_add=args.auto_add
     )
