@@ -74,5 +74,5 @@ graph TD
 - **Deep Dive:** Why min-heap with negative numbers vs max-heap? (Python only has min-heap).
 
 ## 🔗 Related Problems
-- [Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/) — Core algorithm used here
+- [Merge k Sorted Lists](../../06_linked_list/merge_k_sorted_lists/PROBLEM.md) — Core algorithm used here
 - [Task Scheduler](../task_scheduler/PROBLEM.md) — Heap usage

@@ -62,5 +62,4 @@ graph TD
 - **Alternative Data Structures:** For extremely dense subsets, a boolean array `dp[target + 1]` can be faster than a `set` due to cache locality.
 
 ## 🔗 Related Problems
-- [0/1 Knapsack](https://en.wikipedia.org/wiki/Knapsack_problem) — Base problem.
 - [Subsets](../../10_backtracking/subsets/PROBLEM.md) — Fundamental backtracking problem.

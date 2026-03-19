@@ -70,4 +70,4 @@ graph TD
 - **Harder Variant:** Palindrome Partitioning II (Minimum cuts required).
 
 ## 🔗 Related Problems
-- [Word Break](https://leetcode.com/problems/word-break/) — Similar DP/Backtracking structure
+- [Word Break](../../13_1d_dynamic_programming/word_break/PROBLEM.md) — Similar DP/Backtracking structure

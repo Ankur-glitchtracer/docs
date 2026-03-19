@@ -68,5 +68,5 @@ graph TD
 - **Comparison:** Include/Exclude logic vs For-Loop logic. Both work. For loop logic naturally handles duplicates with `continue`, Include/Exclude needs a `while` loop to skip.
 
 ## 🔗 Related Problems
-- [Subsets](https://leetcode.com/problems/subsets/) — No duplicates
+- [Subsets](../subsets/PROBLEM.md) — No duplicates
 - [Combination Sum II](../combination_sum_ii/PROBLEM.md) — Same dup logic

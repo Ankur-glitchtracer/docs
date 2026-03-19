@@ -73,4 +73,3 @@ graph LR
 
 ## 🔗 Related Problems
 - [Two Sum II](../two_sum_ii/PROBLEM.md)
-- [4Sum](https://leetcode.com/problems/4sum/)

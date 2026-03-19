@@ -82,5 +82,3 @@ graph LR
 
 ## 🔗 Related Problems
 - [Linked List Cycle](../linked_list_cycle/PROBLEM.md) — The fundamental concept behind this solution.
-- [Find the Duplicate Number (LeetCode 287)](https://leetcode.com/problems/find-the-duplicate-number/)
-<!-- - [First Missing Positive](../../01_arrays_hashing/first_missing_positive/PROBLEM.md) — Another array-as-pointers problem. -->

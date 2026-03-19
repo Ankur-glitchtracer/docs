@@ -70,5 +70,4 @@ graph LR
 - **Follow-up:** What if you could delete at most one character to make it a palindrome? (See Valid Palindrome II).
 
 ## 🔗 Related Problems
-- [Valid Palindrome II](https://leetcode.com/problems/valid-palindrome-ii/)
 - [Two Sum II](../two_sum_ii/PROBLEM.md)

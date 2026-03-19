@@ -63,4 +63,3 @@ graph LR
 
 ## 🔗 Related Problems
 - [Min Cost Climbing Stairs](../min_cost_climbing_stairs/PROBLEM.md)
-<!-- - [Fibonacci Number](../fibonacci_number/PROBLEM.md) -->

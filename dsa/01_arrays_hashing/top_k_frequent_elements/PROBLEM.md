@@ -64,4 +64,3 @@ graph LR
 
 ## 🔗 Related Problems
 - [Group Anagrams](../group_anagrams/PROBLEM.md)
-- [Sort Characters By Frequency](https://leetcode.com/problems/sort-characters-by-frequency/)

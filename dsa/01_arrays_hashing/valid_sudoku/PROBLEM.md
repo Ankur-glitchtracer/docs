@@ -74,5 +74,3 @@ graph TD
 - **Scaling:** How would you handle an $N^2 \times N^2$ board? (The logic remains the same, but complexity becomes $O(N^4)$).
 
 ## 🔗 Related Problems
-- [Sudoku Solver](https://leetcode.com/problems/sudoku-solver/)
-- [Rotate Image](https://leetcode.com/problems/rotate-image/)

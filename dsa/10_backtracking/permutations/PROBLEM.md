@@ -65,5 +65,4 @@ graph TD
 - **Alternative:** Heap's Algorithm (swapping elements in place).
 
 ## 🔗 Related Problems
-- [Permutations II](https://leetcode.com/problems/permutations-ii/) — With duplicates
 - [Combination Sum](../combination_sum/PROBLEM.md) — Selection without order

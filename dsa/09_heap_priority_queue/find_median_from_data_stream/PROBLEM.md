@@ -73,4 +73,3 @@ graph TD
 - **Follow-up:** If 99% of calls are `addNum`, is this efficient? (Yes, log N is good).
 
 ## 🔗 Related Problems
-- [Sliding Window Median](https://leetcode.com/problems/sliding-window-median/) — Harder variant

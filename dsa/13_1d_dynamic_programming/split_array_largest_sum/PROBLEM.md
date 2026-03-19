@@ -94,4 +94,3 @@ graph TD
 ## 🔗 Related Problems
 
 * [Koko Eating Bananas](../../05_binary_search/koko_eating_bananas/PROBLEM.md) — Binary search on rate
-<!-- * [Capacity to Ship Packages Within D Days](../capacity_to_ship_packages/PROBLEM.md) — Same pattern -->

@@ -72,5 +72,4 @@ graph TD
 - **Variant:** N-Queens II (Just count solutions, don't return boards).
 
 ## 🔗 Related Problems
-- [Sudoku Solver](https://leetcode.com/problems/sudoku-solver/) — Similar CSP
 - [Permutations](../permutations/PROBLEM.md) — Related recursion

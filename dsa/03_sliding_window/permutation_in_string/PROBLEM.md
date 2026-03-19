@@ -69,4 +69,3 @@ graph LR
 
 ## 🔗 Related Problems
 - [Minimum Window Substring](../minimum_window_substring/PROBLEM.md) — Next in category
-- [Find All Anagrams](https://leetcode.com/problems/find-all-anagrams-in-a-string/) — Almost identical

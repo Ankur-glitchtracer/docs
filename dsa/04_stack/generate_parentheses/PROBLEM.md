@@ -70,4 +70,4 @@ graph TD
 ## 🔗 Related Problems
 - [Daily Temperatures](../daily_temperatures/PROBLEM.md) — Next in category
 - [Evaluate RPN](../evaluate_reverse_polish_notation/PROBLEM.md) — Previous in category
-- [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) — Prerequisite
+- [Valid Parentheses](../valid_parentheses/PROBLEM.md) — Prerequisite

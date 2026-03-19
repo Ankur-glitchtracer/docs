@@ -66,5 +66,4 @@ graph TD
 - **Alternative:** Can you simulate it with a Max-Heap and Queue? (Yes, pop max freq, process, push to queue with cooldown timestamp. When time >= timestamp, push back to heap).
 
 ## 🔗 Related Problems
-- [Reorganize String](https://leetcode.com/problems/reorganize-string/) — Very similar logic
 - [Design Twitter](../design_twitter/PROBLEM.md) — Heap application

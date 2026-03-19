@@ -83,5 +83,4 @@ graph LR
 
 ## 🔗 Related Problems
 - [Reverse Linked List](../reverse_list/PROBLEM.md) — The fundamental primitive used here.
-- [Swap Nodes in Pairs](https://leetcode.com/problems/swap-nodes-in-pairs/) — A special case where $k=2$.
 - [Reorder List](../reorder_list/PROBLEM.md) — Another complex pointer manipulation problem.

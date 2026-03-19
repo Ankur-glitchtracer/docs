@@ -73,4 +73,8 @@ graph TD
 - **Optimization:** Search for `word[::-1]` if `word` suffix is rarer than prefix on the board.
 
 ## 🔗 Related Problems
-- [Word Search II](../word_search_ii/PROBLEM.md) — Find multiple words (Uses Trie)
+
+- [Word Search II](../../08_tries/word_search_ii/PROBLEM.md) — Find multiple words using a Trie to prune DFS (Harder version).
+- [N-Queens](../n_queens/PROBLEM.md) — Another classic grid-based backtracking problem.
+- [Palindrome Partitioning](../palindrome_partitioning/PROBLEM.md) — Backtracking on a string to find valid partitions.
+- [Combination Sum](../combination_sum/PROBLEM.md) — A foundational problem for understanding general backtracking.

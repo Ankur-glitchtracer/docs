@@ -69,5 +69,4 @@ graph TD
 - **Comparison:** Dijkstra is easier to implement here than Union-Find.
 
 ## 🔗 Related Problems
-- [Path With Minimum Effort](https://leetcode.com/problems/path-with-minimum-effort/) — Almost identical
 - [Network Delay Time](../network_delay_time/PROBLEM.md) — Standard Dijkstra

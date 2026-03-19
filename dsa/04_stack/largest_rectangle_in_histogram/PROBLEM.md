@@ -71,4 +71,3 @@ graph TD
 
 ## 🔗 Related Problems
 - [Car Fleet](../car_fleet/PROBLEM.md) — Previous in category
-- [Maximal Rectangle](https://leetcode.com/problems/maximal-rectangle/) — Extension

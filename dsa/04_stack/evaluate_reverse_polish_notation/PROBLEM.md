@@ -74,4 +74,3 @@ graph TD
 ## 🔗 Related Problems
 - [Generate Parentheses](../generate_parentheses/PROBLEM.md) — Next in category
 - [Min Stack](../min_stack/PROBLEM.md) — Previous in category
-- [Basic Calculator](https://leetcode.com/problems/basic-calculator/) — Related stack problem

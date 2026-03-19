@@ -62,4 +62,3 @@ graph LR
 
 ## 🔗 Related Problems
 - [Palindromic Substrings](../palindromic_substrings/PROBLEM.md) — Related counting problem.
-<!-- - [Longest Palindromic Subsequence](../../14_2d_dynamic_programming/longest_palindromic_subsequence/PROBLEM.md) — Similar, but order-relaxed. -->
