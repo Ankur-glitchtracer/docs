@@ -66,14 +66,14 @@ A masterless, highly available distributed data store (AP in the CAP theorem). B
 
 ```mermaid
 graph TD
-    Client[Client App] -->|Hash(Key) = 45| LB[Load Balancer / Driver]
+    Client[Client App] -->|Hash Key = 45| LB[Load Balancer / Driver]
     
     LB --> Coordinator[Coordinator Node]
     
     subgraph "Consistent Hashing Ring"
-        Coordinator -->|1. Write| N1[Node A <br/> Primary]
-        Coordinator -->|2. Replicate| N2[Node B <br/> Replica 1]
-        Coordinator -->|3. Replicate| N3[Node C <br/> Replica 2]
+        Coordinator -->|1. Write| N1[Node A - Primary]
+        Coordinator -->|2. Replicate| N2[Node B - Replica 1]
+        Coordinator -->|3. Replicate| N3[Node C - Replica 2]
         N4[Node D] -.-> N1
     end
     
