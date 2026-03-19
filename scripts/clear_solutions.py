@@ -3,6 +3,7 @@ import logging
 import re
 from pathlib import Path
 
+from config import DASHBOARD_FILE
 from config.cleanup_templates import LANGUAGE_CONFIG, DASHBOARD_TEMPLATES
 
 # Setup basic logging
@@ -133,13 +134,28 @@ def reset_dashboards(root_dir, dry_run=False):
     dashboard_dir = root_dir / 'docs' / 'dashboard' / 'categories'
     
     reset_count = 0
+    
+    # 1. Reset category dashboards
     for name, content in DASHBOARD_TEMPLATES.items():
+        if name == "engineering_metrics.md":
+            continue
         file_path = dashboard_dir / name
         if not dry_run:
             file_path.parent.mkdir(parents=True, exist_ok=True)
             file_path.write_text(content, encoding='utf-8')
         logger.debug(f"Reset {name} to default.")
         reset_count += 1
+        
+    # 2. Reset main dashboard
+    main_dashboard = root_dir / DASHBOARD_FILE
+    if "engineering_metrics.md" in DASHBOARD_TEMPLATES:
+        content = DASHBOARD_TEMPLATES["engineering_metrics.md"]
+        if not dry_run:
+            main_dashboard.parent.mkdir(parents=True, exist_ok=True)
+            main_dashboard.write_text(content, encoding='utf-8')
+        logger.debug(f"Reset {DASHBOARD_FILE} to default.")
+        reset_count += 1
+        
     return reset_count
 
 def main():

@@ -82,7 +82,7 @@ classDiagram
 
 ## 💻 Solution Implementation
 
-!!! success "The Code"
+???+ success "The Code"
     ```python
     --8<-- "machine_coding/real_world_systems/e_commerce_order_system/order_processing_engine.py"
     ```

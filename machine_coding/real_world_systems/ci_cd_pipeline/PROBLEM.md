@@ -81,7 +81,7 @@ classDiagram
 
 ## 💻 Solution Implementation
 
-!!! success "The Code"
+???+ success "The Code"
     ```python
     --8<-- "machine_coding/real_world_systems/ci_cd_pipeline/ci_cd_pipeline.py"
     ```

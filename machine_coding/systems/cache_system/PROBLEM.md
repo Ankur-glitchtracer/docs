@@ -80,7 +80,7 @@ classDiagram
 
 ## 💻 Solution Implementation
 
-!!! success "The Code"
+???+ success "The Code"
     ```python
     --8<-- "machine_coding/systems/cache_system/cache.py"
     ```

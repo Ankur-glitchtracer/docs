@@ -81,7 +81,7 @@ classDiagram
 
 ## 💻 Solution Implementation
 
-!!! success "The Code"
+???+ success "The Code"
     ```python
     --8<-- "machine_coding/distributed/workflow_orchestrator/dag_engine.py"
     ```

@@ -85,7 +85,7 @@ classDiagram
 
 ## 💻 Solution Implementation
 
-!!! success "The Code"
+???+ success "The Code"
     ```python
     --8<-- "machine_coding/distributed/rate_limiter/rate_limiter.py"
     ```

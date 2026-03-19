@@ -80,7 +80,7 @@ classDiagram
 
 ## 💻 Solution Implementation
 
-!!! success "The Code"
+???+ success "The Code"
     ```python
     --8<-- "machine_coding/games/snake_ladder/snake_ladder_full.py"
     ```

@@ -85,7 +85,7 @@ classDiagram
 
 ## 💻 Solution Implementation
 
-!!! success "The Code"
+???+ success "The Code"
     ```python
     --8<-- "machine_coding/real_world_systems/ride_sharing_service/ride_sharing_service.py"
     ```

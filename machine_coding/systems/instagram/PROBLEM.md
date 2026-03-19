@@ -73,7 +73,7 @@ classDiagram
 
 ## 💻 Solution Implementation
 
-!!! success "The Code"
+???+ success "The Code"
     ```python
     --8<-- "machine_coding/systems/instagram/social_media_feed.py"
     ```

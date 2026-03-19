@@ -25,24 +25,10 @@ python scripts/update_dashboard.py --today
 
 ## ✅ Active Topics
 
-| Topic             | Category       | Impact | Last Reviewed | Confidence | Next Review |
-| :---------------- | :------------- | :----- | :------------ | :--------- | :---------- |
-| Singleton         | Design Pattern | High   | 2026-03-07    | 5/5        | 2026-05-07  |
-| Abstract Factory  | Design Pattern | High   | 2026-03-07    | 4/5        | 2026-04-07  |
-| Builder           | Design Pattern | High   | 2026-03-07    | 4/5        | 2026-04-07  |
-| Object Pool       | Design Pattern | High   | 2026-03-07    | 4/5        | 2026-04-07  |
-| Observer          | Design Pattern | High   | 2026-03-07    | 5/5        | 2026-05-07  |
-| Strategy          | Design Pattern | High   | 2026-03-07    | 4/5        | 2026-04-07  |
-| Elevator System   | LLD System     | High   | 2026-03-07    | 3/5        | 2026-03-21  |
-| Parking Lot       | LLD System     | High   | 2026-03-07    | 4/5        | 2026-03-21  |
-| Job Scheduler     | Distributed    | High   | 2026-03-07    | 3/5        | 2026-03-21  |
-| Two Sum           | DSA            | High   | 2026-03-07    | 5/5        | 2026-06-07  |
-| Trapping Water    | DSA            | High   | 2026-03-07    | 3/5        | 2026-03-21  |
-| Number Of Islands | DSA            | High   | 2026-03-07    | 4/5        | 2026-03-21  |
-| Lcs Dp            | DSA            | High   | 2026-03-07    | 3/5        | 2026-03-21  |
-| Binary Search     | DSA            | High   | 2026-03-07    | 5/5        | 2026-06-07  |
-| Kv Store          | HLD            | High   | 2026-03-07    | 4/5        | 2026-04-07  |
-| Redis Rate Limit  | Infra          | High   | 2026-03-07    | 3/5        | 2026-03-21  |
+<!-- ACTIVE_TABLE_START -->
+| Topic | Category | Impact | Last Reviewed | Confidence | Next Review |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+<!-- ACTIVE_TABLE_END -->
 
 ---
 
@@ -50,8 +36,10 @@ python scripts/update_dashboard.py --today
 
 *(Auto-managed — do not edit manually)*
 
+<!-- REVIEW_TABLE_START -->
 | Topic | Category | Impact | Last Reviewed | Confidence | Next Review |
-| :---- | :------- | :----- | :------------ | :--------- | :---------- |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+<!-- REVIEW_TABLE_END -->
 
 ---
 
@@ -59,11 +47,11 @@ python scripts/update_dashboard.py --today
 
 *(Auto-generated — charts + distribution)*
 
-Example:
-
-* Active Topics: X
-* Needs Review: Y
-* Weak Areas (≤2): Z
+<!-- STATS_START -->
+* Active Topics: 0
+* Needs Review: 0
+* Weak Areas (≤2): 0
+<!-- STATS_END -->
 
 ---
 

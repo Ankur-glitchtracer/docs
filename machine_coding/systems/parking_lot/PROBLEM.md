@@ -88,7 +88,7 @@ classDiagram
 
 ## 💻 Solution Implementation
 
-!!! success "The Code"
+???+ success "The Code"
     ```python
     --8<-- "machine_coding/systems/parking_lot/parking_lot.py"
     ```

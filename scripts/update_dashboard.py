@@ -1,318 +1,5 @@
-# import subprocess
-# from pathlib import Path
-
-# DASHBOARD_FILE = "ENGINEERING_METRICS.md"
-
-
-# # ==============================
-# # GIT HELPERS
-# # ==============================
-
-# def get_git_last_modified(file_path):
-#     try:
-#         output = subprocess.check_output(
-#             ["git", "log", "-1", "--format=%as", "--", str(file_path)],
-#             text=True,
-#             stderr=subprocess.DEVNULL
-#         ).strip()
-#         return output if output else "N/A"
-#     except Exception:
-#         return "N/A"
-
-
-# def get_changed_files():
-#     try:
-#         output = subprocess.check_output(
-#             ["git", "diff", "--name-only", "HEAD~1", "HEAD"],
-#             text=True
-#         )
-#         return set(line.strip() for line in output.splitlines() if line.strip())
-#     except Exception:
-#         return None
-
-
-# # ==============================
-# # BUILD TOPIC → FILE MAP
-# # ==============================
-
-# TARGET_DIRS = [
-#     "dsa",
-#     "design_patterns",
-#     "machine_coding",
-#     "infrastructure_challenges"
-# ]
-
-
-# def build_topic_map(root_dir):
-#     topic_map = {}
-
-#     for dir_name in TARGET_DIRS:
-#         base_path = root_dir / dir_name
-#         if not base_path.exists():
-#             continue
-
-#         for problem_file in base_path.rglob("PROBLEM.md"):
-#             topic = problem_file.parent.name.replace("_", " ").title()
-#             topic_map[topic] = problem_file
-
-#     return topic_map
-
-
-# # ==============================
-# # CORE LOGIC
-# # ==============================
-
-# def update_dashboard():
-#     root_dir = Path(__file__).parent.parent
-#     dashboard_path = root_dir / DASHBOARD_FILE
-
-#     if not dashboard_path.exists():
-#         print(f"Error: {DASHBOARD_FILE} not found.")
-#         return
-
-#     topic_map = build_topic_map(root_dir)
-#     changed_files = get_changed_files()
-
-#     lines = dashboard_path.read_text().splitlines()
-#     new_lines = []
-#     updated_count = 0
-
-#     print("Updating dashboard...")
-
-#     for line in lines:
-#         stripped = line.strip()
-
-#         if (
-#             "|" in line and
-#             not stripped.startswith("|-") and
-#             not stripped.startswith("| Topic")
-#         ):
-#             parts = [p.strip() for p in line.split("|")]
-
-#             # | Topic | Category | Impact | Last Reviewed | Confidence | Next Review |
-#             if len(parts) >= 6:
-#                 topic_name = parts[1]
-
-#                 if topic_name in topic_map:
-#                     file_path = topic_map[topic_name]
-
-#                     # Skip if not changed (optimization)
-#                     rel_path = str(file_path.relative_to(root_dir))
-#                     if changed_files and rel_path not in changed_files:
-#                         new_lines.append(line)
-#                         continue
-
-#                     last_modified = get_git_last_modified(file_path)
-
-#                     if last_modified != "N/A" and last_modified != parts[4]:
-#                         print(f"{topic_name}: {parts[4]} → {last_modified}")
-#                         parts[4] = last_modified
-#                         updated_count += 1
-
-#                 # Rebuild row
-#                 line = " | ".join(parts).strip()
-#                 if not line.startswith("|"):
-#                     line = f"| {line}"
-#                 if not line.endswith("|"):
-#                     line = f"{line} |"
-
-#         new_lines.append(line)
-
-#     new_content = "\n".join(new_lines) + "\n"
-#     old_content = dashboard_path.read_text()
-
-#     if new_content != old_content:
-#         dashboard_path.write_text(new_content)
-#         print(f"Updated {updated_count} entries.")
-#     else:
-#         print("No updates needed.")
-
-
-# # ==============================
-# # ENTRY
-# # ==============================
-
-# if __name__ == "__main__":
-#     update_dashboard()
-# =================================================================================================
-
-
-# import argparse
-# from pathlib import Path
-# from datetime import datetime
-
-# from config import DASHBOARD_FILE, TARGET_DIRS
-# from git_utils import get_last_modified
-# from parser import normalize, format_topic, extract_frontmatter_impact
-# from scheduler import extract_confidence, next_review, decay
-# from analytics import generate_chart, weekly_report
-# from github_utils import create_issue
-
-
-# def parse_date(date_str):
-#     try:
-#         return datetime.strptime(date_str, "%Y-%m-%d")
-#     except:
-#         return None
-
-
-# def build_topic_map(root):
-#     topic_map = {}
-#     for d in TARGET_DIRS:
-#         base = root / d
-#         if not base.exists():
-#             continue
-
-#         for f in base.rglob("PROBLEM.md"):
-#             topic = format_topic(f.parent.name)
-#             topic_map[topic] = f
-#     return topic_map
-
-
-# def update_dashboard(dry_run=False, no_issues=False, no_chart=False):
-#     root = Path(__file__).parent.parent
-#     dashboard = root / DASHBOARD_FILE
-
-#     topic_map = build_topic_map(root)
-#     today = datetime.now()
-
-#     lines = dashboard.read_text().splitlines()
-
-#     active, review = [], []
-#     existing = set()
-
-#     focus_topics = []
-#     category_focus = {}
-
-#     updated = added = 0
-#     review_topics = []
-
-#     for line in lines:
-#         if "|" not in line or line.strip().startswith("|-") or line.startswith("| Topic"):
-#             active.append(line)
-#             continue
-
-#         parts = [p.strip() for p in line.split("|")]
-#         if len(parts) < 6:
-#             active.append(line)
-#             continue
-
-#         topic = parts[1]
-#         norm = normalize(topic)
-#         existing.add(norm)
-
-#         for repo_topic, path in topic_map.items():
-#             if normalize(repo_topic) != norm:
-#                 continue
-
-#             # Extract impact from frontmatter
-#             impact = extract_frontmatter_impact(path)
-#             parts[3] = impact
-
-#             # Update last reviewed
-#             last_mod = get_last_modified(path)
-#             if last_mod != parts[4]:
-#                 print(f"[UPDATE] {topic}: {parts[4]} → {last_mod}")
-#                 parts[4] = last_mod
-#                 updated += 1
-
-#             # Confidence
-#             conf = extract_confidence(parts[5])
-#             nr = "[NR]" in topic
-
-#             # Track weak topics
-#             if conf <= 2:
-#                 focus_topics.append(topic)
-#                 cat = parts[2]
-#                 category_focus[cat] = category_focus.get(cat, 0) + 1
-
-#             # Next review
-#             next_rev = parse_date(parts[6])
-#             if not next_rev:
-#                 next_rev = next_review(conf, impact)
-#                 parts[6] = next_rev.strftime("%Y-%m-%d")
-
-#             if next_rev < today and not nr:
-#                 print(f"[REVIEW] {topic} moved to Needs Review")
-#                 conf = decay(conf)
-#                 parts[5] = f"{conf}/5"
-#                 review.append(parts)
-#                 review_topics.append(topic)
-#             else:
-#                 active.append(parts)
-
-#             break
-
-#     # Add new topics
-#     for topic, path in topic_map.items():
-#         if normalize(topic) not in existing:
-#             impact = extract_frontmatter_impact(path)
-#             print(f"[NEW] Adding topic: {topic}")
-#             row = ["", topic, "Unknown", impact, "N/A", "0/5", "TBD", ""]
-#             active.append(row)
-#             added += 1
-
-#     stats = {"Active": len(active), "Review": len(review)}
-
-#     if dry_run:
-#         print("\n[DRY-RUN] Skipping chart + GitHub issue creation")
-#     else:
-#         if not no_chart:
-#             generate_chart(stats)
-#         else:
-#             print("[SKIP] Chart generation disabled")
-
-#         if not no_issues:
-#             create_issue(review_topics)
-#         else:
-#             print("[SKIP] GitHub issues disabled")
-
-#     output = ["# 📊 Engineering Mastery Dashboard\n"]
-#     output += ["## ✅ Active Topics\n"]
-#     output += [" | ".join(r) if isinstance(r, list) else r for r in active]
-
-#     output += ["\n## ⏰ Needs Review\n"]
-#     output += [" | ".join(r) for r in review]
-
-#     output += ["\n## 📈 Stats\n"]
-#     output += [f"- Active: {len(active)}", f"- Review: {len(review)}"]
-#     output += ["\n![Stats](dashboard_stats.png)"]
-
-#     output += ["\n"]
-#     output += weekly_report(updated, added, len(review), focus_topics, category_focus)
-
-#     new_content = "\n".join(output) + "\n"
-
-#     if dry_run:
-#         print("\n========== DRY RUN OUTPUT ==========\n")
-#         print(new_content[:1000])  # preview first 1000 chars
-#         print("\n===================================\n")
-#         print(f"[SUMMARY] Updated={updated}, Added={added}, Review={len(review)}")
-#         return
-
-#     old_content = dashboard.read_text()
-#     if new_content != old_content:
-#         dashboard.write_text(new_content)
-#         print(f"[DONE] Updated={updated}, Added={added}, Review={len(review)}")
-#     else:
-#         print("[DONE] No changes")
-
-
-# if __name__ == "__main__":
-#     parser = argparse.ArgumentParser()
-#     parser.add_argument("--dry-run", action="store_true", help="Run without making changes")
-#     parser.add_argument("--no-issues", action="store_true", help="Skip GitHub issue creation")
-#     parser.add_argument("--no-chart", action="store_true", help="Skip chart generation")
-
-#     args = parser.parse_args()
-
-#     update_dashboard(
-#         dry_run=args.dry_run,
-#         no_issues=args.no_issues,
-#         no_chart=args.no_chart
-#     )
-
 import argparse
+import re
 from pathlib import Path
 from datetime import datetime
 
@@ -320,8 +7,16 @@ from config import DASHBOARD_FILE, CATEGORY_FILES, TARGET_DIRS
 from git_utils import get_last_modified
 from parser import normalize, format_topic, extract_frontmatter
 from scheduler import extract_confidence, next_review, decay
-from analytics import generate_chart, weekly_report
-from github_utils import create_issue
+try:
+    from analytics import generate_chart, weekly_report
+except ImportError:
+    generate_chart = None
+    weekly_report = None
+
+try:
+    from github_utils import create_issue
+except ImportError:
+    create_issue = None
 
 
 # ==============================
@@ -342,9 +37,20 @@ def build_topic_map(root):
         if not base.exists():
             continue
 
+        # Map directory name to display category
+        category = d.replace("_", " ").title()
+        if d == "dsa":
+            category = "DSA"
+        elif d == "infrastructure_challenges":
+            category = "Infra"
+        elif d == "design_patterns":
+            category = "Design Pattern"
+        elif d == "machine_coding":
+            category = "LLD System"
+
         for f in base.rglob("PROBLEM.md"):
             topic = format_topic(f.parent.name)
-            topic_map[topic] = f
+            topic_map[topic] = {"path": f, "category": category}
     return topic_map
 
 
@@ -433,21 +139,70 @@ def write_category_files(active_rows, review_rows, dry_run=False):
             print(f"[WRITE] {len(rows)} rows to {path}")
 
 
-def combine_dashboard_files(dry_run=False):
-    combined = ["# 📊 Engineering Mastery Dashboard\n"]
+def update_section(content, marker_base, new_table):
+    """Updates a section between <!-- MARKER_START --> and <!-- MARKER_END -->"""
+    start_marker = f"<!-- {marker_base}_START -->"
+    end_marker = f"<!-- {marker_base}_END -->"
+    
+    pattern = re.compile(f"{re.escape(start_marker)}[\\s\\S]*?{re.escape(end_marker)}")
+    replacement = f"{start_marker}\n{new_table.strip()}\n{end_marker}"
+    return pattern.sub(replacement, content)
 
-    for cat_file in CATEGORY_FILES.values():
-        p = Path(cat_file)
-        if p.exists():
-            combined += ["\n"] + p.read_text().splitlines()
+def combine_dashboard_files(active_rows, review_rows, dry_run=False):
+    """
+    Updates the main DASHBOARD_FILE (engineering_metrics.md) using it as a template.
+    """
+    out_path = Path(DASHBOARD_FILE)
+    if not out_path.exists():
+        # Fallback to creating a basic one if it doesn't exist
+        print(f"[WARN] {DASHBOARD_FILE} not found. Using basic concatenation.")
+        combined = ["# 📊 Engineering Mastery Dashboard\n"]
+        for cat_file in CATEGORY_FILES.values():
+            p = Path(cat_file)
+            if p.exists():
+                combined += ["\n"] + p.read_text().splitlines()
+        content = "\n".join(combined) + "\n"
+        if not dry_run:
+            out_path.write_text(content)
+        return
 
-    content = "\n".join(combined) + "\n"
-    out = Path(DASHBOARD_FILE)
-
+    content = out_path.read_text(encoding='utf-8')
+    
+    # Generate tables for main dashboard (limit active topics to top 15 by impact/confidence)
+    # Header for tables
+    header = "| Topic | Category | Impact | Last Reviewed | Confidence | Next Review |"
+    separator = "| :--- | :--- | :--- | :--- | :--- | :--- |"
+    
+    # For active, let's sort by impact (High first) then confidence (Low first) to show what needs work
+    impact_map = {"High": 3, "Medium": 2, "Low": 1, "Unknown": 0}
+    sorted_active = sorted(active_rows, key=lambda x: (impact_map.get(x[3], 0), 5 - int(x[5].split('/')[0]) if '/' in x[5] else 5), reverse=True)
+    
+    active_table = [header, separator]
+    for row in sorted_active[:15]: # Show top 15
+        active_table.append(f"| {' | '.join(row[1:7])} |")
+    
+    review_table = [header, separator]
+    for row in review_rows[:15]: # Show top 15
+        review_table.append(f"| {' | '.join(row[1:7])} |")
+        
+    # Stats
+    weak_areas = len([r for r in active_rows if '/' in r[5] and int(r[5].split('/')[0]) <= 2])
+    stats_content = [
+        f"* Active Topics: {len(active_rows)}",
+        f"* Needs Review: {len(review_rows)}",
+        f"* Weak Areas (≤2): {weak_areas}"
+    ]
+    
+    # Update sections
+    content = update_section(content, "ACTIVE_TABLE", "\n".join(active_table))
+    content = update_section(content, "REVIEW_TABLE", "\n".join(review_table))
+    content = update_section(content, "STATS", "\n".join(stats_content))
+    
     if dry_run:
-        print(f"[DRY-RUN] Would write combined dashboard")
+        print(f"[DRY-RUN] Would update {DASHBOARD_FILE} sections (Active: {len(active_rows)}, Review: {len(review_rows)})")
     else:
-        out.write_text(content)
+        out_path.write_text(content, encoding='utf-8')
+        print(f"[UPDATE] {DASHBOARD_FILE} updated successfully.")
         print(f"[WRITE] Combined dashboard")
 
 
@@ -489,10 +244,11 @@ def update_dashboard(dry_run=False, no_issues=False, no_chart=False, show_today=
             norm = normalize(topic)
             existing.add(norm)
 
-            for repo_topic, path_md in topic_map.items():
+            for repo_topic, topic_info in topic_map.items():
                 if normalize(repo_topic) != norm:
                     continue
 
+                path_md = topic_info["path"]
                 meta = extract_frontmatter(path_md)
                 impact = meta["impact"]
                 nr = meta["nr"]
@@ -528,13 +284,15 @@ def update_dashboard(dry_run=False, no_issues=False, no_chart=False, show_today=
                 break
 
     # Add new topics
-    for topic, path_md in topic_map.items():
+    for topic, topic_info in topic_map.items():
         if normalize(topic) not in existing:
+            path_md = topic_info["path"]
+            category = topic_info["category"]
             meta = extract_frontmatter(path_md)
             impact = meta["impact"]
 
             print(f"[NEW] {topic}")
-            row = ["", topic, "Unknown", impact, "N/A", "0/5", "TBD", ""]
+            row = ["", topic, category, impact, "N/A", "0/5", "TBD", ""]
             active.append(row)
             added += 1
 
@@ -549,17 +307,24 @@ def update_dashboard(dry_run=False, no_issues=False, no_chart=False, show_today=
     if dry_run:
         print("[DRY-RUN] Skipping side effects")
     else:
-        if not no_chart:
+        if not no_chart and generate_chart:
             generate_chart(stats)
+        elif not generate_chart:
+            print("[WARN] Chart generation skipped (matplotlib missing)")
 
-        if not no_issues:
+        if not no_issues and create_issue:
             create_issue(review_topics)
+        elif not create_issue:
+            print("[WARN] GitHub issues skipped (github_utils missing)")
 
     write_category_files(active, review, dry_run=dry_run)
-    combine_dashboard_files(dry_run=dry_run)
+    combine_dashboard_files(active, review, dry_run=dry_run)
 
-    report = weekly_report(updated, added, len(review), focus_topics, category_focus)
-    print("\n".join(report))
+    if weekly_report:
+        report = weekly_report(updated, added, len(review), focus_topics, category_focus)
+        print("\n".join(report))
+    else:
+        print("\n[WARN] Weekly report skipped (analytics missing)")
 
 
 # ==============================

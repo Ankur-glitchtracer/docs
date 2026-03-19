@@ -58,7 +58,7 @@ classDiagram
 
 ## 💻 Solution Implementation
 
-!!! success "The Code"
+???+ success "The Code"
     ```python
     --8<-- "(Link to your Python implementation file)"
     ```

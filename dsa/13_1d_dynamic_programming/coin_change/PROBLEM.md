@@ -72,4 +72,4 @@ graph TD
 - **Optimization:** If coins were infinite, could this be solved with BFS?
 
 ## 🔗 Related Problems
-- [Target Sum](../target_sum/PROBLEM.md)
+- [Target Sum](../../14_2d_dynamic_programming/target_sum/PROBLEM.md)
