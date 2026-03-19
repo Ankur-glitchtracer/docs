@@ -1,38 +1,19 @@
-# 🏗 Dashboard: Machine Coding
-
-Track your progress in Low-Level Design (LLD).
-
----
-
-## 📊 Summary
-
-| Metric | Value |
-|------|------|
-| Total Topics | 0 |
-| Strong (4–5) | 0 |
-| Medium (3) | 0 |
-| Weak (≤2) | 0 |
-
----
-
-## ⏰ Needs Review
-
-| Topic | Category | Impact | Last Reviewed | Confidence | Next Review |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-
----
+# LLD System Dashboard
 
 ## ✅ Active Topics
 
 | Topic | Category | Impact | Last Reviewed | Confidence | Next Review |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-
----
-
-## 📈 Confidence Legend
-
-- **5/5** → Production-ready  
-- **4/5** → Strong  
-- **3/5** → Comfortable  
-- **2/5** → Needs revision  
-- **1/5** → Learning  
+ | Snake Ladder | LLD System | "Medium" | N/A | 0/5 | TBD | 
+ | Tic Tac Toe | LLD System | "Medium" | N/A | 0/5 | TBD | 
+ | Pub Sub | LLD System | "High" | N/A | 0/5 | TBD | 
+ | Workflow Orchestrator | LLD System | "High" | N/A | 0/5 | TBD | 
+ | Job Scheduler | LLD System | "High" | N/A | 0/5 | TBD | 
+ | Rate Limiter | LLD System | "High" | N/A | 0/5 | TBD | 
+ | Elevator | LLD System | "High" | N/A | 0/5 | TBD | 
+ | Parking Lot | LLD System | "Medium" | N/A | 0/5 | TBD | 
+ | Cache System | LLD System | "Medium" | N/A | 0/5 | TBD | 
+ | Instagram | LLD System | "Medium" | N/A | 0/5 | TBD | 
+ | Ci Cd Pipeline | LLD System | "Medium" | N/A | 0/5 | TBD | 
+ | Ride Sharing Service | LLD System | "High" | N/A | 0/5 | TBD | 
+ | E Commerce Order System | LLD System | "High" | N/A | 0/5 | TBD | 
