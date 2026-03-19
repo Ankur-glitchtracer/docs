@@ -1,151 +1,141 @@
 # 🎫 System Design: High-Concurrency Ticket Booking (Ticketmaster / BookMyShow)
 
-Designing a highly concurrent ticketing system requires solving the **"Fast-Changing Temporary State"** problem. When tens of thousands of fans attempt to book the exact same highly anticipated concert seats simultaneously during a flash sale, the system must guarantee absolute data integrity (ACID properties), prevent double-booking, and avoid collapsing under the immense load.
+## 📝 Overview
+A highly concurrent ticket booking platform designed to manage extreme traffic spikes during flash sales for highly anticipated events. The system strictly guarantees data integrity and prevents double-booking through distributed locking and ACID-compliant database transactions, all while maintaining a smooth user experience under massive load.
+
+!!! abstract "Core Concepts"
+    - **Virtual Waiting Room:** Throttling massive inbound traffic to protect backend services from melting during a flash sale.
+    - **Distributed Locking (TTL):** Reserving a seat temporarily (e.g., 10 minutes) in a high-speed cache while the user completes the checkout process.
+    - **ACID Transactions:** Ensuring strict consistency at the database level so that a single seat can only ever be sold to one user.
 
 ---
 
-## 1. Functional & Non-Functional Requirements
+## 🏭 The Scenario & Requirements
 
-### Functional Requirements
-* **Seat Reservation:** Implement a temporary lock (TTL) on a seat (e.g., 5-10 minutes) while the user completes payment.
-* **Dynamic Inventory Updates:** Provide real-time feedback on seat availability to all users.
-* **Secure Transactions:** Process payments reliably and finalize seat ownership.
+### 😡 The Problem (The Villain)
+"The Thundering Herd." When tickets for a world-tour concert go on sale, 1 million fans might hit the "Buy" button at exactly 10:00:00 AM. If the system allows all 1 million requests to query and attempt to lock the same 50,000 database rows simultaneously, the database will experience catastrophic lock contention and crash. Additionally, if the locking mechanism is flawed, two users might successfully pay for the exact same seat (double-booking).
 
-### Non-Functional Requirements
-* **Extreme Scalability:** Handle 100x traffic spikes during world-tour-level concert sales.
-* **Data Integrity (ACID):** Zero tolerance for double-booking; every seat must be sold to exactly one user.
-* **Low Latency:** High responsiveness during seat selection to minimize abandonment.
+### 🦸 The Solution (The Hero)
+A multi-tiered defense system. First, a "Virtual Waiting Room" acts as a shock absorber, pacing the entry of users into the booking flow. Once inside, the system uses ultra-fast distributed locks (Redis) to temporarily hold a seat. Finally, the actual purchase is cemented using strict, isolated SQL transactions, ensuring absolute mathematical certainty that the seat is uniquely assigned.
 
----
+### 📜 Requirements
+- **Functional Requirements:**
+    1. Users can view real-time seat availability for an event.
+    2. Users can select and temporarily hold a seat while completing payment.
+    3. The system must release the hold if the user's payment fails or the session times out.
+- **Non-Functional Requirements:**
+    1. **Strict Consistency (ACID):** Zero tolerance for double-booking.
+    2. **High Availability & Scalability:** The system must survive 100x traffic spikes during flash sales.
+    3. **Fairness:** The system should process users in a roughly First-In-First-Out (FIFO) manner.
 
-## 2. The Engineering Story
-
-**The Villain:** "The Thundering Herd." 1M fans hit the "Buy" button at 10:00:00 AM, instantly melting the database with row-level locks on the same 1,000 seats.
-
-**The Hero:** "The Virtual Waiting Room." A gateway or message queue that acts as a token/leaky bucket, throttling traffic and only letting a sustainable number of users (e.g., 5,000) into the booking flow at a time so internal services are not overwhelmed.
-
-**The Plot:**
-1.  **Waiting Room:** Queue users at the entry point and issue session-based tokens to control flow.
-2.  **Seat Selection:** Use distributed/database locking to reserve a seat temporarily.
-3.  **Payment:** Hand off to a payment service with unique idempotent keys to prevent double-charging.
-
-**The Twist (Failure):** "The Phantom Seat." A user locks a seat, starts paying, but their internet dies. The seat remains "stuck" in a locked state, preventing other fans from buying it until the TTL expires.
+!!! info "Capacity Estimation (Back-of-the-envelope)"
+    - **Inventory:** A large stadium holds ~50,000 seats.
+    - **Traffic Spike:** 1 Million concurrent users attempting to buy at the exact same second.
+    - **Read/Write Ratio:** Normally highly read-heavy (100:1) as users browse events. During a flash sale, it becomes heavily write-contended as everyone attempts to lock the same limited pool of seats.
+    - **Throughput:** The database must handle 50,000 successful transactions within a few minutes, but the caching and queuing layers must absorb millions of read/hold attempts.
 
 ---
 
-## 3. High-Level Architecture
+## 📊 API Design & Data Model
 
-To handle massive concurrency, state management is offloaded to specialized microservices, protecting the primary database.
+=== "REST APIs"
+    - **`POST /api/v1/shows/{show_id}/seats/reserve`**
+        - **Request:** `{ "seat_ids": ["A1", "A2"], "user_id": "u123" }`
+        - **Response:** `{ "reservation_id": "r987", "expires_in_seconds": 600 }`
+    - **`POST /api/v1/bookings/confirm`**
+        - **Request:** `{ "reservation_id": "r987", "payment_token": "tok_xyz" }`
+        - **Response:** `{ "booking_id": "b456", "status": "CONFIRMED" }`
+    - **`GET /api/v1/shows/{show_id}/seats`**
+        - **Response:** `[ { "seat_id": "A1", "status": "AVAILABLE" }, { "seat_id": "A2", "status": "HELD" } ]`
+
+=== "Database Schema"
+    - **Table:** `shows` (RDBMS)
+        - `show_id` (UUID, PK)
+        - `event_name` (String)
+        - `start_time` (Timestamp)
+    - **Table:** `show_seats` (RDBMS)
+        - `seat_id` (String, PK)
+        - `show_id` (UUID, PK)
+        - `status` (Enum: AVAILABLE, HELD, BOOKED)
+        - `version` (Int) - *For Optimistic Locking*
+    - **Table:** `bookings` (RDBMS)
+        - `booking_id` (UUID, PK)
+        - `user_id` (String)
+        - `seat_ids` (JSON / Array)
+        - `status` (Enum: PENDING, CONFIRMED, CANCELLED)
+    - **Cache:** `active_reservations` (Redis)
+        - `Key:` `hold:{show_id}:{seat_id}`
+        - `Value:` `{ "user_id": "u123" }` (With a 10-minute TTL)
+
+---
+
+## 🏗️ High-Level Architecture
+
+### Architecture Diagram
 
 ```mermaid
 graph TD
-    Client --> LB[Load Balancer]
-    LB --> Gateway[Virtual Waiting Room / API Gateway]
+    Client --> CDN[CDN / Edge Cache]
+    CDN --> WAF[Web App Firewall]
+    WAF --> WaitRoom[Virtual Waiting Room]
     
-    Gateway -->|Throttle| Auth[Auth Service]
-    Gateway -->|Token Valid| Booking[Booking Service]
+    WaitRoom -->|Issues Token| API_GW[API Gateway]
     
-    subgraph "State Management"
-        Booking <--> ActiveSvc[ActiveReservations Service]
-        ActiveSvc <--> Redis[(Redis Cluster)]
-        Booking <--> WaitSvc[WaitingUsers Service]
-    end
+    API_GW --> SeatSvc[Seat Service]
+    API_GW --> BookSvc[Booking Service]
     
-    Booking --> DB[(Primary SQL DB)]
-    Booking --> Pay[Payment Gateway]
+    SeatSvc <--> Redis[(Redis Cluster - Seat Locks)]
+    
+    BookSvc <--> DB[(Primary SQL DB)]
+    BookSvc --> Payment[Payment Gateway]
+    
+    Redis -.->|TTL Expiry Event| SeatSvc
 ```
 
----
+### Component Walkthrough
 
-## 4. Concurrency & Database Isolation
+1.  **CDN / Edge Cache:** Serves static content (venue maps, artist images) to reduce backend load.
+2.  **Virtual Waiting Room:** Acts as a massive token bucket. It holds the 1 million users in a distributed queue and slowly drips them into the active booking flow (e.g., allowing 5,000 users per minute) to keep the backend operating within safe thresholds.
+3.  **Seat Service & Redis:** Handles the high-velocity, temporary state. When a user selects a seat, a Redis key is created with a strict Time-To-Live (TTL). This acts as a distributed lock.
+4.  **Booking Service & SQL DB:** Once the user successfully pays, this service finalizes the transaction in the relational database, transitioning the seat status from `HELD` to `BOOKED`.
 
-To safely handle highly concurrent environments, the core reservation process relies on strict SQL database transactions to prevent two users from paying for the same seat. 
+-----
 
-### The Write Lock & Transaction Isolation
-The system utilizes the **SERIALIZABLE Transaction Isolation Level** or explicit pessimistic locking (`SELECT ... FOR UPDATE`). 
+## 🔬 Deep Dive & Scalability
 
-When a user attempts to hold a seat, the database initiates a transaction and queries the target rows to verify availability. Because the transaction operates at the highest isolation level, read rows are immediately secured with a **write lock (exclusive lock)**. While one user's transaction evaluates the seat, no other transaction can read, modify, or lock those exact rows. 
+### Handling Bottlenecks
 
-This inherently prevents catastrophic booking errors:
-* **Dirty Reads:** Concurrent users cannot read uncommitted, intermediate hold statuses.
-* **Non-Repeatable Reads:** The targeted seat's status cannot be altered by a concurrent transaction mid-evaluation.
-* **Phantom Reads:** No new, conflicting records can be inserted into the transaction's read range.
+**Concurrency & Database Isolation**
+When thousands of users click the exact same front-row seat, the system must definitively reject all but one.
 
-### Optimistic Locking (Alternative/Secondary Measure)
-Adding a `version` number to each seat row can act as another layer of defense.
-* `UPDATE seats SET status='Booked', version=version+1 WHERE id=? AND version=current_version;`
-* If the version changes between the read and write, the transaction fails safely.
+  - **Pessimistic Locking (`SELECT FOR UPDATE`):** The database places an exclusive lock on the row. While User A is looking at the seat, User B's query is blocked. This prevents dirty reads but can severely bottleneck throughput if transactions aren't resolved instantly.
+  - **Optimistic Locking (Versioning):** A better approach for high concurrency. The `show_seats` table includes a `version` column.
+    `UPDATE show_seats SET status='BOOKED', version=2 WHERE seat_id='A1' AND version=1;`
+    If User A and User B both read version 1, and User A updates it to version 2, User B's subsequent update will fail because version 1 no longer exists. User B is safely rejected without locking the database.
 
-Only if the initial transaction securely confirms the seats are free does it proceed to update the tables to finalize the temporary hold and **commit the transaction**.
+**The Phantom Seat (TTL Edge Cases)**
+A user locks a seat, starts paying, but their browser crashes. The seat is now stuck in a `HELD` state.
 
----
+  - *Solution:* The Redis lock is created with a strict 10-minute TTL. If the payment is not confirmed within that time, Redis automatically expires the key. A worker service listens for these expiration events and updates the database to revert the seat to `AVAILABLE`, notifying users waiting in the queue.
 
-## 5. Database Schema & Data Modeling
+### ⚖️ Trade-offs
 
-To support rapid state transitions, the database must clearly track the lifecycle of every seat and booking.
+| Decision | Pros | Cons / Limitations |
+| :--- | :--- | :--- |
+| **Relational DB (SQL) vs NoSQL** | Guarantees ACID compliance, preventing double-booking through strict transaction isolation. | Harder to scale horizontally. Requires beefy primary nodes to handle peak write bursts. |
+| **Optimistic vs Pessimistic Locking** | Optimistic locking allows much higher throughput since reads aren't blocked. | Wasted compute. If contention is extremely high, 99% of transactions will fail and require application-level retries or error handling. |
+| **Virtual Waiting Room** | Protects the database from melting. Ensures the site stays online. | Degrades user experience. Users have to wait in a queue just to see if tickets are available. |
 
-### Core Entities
-* **Event:** EventID, Name, Date.
-* **Show:** ShowID, EventID, VenueID, StartTime.
+-----
 
-### Show_Seat Table
-Tracks the physical seats for a specific show.
-* **Fields:** `ShowID`, `SeatID`, `Status`
-* **Status Codes:** Available (0), Reserved (1), Booked (2)
+## 🎤 Interview Toolkit
 
-### Booking Table
-Tracks the user's order and financial transaction.
-* **Fields:** `BookingID`, `UserID`, `ShowID`, `SeatIDs`, `Status`, `CreationTimestamp`, `ExpiryTime`
-* **Status Codes:** Pending, Confirmed, Expired, Cancelled
+  - **Scale Question:** "How do you handle generating the seating map dynamically for 100,000 concurrent viewers?" -\> *Do not query the database. The `Seat Service` should maintain a binary or bitmap representation of the venue in Redis or in-memory (e.g., 1 = Available, 0 = Sold). This bitmap can be pushed to the CDN or clients via WebSockets efficiently.*
+  - **Failure Probe:** "The user pays, the Payment Gateway succeeds, but your Booking Service crashes before updating the database. The seat's TTL expires and is sold to someone else." -\> *This is the classic distributed transaction problem. You must use Idempotency Keys and a Two-Phase Commit or Saga pattern. Alternatively, introduce a "Grace Period": the server sets a 10-minute TTL on the frontend, but an 11-minute TTL on the backend, giving it time to query the Payment Gateway for stranded successful transactions before releasing the seat.*
+  - **Edge Case:** "Two users click the exact same seat at the exact same millisecond. Who gets it?" -\> *The one whose request hits Redis first. Redis is single-threaded. By using the `SETNX` (Set if Not eXists) command, Redis guarantees that only the first request will successfully acquire the lock, and the second request will immediately fail.*
 
----
+## 🔗 Related Architectures
 
-## 6. Decoupled Daemon Services & Workflows
-
-Once the database transaction commits the temporary hold, state management is handed over to highly concurrent, in-memory daemon services. 
-
-### Seat State Machine
-```mermaid
-stateDiagram-v2
-    [*] --> Available
-    Available --> Held : User selects seat (TTL Lock acquired)
-    Held --> Booked : Payment Successful
-    Held --> Available : Payment Timeout (TTL Expired)
-    Held --> Available : User Cancels
-    Booked --> [*]
-```
-
-### A. ActiveReservationsService
-Strictly manages seats in a "Held" state awaiting payment.
-
-* **In-Memory/Distributed Tracking:** Holds are maintained in a Redis Cluster or an in-memory `LinkedHashMap` for extremely fast TTL expiration tracking. The `LinkedHashMap` inherently maintains insertion order, easily identifying the oldest expired reservations at the head.
-* **Database State:** Persisted in parallel within the `Booking` table (Status = Reserved).
-* **Timeout Buffering:** Includes a **five-second buffer** on the server-side expiration timer to safeguard against slight network delays or out-of-sync UI timers, preventing the server from rigidly dropping a DB hold right as a payment goes through.
-
-### B. WaitingUsersService
-Tracks users attempting to book a currently held seat, ensuring a fair FIFO (First-In-First-Out) distributed queue system.
-
-* **Queue Management:** Users clicking a Reserved seat are added to a distributed queue (e.g., Redis Queue).
-* **Real-Time Notification:** If a hold expires, `ActiveReservationsService` broadcasts an alert. This service pops the longest-waiting customer from the queue and sends a WebSockets or push notification indicating the seat is available.
-
-### C. Primary Workflows
-* **Successful Booking:** The database Status updates to Booked (2), and the reservation is purged from the in-memory cache/Redis.
-* **Expiration:** The `ActiveReservationsService` flags the timeout. The database booking is set to Expired, physical seats revert to Available (0), and the memory is purged.
-* **Cancellation:** User abandons the cart, triggering an immediate early-expiration workflow without waiting for the TTL.
-
----
-
-## 7. Key APIs
-
-* `POST /v1/reservations`: Reserve a seat temporarily (returns TTL and ReservationID).
-* `POST /v1/bookings/confirm`: Finalize the purchase with a payment token (Idempotent).
-
----
-
-## 8. Practical Implementation
-
-Explore these machine coding implementations related to concurrent resource allocation, SOLID principles, and e-commerce transactions:
-
-* **Resource Allocation:** [Machine Coding: Parking Lot](../../../machine_coding/systems/parking_lot/PROBLEM.md)
-* **Transactional Workflows:** [Machine Coding: E-Commerce Order System](../../../machine_coding/real_world_systems/e_commerce_order_system/PROBLEM.md)
-* **Traffic Control:** [System Design: Rate Limiter](./RATE_LIMITER.md)
+  - [Machine Coding: Parking Lot](../../../machine_coding/systems/parking_lot/PROBLEM.md) — Excellent practice for concurrent resource allocation.
+  - [Machine Coding: E-Commerce Order System](../../../machine_coding/real_world_systems/e_commerce_order_system/PROBLEM.md) — For deep-diving into payment state machines and idempotency.
+  - [System Design: API Rate Limiter](./RATE_LIMITER.md) — The fundamental concept powering the Virtual Waiting Room.

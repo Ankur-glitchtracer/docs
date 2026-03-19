@@ -1,84 +1,63 @@
-#  🌲 Tree: Diameter of Binary Tree
+---
+impact: "Medium"
+nr: false
+confidence: 2
+---
+# 🌳 Trees: Diameter of Binary Tree
 
-## 📝 Description
-[LeetCode 543](https://leetcode.com/problems/diameter-of-binary-tree/)
-Given the `root` of a binary tree, return the length of the diameter of the tree. The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.
+## 📝 Problem Description
+Given the root of a binary tree, return the length of the diameter of the tree. The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root. The length of a path between two nodes is represented by the number of edges between them.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Tree diameter calculations are used in network topology analysis to determine the maximum communication latency in tree-structured network topologies, and in file system path optimization.
 
-- Number of nodes is between 0 and $10^4$.
-- $-1000 \le Node.val \le 1000$
+## 🛠️ Constraints & Edge Cases
+- The number of nodes in the tree is in the range $[0, 10^4]$.
+- $-100 \le Node.val \le 100$.
+- **Edge Cases:** 
+    - Empty tree (root is None): diameter is 0.
+    - Single node tree: diameter is 0.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Longest Path Paradox." The longest path might not pass through the root. It could be entirely within the left or right subtree.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Height Reporter." While calculating height, also calculate the diameter passing through the current node (`left_height + right_height`).
+!!! success "The Aha! Moment"
+    The diameter at any node is the sum of the depths of its left and right subtrees. We can compute the depth of each node recursively, updating a global (or nonlocal) variable to track the maximum diameter found so far.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Calculating the diameter for every node by finding the max depth of left/right children separately results in $\mathcal{O}(N^2)$ because the depth calculation is repeated for each node.
 
-1. Initialize a global/class variable `max_diameter = 0`.
-2. Define a recursive `height(node)` function.
-   - Base case: If `node` is `None`, height is 0.
-   - Recursive step: `L = height(node.left)`, `R = height(node.right)`.
-   - **Update Diameter:** `max_diameter = max(max_diameter, L + R)`.
-   - Return `1 + max(L, R)`.
+### 🐇 Optimal Approach
+Use a post-order traversal (recursive DFS) to compute the depth of each node. As we return the depth to the parent, we update the max diameter using the current node's left and right depths.
 
-**The Twist (Failure):** **Edges vs Nodes.** The problem asks for the length of the path in *edges*, which corresponds to `L + R`. If counting nodes, it would be `L + R + 1`.
-
-**Interview Signal:** Calculating **Properties during Traversal**.
-
-## 🚀 Approach & Intuition
-Compute diameter while computing height.
-
-### C++ Pseudo-Code
-```cpp
-class Solution {
-    int maxD = 0;
-public:
-    int diameterOfBinaryTree(TreeNode* root) {
-        height(root);
-        return maxD;
-    }
-    
-    int height(TreeNode* node) {
-        if (!node) return 0;
-        int l = height(node->left);
-        int r = height(node->right);
-        maxD = max(maxD, l + r);
-        return 1 + max(l, r);
-    }
-};
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    A((1)) --> B((2))
+    A --> C((3))
+    B --> D((4))
+    B --> E((5))
 ```
 
-### Key Observations:
-
-- Most tree problems can be solved using either DFS (recursion) or BFS (queue).
-- In-order traversal of a Binary Search Tree (BST) yields elements in sorted order.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(H)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — We visit each node once during the DFS.
+- **Space Complexity:** $\mathcal{O}(H)$ — Where $H$ is the height of the tree (recursion stack).
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you solve this iteratively if you were worried about stack overflow from deep recursion?
-- **Scale Question:** If the tree is a multi-terabyte B-Tree in a database, how do you optimize node traversal to minimize disk hits?
-- **Edge Case Probe:** What if the tree is extremely skewed (effectively a linked list)? What if it's empty?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Find the diameter of an N-ary tree or a forest.
+- **Alternative Data Structures:** Can we use BFS? It's harder, DFS is idiomatic.
 
 ## 🔗 Related Problems
-
-- [Balanced Binary Tree](../balanced_binary_tree/PROBLEM.md) — Next in category
-- [Max Depth of Binary Tree](../maximum_depth_of_binary_tree/PROBLEM.md) — Previous in category
-- [Implement Trie](../../08_tries/implement_trie/PROBLEM.md) — Prerequisite for Tries
-- [Kth Largest in Stream](../../09_heap_priority_queue/kth_largest_element_in_a_stream/PROBLEM.md) — Prerequisite for Heap / Priority Queue
+- `Maximum Depth of Binary Tree` — Foundation for this problem.

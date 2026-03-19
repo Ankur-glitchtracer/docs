@@ -1,0 +1,45 @@
+name: Update Engineering Dashboard
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: "0 3 * * *"
+
+jobs:
+  update-dashboard:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      issues: write   # needed for GitHub Issues
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Authenticate GitHub CLI
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
+      - name: Run dashboard updater
+        run: python scripts/update_dashboard.py
+
+      - name: Commit changes if needed
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+
+          if git diff --quiet; then
+            echo "No dashboard updates needed"
+          else
+            git add docs/dashboard/
+            git commit -m "chore: auto-update engineering dashboard"
+            git push
+          fi

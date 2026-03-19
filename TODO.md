@@ -260,7 +260,7 @@
 ## 🏗️ Pillar 5: High-Level Design (HLD)
 - [ ] **KV Store:** `system_design_hld/architectures/distributed_storage/KV_STORE.md`
 - [ ] **S3 Lite:** `system_design_hld/architectures/distributed_storage/S3_LITE.md`
-- [ ] **Video Streaming (Netflix):** `system_design_hld/architectures/streaming/NETFLIX.md`
+- [ ] **Video Streaming (Netflix/YouTube):** `system_design_hld/architectures/streaming/VIDEO_STREAMING_SERVICE.md`
 - [ ] **WhatsApp:** `system_design_hld/architectures/social_media/WHATSAPP.md`
 - [ ] **Facebook Capacity:** `system_design_hld/architectures/social_media/FACEBOOK_CAPACITY.md`
 - [ ] **URL Shortener:** `system_design_hld/architectures/utilities/URL_SHORTENER.md`

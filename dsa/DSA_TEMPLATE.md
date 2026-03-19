@@ -1,58 +1,65 @@
-# (To be detailed...) [Topic]: (To be detailed...)
+---
+impact: "Medium"    # Low | Medium | High
+nr: false           # No Review Required (true/false)
+confidence: 2       # 1 (Learning) to 5 (Mastered)
+---
+# (Icon) (Topic): (Problem Name)
 
-## 📝 Description
-(To be detailed...)
-(Problem description coming soon...)
+## 📝 Problem Description
+(Include the standard problem description here. Keep it concise.)
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    **(Briefly explain where this algorithm is actually used in software engineering. e.g., "LRU Cache is used in Redis and database paging," or "Graph traversal is used in network routing.")**
 
-- (Constraints to be detailed...)
-- (Constraints to be detailed...)$ can be negative]
+## 🛠️ Constraints & Edge Cases
+- (Constraint 1, e.g., $1 \le N \le 10^5$)
+- **Edge Cases to Watch:** - (e.g., Empty array input)
+    - (e.g., Negative numbers present)
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** (To be detailed...)
+## 🧠 Approach & Intuition
 
-**The Hero:** (To be detailed...)
+!!! success "The Aha! Moment"
+    (The core trick to solving this. e.g., "Use a slow and fast pointer to find the cycle," or "Sort the array first to use Binary Search.")
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+(Briefly explain the naive $O(N^2)$ or $O(2^N)$ approach and why it results in a Time Limit Exceeded error.)
 
-1. (To be detailed...)
-2. (To be detailed...)
+### 🐇 Optimal Approach
+(Explain the step-by-step logic of the optimal solution.)
+1. (Step 1)
+2. (Step 2)
+...
 
-**The Twist (Failure):** (To be detailed...)
+### 🧩 Visual Tracing
+*(Use a simple Mermaid graph or flowchart to show pointer movement or state changes)*
+```mermaid
+graph LR
+    A[Node 1] --> B[Node 2]
+    B --> C[Node 3]
+    style B stroke:#f66,stroke-width:2px,stroke-dasharray: 5 5
+```
 
-**Interview Signal:** (To be detailed...)
-
-## 🚀 Approach & Intuition
-(To be detailed...)
-
-### Key Observations:
-
-- (Observation to be detailed...)
-- (Observation to be detailed...)
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$ (To be detailed...)
-    - **Space Complexity:** $O(1)$ (To be detailed...)
+---
 
 ## 💻 Solution Implementation
 
 ```python
---8<-- "(Implementation to be added)"
+--8<-- "(Link to your Python solution file)"
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — (Explain why. e.g., "We iterate through the array exactly once.")
+- **Space Complexity:** $\mathcal{O}(1)$ — (Explain why. e.g., "We only use two pointers, no extra memory.")
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** (To be detailed...)
-- **Scale Question:** (To be detailed...)
-- **Edge Case Probe:** (To be detailed...)
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** (What if the array is unsorted? What if we have millions of queries?)
+- **Alternative Data Structures:** (Could we have solved this using a Heap instead of sorting?)
 
 ## 🔗 Related Problems
-
-- `[Related Problem 1](#)` — (To be detailed...)
-- `[Related Problem 2](#)` — (To be detailed...)
+- `[Related Problem 1](#)` — (Explain relation, e.g., "Uses the same sliding window template")
+...

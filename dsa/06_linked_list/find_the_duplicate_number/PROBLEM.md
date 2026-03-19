@@ -1,80 +1,86 @@
-#  🕵️ Linked Lists: Find the Duplicate Number
+---
+impact: "High"
+nr: false
+confidence: 4
+---
+# 🕵️ Linked List: Find the Duplicate Number
 
-## 📝 Description
+## 📝 Problem Description
 [LeetCode 287](https://leetcode.com/problems/find-the-duplicate-number/)
-Given an array of integers `nums` containing `n + 1` integers where each integer is in the range `[1, n]` inclusive. There is only one repeated number in `nums`, return this repeated number. You must solve the problem without modifying the array `nums` and uses only constant extra space.
 
-## 🛠️ Requirements/Constraints
+Given an array of integers `nums` containing `n + 1` integers where each integer is in the range `[1, n]` inclusive.
 
-- Number of nodes is between 0 and 5000.
-- $-1000 \le Node.val \le 1000$
+There is only one repeated number in `nums`, return this repeated number.
 
-## 🧠 The Engineering Story
+You must solve the problem **without** modifying the array `nums` and uses only **constant extra space**.
 
-**The Villain:** "The Constraints." Find a duplicate in an array of $N+1$ integers (range 1 to $N$) in $O(N)$ time, $O(1)$ space, without modifying the array. Sorting is banned ($O(N \log N)$ or modifies). Sets are banned ($O(N)$ space).
+!!! info "Real-World Application"
+    **Cycle Detection in Graphs:** This algorithm (Floyd's Cycle-Finding) is used to detect loops in network topologies, identify deadlocks in operating system resource allocation, and even in cryptography for Pollard's rho algorithm to find collisions in hash functions.
 
-**The Hero:** "The Cycle Detective." Treat the array values as pointers (`val` points to index `val`). Since there's a duplicate, two indices point to the same value, creating a cycle.
+## 🛠️ Constraints & Edge Cases
+- $1 \le n \le 10^5$
+- `nums.length == n + 1`
+- $1 \le nums[i] \le n$
+- All the integers in `nums` appear only once except for precisely one integer which appears two or more times.
+- **Edge Cases to Watch:**
+    - Smallest possible $n=1$ (array `[1, 1]`).
+    - The duplicate appears more than twice (e.g., `[2, 2, 2, 2]`).
+    - The duplicate is at the beginning or end of the array.
 
-**The Plot:**
+---
 
-1. This is exactly **Linked List Cycle II**.
-2. **Phase 1:** Fast/Slow pointers to find intersection.
-3. **Phase 2:** Reset `slow` to start. Move both `slow` and `fast` one step at a time.
-4. They will meet at the entrance of the cycle (the duplicate number).
+## 🧠 Approach & Intuition
 
-**The Twist (Failure):** **The Zero-Indexing.** If values were `0` to `N-1`, index `0` could point to itself `0`, forming a self-loop. The problem guarantees `1` to `N` so index 0 is always a safe entry point.
+!!! success "The Aha! Moment"
+    Treat the array values as **pointers**. Since each value is between 1 and $n$, and the array indices are 0 to $n$, every value "points" to a valid index. Because there is a duplicate, two different indices will point to the same value, creating a **cycle** in the traversal. Finding the duplicate is equivalent to finding the **entrance of the cycle**.
 
-**Interview Signal:** Reducing array problems to **Graph/Cycle Detection**.
+### 🐢 Brute Force (Naive)
+1. **Sorting:** Sort the array and check for adjacent equal elements. ($O(N \log N)$ time, but modifies the array).
+2. **Hash Set:** Store seen numbers in a set. ($O(N)$ time, but $O(N)$ space).
+- **Why they fail:** The problem explicitly forbids modifying the array and requires $O(1)$ extra space.
 
-## 🚀 Approach & Intuition
-Treat indices as nodes and values as pointers.
+### 🐇 Optimal Approach (Floyd's Cycle-Finding)
+This is a two-phase algorithm often called the "Tortoise and the Hare."
 
-### C++ Pseudo-Code
-```cpp
-int findDuplicate(vector<int>& nums) {
-    int slow = 0, fast = 0;
-    do {
-        slow = nums[slow];
-        fast = nums[nums[fast]];
-    } while (slow != fast);
-    
-    slow = 0;
-    while (slow != fast) {
-        slow = nums[slow];
-        fast = nums[fast];
-    }
-    return slow;
-}
+1. **Phase 1 (Finding the Meeting Point):** Use two pointers, `slow` and `fast`. Move `slow` by one step (`nums[slow]`) and `fast` by two steps (`nums[nums[fast]]`). They will eventually meet inside the cycle.
+2. **Phase 2 (Finding the Cycle Entrance):** Reset `slow` to the start of the array (index 0). Move both `slow` and `fast` by one step at a time. The point where they meet is the entrance to the cycle, which is the duplicate number.
+
+### 🧩 Visual Tracing
+Example: `nums = [1, 3, 4, 2, 2]`
+
+```mermaid
+graph LR
+    0((0)) --1--> 1((1))
+    1 --3--> 3((3))
+    3 --2--> 2((2))
+    2 --4--> 4((4))
+    4 --2--> 2
+    style 2 fill:#f96,stroke:#333,stroke-width:4px
 ```
+*In this graph, index 2 is pointed to by both index 3 and index 4. The value 2 is the duplicate.*
 
-### Key Observations:
-
-- Always consider using a dummy head node to simplify edge cases like inserting at the head or deleting the only node.
-- Fast and slow pointers are a common pattern for finding the middle or detecting cycles.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — Both phases take at most $N$ steps.
+- **Space Complexity:** $\mathcal{O}(1)$ — We only use two integer pointers, regardless of the input size.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** What if the input is sorted or has a limited range? Can you optimize space from $O(N)$ to $O(1)$?
-- **Scale Question:** If the dataset is too large to fit in RAM, how would you use external sorting or a distributed hash table?
-- **Edge Case Probe:** How does your solution handle duplicates, empty inputs, or extremely large integers?
+## 🎤 Interview Toolkit
+
+- **Follow-up:** Can you solve this if we can modify the array?
+    - *Answer:* Yes, using **Negative Marking**. Iterate through the array, and for each value `x`, negate the value at `nums[abs(x)]`. If you encounter a value that is already negative, you've found the duplicate.
+- **Scale Question:** What if $n$ is too large to fit the whole array in memory?
+    - *Answer:* We can use **Binary Search on the range [1, n]**. For a chosen middle value `mid`, count how many numbers in the array are $\le mid$. If the count $> mid$, the duplicate is in $[1, mid]$; otherwise, it's in $[mid+1, n]$. This takes $O(N \log N)$ time but only $O(1)$ space and can be done by streaming the data.
 
 ## 🔗 Related Problems
-
-- [LRU Cache](../lru_cache/PROBLEM.md) — Next in category
-- [Linked List Cycle](../linked_list_cycle/PROBLEM.md) — Previous in category
-- [Invert Binary Tree](../../07_trees/invert_binary_tree/PROBLEM.md) — Prerequisite for Trees
-- [Valid Palindrome](../../02_two_pointers/valid_palindrome/PROBLEM.md) — Prerequisite: Two Pointers
+- [Linked List Cycle](../linked_list_cycle/PROBLEM.md) — The fundamental concept behind this solution.
+- [Find the Duplicate Number (LeetCode 287)](https://leetcode.com/problems/find-the-duplicate-number/)
+<!-- - [First Missing Positive](../../01_arrays_hashing/first_missing_positive/PROBLEM.md) — Another array-as-pointers problem. -->

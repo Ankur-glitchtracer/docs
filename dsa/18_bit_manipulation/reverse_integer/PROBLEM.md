@@ -1,78 +1,65 @@
-#  🔄 Bit Manipulation: Reverse Integer
+---
+impact: "Low"
+nr: true
+confidence: 4
+---
+# 🧩 Bit Manipulation: Reverse Integer
 
-## 📝 Description
-[LeetCode 7](https://leetcode.com/problems/reverse-integer/)
-Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range `(To be detailed...)`, then return `0`. Assume the environment does not allow you to store 64-bit integers (signed or unsigned).
+## 📝 Problem Description
+Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range `[-2^31, 2^31 - 1]`, then return 0.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This is common in **input sanitization** and testing integer overflow handling in API inputs or calculator implementations.
 
-- Inputs are typically 32-bit or 64-bit integers.
-- The number of operations is $O(1)$ relative to word size.
+## 🛠️ Constraints & Edge Cases
+- Signed 32-bit integer range.
+- **Edge Cases:** Negative numbers, trailing zeros, overflow (e.g., reversing 1,534,236,469).
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Overflow Trap." Reversing `1534236469` results in `9646324351`, which overflows a 32-bit signed integer.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Pre-Check." Check for potential overflow *before* multiplying by 10.
+!!! success "The Aha! Moment"
+    Pop the last digit using `x % 10` and push it into a new integer `res = res * 10 + digit`. Before pushing, check if `res` will overflow.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Convert to string, reverse, convert to int. Inefficient and makes overflow checking string-based.
 
-1. Initialize `res = 0`.
+### 🐇 Optimal Approach
+1. `res = 0`.
 2. While `x != 0`:
-   - `pop = x % 10`, `x /= 10`.
-   - **Check Positive Overflow:** If `res > INT_MAX/10` or `(res == INT_MAX/10 && pop > 7)`, return 0.
-   - **Check Negative Overflow:** If `res < INT_MIN/10` or `(res == INT_MIN/10 && pop < -8)`, return 0.
-   - `res = res * 10 + pop`.
+    - `digit = x % 10` (handle negative sign correctly).
+    - `x //= 10`.
+    - Check if `res` will overflow when multiplied by 10 and adding `digit`.
+    - `res = res * 10 + digit`.
 
-**The Twist (Failure):** **Python/Java vs C++.** Python integers handle overflow automatically. C++ requires explicit checks.
-
-**Interview Signal:** Handling **Integer Limits**.
-
-## 🚀 Approach & Intuition
-Modulo 10 to pop, Multiply 10 to push.
-
-### C++ Pseudo-Code
-```cpp
-int reverse(int x) {
-    int res = 0;
-    while (x != 0) {
-        int pop = x % 10;
-        x /= 10;
-        if (res > INT_MAX/10 || (res == INT_MAX/10 && pop > 7)) return 0;
-        if (res < INT_MIN/10 || (res == INT_MIN/10 && pop < -8)) return 0;
-        res = res * 10 + pop;
-    }
-    return res;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    A[x: 123] -->|Pop 3| B[res: 3]
+    B -->|Pop 2| C[res: 32]
+    C -->|Pop 1| D[res: 321]
 ```
 
-### Key Observations:
-
-- Bitwise operations (AND, OR, XOR, NOT) allow for $O(1)$ constant time operations on binary data.
-- XOR is particularly useful for finding single elements or toggling states, as $x \oplus x = 0$.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(\log x)$ (Digits)
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(\log_{10} N)$ where $N$ is the number.
+- **Space Complexity:** $\mathcal{O}(1)$.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you solve this without using any arithmetic operators (+, -, *, /)?
-- **Scale Question:** How do you handle bit operations on arbitrarily large integers (BigInt)?
-- **Edge Case Probe:** How does your code handle signed vs unsigned integers and overflow/underflow?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Handle integers of arbitrary size (BigInt).
+- **Alternative Data Structures:** Using arrays to store digits before reversal.
 
 ## 🔗 Related Problems
-
-- [Sum of Two Integers](../sum_of_two_integers/PROBLEM.md) — Previous in category
-- [Rotate Image](../../17_math_geometry/rotate_image/PROBLEM.md) — Prerequisite for Math & Geometry
-- [Climbing Stairs](../../13_1d_dynamic_programming/climbing_stairs/PROBLEM.md) — Prerequisite: 1-D Dynamic Programming
+- `[Reverse Bits](#)` — Reversing bits.
+- `[Palindrome Number](#)` — Checking digit properties.

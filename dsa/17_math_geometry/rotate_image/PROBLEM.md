@@ -1,79 +1,64 @@
-#  🔄 Math: Rotate Image
+---
+impact: "Medium"
+nr: true
+confidence: 4
+---
+# 🟦 Math & Geometry: Rotate Image
 
-## 📝 Description
-[LeetCode 48](https://leetcode.com/problems/rotate-image/)
-You are given an `n x n` 2D matrix representing an image, rotate the image by 90 degrees (clockwise). You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.
+## 📝 Problem Description
+Given an $n \times n$ 2D matrix representing an image, rotate the image by 90 degrees (clockwise) in-place.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Essential for **image processing** and graphics manipulation where pixel arrays must be transformed in memory without extra storage to handle large images efficiently.
 
-- Numerical values fit within standard data types (int, long).
-- Coordinate ranges are typically within $10^4$.
+## 🛠️ Constraints & Edge Cases
+- $n \times n$ matrix.
+- In-place modification.
+- **Edge Cases:** $1 \times 1$ matrix.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The In-Place Rotation." Rotating a 2D matrix by 90 degrees requires moving elements in cycles. If you use a new matrix, it's easy ($O(N^2)$ space). Doing it in-place without overwriting data you still need is the challenge.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Transpose + Reflect."
+!!! success "The Aha! Moment"
+    Rotating 90 degrees clockwise is equivalent to:
+    1. Transposing the matrix (swap $M[i][j]$ with $M[j][i]$).
+    2. Reversing each row.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Create a new matrix and copy elements to their new rotated positions. Requires $\mathcal{O}(N^2)$ space.
 
-1. **Transpose:** Swap `matrix[i][j]` with `matrix[j][i]`. (Reflect across main diagonal).
-2. **Reflect:** Reverse every row.
-3. Result is a 90-degree clockwise rotation.
+### 🐇 Optimal Approach
+1. Transpose: For each $i < j$, swap `M[i][j]` with `M[j][i]`.
+2. Reverse: For each row, reverse the order of elements.
 
-**The Twist (Failure):** **Anti-clockwise.** For counter-clockwise, Transpose then Reverse Columns (instead of rows).
-
-**Interview Signal:** **Linear Algebra** transformations.
-
-## 🚀 Approach & Intuition
-Swap across diagonal, then reverse rows.
-
-### C++ Pseudo-Code
-```cpp
-void rotate(vector<vector<int>>& matrix) {
-    int n = matrix.size();
-    
-    // Transpose
-    for (int i = 0; i < n; i++) {
-        for (int j = i; j < n; j++) {
-            swap(matrix[i][j], matrix[j][i]);
-        }
-    }
-    
-    // Reverse rows
-    for (int i = 0; i < n; i++) {
-        reverse(matrix[i].begin(), matrix[i].end());
-    }
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    A[Original] -->|Transpose| B[Matrix]
+    B -->|Reverse Rows| C[Rotated]
+    style B stroke:#f66,stroke-width:2px
 ```
 
-### Key Observations:
-
-- Use modular arithmetic to prevent integer overflow and the Euclidean algorithm for GCD/LCM problems.
-- In geometry, use cross products to determine orientation and the distance formula for proximity checks.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N^2)$
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N^2)$ as we touch every cell.
+- **Space Complexity:** $\mathcal{O}(1)$ since it's done in-place.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you solve this without using any arithmetic operators (+, -, *, /)?
-- **Scale Question:** How do you handle bit operations on arbitrarily large integers (BigInt)?
-- **Edge Case Probe:** How does your code handle signed vs unsigned integers and overflow/underflow?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Rotate 90 degrees counter-clockwise.
+- **Alternative Data Structures:** Recursive layer-by-layer rotation is also possible.
 
 ## 🔗 Related Problems
-
-- [Spiral Matrix](../spiral_matrix/PROBLEM.md) — Next in category
-- [Number of Islands](../../11_graphs/number_of_islands/PROBLEM.md) — Prerequisite: Graphs
-- [Single Number](../../18_bit_manipulation/single_number/PROBLEM.md) — Prerequisite: Bit Manipulation
+- `[Spiral Matrix](#)` — 2D Array traversal.
+- `[Set Matrix Zeroes](#)` — Matrix manipulation.

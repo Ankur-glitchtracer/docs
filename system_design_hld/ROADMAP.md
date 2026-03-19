@@ -33,7 +33,7 @@ sequenceDiagram
     * [WhatsApp](./architectures/social_media/WHATSAPP.md)
     * [Facebook Capacity](./architectures/social_media/FACEBOOK_CAPACITY.md)
 2. **Streaming & Content Delivery**
-    * [Netflix](./architectures/streaming/NETFLIX.md)
+    * [Video Streaming (Netflix/YouTube)](./architectures/streaming/VIDEO_STREAMING_SERVICE.md)
 3. **Payment & Real-time Booking**
     * [Uber Global](./architectures/payment_systems/UBER_HLD.md)
 4. **Distributed Storage & Databases**

@@ -1,79 +1,70 @@
-#  ✈️ Advanced Graph: Cheapest Flights Within K Stops
+---
+impact: "Medium"
+nr: false
+confidence: 3
+---
+# ✈️ Advanced Graph: Cheapest Flights Within K Stops
 
-## 📝 Description
-[LeetCode 787](https://leetcode.com/problems/cheapest-flights-within-k-stops/)
-There are `n` cities connected by some number of flights. You are given an array `flights` where `flights[i] = (To be detailed...)` indicates that there is a flight from city `from_i` to city `to_i` with cost `price_i`. You are also given three integers `src`, `dst`, and `k`, return the cheapest price from `src` to `dst` with at most `k` stops. If there is no such route, return `-1`.
+## 📝 Problem Description
+There are `n` cities connected by some number of flights. You are given an array `flights` where `flights[i] = [from_i, to_i, price_i]` indicates that there is a flight from city `from_i` to city `to_i` with cost `price_i`. You are also given three integers `src`, `dst`, and `k`, return the cheapest price from `src` to `dst` with at most `k` stops. If there is no such route, return `-1`.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This problem models network routing under constraints, such as finding the most cost-effective path for data packets where the number of hops (routers) must be limited to prevent excessive latency.
 
-- $V \le 1000, E \le 10^4$
-- Edge weights are non-negative for Dijkstra.
+## 🛠️ Constraints & Edge Cases
+- $1 \le n \le 100$
+- $0 \le flights.length \le n \cdot (n - 1) / 2$
+- $0 \le src, dst < n$
+- $0 \le k < n$
+- **Edge Cases:** 
+    - `src == dst` (cost is 0).
+    - No possible path (return -1).
+    - `k=0` (direct flight only).
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Infinite Path." Dijkstra finds the shortest path by cost, but it might take 100 stops. We are constrained to `K` stops. A cheaper path might be invalid if it's too long.
+## 🧠 Approach & Intuition
 
-**The Hero:** "Bellman-Ford (or BFS with Levels)." We iterate exactly `K+1` times.
+!!! success "The Aha! Moment"
+    Standard Dijkstra's algorithm tracks only the `cost`. To satisfy the `k` stops constraint, we must track the state as `(cost, node, stops_remaining)` in our Priority Queue.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Using pure DFS, we explore all paths from `src` to `dst`. This has exponential complexity $O(V^V)$ as we revisit nodes, leading to TLE.
 
-1. (To be detailed...)
-2. (To be detailed...)
+### 🐇 Optimal Approach (Dijkstra Variant)
+1. Use a Priority Queue to store `(cost, current_node, stops_remaining)`.
+2. Keep a `visited` dictionary mapping nodes to the maximum `stops_remaining` with which we have reached them.
+3. Only push to the queue if we reach a node with more remaining stops than previously recorded.
 
-**The Twist (Failure):** **Using Dijkstra blindly.** Dijkstra greedily expands the cheapest path. The cheapest path might use 5 stops. When we reject it, we might never find the slightly more expensive path that uses 2 stops unless we track `(cost, stops)` as the state in the priority queue.
-
-**Interview Signal:** Constrained Shortest Path (**Bellman-Ford variant**).
-
-## 🚀 Approach & Intuition
-Relax edges K+1 times.
-
-### C++ Pseudo-Code
-```cpp
-int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
-    vector<int> prices(n, INT_MAX);
-    prices[src] = 0;
-    
-    for (int i = 0; i <= k; i++) {
-        vector<int> temp = prices;
-        for (auto& f : flights) {
-            int u = f[0], v = f[1], w = f[2];
-            if (prices[u] != INT_MAX) {
-                temp[v] = min(temp[v], prices[u] + w);
-            }
-        }
-        prices = temp;
-    }
-    return prices[dst] == INT_MAX ? -1 : prices[dst];
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    src((src)) -- 100 --> A((A))
+    A -- 100 --> dst((dst))
+    src -- 500 --> dst
+    style src stroke:#333,stroke-width:2px
+    style dst stroke:#f66,stroke-width:2px
 ```
 
-### Key Observations:
-
-- Dijkstra's and Prim's algorithms use a Priority Queue to find the shortest path or MST in $O(E \log V)$ time.
-- Kruskal's algorithm uses Disjoint Set Union (DSU) to efficiently manage connected components and detect cycles.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(K \cdot E)$
-    - **Space Complexity:** $O(N)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $O(E \cdot K \log (V \cdot K))$, where $E$ is the number of edges, $V$ the number of cities, and $K$ the stop constraint.
+- **Space Complexity:** $O(V \cdot K)$ to store the visited states in the queue.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you solve this using BFS for shortest paths or DFS for connectivity? When would you use Union-Find?
-- **Scale Question:** If the graph has billions of edges (like a social network), how would you use a Pregel or Giraph-style distributed processing model?
-- **Edge Case Probe:** How do you handle cycles, disconnected components, or self-loops in the graph?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** What if we need the *shortest* path in terms of time instead of cost?
+- **Alternative Data Structures:** Bellman-Ford can also solve this in $O(K \cdot E)$ without a priority queue.
 
 ## 🔗 Related Problems
-
-- [Alien Dictionary](../alien_dictionary/PROBLEM.md) — Previous in category
-- [Kth Largest in Stream](../../09_heap_priority_queue/kth_largest_element_in_a_stream/PROBLEM.md) — Prerequisite: Heap / Priority Queue
-- [Number of Islands](../../11_graphs/number_of_islands/PROBLEM.md) — Prerequisite: Graphs
+- [Network Delay Time](../network_delay_time/PROBLEM.md)
+- [Swim in Rising Water](../swim_in_rising_water/PROBLEM.md)

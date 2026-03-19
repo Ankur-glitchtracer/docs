@@ -1,93 +1,64 @@
-#  ✖️ Math: Multiply Strings
+---
+impact: "High"
+nr: false
+confidence: 4
+---
+# 🟦 Math & Geometry: Multiply Strings
 
-## 📝 Description
-[LeetCode 43](https://leetcode.com/problems/multiply-strings/)
-Given two non-negative integers `num1` and `num2` represented as strings, return the product of `num1` and `num2`, also represented as a string. Note: You must not use any built-in BigInteger library or convert the inputs to integer directly.
+## 📝 Problem Description
+Given two non-negative integers `num1` and `num2` represented as strings, return the product of `num1` and `num2`, also represented as a string. You must not use any built-in BigInteger libraries.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Fundamental in implementing **arbitrary-precision arithmetic** in calculators, cryptographic libraries, and scientific software that handles numbers exceeding CPU-native bit sizes.
 
-- Numerical values fit within standard data types (int, long).
-- Coordinate ranges are typically within $10^4$.
+## 🛠️ Constraints & Edge Cases
+- `num1`, `num2` can be very large strings (up to 200 digits).
+- **Edge Cases:** "0", trailing zeros.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Big Integer." Standard integer types (64-bit) can't hold the product of two 200-digit numbers.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Grade-School Algorithm." Simulate manual multiplication using an array.
+!!! success "The Aha! Moment"
+    The product of two numbers with lengths $M$ and $N$ will have a length of at most $M+N$. We can use an array of size $M+N$ to store intermediate digit products, starting from the last index.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Convert strings to integers, multiply, and convert back. This fails for very large numbers because they exceed standard integer type limits.
 
-1. `num1` length `m`, `num2` length `n`. Result max length is `m+n`.
-2. Create `res` array of size `m+n`.
-3. Iterate `i` from `m-1` to 0, `j` from `n-1` to 0.
-   - `mul = (num1[i] - '0') * (num2[j] - '0')`.
-   - `p1 = i + j`, `p2 = i + j + 1`.
-   - `sum = mul + res[p2]`.
-   - `res[p2] = sum % 10`.
-   - `res[p1] += sum / 10`.
-4. Convert array to string, skipping leading zeros.
+### 🐇 Optimal Approach
+1. Initialize an array of size $M+N$ with zeros.
+2. Iterate backwards through both strings.
+3. Multiply each digit: `prod = (num1[i] - '0') * (num2[j] - '0')`.
+4. Add to the product index `i + j + 1`, and update the carry at `i + j`.
+5. Finally, convert the array to a string, skipping leading zeros.
 
-**The Twist (Failure):** **Zero.** If input is "0", output should be "0", not "".
-
-**Interview Signal:** **Simulation** of arithmetic operations.
-
-## 🚀 Approach & Intuition
-Accumulate products at correct indices.
-
-### C++ Pseudo-Code
-```cpp
-string multiply(string num1, string num2) {
-    if (num1 == "0" || num2 == "0") return "0";
-    int m = num1.size(), n = num2.size();
-    vector<int> res(m + n, 0);
-    
-    for (int i = m - 1; i >= 0; i--) {
-        for (int j = n - 1; j >= 0; j--) {
-            int mul = (num1[i] - '0') * (num2[j] - '0');
-            int p1 = i + j, p2 = i + j + 1;
-            int sum = mul + res[p2];
-            
-            res[p2] = sum % 10;
-            res[p1] += sum / 10;
-        }
-    }
-    
-    string s = "";
-    for (int p : res) {
-        if (!(s.empty() && p == 0)) s += to_string(p);
-    }
-    return s;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    A[num1: '12'] -->|x| B[num2: '34']
+    B --> C{pos[i+j] + carry}
+    C --> D[Result: '408']
 ```
 
-### Key Observations:
-
-- Use modular arithmetic to prevent integer overflow and the Euclidean algorithm for GCD/LCM problems.
-- In geometry, use cross products to determine orientation and the distance formula for proximity checks.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(M 	imes N)$
-    - **Space Complexity:** $O(M + N)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(M \times N)$ where $M, N$ are string lengths. We nested-loop the digits.
+- **Space Complexity:** $\mathcal{O}(M + N)$ to store the result array.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you solve this without using any arithmetic operators (+, -, *, /)?
-- **Scale Question:** How do you handle bit operations on arbitrarily large integers (BigInt)?
-- **Edge Case Probe:** How does your code handle signed vs unsigned integers and overflow/underflow?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Implement addition of two big integers represented as strings.
+- **Alternative Data Structures:** Using list of integers vs array.
 
 ## 🔗 Related Problems
-
-- [Detect Squares](../detect_squares/PROBLEM.md) — Next in category
-- [Pow(x, n)](../pow_x_n/PROBLEM.md) — Previous in category
-- [Number of Islands](../../11_graphs/number_of_islands/PROBLEM.md) — Prerequisite: Graphs
-- [Single Number](../../18_bit_manipulation/single_number/PROBLEM.md) — Prerequisite: Bit Manipulation
+- `[Plus One](#)` — Basic big integer arithmetic simulation.
+- `[Sum of Two Integers](#)` — Bitwise arithmetic.

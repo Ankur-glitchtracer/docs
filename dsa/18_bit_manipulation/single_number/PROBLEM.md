@@ -1,62 +1,62 @@
-#  ⚡ Bit Manipulation: Single Number
+---
+impact: "Low"
+nr: true
+confidence: 5
+---
+# 🧩 Bit Manipulation: Single Number
 
-## 📝 Description
-[LeetCode 136](https://leetcode.com/problems/single-number/)
-Given a non-empty array of integers `nums`, every element appears twice except for one. Find that single one. You must implement a solution with a linear runtime complexity and use only constant extra space.
+## 📝 Problem Description
+Given a non-empty array of integers, every element appears twice except for one. Find that single one.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Fundamental in **resource tracking** where resources are allocated/released in pairs, and identifying orphan entries (single instances) in logs or hardware device status.
 
-- Inputs are typically 32-bit or 64-bit integers.
-- The number of operations is $O(1)$ relative to word size.
+## 🛠️ Constraints & Edge Cases
+- $1 \le nums.length \le 3 \times 10^4$.
+- Each element appears twice except one.
+- **Edge Cases:** Single element array.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Memory Thief." Finding the unique number in a sea of duplicates. Using a Hash Set costs $O(N)$ space. On a memory-constrained chip, you only have $O(1)$.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The XOR Eraser." Using the bitwise XOR property: $A \oplus A = 0$ and $A \oplus 0 = A$.
+!!! success "The Aha! Moment"
+    XORing a number with itself results in 0, and XORing with 0 leaves the number unchanged ($A \oplus A = 0$ and $A \oplus 0 = A$). XORing all numbers together will leave only the single element.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Using a Hash Map to count frequencies. $\mathcal{O}(N)$ time and $\mathcal{O}(N)$ space.
 
-1. Initialize `result = 0`.
-2. Iterate through all numbers.
-3. `result ^= num`.
-4. All pairs will cancel each other out to
-0. The unique number will remain.
+### 🐇 Optimal Approach
+Initialize `res = 0`. Iterate through the array and `res ^= nums[i]`. `res` will hold the single number.
 
-**The Twist (Failure):** **The Triple Threat.** This ONLY works if numbers appear exactly twice. If some appear 3 times, you need to count set bits at each position modulo 3.
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    A[nums: 4, 1, 2, 1, 2] -->|XOR all| B[4 ^ 1 ^ 2 ^ 1 ^ 2]
+    B -->|Commutativity| C[4 ^ (1 ^ 1) ^ (2 ^ 2)]
+    C -->|Cancel| D[4 ^ 0 ^ 0]
+    D --> E[Result: 4]
+```
 
-**Interview Signal:** Mastery of **Bitwise Logic** and $O(1)$ space optimization.
-
-## 🚀 Approach & Intuition
-(To be detailed...)
-
-### Key Observations:
-
-- Bitwise operations (AND, OR, XOR, NOT) allow for $O(1)$ constant time operations on binary data.
-- XOR is particularly useful for finding single elements or toggling states, as $x \oplus x = 0$.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$.
+- **Space Complexity:** $\mathcal{O}(1)$.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you solve this without using any arithmetic operators (+, -, *, /)?
-- **Scale Question:** How do you handle bit operations on arbitrarily large integers (BigInt)?
-- **Edge Case Probe:** How does your code handle signed vs unsigned integers and overflow/underflow?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Find elements appearing once when others appear 3 times.
+- **Alternative Data Structures:** Hash set can be used to track if elements were already seen.
 
 ## 🔗 Related Problems
-
-- [Number of 1 Bits](../number_of_1_bits/PROBLEM.md) — Next in category
-- [Rotate Image](../../17_math_geometry/rotate_image/PROBLEM.md) — Prerequisite for Math & Geometry
-- [Climbing Stairs](../../13_1d_dynamic_programming/climbing_stairs/PROBLEM.md) — Prerequisite: 1-D Dynamic Programming
+- `[Missing Number](#)` — Using XOR.
+- `[Find the Duplicate Number](#)` — Using Floyd's cycle.

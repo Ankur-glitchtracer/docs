@@ -1,86 +1,74 @@
-#  🎭 Graph: Clone Graph
+---
+impact: "Medium"
+nr: false
+confidence: 4
+---
+# 🎭 Graphs: Clone Graph
 
-## 📝 Description
-[LeetCode 133](https://leetcode.com/problems/clone-graph/)
-Given a reference of a node in a connected undirected graph. Return a deep copy (clone) of the graph. Each node in the graph contains a value (`int`) and a list (`List[Node]`) of its neighbors.
+## 📝 Problem Description
+Given a reference of a node in a connected undirected graph, return a [deep copy (clone)](https://leetcode.com/problems/clone-graph/) of the graph. Each node in the graph contains a value (`int`) and a list (`List[Node]`) of its neighbors.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Deep copying graphs is essential for **serializing object graphs** in distributed systems (e.g., deep-cloning an object state before sending it across a network) and in **compilers/ASTs** where a tree or graph needs to be cloned to perform transformations without affecting the original.
 
-- $V, E \le 10^5$ (Nodes and Edges)
-- The graph can be directed or undirected.
+## 🛠️ Constraints & Edge Cases
+- $0 \le \text{Node.val} \le 100$
+- There are no repeated values in the graph.
+- The graph is connected and undirected.
+- **Edge Cases to Watch:** 
+    - Empty graph (node is null).
+    - Single node graph.
+    - Graph with cycles.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Infinite Loop." A graph can have cycles ($A \to B \to A$). If you just recursively copy neighbors, you'll enter an infinite loop creating infinite copies of A and B.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The HashMap Cache." We need to remember which nodes we've already copied. `OldNode -> NewNode`.
+!!! success "The Aha! Moment"
+    The key is to treat the graph as a recursive structure while maintaining a **mapping of original nodes to their corresponding clones**. This mapping acts as a "visited" set and ensures we only create one new clone per original node, preventing infinite loops in cyclic graphs.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+A naive recursive approach that doesn't track visited nodes would attempt to infinitely recurse into already-processed neighbors, leading to an infinite loop and stack overflow for any graph with cycles.
 
-1. Use a HashMap `visited`.
-2. **DFS(node):**
-   - If `node` in `visited`: Return `visited[node]`.
-   - Create `newNode` with `node.val`.
-   - Add to `visited` **immediately** (before recursing).
-   - For each neighbor of `node`:
-     - `newNode.neighbors.add(DFS(neighbor))`.
-   - Return `newNode`.
+### 🐇 Optimal Approach (DFS/BFS + HashMap)
+1. Initialize a hash map `visited` to store `original_node: cloned_node`.
+2. Start traversal from the input node (using DFS or BFS).
+3. If the current node is in `visited`, return the existing clone.
+4. If not, create a new clone, add it to `visited`, and recursively/iteratively clone its neighbors.
+5. Connect the current clone to the newly created/retrieved neighbor clones.
 
-**The Twist (Failure):** **Adding after recursion.** If you add to the map *after* the recursive calls, the cycle check will fail because the node isn't "registered" yet when the child tries to point back to it.
-
-**Interview Signal:** Handling **Cycles** and deep copying complex structures.
-
-## 🚀 Approach & Intuition
-Map original nodes to clones to handle cycles.
-
-### C++ Pseudo-Code
-```cpp
-class Solution {
-    unordered_map<Node*, Node*> visited;
-public:
-    Node* cloneGraph(Node* node) {
-        if (!node) return nullptr;
-        if (visited.count(node)) return visited[node];
-        
-        Node* clone = new Node(node->val);
-        visited[node] = clone;
-        
-        for (Node* neighbor : node->neighbors) {
-            clone->neighbors.push_back(cloneGraph(neighbor));
-        }
-        return clone;
-    }
-};
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    A[Original Node 1] --> B[Original Node 2]
+    B --> A
+    
+    subgraph Clone
+    C[Clone Node 1] --> D[Clone Node 2]
+    D --> C
+    end
+    
+    A -.->|Mapped| C
+    B -.->|Mapped| D
 ```
 
-### Key Observations:
-
-- Represent the graph using an Adjacency List for space efficiency in sparse graphs.
-- Use DFS for path-finding/connectivity and BFS for finding the shortest path in unweighted graphs.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(V + E)$
-    - **Space Complexity:** $O(V)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(V + E)$, where $V$ is the number of vertices and $E$ is the number of edges. We visit each node and edge exactly once.
+- **Space Complexity:** $\mathcal{O}(V)$ to store the clone map and the recursion stack (for DFS) or queue (for BFS).
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you solve this using BFS for shortest paths or DFS for connectivity? When would you use Union-Find?
-- **Scale Question:** If the graph has billions of edges (like a social network), how would you use a Pregel or Giraph-style distributed processing model?
-- **Edge Case Probe:** How do you handle cycles, disconnected components, or self-loops in the graph?
+## 🎤 Interview Toolkit
 
-## 🔗 Related Problems
-
-- [Walls and Gates](../walls_and_gates/PROBLEM.md) — Next in category
-- [Max Area of Island](../max_area_of_island/PROBLEM.md) — Previous in category
-- [Reconstruct Itinerary](../../12_advanced_graphs/reconstruct_itinerary/PROBLEM.md) — Prerequisite for Advanced Graphs
-- [Unique Paths](../../14_2d_dynamic_programming/unique_paths/PROBLEM.md) — Prerequisite for 2-D Dynamic Programming
+- **Alternative Approach:** BFS can also solve this iteratively using a `collections.deque` and the same hash map logic.
+- **Related Problems:**
+    - `[Copy List with Random Pointer](../06_linked_list/copy_list_with_random_pointer/PROBLEM.md)` — Similar deep-copy pattern but for linked lists.
+    - `[Number of Islands](../number_of_islands/PROBLEM.md)` — Fundamental graph traversal problem.

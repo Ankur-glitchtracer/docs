@@ -1,78 +1,71 @@
-#  💧 Two Pointers: Container With Most Water
+---
+impact: "High"
+nr: false
+confidence: 5
+---
+# 💧 Two Pointers: Container With Most Water
 
-## 📝 Description
-[LeetCode 11](https://leetcode.com/problems/container-with-most-water/)
+## 📝 Problem Description
 You are given an integer array `height` of length `n`. There are `n` vertical lines drawn such that the two endpoints of the `i`th line are `(i, 0)` and `(i, height[i])`. Find two lines that together with the x-axis form a container, such that the container contains the most water.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Optimizing storage capacity in resource allocation problems, or in signal processing to find the most significant "energy" window between two peaks in a dataset.
 
+## 🛠️ Constraints & Edge Cases
 - $n == height.length$
 - $2 \le n \le 10^5$
 - $0 \le height[i] \le 10^4$
+- **Edge Cases to Watch:**
+    - Only two lines (minimum possible width).
+    - All lines have the same height.
+    - Heights are strictly increasing or decreasing.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The All-Pairs Check." Trying every pair of lines ($O(N^2)$).
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Greedy Width Shrinker." We start with the maximum width. To find a potentially larger area, we must sacrifice width for greater height.
+!!! success "The Aha! Moment"
+    Start with the maximum possible width (pointers at both ends). To find a larger area, we **must** find a taller line to compensate for the shrinking width. Therefore, we should always move the pointer pointing to the **shorter line** inward.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Calculate the area for every possible pair of lines. This results in $O(N^2)$ time complexity, which is too slow for $N=10^5$.
 
-1. Initialize `left` and `right` at the ends.
-2. Calculate `area = (right - left) * min(height[left], height[right])`.
-3. Update `max_area`.
-4. Move the pointer pointing to the *shorter* line inward. (Why? Because moving the taller line can only decrease width without increasing the limiting height).
+### 🐇 Optimal Approach
+1. Initialize two pointers: `l` at the start (0) and `r` at the end (`n - 1`).
+2. While `l < r`:
+    - Calculate the current area: `(r - l) * min(height[l], height[r])`.
+    - Update the maximum area found so far.
+    - Compare `height[l]` and `height[r]`. Move the pointer pointing to the shorter line inward.
+3. Return the maximum area.
 
-**The Twist (Failure):** **The Equal Height.** If heights are equal, you can move either (or both).
-
-**Interview Signal:** Understanding **Greedy Decisions** in optimization problems.
-
-## 🚀 Approach & Intuition
-Start wide and shrink, discarding the limiting line.
-
-### C++ Pseudo-Code
-```cpp
-int maxArea(vector<int>& height) {
-    int l = 0, r = height.size() - 1;
-    int res = 0;
-    while (l < r) {
-        int area = (r - l) * min(height[l], height[r]);
-        res = max(res, area);
-        if (height[l] < height[r]) l++;
-        else r--;
-    }
-    return res;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    L[Left Pointer] --- R[Right Pointer]
+    Area["Area = Width * min(H_L, H_R)"]
+    L -- H_L < H_R --> L_Move["L moves Right"]
+    R -- H_R < H_L --> R_Move["R moves Left"]
 ```
 
-### Key Observations:
-
-- The two-pointer approach starting from both ends is optimal because the width is maximized at the start.
-- Always move the pointer pointing to the shorter line to potentially find a taller line that compensates for the decreasing width.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — Each element is visited at most once as the pointers converge.
+- **Space Complexity:** $\mathcal{O}(1)$ — Only a few variables are used to store the pointers and the maximum area.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** What if you need to find the container that can trap the most water (Trapping Rain Water)?
-- **Scale Question:** How would you solve this if the 'heights' are a stream of data and you need to find the max container seen so far?
-- **Edge Case Probe:** What if all heights are the same? What if the heights are strictly increasing or decreasing?
+## 🎤 Interview Toolkit
+
+- **Why move the shorter line?** Moving the taller line will never increase the area because the height is limited by the shorter line, and the width is decreasing.
+- **Follow-up:** What if the container can have any shape (e.g., Trapping Rain Water)?
 
 ## 🔗 Related Problems
-
-- [Trapping Rain Water](../trapping_rain_water/PROBLEM.md) — Next in category
-- [3Sum](../3sum/PROBLEM.md) — Previous in category
-- [Best Time to Buy/Sell Stock](../../03_sliding_window/best_time_to_buy_sell_stock/PROBLEM.md) — Prerequisite for Sliding Window
-- [Binary Search](../../05_binary_search/binary_search/PROBLEM.md) — Prerequisite for Binary Search
+- [Two Sum II](../two_sum_ii/PROBLEM.md)
+- [Trapping Rain Water](../trapping_rain_water/PROBLEM.md)

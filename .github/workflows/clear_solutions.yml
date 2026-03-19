@@ -1,0 +1,39 @@
+name: Clear Solutions and Reset Dashboards
+
+on:
+  workflow_dispatch:
+
+jobs:
+  clear-solutions:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Clear solutions and reset dashboards
+        run: python scripts/clear_solutions.py
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          
+          # Check if there are changes to stage
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "chore: clear solutions and reset dashboard state"
+            git push
+          else
+            echo "No changes detected."
+          fi

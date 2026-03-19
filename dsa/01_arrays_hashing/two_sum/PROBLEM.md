@@ -1,65 +1,70 @@
-#  🎯 Arrays & Hashing: Two Sum
+---
+impact: "High"
+nr: false
+confidence: 5
+---
+# 🎯 Arrays & Hashing: Two Sum
 
-## 📝 Description
-[LeetCode 1](https://leetcode.com/problems/two-sum/)
-Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`.
+## 📝 Problem Description
+Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`. You may assume that each input would have exactly one solution, and you may not use the same element twice.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Used in financial systems to find two transactions that sum to a specific settlement value, or in search algorithms to find pairs of items satisfying a exact budget constraint.
 
+## 🛠️ Constraints & Edge Cases
 - $2 \le nums.length \le 10^4$
 - $-10^9 \le nums[i] \le 10^9$
 - $-10^9 \le target \le 10^9$
-- Only one valid answer exists.
+- **Edge Cases to Watch:**
+    - Array with exactly two elements.
+    - Negative numbers in the array.
+    - Large target values.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The $O(N^2)$ Brute Force." Checking every pair for a sum results in nested loops that crash the server for large datasets.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Hash Map (One-Pass)." Trade space for time by storing "seen" numbers to perform an $O(1)$ lookup for the complement.
+!!! success "The Aha! Moment"
+    Instead of searching for the second number, **"remember" what you've seen**. Use a hash map to store each number and its index. For the current number `n`, check if the complement `target - n` exists in the map.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Use nested loops to check every possible pair of numbers. This takes $O(N^2)$ time, which is inefficient for large arrays.
 
-1. Iterate through the array once.
-2. For each number, calculate `complement = target - num`.
-3. Check if the complement exists in the Hash Map; if so, return the indices.
-4. Otherwise, add the current number and its index to the map.
+### 🐇 Optimal Approach
+1. Initialize an empty hash map `prevMap` (value -> index).
+2. Iterate through the array using index `i` and value `n`.
+3. Calculate the `diff = target - n`.
+4. If `diff` is in `prevMap`, return `[prevMap[diff], i]`.
+5. Otherwise, add `n` to `prevMap` with index `i`.
 
-**The Twist (Failure):** **The Duplicate Catch**. Forgetting that a number cannot be used twice (e.g., target is 10, current number is 5).
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    Input["nums: [2, 7, 11, 15], target: 9"]
+    2 --> Map1["{2: 0}"]
+    7 --> Check["9 - 7 = 2?"]
+    Check -- Found! --> Result["[0, 1]"]
+```
 
-**Interview Signal:** Mastery of **Space-Time Tradeoffs** and Hash Map lookups.
-
-## 🚀 Approach & Intuition
-The core idea is to use a Hash Map to store numbers we've already seen. As we iterate through the array, we check if the "complement" (the value needed to reach the target) is already in our map. This allows us to find the pair in a single pass.
-
-### Key Observations:
-
-- We can find the required complement in $O(1)$ time using a Hash Map.
-- A single pass is sufficient if we store values as we go.
-- We must return indices, so the map should store `value -> index`.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$ because we traverse the list containing $n$ elements only once. Each lookup in the table costs only $O(1)$ time.
-    - **Space Complexity:** $O(N)$ The extra space required depends on the number of items stored in the hash table, which stores at most $n$ elements.
+---
 
 ## 💻 Solution Implementation
 
 ```python
---8<-- "dsa/01_arrays_hashing/two_sum/solution.py"
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    Instead of searching for the second number, we "remember" what we've seen. The Hash Map acts as a memory that lets us look back in time for the perfect partner to our current number.
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — We traverse the list exactly once. Each lookup in the hash map takes $O(1)$ on average.
+- **Space Complexity:** $\mathcal{O}(N)$ — In the worst case, we store all elements in the hash map.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** If the input array is sorted, how can you solve this with $O(1)$ space? (See Two Sum II). Also, how would you find all unique triplets that sum to zero (3Sum)?
-- **Scale Question:** If the array is too large to fit in memory (e.g., 100GB), how would you use an external sort or a distributed hash table to find the pair?
-- **Edge Case Probe:** How does your solution handle multiple pairs that satisfy the condition? What if no such pair exists?
+## 🎤 Interview Toolkit
+
+- **Follow-up:** If the array is sorted, can you solve it in $O(1)$ space? (Yes, using two pointers).
+- **Variations:** What if there are multiple pairs? (Return all unique pairs).
 
 ## 🔗 Related Problems
-
-- [Group Anagrams](../group_anagrams/PROBLEM.md) — Next in category
-- [Valid Anagram](../valid_anagram/PROBLEM.md) — Previous in category
-- [Valid Palindrome](../../02_two_pointers/valid_palindrome/PROBLEM.md) — Prerequisite for Two Pointers
-- [Valid Parentheses](../../04_stack/valid_parentheses/PROBLEM.md) — Prerequisite for Stack
+- [3Sum](../../02_two_pointers/3sum/PROBLEM.md)
+- [Two Sum II](../../02_two_pointers/two_sum_ii/PROBLEM.md)

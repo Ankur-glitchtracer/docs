@@ -1,66 +1,72 @@
-#  🏝️ Graphs: Number of Islands
+---
+impact: "Medium"
+nr: false
+confidence: 5
+---
+# 🏝️ Graphs: Number of Islands
 
-## 📝 Description
-[LeetCode 200](https://leetcode.com/problems/number-of-islands/)
-Given an `m x n` 2D binary grid which represents a map of '1's (land) and '0's (water), return the number of islands.
+## 📝 Problem Description
+Given an `m x n` 2D binary grid which represents a map of '1's (land) and '0's (water), return the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This is a classic problem in **Computer Vision** (segmenting blobs in a binary image), **Geographical Information Systems (GIS)** (identifying distinct land masses), and **Game Development** (procedural map generation/traversal).
 
+## 🛠️ Constraints & Edge Cases
 - $m == grid.length$
 - $n == grid[i].length$
 - $1 \le m, n \le 300$
 - $grid[i][j]$ is '0' or '1'.
+- **Edge Cases to Watch:** 
+    - Empty grid ($m=0$ or $n=0$).
+    - Grid with all water.
+    - Grid with one giant island.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Fragmented Map." A 2D grid where you need to identify connected clusters of "1"s. Simply counting "1"s counts individual tiles, not whole islands.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The DFS Sinkhole." Every time you find land, "sink" the entire island (turn it to "0") by recursively visiting all its connected land neighbors.
+!!! success "The Aha! Moment"
+    Treat the grid as a graph where each '1' is a node. The problem reduces to finding the number of **connected components**. The trick is to "sink" the island (turn '1's into '0's) as you traverse it, so each island is counted exactly once.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Searching for every individual '1' and checking its neighbors recursively without marking them as visited would lead to infinite loops or re-counting the same island multiple times, leading to $O(2^{M \times N})$ complexity.
 
-1. Iterate through the grid row by row.
-2. If you hit '1':
-   - Increment `island_count`.
-   - Start a DFS (or BFS) to mark all connected '1's as '0' (visited).
-3. Continue until the whole grid is processed.
+### 🐇 Optimal Approach (DFS/BFS)
+1. Iterate through the grid row-by-row.
+2. When a '1' is encountered, it indicates a *new* island. Increment `island_count`.
+3. Trigger a DFS (or BFS) from that cell to visit all connected '1's and flip them to '0' to mark them as visited.
+4. Continue until all cells have been checked.
 
-**The Twist (Failure):** **The Grid Overflow.** Forgetting to check boundaries before recursing, or failing to handle the "empty grid" edge case.
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    subgraph Grid
+    1(1) --> 2(1)
+    1 --> 3(1)
+    3 --> 4(0)
+    end
+    style 1 fill:#f9f,stroke:#333
+```
 
-**Interview Signal:** Mastery of **Grid Traversal** and **Connected Components** in graphs.
-
-## 🚀 Approach & Intuition
-The problem asks us to find the number of connected components in a 2D grid. We can treat the grid as a graph where each '1' is a node connected to its horizontal and vertical neighbors. When we encounter land, we trigger a traversal (DFS or BFS) to "claim" all parts of that island so we don't count them again.
-
-### Key Observations:
-
-- We can modify the grid in-place to save space (by "sinking" the island).
-- Each DFS call explores one full island.
-- Boundary checks are crucial to avoid `IndexOutOfBounds`.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(M \times N)$ where $M$ is rows and $N$ is columns. We visit each cell at most twice.
-    - **Space Complexity:** $O(M \times N)$ in the worst case where the entire grid is land (for the recursion stack).
+---
 
 ## 💻 Solution Implementation
 
 ```python
---8<-- "dsa/11_graphs/number_of_islands/solution.py"
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    The key is "marking as visited." By turning '1's into '0's as we explore, we ensure that each island is only counted once, effectively "sinking" it into the ocean of processed data.
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(M \times N)$ — Each cell is visited at most twice.
+- **Space Complexity:** $\mathcal{O}(M \times N)$ — In the worst case (entire grid is land), the DFS stack stores $M \times N$ calls.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you find the number of distinct island shapes? (See Number of Distinct Islands).
-- **Scale Question:** If the map is 1 million by 1 million, how would you use Union-Find with path compression to process it in tiles?
-- **Edge Case Probe:** How does the algorithm handle a map that is all water? What if the entire map is one big island?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** "Number of Distinct Islands" (requires canonical path encoding).
+- **Alternative Data Structures:** Union-Find is highly effective for dynamic grids or distributed systems where you process tiles separately.
 
 ## 🔗 Related Problems
-
-- [Max Area of Island](../max_area_of_island/PROBLEM.md) — Next in category
-- [Reconstruct Itinerary](../../12_advanced_graphs/reconstruct_itinerary/PROBLEM.md) — Prerequisite for Advanced Graphs
-- [Unique Paths](../../14_2d_dynamic_programming/unique_paths/PROBLEM.md) — Prerequisite for 2-D Dynamic Programming
-- [Rotate Image](../../17_math_geometry/rotate_image/PROBLEM.md) — Prerequisite for Math & Geometry
+- `Max Area of Island` — Uses identical traversal.
+- `Number of Connected Components in an Undirected Graph` — Pure graph component logic.

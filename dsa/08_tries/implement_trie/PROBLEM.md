@@ -1,101 +1,74 @@
-#  🌳 Trie: Implement Trie (Prefix Tree)
+---
+impact: "High"
+nr: false
+confidence: 5
+---
+# 🌳 Tries: Implement Trie (Prefix Tree)
 
-## 📝 Description
-[LeetCode 208](https://leetcode.com/problems/implement-trie-prefix-tree/)
-A trie (pronounced as "try") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. There are various applications of this data structure, such as autocomplete and spellchecker. Implement the Trie class.
+## 📝 Problem Description
+Implement a `Trie` class with `insert`, `search`, and `startsWith` methods.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Tries are the backbone of modern text processing:
+    - **Autocomplete:** Efficiently suggesting word completions.
+    - **Spell Checkers:** Storing dictionaries for rapid word validation.
+    - **IP Routing:** Longest prefix matching in network routers.
 
+## 🛠️ Constraints & Edge Cases
 - $1 \le \text{word.length} \le 2000$
 - Words consist of lowercase English letters.
+- **Edge Cases to Watch:** 
+    - Inserting empty strings.
+    - Searching prefixes that don't exist.
+    - Repeated insertion of the same word.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Prefix Scan." You have 1 million strings. To check if any string starts with "app", you have to scan all 1 million strings ($O(N \cdot L)$).
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Tree of Characters." A tree where each node represents a character. "apple" is stored as `root -> a -> p -> p -> l -> e`.
+!!! success "The Aha! Moment"
+    Instead of storing strings directly, represent the dataset as a tree of characters where each node holds a map/array of its children. This allows for $O(L)$ lookups regardless of the number of strings in the trie.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Storing all words in an array or a standard `HashSet`. Checking if a word exists is $O(L)$, but checking if a prefix exists requires scanning all strings ($O(N \cdot L)$), leading to Time Limit Exceeded for large dictionaries.
 
-1. **Node Structure:** Array of 26 pointers (children) and a boolean `isEnd`.
-2. **Insert:** Traverse down from root. Create new nodes if child pointer is null. Mark the last node's `isEnd = true`.
-3. **Search:** Traverse down. If any child pointer is null, return `false`. At the end, return `node.isEnd`.
-4. **StartsWith:** Same as Search, but return `true` even if `node.isEnd` is false.
+### 🐇 Optimal Approach
+Use a tree structure where each node represents a character.
+1. `TrieNode`: Contains a hash map of children nodes and a boolean `is_end`.
+2. `insert`: Iterate through characters, creating nodes as needed. Mark last as `is_end`.
+3. `search`: Traverse down; if any path is missing, return `false`. Return `is_end` at the target node.
+4. `startsWith`: Same as search, but return `true` immediately after the loop.
 
-**The Twist (Failure):** **Memory Usage.** A Trie consumes a lot of memory because of the arrays of pointers. In production, we might use a Hash Map for children to save space (sparse nodes).
-
-**Interview Signal:** Implementation of **Tree-based Dictionaries**.
-
-## 🚀 Approach & Intuition
-Standard Trie implementation.
-
-### C++ Pseudo-Code
-```cpp
-class Trie {
-    struct Node {
-        Node* children[26] = {nullptr};
-        bool isEnd = false;
-    };
-    Node* root;
-public:
-    Trie() { root = new Node(); }
-    
-    void insert(string word) {
-        Node* curr = root;
-        for (char c : word) {
-            if (!curr->children[c - 'a'])
-                curr->children[c - 'a'] = new Node();
-            curr = curr->children[c - 'a'];
-        }
-        curr->isEnd = true;
-    }
-    
-    bool search(string word) {
-        Node* curr = root;
-        for (char c : word) {
-            if (!curr->children[c - 'a']) return false;
-            curr = curr->children[c - 'a'];
-        }
-        return curr->isEnd;
-    }
-    
-    bool startsWith(string prefix) {
-        Node* curr = root;
-        for (char c : prefix) {
-            if (!curr->children[c - 'a']) return false;
-            curr = curr->children[c - 'a'];
-        }
-        return true;
-    }
-};
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    Root((root)) -->|a| A((a))
+    A -->|p| P1((p))
+    P1 -->|p| P2((p))
+    P2 -->|l| L((l))
+    L -->|e| E((e))
+    style E fill:#ccf,stroke:#333
 ```
 
-### Key Observations:
-
-- Tries are ideal for prefix-based searches and autocomplete features, providing $O(L)$ time for words of length $L$.
-- Each node typically contains a hash map or array of size 26 for its children, plus a boolean flag for the end of a word.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(L)$ for Insert, Search, StartsWith.
-    - **Space Complexity:** $O(N \cdot L)$ total characters stored.
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(L)$ where $L$ is the length of the string, for all operations.
+- **Space Complexity:** $\mathcal{O}(N \cdot L)$ in the worst case (where no words share prefixes), where $N$ is the number of words.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you solve this iteratively if you were worried about stack overflow from deep recursion?
-- **Scale Question:** If the tree is a multi-terabyte B-Tree in a database, how do you optimize node traversal to minimize disk hits?
-- **Edge Case Probe:** What if the tree is extremely skewed (effectively a linked list)? What if it's empty?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Use compressed Tries (Radix Tree) if memory is tight and strings are long.
+- **Alternative Data Structures:** Hash Map (good for search, bad for prefix matching).
 
 ## 🔗 Related Problems
-
-- [Add and Search Words](../design_add_and_search_words_data_structure/PROBLEM.md) — Next in category
-- [Invert Binary Tree](../../07_trees/invert_binary_tree/PROBLEM.md) — Prerequisite: Trees
+- [Add and Search Words](../design_add_and_search_words_data_structure/PROBLEM.md) — Extension of basic Trie.
+- [Word Search II](../word_search_ii/PROBLEM.md) — Advanced Trie usage with Backtracking.

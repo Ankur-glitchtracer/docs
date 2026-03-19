@@ -1,86 +1,76 @@
-#  3️⃣ Two Pointers: 3Sum
+---
+impact: "High"
+nr: false
+confidence: 4
+---
+# 3️⃣ Two Pointers: 3Sum
 
-## 📝 Description
-[LeetCode 15](https://leetcode.com/problems/3sum/)
-Given an integer array nums, return all the triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, and `j != k`, and `nums[i] + nums[j] + nums[k] == 0`.
+## 📝 Problem Description
+Given an integer array `nums`, return all the triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, and `j != k`, and `nums[i] + nums[j] + nums[k] == 0`. Notice that the solution set must not contain duplicate triplets.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Used in recommendation systems to find combinations of three items that meet a specific budget or constraint, or in computer graphics for finding triplets of collinear points.
 
+## 🛠️ Constraints & Edge Cases
 - $3 \le nums.length \le 3000$
 - $-10^5 \le nums[i] \le 10^5$
+- **Edge Cases to Watch:**
+    - Array with all zeros.
+    - No triplets sum to zero.
+    - Many duplicate values leading to duplicate triplets.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Cubic Nightmare." Three nested loops giving $O(N^3)$. With $N=3000$, this will time out.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Sorted Fixer." Fix one number, then use Two Sum (Two Pointers) on the rest.
+!!! success "The Aha! Moment"
+    Sort the array first. Then, iterate through each number and treat it as a "fixed" first element. For each fixed element, use the **Two Sum II (Two Pointers)** technique on the remaining part of the array to find the other two elements.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Use three nested loops to check every possible triplet. This results in $O(N^3)$ time complexity, which is too slow for $N=3000$.
 
-1. Sort the array ($O(N \log N)$).
-2. Iterate `i` from 0 to `n-2`.
-3. If `nums[i] > 0`, break (sum can't be 0).
-4. If `i > 0` and `nums[i] == nums[i-1]`, skip to avoid duplicates.
-5. Use Two Pointers (`l`, `r`) on the subarray `i+1` to `n-1` to find pairs summing to `-nums[i]`.
+### 🐇 Optimal Approach
+1. Sort the input array.
+2. Iterate through the array. For each element `nums[i]`:
+    - If `nums[i]` is the same as the previous element, skip it to avoid duplicate triplets.
+    - Initialize two pointers: `l` at `i + 1` and `r` at the end of the array.
+    - While `l < r`:
+        - Calculate the sum `s = nums[i] + nums[l] + nums[r]`.
+        - If `s < 0`, move `l` to the right.
+        - If `s > 0`, move `r` to the left.
+        - If `s == 0`, add the triplet to the result, and move `l` to the right, skipping any duplicate values.
 
-**The Twist (Failure):** **The Triplet Duplicates.** Finding `[-1, 0, 1]` multiple times. You must skip duplicate values for `l` and `r` after finding a valid triplet.
-
-**Interview Signal:** Handling **Duplicate Reduction** in combinatorial problems.
-
-## 🚀 Approach & Intuition
-Fix one element and find the other two.
-
-### C++ Pseudo-Code
-```cpp
-vector<vector<int>> threeSum(vector<int>& nums) {
-    sort(nums.begin(), nums.end());
-    vector<vector<int>> res;
-    for (int i = 0; i < nums.size(); i++) {
-        if (i > 0 && nums[i] == nums[i-1]) continue;
-        int l = i + 1, r = nums.size() - 1;
-        while (l < r) {
-            int sum = nums[i] + nums[l] + nums[r];
-            if (sum > 0) r--;
-            else if (sum < 0) l++;
-            else {
-                res.push_back({nums[i], nums[l], nums[r]});
-                l++;
-                while (l < r && nums[l] == nums[l-1]) l++;
-            }
-        }
-    }
-    return res;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    Sorted["[-4, -1, -1, 0, 1, 2]"]
+    Fixed["Fixed: -1 (index 1)"]
+    L["L: -1 (index 2)"]
+    R["R: 2 (index 5)"]
+    Sum["-1 + -1 + 2 = 0 ✅"]
+    Fixed --> L
+    L --> R
 ```
 
-### Key Observations:
-
-- Sorting the array ($O(N \log N)$) is necessary to use the two-pointer technique effectively and handle duplicates.
-- Fix one element and solve the Two Sum II problem for the remaining target, skipping duplicate elements to avoid redundant triplets.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N^2)$
-    - **Space Complexity:** $O(1)$ (ignoring output)
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N^2)$ — We sort the array ($O(N \log N)$) and then iterate through the array once, with a nested two-pointer pass ($O(N)$) for each element.
+- **Space Complexity:** $\mathcal{O}(1)$ or $\mathcal{O}(N)$ — Depending on the sorting algorithm implementation and whether the output array is counted.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you find four numbers that sum to a target (4Sum)? How about $K$ numbers (K-Sum)?
-- **Scale Question:** If the input has 1 million numbers, how can you optimize the search to avoid the $O(N^2)$ bottleneck? (e.g., parallelizing the outer loop).
-- **Edge Case Probe:** How do you efficiently skip duplicate triplets without using a hash set for the final results?
+## 🎤 Interview Toolkit
+
+- **Duplicate Handling:** The most common mistake is forgetting to skip duplicates for the fixed element OR for the pointers after finding a valid triplet.
+- **Follow-up:** How would you solve 4Sum? (Fix two elements and use Two Pointers for the remaining two, resulting in $O(N^3)$).
 
 ## 🔗 Related Problems
-
-- [Container With Most Water](../container_with_most_water/PROBLEM.md) — Next in category
-- [Two Sum II](../two_sum_ii/PROBLEM.md) — Previous in category
-- [Best Time to Buy/Sell Stock](../../03_sliding_window/best_time_to_buy_sell_stock/PROBLEM.md) — Prerequisite for Sliding Window
-- [Binary Search](../../05_binary_search/binary_search/PROBLEM.md) — Prerequisite for Binary Search
+- [Two Sum II](../two_sum_ii/PROBLEM.md)
+- [4Sum](https://leetcode.com/problems/4sum/)

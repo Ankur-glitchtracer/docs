@@ -1,110 +1,136 @@
-# Design: Dropbox / Google Drive (Cloud File Storage)
+# ☁️ System Design: Dropbox / Google Drive
 
-Designing a collaborative, cross-device file storage system involves solving the complex challenges of synchronizing massive files efficiently without consuming all of a user's network bandwidth.
+## 📝 Overview
+A collaborative, cross-device cloud file storage system designed to seamlessly synchronize massive datasets across multiple clients. It solves the complex distributed systems challenge of keeping local file systems perfectly mirrored in the cloud without consuming all of a user's network bandwidth or the company's storage capacity.
 
----
-
-## 1. Capacity Estimation & Symmetry
-
-*   **Symmetry:** Unlike social media (where read:write is 100:1), cloud storage is a **symmetrical system** with a Read:Write ratio of nearly **1:1**.
-*   **Traffic:** 100 Million Daily Active Users (DAU). With an average of **3 devices per user**, the system must maintain **1 Million active connections per minute**.
-*   **Storage:** Assuming **200 files per user** and a **100KB average file size**, the system stores **100 billion files**, requiring **10 PB of total storage**.
+!!! abstract "Core Concepts"
+    - **Block-Level Chunking:** Splitting large files into strictly sized blocks (e.g., 4MB) to enable granular uploads and downloads.
+    - **Delta Sync:** Calculating the exact bytes changed in a file and transmitting *only* the modified chunks over the network, rather than the entire file.
+    - **Data Deduplication:** Using cryptographic hashes (SHA-256) to identify and store only one physical copy of identical chunks across the entire global user base.
 
 ---
 
-## 2. Core Optimizations: Chunking & Delta Sync
+## 🏭 The Scenario & Requirements
 
-Uploading an entire **500MB video file** every time a user changes a **1KB metadata tag** is inefficient. To solve this, the system uses **Chunking**.
+### 😡 The Problem (The Villain)
+If a user edits a single line of text in a 500MB video editing project file, uploading the entire 500MB file to the cloud again is a catastrophic waste of time, device battery, and server bandwidth. Furthermore, if a user has three devices (Phone, Laptop, Desktop), keeping the file states perfectly synchronized without creating conflicting versions or overwriting data is a severe concurrency challenge.
 
-*   **Chunking:** Files are strictly divided into **4MB chunks**. The exact optimal size is statically calculated based on the Backend Storage IOPS, Network Bandwidth, and Average File Size.
-*   **Hashing:** Each chunk is passed through a hashing algorithm (e.g., **SHA-256**) to generate a unique **Chunk ID**. The entire file is reconstructed using a **manifest of these Chunk IDs**.
-*   **Delta Sync:** When a user modifies a file, the client calculates which specific 4MB chunks were changed. Only the **modified chunks** are transmitted over the network.
-*   **Deduplication:** If two users upload the exact same file (or chunk), the system recognizes the identical SHA-256 hash and simply points both users' metadata to the **same physical chunk in storage**, saving massive amounts of space.
-*   **Failure Resiliency:** If an upload fails, the system only needs to retry the failing chunk rather than the entire file.
+### 🦸 The Solution (The Hero)
+A decoupled architecture where the heavy lifting of raw binary data (Data Plane) is separated from the lightweight coordination of file structure (Control Plane). By breaking files into small hashed chunks, the system can perform Delta Syncs—uploading only the 4MB block that changed. If multiple users upload the exact same file, global deduplication ensures the system only saves the physical bytes once, pointing both users' metadata to the same stored chunk.
 
----
+### 📜 Requirements
+- **Functional Requirements:**
+    1. Users can upload, download, delete, and modify files from any device.
+    2. Changes made on one device must automatically synchronize to all other connected devices.
+    3. The system must support file versioning to recover from accidental overwrites or deletions.
+- **Non-Functional Requirements:**
+    1. **High Durability:** Files must never be lost (requires high replication in object storage).
+    2. **Bandwidth Efficiency:** Must aggressively minimize network usage for both the client and the server.
+    3. **Strong Consistency (Metadata):** If a file is renamed or moved, the new state must be strictly consistent to prevent corruption across synced devices.
 
-## 3. Data Deduplication Strategy
-
-Data deduplication eliminates duplicate copies of data to improve storage utilization and reduce bandwidth. When the system processes a chunk, it calculates a cryptographic hash (e.g., SHA-256) to determine if it already exists.
-
-There are two primary approaches to handling this calculation, dictating the system's performance trade-offs:
-
-### A. Inline Deduplication (Synchronous)
-
-The hash is calculated by the client and checked against the database before the upload completes.
-
-**Pros:**
-- Saves massive amounts of ingress bandwidth.
-- Provides optimal storage usage immediately, as duplicate chunks are never transmitted across the network.
-
-**Cons:**
-- Introduces an IOPS and latency penalty during the upload phase.
-- The client and server must wait for the hash calculation and database lookup to complete before the data can be successfully stored.
-
-### B. Post-Process Deduplication (Asynchronous)
-
-All new chunks are immediately stored on the backend storage device. Later, a background process analyzes the data to look for duplicates and remove them.
-
-**Pros:**
-- Ensures no degradation in initial storage performance or user latency.
-
-**Cons:**
-- Wasted network bandwidth (the client transmits the entire chunk even if identical).
-- Temporary storage waste until background cleanup phases remove the duplicate.
+!!! info "Capacity Estimation (Back-of-the-envelope)"
+    - **Symmetry:** Unlike social media (where read:write is 100:1), cloud storage is highly symmetrical with a Read:Write ratio of nearly **1:1**.
+    - **Traffic:** 100 Million Daily Active Users (DAU). With an average of 3 devices per user, the system must maintain **~1 Million active WebSocket/Long-Polling connections per minute** for real-time synchronization.
+    - **Storage:** Assuming 200 files per user and a 100KB average file size, the system stores **100 billion files**, requiring **10 PB of total active storage** (before factoring in historical versions and replication).
 
 ---
 
-## 3. High-Level Architecture
+## 📊 API Design & Data Model
 
-The architecture decouples the heavy lifting of **binary data** (Data Plane) from the lightweight coordination of **metadata** (Control Plane).
+=== "REST APIs"
+    - **`POST /api/v1/files/upload/init`**
+        - **Request:** `{ "filename": "video.mp4", "total_size": 10485760, "chunk_hashes": ["abc1", "def2", "ghi3"] }`
+        - **Response:** `{ "upload_id": "u123", "missing_chunks": ["def2"] }` *(Server tells client which chunks it doesn't already have)*
+    - **`POST /api/v1/files/upload/chunk`**
+        - **Request:** `Multipart/form-data` (Raw 4MB binary + `upload_id` + `chunk_hash`)
+        - **Response:** `200 OK`
+    - **`POST /api/v1/files/commit`**
+        - **Request:** `{ "upload_id": "u123", "parent_folder_id": "f456" }`
+        - **Response:** `{ "file_id": "file789", "version": 2 }`
 
+=== "Database Schema"
+    - **Table:** `file_metadata` (RDBMS for ACID compliance)
+        - `file_id` (UUID, PK)
+        - `parent_id` (UUID, FK - for folder hierarchy)
+        - `owner_id` (String, Indexed)
+        - `filename` (String)
+        - `version` (Int)
+    - **Table:** `file_chunks` (NoSQL / Wide-Column)
+        - `file_id` (UUID, PK)
+        - `version` (Int, PK)
+        - `chunk_order` (Int, PK)
+        - `chunk_hash` (String)
+    - **Table:** `chunk_storage` (NoSQL / KV Store)
+        - `chunk_hash` (String, PK) - e.g., "def2"
+        - `s3_object_key` (String) - Path to the physical bytes
+        - `reference_count` (Int) - For garbage collection
+
+---
+
+## 🏗️ High-Level Architecture
+
+
+
+### Architecture Diagram
 ```mermaid
 graph TD
-    Client[Client App / Watcher] --> LB[Load Balancer]
+    Client[Client Daemon / Watcher] -->|HTTPS| LB[API Gateway]
     
     subgraph Data Plane
         LB --> BlockSvc[Block Servers]
-        BlockSvc -->|Uploads Chunks| S3[(Amazon S3 / Blob Storage)]
+        BlockSvc -->|Streams Chunks| S3[(Amazon S3 / Blob Storage)]
     end
     
     subgraph Control Plane
         LB --> MetaSvc[Metadata Servers]
-        MetaSvc --> MetaDB[(Metadata DB)]
+        MetaSvc --> MetaDB[(Metadata DB - Relational)]
     end
     
-    subgraph Synchronization Service
-        LB --> SyncSvc[Synchronization Service]
-        SyncSvc <--> MQ[[Message Queue / Kafka]]
-        MetaSvc <--> MQ
+    subgraph Synchronization
+        LB --> SyncSvc[Notification / Sync Service]
+        SyncSvc <--> RedisPubSub[(Redis Pub/Sub)]
+        MetaSvc -->|Publishes Changes| RedisPubSub
     end
+    
+    Client <-->|WebSockets / Long Polling| SyncSvc
 ```
 
-### Component Breakdown
-*   **Client Watcher:** A daemon process on the user's OS that monitors local workspace folders for file system events (add, edit, delete).
-*   **Block Servers:** Handle the heavy network I/O. They encrypt, compress, and transmit **4MB chunks** to object storage (e.g., S3).
-*   **Metadata Servers:** Manage the directory structure, file-to-chunk mappings, sharing permissions, and version histories.
-*   **Synchronization Service:** Ensures all devices are updated in real-time. Clients establish a **Long Polling or WebSocket** connection with this service to receive pushes.
+### Component Walkthrough
 
----
+1.  **Client Watcher:** A background daemon process running on the user's OS. It monitors the local Dropbox/Drive folder for file system events (add, edit, delete), calculates hashes locally, and determines delta chunks.
+2.  **Block Servers:** Stateless workers handling the heavy network I/O. They receive 4MB chunks from clients, encrypt them, and stream them directly into persistent Blob Storage (S3).
+3.  **Metadata Servers:** Manage the directory structure, file-to-chunk mappings, user permissions, and version histories. They utilize a relational database to ensure strict ACID consistency for file tree operations (e.g., moving a folder must be atomic).
+4.  **Synchronization Service:** Maintains persistent connections (WebSockets or HTTP Long Polling) with all active client devices. When a file is updated on the Metadata Server, an event is pushed via Redis Pub/Sub to the Sync Service, which instantly alerts the user's other devices to download the new metadata and missing chunks.
 
-## 4. Data Modeling (Metadata DB)
+-----
 
-The Metadata Database manages the logical structure of the file system and maps it to physical storage.
+## 🔬 Deep Dive & Scalability
 
-| Entity | Key Fields | Description |
+### Handling Bottlenecks: Chunking & Deduplication
+
+Uploading an entire file upon every small edit is impossible at scale. Files are strictly divided into 4MB chunks. Each chunk is passed through a hashing algorithm (SHA-256) to generate a unique Chunk ID.
+
+**Data Deduplication Strategy**
+If two users upload the exact same file (or if a user copies a file), the system calculates the SHA-256 hash and checks the `chunk_storage` table. If the hash exists, the system simply points the metadata to the existing physical chunk, saving massive amounts of space.
+
+### ⚖️ Trade-offs
+
+| Decision | Pros | Cons / Limitations |
 | :--- | :--- | :--- |
-| **User** | UserID, Name, RootFolderID | Stores user account and quota info. |
-| **FileMetadata** | FileID, Name, ParentID, Version, Hash | Logical file info and current version. |
-| **FileChunkMapping**| FileID, ChunkID, OrderIndex | Reconstructs the file from chunks. |
-| **ChunkStorage** | ChunkID, S3Bucket, S3Key, Hash | Physical location of the raw bytes. |
+| **Inline Deduplication (Synchronous)** | Saves massive ingress bandwidth. Client asks the server "Do you have this hash?" before uploading. If yes, the 4MB upload is skipped entirely. | Introduces a database lookup latency penalty during the initial upload phase before bits even hit the wire. |
+| **Post-Process Deduplication (Asynchronous)** | Initial uploads are blazing fast. The server accepts all data and deduplicates it in the background via batch jobs. | Wastes network bandwidth (client uploads identical data) and temporarily wastes disk space until cleanup. |
+| **Relational DB vs NoSQL for Metadata** | RDBMS natively guarantees ACID for complex folder moves and permissions, ensuring strict consistency. | Harder to scale horizontally compared to a NoSQL datastore (requires complex database sharding by `owner_id`). |
 
----
+-----
 
-## Practical Implementation
+## 🎤 Interview Toolkit
 
-Explore low-level implementations of cloud storage, chunking, and metadata management:
+  - **Scale Question:** "How do you handle a user editing a file while offline, and then coming back online?" -\> *The Client Watcher queues the local changes. Upon reconnection, it attempts to commit the new version. If another device updated the file in the meantime, the Metadata DB rejects the commit using Optimistic Concurrency Control (OCC) based on the `version` number. The client must then download the latest version and either merge the changes or save a "Conflicted Copy".*
+  - **Failure Probe:** "A user is uploading a 10GB file and their internet drops at 99%. What happens?" -\> *Because the file is chunked, the client simply resumes the upload of the exact 4MB chunk that failed once the connection returns. The previous 99% of chunks are already safely sitting in the Block Servers/S3.*
+  - **Edge Case:** "How do you securely delete a file when chunks might be shared across multiple users due to deduplication?" -\> *You never delete a chunk directly when a user deletes a file. Instead, you decrement the `reference_count` in the `chunk_storage` table. A background Garbage Collection job routinely sweeps the database, physically deleting only the chunks in S3 where `reference_count == 0`.*
 
-* [System Design: S3 Lite](./S3_LITE.md)
-* [System Design: Distributed KV Store](./KV_STORE.md)
-* [Machine Coding: Cache System](../../../machine_coding/systems/cache_system/PROBLEM.md)
+## 🔗 Related Architectures
+
+  - [System Design: S3 Lite](./S3_LITE.md) — To understand the underlying blob storage tier where the chunks actually live.
+  - [System Design: Distributed KV Store](./KV_STORE.md) — For deep-diving into the chunk hash lookup mechanics.
+  - [Machine Coding: Cache System](../../../machine_coding/systems/cache_system/PROBLEM.md)

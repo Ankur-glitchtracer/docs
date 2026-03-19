@@ -1,86 +1,80 @@
-#  🍌 Binary Search: Koko Eating Bananas
+---
+impact: "High"
+nr: false
+confidence: 4
+---
+# 🍌 Binary Search: Koko Eating Bananas
 
-## 📝 Description
+## 📝 Problem Description
+Koko loves to eat bananas. There are `n` piles of bananas, the `i`th pile has `piles[i]` bananas. The guards have gone and will come back in `h` hours. Koko can decide her bananas-per-hour eating speed of `k`. Each hour, she chooses some pile of bananas and eats `k` bananas from that pile. If the pile has less than `k` bananas, she eats all of them instead. Return the minimum integer `k` such that she can eat all the bananas within `h` hours.
+
 [LeetCode 875](https://leetcode.com/problems/koko-eating-bananas/)
-Koko loves to eat bananas. There are `n` piles of bananas, the `i`th pile has `piles[i]` bananas. The guards have gone and will come back in `h` hours. Koko can decide her bananas-per-hour eating speed of `k`. Each hour, she chooses some pile of bananas and eats `k` bananas from that pile. If the pile has less than `k` bananas, she eats all of them instead and will not eat any more bananas during this hour. Return the minimum integer `k` such that she can eat all the bananas within `h` hours.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Used in **Load Balancing** and **Rate Limiting**. For example, finding the minimum throughput (requests per second) required to process a queue of tasks before a fixed deadline, or determining the optimal number of servers needed to handle a burst of traffic.
 
-- $1 \le nums.length \le 10^5$
-- Target value is within the range of the data type.
+## 🛠️ Constraints & Edge Cases
+- $1 \le piles.length \le 10^4$
+- $piles.length \le h \le 10^9$
+- $1 \le piles[i] \le 10^9$
+- **Edge Cases to Watch:**
+    - $h = piles.length$ (Koko must eat at a speed of $\max(piles)$).
+    - $h$ is extremely large (Speed could be 1).
+    - Very large values of `piles[i]` (requires efficient sum/ceil calculation).
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Simulation." Simulating Koko eating at speed 1, then speed 2, then speed 3... until she finishes in time. If the pile is huge, `k` could be 1 billion. Linear search is dead on arrival.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Binary Search on Answer." We know the answer lies between 1 and `max(piles)`. We can binary search this *range* of possible speeds.
+!!! success "The Aha! Moment"
+    This is a **Binary Search on the Answer** problem. The speed `k` is monotonic: if she can finish at speed $k$, she can also finish at any speed $k' > k$. This property allows us to binary search the possible *range* of speeds $[1, \max(piles)]$.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Try every speed $k$ starting from 1 up to $\max(piles)$. For each $k$, calculate the total hours required.
+- **Time Complexity:** $\mathcal{O}(N \cdot \max(P))$
+- **Why it fails:** Given that $\max(P) = 10^9$ and $N = 10^4$, the worst case could be $10^{13}$ operations, which will result in a Time Limit Exceeded error.
 
-1. `low = 1`, `high = max(piles)`.
-2. Pick `k = mid`.
-3. Calculate hours needed: `sum(ceil(pile / k) for pile in piles)`.
-4. If `hours <= h`: This speed works! Try slower (`high = mid - 1`, store `res = mid`).
-5. If `hours > h`: Too slow! Need faster (`low = mid + 1`).
+### 🐇 Optimal Approach
+Use **Binary Search** to find the minimum $k$.
+1. Set the search space: `low = 1`, `high = max(piles)`.
+2. While `low <= high`:
+    - Calculate `mid = (low + high) // 2`.
+    - Simulate eating at speed `mid`. Total hours = $\sum \lceil pile / mid \rceil$.
+    - If `total_hours <= h`:
+        - This speed works! Try a slower speed: `res = mid`, `high = mid - 1`.
+    - Else:
+        - Too slow! Increase speed: `low = mid + 1`.
+3. Return `res`.
 
-**The Twist (Failure):** **Integer Overflow.** The sum of hours can exceed 32-bit integer limits if piles are huge. Use `long long`.
-
-**Interview Signal:** Recognizing **Monotonic Search Spaces**.
-
-## 🚀 Approach & Intuition
-Search the range `(To be detailed...)`.
-
-### C++ Pseudo-Code
-```cpp
-int minEatingSpeed(vector<int>& piles, int h) {
-    int l = 1, r = *max_element(piles.begin(), piles.end());
-    int res = r;
-    
-    while (l <= r) {
-        int k = l + (r - l) / 2;
-        long long hours = 0;
-        for (int p : piles) {
-            hours += (p + k - 1) / k; // ceil(p/k)
-        }
-        if (hours <= h) {
-            res = k;
-            r = k - 1;
-        } else {
-            l = k + 1;
-        }
-    }
-    return res;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    A[Range: 1 to max_pile] --> B{Check mid speed k}
+    B -- "Hours <= h (Success)" --> C[Search Left Half: Try smaller k]
+    B -- "Hours > h (Fail)" --> D[Search Right Half: Try larger k]
+    style C fill:#ccffcc,stroke:#00aa00
+    style D fill:#ffcccc,stroke:#aa0000
 ```
 
-### Key Observations:
-
-- Binary search can be applied not just to sorted arrays, but to any monotonic search space (Search on Answer).
-- Be careful with the boundaries ($left, right$) and the condition for moving them to avoid infinite loops.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N \log(\max(P)))$
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N \log(\max(P)))$ — We perform binary search over the range of possible speeds (1 to $\max(P)$). For each step, we iterate through all $N$ piles.
+- **Space Complexity:** $\mathcal{O}(1)$ — No extra memory besides a few pointers and variables.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you apply 'Binary Search on Answer' to solve optimization problems (e.g., minimize max distance)?
-- **Scale Question:** If you are searching in a distributed database, how can you reduce the number of network round trips?
-- **Edge Case Probe:** Does your mid-point calculation `(left + right) / 2` overflow for very large indices?
+## 🎤 Interview Toolkit
+
+- **Ceiling Division Trick:** Use `(pile + k - 1) // k` to calculate `ceil(pile / k)` without floating-point math.
+- **Why max(piles)?** Why is the upper bound $\max(piles)$? Because eating faster than the largest pile doesn't save any more time (one hour per pile is the absolute minimum).
 
 ## 🔗 Related Problems
-
-- [Find Min in Rotated Array](../find_minimum_in_rotated_sorted_array/PROBLEM.md) — Next in category
-- [Search 2D Matrix](../search_2d_matrix/PROBLEM.md) — Previous in category
-- [Invert Binary Tree](../../07_trees/invert_binary_tree/PROBLEM.md) — Prerequisite for Trees
-- [Valid Palindrome](../../02_two_pointers/valid_palindrome/PROBLEM.md) — Prerequisite: Two Pointers
+- [Find Minimum in Rotated Sorted Array](../find_minimum_in_rotated_sorted_array/PROBLEM.md) — Standard binary search on array.
+- [Split Array Largest Sum](../../13_1d_dynamic_programming/split_array_largest_sum/PROBLEM.md) — Another "Binary Search on Answer" problem.

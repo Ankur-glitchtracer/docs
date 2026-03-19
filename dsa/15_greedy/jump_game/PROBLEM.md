@@ -1,73 +1,64 @@
-#  🏃 Greedy: Jump Game
+---
+impact: "Medium"
+nr: false
+confidence: 4
+---
+# 🪜 Greedy: Jump Game
 
-## 📝 Description
-[LeetCode 55](https://leetcode.com/problems/jump-game/)
+## 📝 Problem Description
 You are given an integer array `nums`. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position. Return `true` if you can reach the last index, or `false` otherwise.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This algorithm is essential for pathfinding and decision trees, where you need to check if a valid path exists in a state space given constrained movement.
 
-- $1 \le nums.length \le 10^5$
-- Values represent jumps, costs, or intervals.
+## 🛠️ Constraints & Edge Cases
+- $1 \le nums.length \le 10^4$
+- $0 \le nums[i] \le 10^5$
+- **Edge Cases:** Single element array, unreachable last index.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Backtracker." Trying every jump combination ($O(2^N)$).
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Goal Shifter." Can we reach the end?
+!!! success "The Aha! Moment"
+    Instead of trying every possible jump from the start, work backwards from the last index. If you can reach the `goal` from a previous index, update the `goal` to that index.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Dynamic programming, checking all possible jump combinations: $O(N^2)$.
 
-1. Maintain a `goal` index, initially the last index.
-2. Iterate backwards from `n-2` to `0`.
-3. If `i + nums[i] >= goal`: We can reach the goal from `i`.
-   - Update `goal = i` (Now we just need to reach `i`).
-4. If `goal == 0` at the end, return True.
+### 🐇 Optimal Approach
+1. Set `goal` to the last index.
+2. Iterate backwards from `len(nums) - 2` to `0`.
+3. If current index + jump capacity $\ge$ `goal`, update `goal = current_index`.
+4. If `goal == 0` at the end, return `true`.
 
-**The Twist (Failure):** **Forward Greedy.** Maintaining `max_reach` going forward works too. If `i > max_reach`, return False. Both are $O(N)$.
-
-**Interview Signal:** Simplifying **Reachability**.
-
-## 🚀 Approach & Intuition
-Move the goal post closer.
-
-### C++ Pseudo-Code
-```cpp
-bool canJump(vector<int>& nums) {
-    int goal = nums.size() - 1;
-    for (int i = nums.size() - 1; i >= 0; i--) {
-        if (i + nums[i] >= goal) goal = i;
-    }
-    return goal == 0;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    A[Start: 0] --> B[Jump 2]
+    B --> C[Jump 1]
+    C --> D[Goal: Last index]
+    style D fill:#f9f,stroke:#333
 ```
 
-### Key Observations:
-
-- Greedy algorithms make the locally optimal choice at each step with the hope of finding a global optimum.
-- The key is to prove that the greedy choice property and optimal substructure hold for the given problem.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — Single pass through the array.
+- **Space Complexity:** $\mathcal{O}(1)$ — No extra space used.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** What if the input is sorted or has a limited range? Can you optimize space from $O(N)$ to $O(1)$?
-- **Scale Question:** If the dataset is too large to fit in RAM, how would you use external sorting or a distributed hash table?
-- **Edge Case Probe:** How does your solution handle duplicates, empty inputs, or extremely large integers?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Return the minimum number of jumps to reach the end (Jump Game II).
+- **Alternative Data Structures:** DP can solve this but is slower.
 
 ## 🔗 Related Problems
-
-- [Jump Game II](../jump_game_ii/PROBLEM.md) — Next in category
-- [Maximum Subarray](../maximum_subarray/PROBLEM.md) — Previous in category
-- [Kth Largest in Stream](../../09_heap_priority_queue/kth_largest_element_in_a_stream/PROBLEM.md) — Prerequisite: Heap / Priority Queue
+- [Jump Game II](../jump_game_ii/PROBLEM.md)

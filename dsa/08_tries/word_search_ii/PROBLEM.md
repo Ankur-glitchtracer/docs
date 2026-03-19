@@ -1,117 +1,71 @@
-#  🔎 Trie: Word Search II
+---
+impact: "Hard"
+nr: false
+confidence: 2
+---
+# 🔎 Trie: Word Search II
 
 ## 📝 Description
 [LeetCode 212](https://leetcode.com/problems/word-search-ii/)
 Given an `m x n` `board` of characters and a list of strings `words`, return all words on the board. Each word must be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Core logic for **Boggle** solvers, **Scrabble** AI, or searching for multiple **DNA Motifs** in a grid sequence.
 
-- $1 \le \text{word.length} \le 2000$
-- Words consist of lowercase English letters.
+## 🛠️ Constraints & Edge Cases
+- $1 \le m, n \le 12$
+- $1 \le words.length \le 3 \cdot 10^4$
+- **Edge Cases to Watch:**
+    - Words sharing prefixes (e.g., "oath", "oaths").
+    - Same word appearing multiple times in board (result should be unique).
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Repeated Scan." Calling `exist(board, word)` for every single word in the dictionary. If you have 1000 words, you scan the board 1000 times.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Inverted Search." Put all words into a Trie. Scan the board *once*. As you traverse the grid (DFS), simultaneously traverse the Trie.
+!!! success "The Aha! Moment"
+    Instead of searching the board for *each* word ($O(W \cdot M \cdot N)$), we can put all words into a **Trie** and scan the board *once*. As we DFS on the board, we traverse the Trie. If we hit a leaf in the Trie, we found a word!
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Run "Word Search I" for every single word.
+- **Time Complexity:** Very high overhead due to repeated board scans.
 
-1. Build a Trie from `words`.
-2. Iterate every cell `(r, c)`. Start DFS if `board[r][c]` is a child of Trie Root.
-3. **DFS(r, c, trieNode):**
-   - If `trieNode.word` is set: We found a word! Add to results. (Optimization: Remove word from Trie to avoid duplicates).
-   - Mark `board[r][c]` visited.
-   - For each neighbor, check if `neighbor_char` exists in `trieNode.children`.
-   - Recurse: `dfs(nr, nc, trieNode.children(To be detailed...))`.
-   - Backtrack.
+### 🐇 Optimal Approach
+1.  **Build Trie:** Insert all words. Store the full word at the end node.
+2.  **DFS Board:** From each cell `(r, c)`, start DFS if `board[r][c]` exists in Trie root.
+3.  **Traverse:**
+    - Move to Trie child.
+    - Mark board cell visited (`#`).
+    - Check neighbors.
+    - **Optimization:** If we find a word, remove it from Trie (pruning) to avoid duplicates and re-finding.
+    - Backtrack.
 
-**The Twist (Failure):** **Duplicate Results.** The same word might be found multiple times on the board. Store results in a Set or remove the word from the Trie (set `isEnd = false`) immediately after finding it.
-
-**Interview Signal:** Advanced **Optimization** by combining Data Structures.
-
-## 🚀 Approach & Intuition
-DFS on board guided by Trie nodes.
-
-### C++ Pseudo-Code
-```cpp
-class Solution {
-    struct Node {
-        Node* children[26] = {nullptr};
-        string* word = nullptr; // Store pointer to word at end node
-    };
-    Node* root = new Node();
-    
-    void insert(string& s) {
-        Node* curr = root;
-        for (char c : s) {
-            if (!curr->children[c - 'a']) curr->children[c - 'a'] = new Node();
-            curr = curr->children[c - 'a'];
-        }
-        curr->word = &s;
-    }
-    
-public:
-    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
-        for (string& w : words) insert(w);
-        vector<string> res;
-        int m = board.size(), n = board[0].size();
-        
-        function<void(int, int, Node*)> dfs = [&](int r, int c, Node* node) {
-            char ch = board[r][c];
-            if (ch == '#' || !node->children[ch - 'a']) return;
-            
-            node = node->children[ch - 'a'];
-            if (node->word) {
-                res.push_back(*node->word);
-                node->word = nullptr; // Avoid duplicates
-            }
-            
-            board[r][c] = '#';
-            int dirs[] = {0, 1, 0, -1, 0};
-            for (int i = 0; i < 4; i++) {
-                int nr = r + dirs[i], nc = c + dirs[i+1];
-                if (nr >= 0 && nr < m && nc >= 0 && nc < n)
-                    dfs(nr, nc, node);
-            }
-            board[r][c] = ch;
-        };
-        
-        for (int r = 0; r < m; r++)
-            for (int c = 0; c < n; c++)
-                dfs(r, c, root);
-                
-        return res;
-    }
-};
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    Trie[Trie: oat, oath]
+    Board[Board: o -> a -> t -> h]
+    Search[DFS matches path in Trie]
+    Found[Found 'oath', Remove from Trie]
 ```
 
-### Key Observations:
-
-- Tries are ideal for prefix-based searches and autocomplete features, providing $O(L)$ time for words of length $L$.
-- Each node typically contains a hash map or array of size 26 for its children, plus a boolean flag for the end of a word.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(M \cdot N \cdot 4^L)$ theoretically, but Trie pruning makes it much faster.
-    - **Space Complexity:** $O(TotalChars)$.
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(M \cdot N \cdot 4^L)$ — Bounded by board size and word length.
+- **Space Complexity:** $\mathcal{O}(TotalChars)$ — Trie size.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you solve this iteratively if you were worried about stack overflow from deep recursion?
-- **Scale Question:** If the tree is a multi-terabyte B-Tree in a database, how do you optimize node traversal to minimize disk hits?
-- **Edge Case Probe:** What if the tree is extremely skewed (effectively a linked list)? What if it's empty?
+## 🎤 Interview Toolkit
+
+- **Optimization:** Discuss "Pruning" the Trie. If a branch has no more words, remove it so DFS returns early.
 
 ## 🔗 Related Problems
-
-- [Add and Search Words](../design_add_and_search_words_data_structure/PROBLEM.md) — Previous in category
-- [Invert Binary Tree](../../07_trees/invert_binary_tree/PROBLEM.md) — Prerequisite: Trees
+- [Design Add and Search Words](../design_add_and_search_words_data_structure/PROBLEM.md) — Previous in category

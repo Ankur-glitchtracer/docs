@@ -1,85 +1,70 @@
-#  🚗 Stack: Car Fleet
+---
+impact: "Medium"
+nr: false
+confidence: 4
+---
+# 🚗 Stack: Car Fleet
 
-## 📝 Description
-[LeetCode 853](https://leetcode.com/problems/car-fleet/)
+## 📝 Problem Description
 There are `n` cars going to the same destination along a one-lane road. The destination is at position `target`. You are given two arrays `position` and `speed`. A car can never pass another car ahead of it, but it can catch up to it and drive bumper to bumper at the same speed. The distance between these two cars is ignored - they are assumed to have the same position. A car fleet is some non-empty set of cars driving at the same position and same speed. Return the number of car fleets that will arrive at the destination.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This problem models traffic flow and collision detection in simulations, or task scheduling where dependent jobs are grouped into sequential batches based on completion time constraints.
 
-- $1 \le s.length \le 10^5$
-- Constraints vary depending on the specific stack application.
+## 🛠️ Constraints & Edge Cases
+- $1 \le n \le 10^5$
+- $0 < \text{target} \le 10^6$
+- $0 < \text{speed}[i] \le 10^6$
+- $0 \le \text{position}[i] < \text{target}$
+- **Edge Cases to Watch:** 
+    - Only one car exists.
+    - All cars start at the same position (not possible per constraints, but good to consider).
+    - Cars start in reverse order of their target reach time.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Physics Simulation." Simulating the cars second-by-second to see who collides. Slow and messy.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Time-to-Target Analyzer." Calculate *when* each car would reach the target if the road were empty (`(target - pos) / speed`).
+!!! success "The Aha! Moment"
+    Instead of simulating movement, focus on the time each car reaches the target: $T = (\text{target} - \text{position}) / \text{speed}$. If a car behind takes less time to reach the target than the car in front, it will collide with the car in front and become part of that fleet.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+The naive approach would be to simulate the car positions at every time step $t$. This is computationally expensive, especially when the target distance is large, leading to $O(T \times N)$ complexity, which fails for $N=10^5$.
 
-1. Combine `position` and `speed` into pairs and sort by position (closest to target first).
-2. Iterate from closest to farthest (reverse order).
-3. Calculate `time_to_reach`.
-4. If a car behind takes *less* time than the car in front, it will catch up. It joins the fleet (don't increment count).
-5. If it takes *more* time, it starts a new fleet (increment count, update `current_slowest_time`).
+### 🐇 Optimal Approach
+1.  **Pairing:** Combine each car's position and speed into a list of tuples.
+2.  **Sorting:** Sort these pairs by position in descending order (from closest to the target to farthest).
+3.  **Iteration:** Iterate through the sorted list, keeping track of the time the current fleet takes to reach the target (`maxTime`).
+4.  **Collision Check:** For each car, calculate its time to target. If its time is greater than `maxTime`, it forms a new fleet and updates `maxTime`. Otherwise, it catches up and merges into the existing fleet.
 
-**The Twist (Failure):** **Floating Point Precision.** Time is a float. Be careful with direct equality checks, though usually fine here.
-
-**Interview Signal:** Sorting combined with **Greedy Grouping**.
-
-## 🚀 Approach & Intuition
-Sort by position descending. Compare arrival times.
-
-### C++ Pseudo-Code
-```cpp
-int carFleet(int target, vector<int>& position, vector<int>& speed) {
-    int n = position.size();
-    vector<pair<int, double>> cars;
-    for (int i = 0; i < n; i++) {
-        double time = (double)(target - position[i]) / speed[i];
-        cars.push_back({position[i], time});
-    }
-    sort(cars.rbegin(), cars.rend());
-    
-    int fleets = 0;
-    double maxTime = 0.0;
-    for (int i = 0; i < n; i++) {
-        if (cars[i].second > maxTime) {
-            fleets++;
-            maxTime = cars[i].second;
-        }
-    }
-    return fleets;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    C1[Car 1: Pos 10, Spd 1] -->|Time 2| C2[Car 2: Pos 8, Spd 2]
+    C2 -->|Merge| F1(Fleet 1)
+    C3[Car 3: Pos 0, Spd 1] -->|Time 10| F2(Fleet 2)
+    style C2 stroke:#f66,stroke-width:2px,stroke-dasharray: 5 5
 ```
 
-### Key Observations:
-
-- Stacks are essential for problems involving nested structures, like parentheses or expression evaluation.
-- Monotonic stacks are a powerful variation used to find the next greater or smaller element in $O(N)$ time.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N \log N)$ (Sorting)
-    - **Space Complexity:** $O(N)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N \log N)$ — Sorting the cars takes the most time, while the single pass iteration is $\mathcal{O}(N)$.
+- **Space Complexity:** $\mathcal{O}(N)$ — Storing the pairs of positions and speeds.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you solve this using a single pass or by transforming the problem into a Monotonic Stack problem?
-- **Scale Question:** If the stack needs to be persistent (undo/redo functionality), how would you implement it using a functional data structure?
-- **Edge Case Probe:** What happens on an empty stack or when the input contains unexpected characters?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** What if the road had multiple lanes?
+- **Alternative Data Structures:** Could this be solved using a Monotonic Stack directly? (Yes, the stack can store the arrival times of fleets).
 
 ## 🔗 Related Problems
-
-- [Largest Rectangle in Histogram](../largest_rectangle_in_histogram/PROBLEM.md) — Next in category
-- [Daily Temperatures](../daily_temperatures/PROBLEM.md) — Previous in category
-- [Contains Duplicate](../../01_arrays_hashing/contains_duplicate/PROBLEM.md) — Prerequisite: Arrays & Hashing
+- [Daily Temperatures](../daily_temperatures/PROBLEM.md) — Uses similar Monotonic stack/array iteration logic.
+- [Largest Rectangle in Histogram](../largest_rectangle_in_histogram/PROBLEM.md) — Advanced stack usage.

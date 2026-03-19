@@ -1,75 +1,67 @@
-#  🎯 Sorting: Selection Sort
+---
+impact: "Low"
+nr: true
+confidence: 5
+---
+# 🎯 Sorting: Selection Sort
 
-## 📝 Description
+## 📝 Problem Description
 Implement Selection Sort to sort an array of integers in ascending order.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Selection sort is rarely used in production due to its $O(N^2)$ complexity. However, it is useful in scenarios where memory write operations are extremely expensive, as it makes the minimum number of swaps ($O(N)$).
 
-- $1 \le nums.length \le 5 \cdot 10^4$
-- Values can be large, requiring $O(N \log N)$ sorting.
+## 🛠️ Constraints & Edge Cases
+- $1 \le N \le 10^3$ (Usually only suitable for very small datasets)
+- **Edge Cases to Watch:** 
+    - Arrays with already sorted elements (it will still scan).
+    - Arrays with all duplicate elements.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Hidden Minimum." You need to find the absolute smallest element in a mess of numbers.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Minimum Scout." In each pass, find the smallest element in the unsorted portion and swap it to the front.
+!!! success "The Aha! Moment"
+    By repeatedly scanning the unsorted portion of the array for the minimum element and placing it at the beginning, we effectively "grow" a sorted partition one element at a time.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+This *is* the brute force approach. It compares every element with every other element, leading to $O(N^2)$ comparisons regardless of the input's initial order.
 
-1. Iterate `i` from 0 to $N-1$.
-2. Assume `i` is the `min_index`.
-3. Scan from `i+1` to $N$. If `nums[j] < nums[min_index]`, update `min_index`.
-4. Swap `nums[i]` with `nums[min_index]`.
+### 🐇 Optimal Approach
+(For Selection Sort, the approach *is* the brute force). 
+1. Maintain a sorted partition at the start.
+2. In each iteration, find the minimum element in the remaining unsorted partition.
+3. Swap it with the first element of the unsorted partition and include it in the sorted partition.
 
-**The Twist (Failure):** **The Stability.** Selection sort is generally NOT stable because swaps can jump over identical elements.
-
-**Interview Signal:** Understanding **Minimum Selection** logic.
-
-## 🚀 Approach & Intuition
-Repeatedly find the minimum element from the unsorted part and put it at the beginning.
-
-### C++ Pseudo-Code
-```cpp
-void selectionSort(vector<int>& nums) {
-    int n = nums.size();
-    for (int i = 0; i < n - 1; i++) {
-        int minIdx = i;
-        for (int j = i + 1; j < n; j++) {
-            if (nums[j] < nums[minIdx]) minIdx = j;
-        }
-        swap(nums[i], nums[minIdx]);
-    }
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    A[4, 2, 8, 1] --> B[Min: 1]
+    B --> C[Swap 4, 1]
+    C --> D[1, 2, 8, 4]
+    D --> E[Min: 2]
+    E --> F[2, 1, 8, 4]
 ```
 
-### Key Observations:
-
-- Understand the stability and space-time trade-offs between Merge Sort ($O(N \log N)$ space) and Quick Sort ($O(1)$ space).
-- For small datasets or specialized constraints, $O(N)$ algorithms like Counting Sort or Radix Sort may be applicable.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N^2)$ (Always - doesn't care if sorted)
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N^2)$ — Two nested loops iterate over the array.
+- **Space Complexity:** $\mathcal{O}(1)$ — Performs sorting in-place.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you make the sort 'Stable'? What if you need to sort elements that don't fit in memory (External Sort)?
-- **Scale Question:** How would you implement a distributed sort (like Terabyte Sort) using multiple machines?
-- **Edge Case Probe:** How does the algorithm perform on already sorted, reverse-sorted, or all-identical element arrays?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Can this be made stable? (Only if we use extra memory or insert the element instead of swapping).
+- **Comparison:** Why is Insertion Sort usually preferred over Selection Sort? (Insertion Sort is stable and performs better on partially sorted data).
 
 ## 🔗 Related Problems
-
-- [Merge Sort](../merge_sort/PROBLEM.md) — Next in category
-- [Insertion Sort](../insertion_sort/PROBLEM.md) — Previous in category
-- [Binary Search](../../05_binary_search/binary_search/PROBLEM.md) — Prerequisite for Binary Search
-- [Contains Duplicate](../../01_arrays_hashing/contains_duplicate/PROBLEM.md) — Prerequisite: Arrays & Hashing
+- `[Merge Sort](../merge_sort/PROBLEM.md)` — Efficient $O(N \log N)$ algorithm.
+- `[Insertion Sort](../insertion_sort/PROBLEM.md)` — More efficient $O(N^2)$ algorithm.

@@ -1,88 +1,73 @@
-#  🏊 Advanced Graph: Swim in Rising Water
+---
+impact: "Hard"
+nr: false
+confidence: 2
+---
+# 🏊 Advanced Graph: Swim in Rising Water
 
 ## 📝 Description
 [LeetCode 778](https://leetcode.com/problems/swim-in-rising-water/)
 You are given an `n x n` integer matrix `grid` where each value `grid[i][j]` represents the elevation at that point `(i, j)`. The rain starts to fall. At time `t`, the depth of the water everywhere is `t`. You can swim from a square to another 4-directionally adjacent square if and only if the elevation of both squares individually are at most `t`. You can swim infinite distances in zero time. Return the least time until you can reach the bottom right square `(n - 1, n - 1)` if you start at the top left square `(0, 0)`.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This models **Pathfinding with Bottleneck Constraints**, such as finding a route for a vehicle that can only traverse terrain below a certain height, or network routing where links have varying bandwidths and you need the path with the best "minimum bandwidth".
 
-- $V \le 1000, E \le 10^4$
-- Edge weights are non-negative for Dijkstra.
+## 🛠️ Constraints & Edge Cases
+- $n \le 50$
+- $0 \le grid[i][j] < n^2$
+- **Edge Cases to Watch:**
+    - `n=1` (Time is just `grid[0][0]`).
+    - Start or End points have high elevation.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Rising Tide." You can only swim to squares with `elevation <= time`. You want to reach the target at the minimum possible `time`.
+## 🧠 Approach & Intuition
 
-**The Hero:** "Modified Dijkstra (or Binary Search on Answer)."
+!!! success "The Aha! Moment"
+    This isn't just "shortest path" (fewest steps). It's "minimax path" (path minimizing the maximum edge weight). The "cost" to reach a neighbor is `max(current_time, neighbor_elevation)`. Since edge weights are non-negative, **Dijkstra's Algorithm** works perfectly. We prioritize visiting cells with the lowest required water level.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Binary Search on the answer `T`. For a fixed `T`, run BFS/DFS to see if a path exists.
+- **Time Complexity:** $O(N^2 \log (\text{max\_val}))$. Valid, but Dijkstra is often cleaner.
 
-1. (To be detailed...)
-2. (To be detailed...)
+### 🐇 Optimal Approach (Dijkstra)
+1.  Min-Heap stores `(time, r, c)`.
+2.  Start: Push `(grid[0][0], 0, 0)`. Mark visited.
+3.  While heap:
+    - Pop `(t, r, c)`.
+    - If `(r, c) == (N-1, N-1)`, return `t`.
+    - For neighbors:
+        - New time `new_t = max(t, grid[nr][nc])`.
+        - If not visited, push `(new_t, nr, nc)` and mark visited.
 
-**The Twist (Failure):** **Just checking neighbors.** The "cost" isn't additive like normal Dijkstra. It's a "bottleneck" cost (max edge along path). This is essentially finding the path where the maximum edge weight is minimized.
-
-**Interview Signal:** Dijkstra on **Grid with Bottleneck Capacity**.
-
-## 🚀 Approach & Intuition
-Track the max elevation seen so far on the path.
-
-### C++ Pseudo-Code
-```cpp
-int swimInWater(vector<vector<int>>& grid) {
-    int n = grid.size();
-    priority_queue<tuple<int, int, int>, vector<tuple<int, int, int>>, greater<tuple<int, int, int>>> pq;
-    vector<vector<bool>> visited(n, vector<bool>(n, false));
-    
-    pq.push({grid[0][0], 0, 0});
-    visited[0][0] = true;
-    
-    int dirs[] = {0, 1, 0, -1, 0};
-    
-    while (!pq.empty()) {
-        auto [h, r, c] = pq.top(); pq.pop();
-        if (r == n - 1 && c == n - 1) return h;
-        
-        for (int i = 0; i < 4; i++) {
-            int nr = r + dirs[i], nc = c + dirs[i+1];
-            if (nr >= 0 && nr < n && nc >= 0 && nc < n && !visited[nr][nc]) {
-                visited[nr][nc] = true;
-                pq.push({max(h, grid[nr][nc]), nr, nc});
-            }
-        }
-    }
-    return -1;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    Start[0,0: Val 3] -->|Heap: 3| Pop3
+    Pop3 -->|Neigh 0,1: Val 2| Push3_2[Heap: (3, 0,1)]
+    Pop3 -->|Neigh 1,0: Val 10| Push10[Heap: (3,0,1), (10,1,0)]
+    Push3_2 -->|Pop 3| Next...
 ```
 
-### Key Observations:
-
-- Dijkstra's and Prim's algorithms use a Priority Queue to find the shortest path or MST in $O(E \log V)$ time.
-- Kruskal's algorithm uses Disjoint Set Union (DSU) to efficiently manage connected components and detect cycles.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N^2 \log N)$
-    - **Space Complexity:** $O(N^2)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N^2 \log N)$ — $N^2$ nodes, heap operations take log.
+- **Space Complexity:** $\mathcal{O}(N^2)$ — Visited set and Heap.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you solve this using BFS for shortest paths or DFS for connectivity? When would you use Union-Find?
-- **Scale Question:** If the graph has billions of edges (like a social network), how would you use a Pregel or Giraph-style distributed processing model?
-- **Edge Case Probe:** How do you handle cycles, disconnected components, or self-loops in the graph?
+## 🎤 Interview Toolkit
+
+- **Alternative:** Kruskal's Algorithm (Union-Find). Sort all grid cells by value. Iterate and unite neighbors. Stop when Start connected to End.
+- **Comparison:** Dijkstra is easier to implement here than Union-Find.
 
 ## 🔗 Related Problems
-
-- [Alien Dictionary](../alien_dictionary/PROBLEM.md) — Next in category
-- [Network Delay Time](../network_delay_time/PROBLEM.md) — Previous in category
-- [Kth Largest in Stream](../../09_heap_priority_queue/kth_largest_element_in_a_stream/PROBLEM.md) — Prerequisite: Heap / Priority Queue
-- [Number of Islands](../../11_graphs/number_of_islands/PROBLEM.md) — Prerequisite: Graphs
+- [Path With Minimum Effort](https://leetcode.com/problems/path-with-minimum-effort/) — Almost identical
+- [Network Delay Time](../network_delay_time/PROBLEM.md) — Standard Dijkstra

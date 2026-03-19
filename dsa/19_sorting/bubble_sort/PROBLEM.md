@@ -1,77 +1,63 @@
-#  🫧 Sorting: Bubble Sort
+---
+impact: "Low"
+nr: true
+confidence: 5
+---
+# 📊 Sorting: Bubble Sort
 
-## 📝 Description
-Implement Bubble Sort to sort an array of integers in ascending order.
+## 📝 Problem Description
+Implement Bubble Sort: A simple sorting algorithm that repeatedly steps through the input list, compares adjacent elements, and swaps them if they are in the wrong order.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Bubble sort is rarely used in high-performance production code but is an excellent educational tool for understanding **algorithmic stability** and the cost of swapping. Occasionally used in embedded systems or GPU kernels for small, nearly sorted datasets.
 
-- $1 \le nums.length \le 5 \cdot 10^4$
-- Values can be large, requiring $O(N \log N)$ sorting.
+## 🛠️ Constraints & Edge Cases
+- $N$ elements.
+- **Edge Cases:** Empty array, single element array, already sorted array.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Chaos Array." Elements are in random order. You want to bring order with the simplest possible logic.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Bubbling Buoyancy." Larger elements "bubble up" to the end of the array in each pass.
+!!! success "The Aha! Moment"
+    In each full pass, the largest element "bubbles up" to its correct position at the end of the array.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Standard implementation is $O(N^2)$. Optimization: add a `swapped` flag to exit early if the array is already sorted.
 
-1. Compare adjacent elements `(i, i+1)`.
-2. If `left > right`, swap them.
-3. Repeat this for the whole array. After 1 pass, the largest element is at the end.
-4. Repeat for $N-1$ passes.
+### 🐇 Optimal Approach
+1. For $i$ from 0 to $N-1$:
+    - For $j$ from 0 to $N-i-1$:
+        - If `arr[j] > arr[j+1]`, swap.
+2. If no swaps in a pass, break.
 
-**The Twist (Failure):** **The Infinite Loop.** Forgetting to stop early if no swaps occurred in a pass (meaning the array is already sorted).
-
-**Interview Signal:** Understanding of **Basic Iterative Sorting** and best-case optimization.
-
-## 🚀 Approach & Intuition
-Repeatedly step through the list, compare adjacent elements and swap them if they are in the wrong order.
-
-### C++ Pseudo-Code
-```cpp
-void bubbleSort(vector<int>& nums) {
-    int n = nums.size();
-    for (int i = 0; i < n; i++) {
-        bool swapped = false;
-        for (int j = 0; j < n - i - 1; j++) {
-            if (nums[j] > nums[j + 1]) {
-                swap(nums[j], nums[j + 1]);
-                swapped = true;
-            }
-        }
-        if (!swapped) break;
-    }
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    A[4, 2, 5, 1] -->|Pass 1| B[2, 4, 1, 5]
+    B -->|Pass 2| C[2, 1, 4, 5]
+    C -->|Pass 3| D[1, 2, 4, 5]
 ```
 
-### Key Observations:
-
-- Understand the stability and space-time trade-offs between Merge Sort ($O(N \log N)$ space) and Quick Sort ($O(1)$ space).
-- For small datasets or specialized constraints, $O(N)$ algorithms like Counting Sort or Radix Sort may be applicable.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N^2)$ (Average/Worst), $O(N)$ (Best with optimization)
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N^2)$. Best case $\mathcal{O}(N)$ (with flag).
+- **Space Complexity:** $\mathcal{O}(1)$.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you make the sort 'Stable'? What if you need to sort elements that don't fit in memory (External Sort)?
-- **Scale Question:** How would you implement a distributed sort (like Terabyte Sort) using multiple machines?
-- **Edge Case Probe:** How does the algorithm perform on already sorted, reverse-sorted, or all-identical element arrays?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Cocktail Shaker Sort (bidirectional Bubble Sort).
+- **Alternative Data Structures:** Linked Lists (swapping nodes is $O(1)$).
 
 ## 🔗 Related Problems
-
-- [Insertion Sort](../insertion_sort/PROBLEM.md) — Next in category
-- [Binary Search](../../05_binary_search/binary_search/PROBLEM.md) — Prerequisite for Binary Search
-- [Contains Duplicate](../../01_arrays_hashing/contains_duplicate/PROBLEM.md) — Prerequisite: Arrays & Hashing
+- `[Insertion Sort](#)` — Another $O(N^2)$ algorithm.
+- `[Merge Sort](#)` — Efficient sorting.

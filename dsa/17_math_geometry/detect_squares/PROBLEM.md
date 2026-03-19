@@ -1,89 +1,72 @@
-#  ⬜ Math: Detect Squares
+---
+impact: "Medium"
+nr: true
+confidence: 5
+---
+# 🟦 Math & Geometry: Detect Squares
 
-## 📝 Description
-[LeetCode 2013](https://leetcode.com/problems/detect-squares/)
-Design a data structure that counts the number of ways to form an axis-aligned square with point `(x, y)` as one of the corners.
+## 📝 Problem Description
+Given a stream of points on a 2D plane, design a data structure that can efficiently:
+1. Add new points to the stream.
+2. Count the number of squares (axis-aligned) that can be formed using the added points.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This is foundational for **computational geometry** in computer graphics, CAD tools, and object detection systems, where detecting shapes from coordinate data is essential for spatial analysis.
 
-- Numerical values fit within standard data types (int, long).
-- Coordinate ranges are typically within $10^4$.
+## 🛠️ Constraints & Edge Cases
+- $0 \le x, y \le 1000$
+- Adding many points
+- Counting squares requires matching coordinates efficiently
+- **Edge Cases:** Stream with fewer than 4 points, collinear points
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Coordinate Search." Finding 3 other points to form a square. Searching all combinations is too slow.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Diagonal Pivot." If we pick a diagonal point `(x, y)` and `(nx, ny)`, the other two points of an axis-aligned square are determined: `(x, ny)` and `(nx, y)`.
+!!! success "The Aha! Moment"
+    Store points in a `frequency map` (hash map). For any two points `(x1, y1)` and `(x2, y2)`, if they form a diagonal of a square, the other two points `(x1, y2)` and `(x2, y1)` must also exist in our map.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Check every combination of 4 points in the collection. This is $\mathcal{O}(N^4)$, which is prohibitively slow for a large number of points.
 
-1. Store points in a HashMap (Count frequencies, as duplicates are allowed).
-2. **Add:** Update count in map.
-3. **Count:** Given query point `(qx, qy)`:
-   - Iterate through all *other* existing points `(px, py)` in the map.
-   - Check if `abs(qx - px) == abs(qy - py)` and `qx != px` (Diagonal condition).
-   - If yes, look up the other two corners `(qx, py)` and `(px, qy)` in the map.
-   - Add `count(px, py) * count(qx, py) * count(px, qy)` to total.
+### 🐇 Optimal Approach
+1. Maintain a frequency map `points_map` to store counts of each coordinate pair.
+2. For the `count` query with point `(x, y)`:
+    - Iterate through all other points `(x1, y1)` in the map.
+    - Check if `(x1, y1)` can form a diagonal with `(x, y)` (i.e., `abs(x - x1) == abs(y - y1)` and `x != x1`).
+    - If valid, verify the existence of the other two corners `(x, y1)` and `(x1, y)` in the map.
+    - Multiply their counts and add to the result.
 
-**The Twist (Failure):** **Iterating everything.** If we store points in `Map<x, Set<y>>`, we can iterate only points with same x-coordinate to optimize, but standard approach iterates all points.
-
-**Interview Signal:** **Geometry Logic** and Hash Map usage.
-
-## 🚀 Approach & Intuition
-Iterate existing points to find diagonals.
-
-### C++ Pseudo-Code
-```cpp
-class DetectSquares {
-    map<pair<int, int>, int> counts;
-    vector<pair<int, int>> points;
-public:
-    void add(vector<int> point) {
-        counts[{point[0], point[1]}]++;
-        points.push_back({point[0], point[1]});
-    }
-    
-    int count(vector<int> point) {
-        int qx = point[0], qy = point[1];
-        int res = 0;
-        
-        for (auto& [px, py] : points) {
-            if (abs(qx - px) != abs(qy - py) || qx == px) continue;
-            
-            res += counts[{qx, py}] * counts[{px, qy}];
-        }
-        return res;
-    }
-};
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    P1(x, y) --- P2(x1, y1)
+    P2 --- P3(x, y1)
+    P3 --- P4(x1, y)
+    P4 --- P1
+    style P1 stroke:#333,stroke-width:2px
+    style P2 stroke:#333,stroke-width:2px
 ```
 
-### Key Observations:
-
-- Use modular arithmetic to prevent integer overflow and the Euclidean algorithm for GCD/LCM problems.
-- In geometry, use cross products to determine orientation and the distance formula for proximity checks.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** Add: $O(1)$, Count: $O(N)$ (where N is total points stored).
-    - **Space Complexity:** $O(N)$.
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ per query, where $N$ is the number of points in the stream, as we iterate through existing points once.
+- **Space Complexity:** $\mathcal{O}(N)$ to store point frequencies.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you solve this without using any arithmetic operators (+, -, *, /)?
-- **Scale Question:** How do you handle bit operations on arbitrarily large integers (BigInt)?
-- **Edge Case Probe:** How does your code handle signed vs unsigned integers and overflow/underflow?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** What if the squares don't have to be axis-aligned? (Requires rotation matrix/vector cross-product check).
+- **Alternative Data Structures:** Could use a `defaultdict(list)` grouped by X-coordinate to reduce search space.
 
 ## 🔗 Related Problems
-
-- [Multiply Strings](../multiply_strings/PROBLEM.md) — Previous in category
-- [Number of Islands](../../11_graphs/number_of_islands/PROBLEM.md) — Prerequisite: Graphs
-- [Single Number](../../18_bit_manipulation/single_number/PROBLEM.md) — Prerequisite: Bit Manipulation
+- `[Set Matrix Zeroes](#)` — Array manipulation
+- `[Spiral Matrix](#)` — 2D Array traversal

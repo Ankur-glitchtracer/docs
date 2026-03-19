@@ -1,79 +1,84 @@
-#  📉 Binary Search: Find Minimum in Rotated Sorted Array
+---
+impact: "Medium"
+nr: false
+confidence: 5
+---
+# 📉 Binary Search: Find Minimum in Rotated Sorted Array
 
-## 📝 Description
-[LeetCode 153](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/)
+## 📝 Problem Description
 Suppose an array of length `n` sorted in ascending order is rotated between `1` and `n` times. Given the sorted rotated array `nums` of unique elements, return the minimum element of this array.
 
-## 🛠️ Requirements/Constraints
+[LeetCode 153](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/)
 
+!!! info "Real-World Application"
+    Used in **Version Control Systems** (like `git bisect`) to find the first broken commit in a range that has been "rotated" or partitioned by a bug. It's also useful for finding the start of a cyclic log file or a load-balanced set of rotated records.
+
+## 🛠️ Constraints & Edge Cases
 - $1 \le nums.length \le 10^5$
-- Target value is within the range of the data type.
+- $-5000 \le nums[i] \le 5000$
+- All integers in `nums` are **unique**.
+- **Edge Cases to Watch:**
+    - Array is not rotated (already sorted).
+    - Array has only one element.
+    - Array has two elements.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Linear Scan." Just iterating to find the min takes $O(N)$. We want logarithmic time.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Cliff Diver." We are looking for the point where the numbers drop (the pivot).
+!!! success "The Aha! Moment"
+    The core trick is comparing `nums[mid]` with the **rightmost element** `nums[right]`. If `nums[mid] > nums[right]`, the "cliff" (minimum) must be to the right of `mid`. Otherwise, the minimum is at `mid` or to its left.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+A simple linear scan through the array to find the smallest element.
+- **Time Complexity:** $\mathcal{O}(N)$
+- **Why it fails:** We aren't utilizing the "sorted" nature of the rotated array. The problem explicitly asks for an $\mathcal{O}(\log N)$ solution.
 
-1. `low = 0`, `high = n - 1`.
-2. If `nums[low] < nums[high]`, the array is already sorted. Return `nums[low]`.
-3. Pick `mid`.
-4. If `nums[mid] > nums[right]`: The left side is sorted, but the "cliff" (min) is to the *right*. Go right (`low = mid + 1`).
-5. Else (`nums[mid] <= nums[right]`): The pivot is to the *left* (or at mid). Go left (`high = mid`). Note: we don't do `mid - 1` because `mid` could be the min.
+### 🐇 Optimal Approach
+Use **Binary Search** to find the pivot point (the "cliff").
+1. Initialize `left = 0`, `right = n - 1`.
+2. While `left < right`:
+    - Calculate `mid = (left + right) // 2`.
+    - Compare `nums[mid]` with `nums[right]`.
+    - If `nums[mid] > nums[right]`: The minimum must be in the right half. Set `left = mid + 1`.
+    - Else: The minimum is in the left half (including `mid`). Set `right = mid`.
+3. Return `nums[left]`.
 
-**The Twist (Failure):** **The Pivot Logic.** It's slightly different from finding a target. We compare against `right` boundary, not `target`.
-
-**Interview Signal:** Modifying standard **Binary Search Conditions**.
-
-## 🚀 Approach & Intuition
-If `mid > right`, the min is to the right. Else, it's to the left/current.
-
-### C++ Pseudo-Code
-```cpp
-int findMin(vector<int>& nums) {
-    int l = 0, r = nums.size() - 1;
-    while (l < r) {
-        int mid = l + (r - l) / 2;
-        if (nums[mid] > nums[r]) {
-            l = mid + 1;
-        } else {
-            r = mid;
-        }
-    }
-    return nums[l];
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    subgraph "Array: [4, 5, 6, 7, 0, 1, 2]"
+    L1[L:4] --- M1[M:7] --- R1[R:2]
+    end
+    M1 -- "7 > 2 (Go Right)" --> L2
+    subgraph "Search Right: [0, 1, 2]"
+    L2[L:0] --- M2[M:1] --- R2[R:2]
+    end
+    M2 -- "1 < 2 (Go Left)" --> R3
+    subgraph "Final: [0]"
+    L3[L:0]
+    end
 ```
 
-### Key Observations:
-
-- Binary search can be applied not just to sorted arrays, but to any monotonic search space (Search on Answer).
-- Be careful with the boundaries ($left, right$) and the condition for moving them to avoid infinite loops.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(\log N)$
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(\log N)$ — We divide the search space in half at each step using binary search.
+- **Space Complexity:** $\mathcal{O}(1)$ — We only use a few variables for pointers (`left`, `right`, `mid`).
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you apply 'Binary Search on Answer' to solve optimization problems (e.g., minimize max distance)?
-- **Scale Question:** If you are searching in a distributed database, how can you reduce the number of network round trips?
-- **Edge Case Probe:** Does your mid-point calculation `(left + right) / 2` overflow for very large indices?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** What if the array contains duplicates? (LeetCode 154 - the worst case becomes $O(N)$ when `nums[mid] == nums[right]`).
+- **Pivot Point:** This same logic can be used to find how many times the array was rotated.
 
 ## 🔗 Related Problems
-
-- [Search in Rotated Array](../search_in_rotated_sorted_array/PROBLEM.md) — Next in category
-- [Koko Eating Bananas](../koko_eating_bananas/PROBLEM.md) — Previous in category
-- [Invert Binary Tree](../../07_trees/invert_binary_tree/PROBLEM.md) — Prerequisite for Trees
-- [Valid Palindrome](../../02_two_pointers/valid_palindrome/PROBLEM.md) — Prerequisite: Two Pointers
+- [Search in Rotated Sorted Array](../search_in_rotated_sorted_array/PROBLEM.md) — Uses similar pivot logic to find a target.
+- [Koko Eating Bananas](../koko_eating_bananas/PROBLEM.md) — Binary search on answer.

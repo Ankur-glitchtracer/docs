@@ -1,92 +1,81 @@
-#  ⏱️ Binary Search: Time Based Key-Value Store
+---
+impact: "High"
+nr: false
+confidence: 2
+---
+# ⏱️ Binary Search: Time Based Key-Value Store
 
-## 📝 Description
-[LeetCode 981](https://leetcode.com/problems/time-based-key-value-store/)
+## 📝 Problem Description
 Design a time-based key-value data structure that can store multiple values for the same key at different time stamps and retrieve the key's value at a certain timestamp.
 
-## 🛠️ Requirements/Constraints
+Implement the `TimeMap` class:
+- `TimeMap()` Initializes the object of the data structure.
+- `void set(String key, String value, int timestamp)` Stores the key `key` with the value `value` at the given time `timestamp`.
+- `String get(String key, int timestamp)` Returns a value such that `set` was called previously, with `timestamp_prev <= timestamp`. If there are multiple such values, it returns the value associated with the largest `timestamp_prev`. If there are no values, it returns `""`.
 
-- $1 \le nums.length \le 10^5$
-- Target value is within the range of the data type.
+[LeetCode 981](https://leetcode.com/problems/time-based-key-value-store/)
 
-## 🧠 The Engineering Story
+!!! info "Real-World Application"
+    **Version Control & Multi-Version Concurrency Control (MVCC):** Databases (like PostgreSQL or DynamoDB) and version control systems (like Git) often need to retrieve the state of a record at a specific point in time. Searching through history for the "latest available version before time X" is a core operation in these systems.
 
-**The Villain:** "The Linear History Search." Storing history as a list `(To be detailed...)` and scanning it linearly to find the right timestamp ($O(N)$). Slow for keys with huge history.
+## 🛠️ Constraints & Edge Cases
+- $1 \le key.length, value.length \le 100$
+- $key$ and $value$ consist of lowercase English letters and digits.
+- $1 \le timestamp \le 10^7$
+- All the timestamps $timestamp$ of `set` are strictly increasing.
+- **Edge Cases to Watch:**
+    - Query timestamp is earlier than the first stored timestamp.
+    - Multiple values for the same key (need the largest timestamp $\le$ target).
+    - Requesting a key that doesn't exist.
 
-**The Hero:** "The Timestamp Indexer." Store history in a map: `Key -> List(To be detailed...)`. Since timestamps are strictly increasing, the list is sorted!
+---
 
-**The Plot:**
+## 🧠 Approach & Intuition
 
-1. `set(key, value, timestamp)`: Append to the list for `key`.
-2. `get(key, timestamp)`: Use **Binary Search** (specifically `upper_bound` or equivalent) on the list to find the largest timestamp `<= query_time`.
-3. If found, return value. Else, return empty string.
+!!! success "The Aha! Moment"
+    **Implicit Sorting:** Since `set` calls are made with strictly increasing timestamps, each key's history list is naturally sorted. This means we can avoid manual sorting and immediately apply **Binary Search** to find the "floor" of the requested timestamp.
 
-**The Twist (Failure):** **The Exact Match Trap.** We want the closest timestamp *less than or equal to* the query. Standard binary search finds exact matches. You need logic for "floor" or "predecessor."
+### 🐢 Brute Force (Naive)
+Storing a list of all versions for a key and scanning backward from the requested timestamp until a match is found. In the worst case, this takes $\mathcal{O}(N)$ per `get` operation, where $N$ is the number of versions for that key.
 
-**Interview Signal:** Designing **Data Structures** on top of algorithms.
+### 🐇 Optimal Approach
+1. **Data Structure:** Use a Hash Map where keys map to a list of pairs `[(timestamp, value), ...]`.
+2. **`set`:** Append the new pair to the list. Since timestamps are increasing, the list remains sorted. $\mathcal{O}(1)$.
+3. **`get`:** 
+   - Perform Binary Search on the list associated with the key.
+   - We need the largest timestamp $\le$ query_time.
+   - Use `bisect_right` on timestamps and return the element at `index - 1`. $\mathcal{O}(\log N)$.
 
-## 🚀 Approach & Intuition
-Map key to a sorted list of pairs. Search the list.
-
-### C++ Pseudo-Code
-```cpp
-class TimeMap {
-    unordered_map<string, vector<pair<int, string>>> m;
-public:
-    void set(string key, string value, int timestamp) {
-        m[key].push_back({timestamp, value});
-    }
-    
-    string get(string key, int timestamp) {
-        if (!m.count(key)) return "";
-        auto& v = m[key];
-        
-        // Binary search for timestamp <= target
-        int l = 0, r = v.size() - 1;
-        string res = "";
-        
-        while (l <= r) {
-            int mid = l + (r - l) / 2;
-            if (v[mid].first <= timestamp) {
-                res = v[mid].second;
-                l = mid + 1;
-            } else {
-                r = mid - 1;
-            }
-        }
-        return res;
-    }
-};
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    Map["TimeMap"] -- "key: 'foo'" --> List["[(1, 'bar'), (4, 'baz'), (7, 'qux')]"]
+    Query["get('foo', 5)"] -- "Binary Search" --> Result["4: 'baz'"]
+    style Result fill:#f9f,stroke:#333,stroke-width:2px
 ```
 
-### Key Observations:
-
-- Binary search can be applied not just to sorted arrays, but to any monotonic search space (Search on Answer).
-- Be careful with the boundaries ($left, right$) and the condition for moving them to avoid infinite loops.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** `set`: $O(1)$ (Append), `get`: $O(\log N)$ (Binary Search)
-    - **Space Complexity:** $O(N)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** 
+    - `set`: $\mathcal{O}(1)$ — Appending to a list.
+    - `get`: $\mathcal{O}(\log N)$ — Binary search over the history of a key.
+- **Space Complexity:** $\mathcal{O}(N)$ — Storing all key-value-timestamp triplets.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you apply 'Binary Search on Answer' to solve optimization problems (e.g., minimize max distance)?
-- **Scale Question:** If you are searching in a distributed database, how can you reduce the number of network round trips?
-- **Edge Case Probe:** Does your mid-point calculation `(left + right) / 2` overflow for very large indices?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** What if timestamps are NOT strictly increasing for `set`? (Aha! Then we must sort the list or use a TreeMap/SortedList which would make `set` $\mathcal{O}(\log N)$).
+- **Memory Optimization:** If many keys have the same values at different times, can we use string interning or pointers to save space?
 
 ## 🔗 Related Problems
-
-- [Median of Two Sorted Arrays](../median_of_two_sorted_arrays/PROBLEM.md) — Next in category
-- [Search in Rotated Array](../search_in_rotated_sorted_array/PROBLEM.md) — Previous in category
-- [Invert Binary Tree](../../07_trees/invert_binary_tree/PROBLEM.md) — Prerequisite for Trees
-- [Valid Palindrome](../../02_two_pointers/valid_palindrome/PROBLEM.md) — Prerequisite: Two Pointers
+- [Search in Rotated Sorted Array](../search_in_rotated_sorted_array/PROBLEM.md)
+- [Binary Search](../binary_search/PROBLEM.md)
+- [Koko Eating Bananas](../koko_eating_bananas/PROBLEM.md)

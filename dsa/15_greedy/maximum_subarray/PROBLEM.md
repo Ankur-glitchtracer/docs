@@ -1,76 +1,58 @@
-#  💰 Greedy: Maximum Subarray
+---
+impact: "High"
+nr: false
+confidence: 5
+---
+# 📊 Greedy: Maximum Subarray
 
-## 📝 Description
-[LeetCode 53](https://leetcode.com/problems/maximum-subarray/)
-Given an integer array `nums`, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
+## 📝 Problem Description
+Given an integer array `nums`, find the subarray (containing at least one number) which has the largest sum and return its sum.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Used in stock market analysis (Kadane's algorithm), financial data analysis to detect periods of peak profitability, and in signal processing.
 
+## 🛠️ Constraints & Edge Cases
 - $1 \le nums.length \le 10^5$
-- Values represent jumps, costs, or intervals.
+- **Edge Cases:** All negative numbers (should return the largest element).
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The O(N^2) Scan." Checking every possible subarray.
+## 🧠 Approach & Intuition
 
-**The Hero:** "Kadane's Algorithm." The logic: "If my current running sum is negative, it's garbage. Throw it away and start fresh."
+!!! success "The Aha! Moment"
+    If your current subarray sum becomes negative, it's better to start a new subarray from the next element rather than keeping the negative sum.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Calculate sum of every subarray: $O(N^2)$.
 
-1. Initialize `maxSub` and `curSum`.
-2. Iterate through numbers.
-3. If `curSum < 0`, reset `curSum = 0`.
-4. `curSum += n`.
-5. `maxSub = max(maxSub, curSum)`.
+### 🐇 Optimal Approach (Kadane's Algorithm)
+Iterate through the array. Maintain the `current_sum`. If it drops below zero, reset it. Keep track of the `max_sum`.
 
-**The Twist (Failure):** **All Negatives.** If array is `[-2, -1]`, resetting `curSum` to 0 might return 0, which is wrong. The result should be -1. Initialize `maxSub` to `nums[0]`, not 0.
-
-**Interview Signal:** The standard for **Linear Time Subarray** problems.
-
-## 🚀 Approach & Intuition
-Discard negative prefixes.
-
-### C++ Pseudo-Code
-```cpp
-int maxSubArray(vector<int>& nums) {
-    int maxSub = nums[0];
-    int curSum = 0;
-    
-    for (int n : nums) {
-        if (curSum < 0) curSum = 0;
-        curSum += n;
-        maxSub = max(maxSub, curSum);
-    }
-    return maxSub;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    A[Start] -->|Positive| B[Keep adding]
+    B -->|Negative sum| C[Reset]
+    C --> D[Restart]
 ```
 
-### Key Observations:
-
-- Greedy algorithms make the locally optimal choice at each step with the hope of finding a global optimum.
-- The key is to prove that the greedy choice property and optimal substructure hold for the given problem.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — One pass through the array.
+- **Space Complexity:** $\mathcal{O}(1)$ — Constant space.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** What if the input is sorted or has a limited range? Can you optimize space from $O(N)$ to $O(1)$?
-- **Scale Question:** If the dataset is too large to fit in RAM, how would you use external sorting or a distributed hash table?
-- **Edge Case Probe:** How does your solution handle duplicates, empty inputs, or extremely large integers?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Find the subarray sum closest to zero, or return the indices of the subarray.
 
 ## 🔗 Related Problems
-
-- [Jump Game](../jump_game/PROBLEM.md) — Next in category
-- [Kth Largest in Stream](../../09_heap_priority_queue/kth_largest_element_in_a_stream/PROBLEM.md) — Prerequisite: Heap / Priority Queue
+- [Maximum Product Subarray](../../13_1d_dynamic_programming/maximum_product_subarray/PROBLEM.md)

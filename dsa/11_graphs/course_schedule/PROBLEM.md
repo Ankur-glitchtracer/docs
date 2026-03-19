@@ -1,93 +1,66 @@
-#  🎓 Graph: Course Schedule
+---
+impact: "High"
+nr: false
+confidence: 4
+---
+# 🎓 Graphs: Course Schedule
 
-## 📝 Description
-[LeetCode 207](https://leetcode.com/problems/course-schedule/)
-There are a total of `numCourses` courses you have to take, labeled from `0` to `numCourses - 1`. You are given an array `prerequisites` where `prerequisites[i] = [ai, bi]` indicates that you must take course `bi` first if you want to take course `ai`. Return `true` if you can finish all courses. Otherwise, return `false`.
+## 📝 Problem Description
+There are a total of `numCourses` courses you have to take, labeled from `0` to `numCourses - 1`. You are given an array `prerequisites` where `prerequisites[i] = [a, b]` indicates that you must take course `b` first if you want to take course `a`. Return `true` if you can finish all courses; otherwise, return `false`.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This is the fundamental problem of **Topological Sorting**. It is used extensively in **package management systems** (like `npm` or `pip`) to determine the installation order of dependencies, in **build systems** (like `Make` or `Bazel`), and in **task scheduling** to ensure prerequisites are met before execution.
 
-- $V, E \le 10^5$ (Nodes and Edges)
-- The graph can be directed or undirected.
+## 🛠️ Constraints & Edge Cases
+- $1 \le \text{numCourses} \le 2000$
+- $0 \le \text{prerequisites.length} \le 5000$
+- **Edge Cases to Watch:** 
+    - Disconnected components in the graph.
+    - No prerequisites (should return `true`).
+    - Cyclic dependencies (should return `false`).
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Catch-22." Course A requires B, B requires C, C requires A. You can never graduate. This is a Cycle in a Directed Graph.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Topological Sorter (or Cycle Detector)."
+!!! success "The Aha! Moment"
+    A course schedule is possible **if and only if there are no cycles** in the dependency graph. A cycle-free directed graph is a Directed Acyclic Graph (DAG), which can always be topologically sorted. Kahn's Algorithm (BFS) is the standard way to detect cycles.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Using DFS to detect cycles in every path is possible, but managing the "recursion stack" state properly is complex and often leads to $O(V!)$ complexity if implemented naively.
 
-1. (To be detailed...)
-2. (To be detailed...)
+### 🐇 Optimal Approach (Kahn's Algorithm - BFS)
+1. Calculate the **in-degree** of each course (number of prerequisites).
+2. Use a queue to store all courses with an in-degree of 0 (no prerequisites).
+3. While the queue is not empty, "take" a course, remove it from the graph, and decrement the in-degrees of its dependent courses.
+4. If a dependent course's in-degree reaches 0, add it to the queue.
+5. If the total number of courses "taken" equals `numCourses`, return `true`; otherwise, there's a cycle.
 
-**The Twist (Failure):** **The Disconnected Graph.** A single DFS from node 0 might not visit all nodes. You must iterate `0..N-1` and check every unvisited node.
-
-**Interview Signal:** **Deadlock Detection** / Topological Sort.
-
-## 🚀 Approach & Intuition
-0=Unvisited, 1=Visiting, 2=Visited.
-
-### C++ Pseudo-Code
-```cpp
-class Solution {
-    vector<vector<int>> adj;
-    vector<int> state; // 0, 1, 2
-public:
-    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        adj.resize(numCourses);
-        state.resize(numCourses, 0);
-        for (auto& p : prerequisites) adj[p[1]].push_back(p[0]);
-        
-        for (int i = 0; i < numCourses; i++) {
-            if (state[i] == 0) {
-                if (hasCycle(i)) return false;
-            }
-        }
-        return true;
-    }
-    
-    bool hasCycle(int u) {
-        state[u] = 1; // Visiting
-        for (int v : adj[u]) {
-            if (state[v] == 1) return true;
-            if (state[v] == 0) {
-                if (hasCycle(v)) return true;
-            }
-        }
-        state[u] = 2; // Visited
-        return false;
-    }
-};
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    P[Prereq 0] --> C[Course 1]
+    style P fill:#f9f,stroke:#333
+    style C fill:#ccf,stroke:#333
 ```
 
-### Key Observations:
-
-- Represent the graph using an Adjacency List for space efficiency in sparse graphs.
-- Use DFS for path-finding/connectivity and BFS for finding the shortest path in unweighted graphs.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(V + E)$
-    - **Space Complexity:** $O(V + E)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(V + E)$, where $V$ is `numCourses` and $E$ is the number of prerequisite pairs.
+- **Space Complexity:** $\mathcal{O}(V + E)$ to store the graph and the in-degree array.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you solve this using BFS for shortest paths or DFS for connectivity? When would you use Union-Find?
-- **Scale Question:** If the graph has billions of edges (like a social network), how would you use a Pregel or Giraph-style distributed processing model?
-- **Edge Case Probe:** How do you handle cycles, disconnected components, or self-loops in the graph?
+## 🎤 Interview Toolkit
 
-## 🔗 Related Problems
-
-- [Course Schedule II](../course_schedule_ii/PROBLEM.md) — Next in category
-- [Surrounded Regions](../surrounded_regions/PROBLEM.md) — Previous in category
-- [Reconstruct Itinerary](../../12_advanced_graphs/reconstruct_itinerary/PROBLEM.md) — Prerequisite for Advanced Graphs
-- [Unique Paths](../../14_2d_dynamic_programming/unique_paths/PROBLEM.md) — Prerequisite for 2-D Dynamic Programming
+- **Harder Variant:** Use DFS-based cycle detection (requires keeping track of `visiting` vs `visited` state).
+- **Related Problems:**
+    - `[Course Schedule II](../course_schedule_ii/PROBLEM.md)` — Return the order instead of just checking feasibility.
+    - `[Alien Dictionary](../../12_advanced_graphs/alien_dictionary/PROBLEM.md)` — Advanced topological sort application.

@@ -1,62 +1,77 @@
-#  🌲 Trees: Invert Binary Tree
+---
+impact: "Easy"
+nr: false
+confidence: 3
+---
+# 🌳 Trees: Invert Binary Tree
 
-## 📝 Description
-[LeetCode 226](https://leetcode.com/problems/invert-binary-tree/)
-Given the `root` of a binary tree, invert the tree, and return its root.
+## 📝 Problem Description
+Given the root of a binary tree, invert the tree, and return its root. Inverting a tree means swapping the left and right children of every node in the tree.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Tree inversion is a foundational operation for tree-based data manipulations, such as re-mirroring UI components or transforming expressions in compiler theory.
 
+## 🛠️ Constraints & Edge Cases
 - The number of nodes in the tree is in the range $[0, 100]$.
-- $-100 \le Node.val \le 100$
+- $-100 \le Node.val \le 100$.
+- **Edge Cases:** 
+    - Empty tree (root is None): Return `None`.
+    - Single node: No change required.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Mirror Image Challenge." Changing the perspective of an entire hierarchy without losing the connection between nodes.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Level-by-Level Swapper." Visit every node and swap its left and right children.
+!!! success "The Aha! Moment"
+    A simple recursive DFS approach works: for every node, swap its left and right child pointers, then recurse on the children.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Performing multiple passes (e.g., collect nodes in a list, then invert level-by-level) is unnecessary and inefficient.
 
-1. If node is `None`, return.
+### 🐇 Optimal Approach
+Use recursive DFS (or BFS) to perform the swap in-place for each node.
+1. If node is `None`, return `None`.
 2. Swap `node.left` and `node.right`.
-3. Recursively call for `node.left` and `node.right`.
+3. Recursively call `invertTree` on the left and right children.
+4. Return `node`.
 
-**The Twist (Failure):** **The Lost Reference.** Swapping children before you've finished traversing one side, making it impossible to find the original children if you aren't careful with the recursion.
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    A((4)) --> B((2))
+    A --> C((7))
+    B --> D((1))
+    B --> E((3))
+    C --> F((6))
+    C --> G((9))
 
-**Interview Signal:** Mastery of **Basic Tree Manipulation**. (Famously requested by Google even for the creator of Homebrew).
+    %% Inverted
+    A_i((4)) --> C_i((7))
+    A_i --> B_i((2))
+    C_i --> G_i((9))
+    C_i --> F_i((6))
+    B_i --> E_i((3))
+    B_i --> D_i((1))
+```
 
-## 🚀 Approach & Intuition
-To invert a tree, we need to visit every node and swap its left and right children. This is a classic recursive problem: if we can invert the left subtree and the right subtree, and then swap them, the whole tree becomes inverted.
-
-### Key Observations:
-
-- The base case is a `null` node.
-- A post-order or pre-order traversal both work, as long as you swap the children.
-- The structure of the tree remains the same, only the pointers are mirrored.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$ where $N$ is the number of nodes in the tree. We must visit every node once.
-    - **Space Complexity:** $O(H)$ where $H$ is the height of the tree, representing the recursive stack depth. In the worst case (skewed tree), $O(N)$.
+---
 
 ## 💻 Solution Implementation
 
 ```python
---8<-- "dsa/07_trees/invert_binary_tree/solution.py"
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    Inversion is just a swap at every level. It's like looking at the tree in a mirror—what was on the left must now be on the right, all the way down to the leaves.
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — We visit each node once.
+- **Space Complexity:** $\mathcal{O}(H)$ — Recursion stack depth.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you check if two trees are mirrors of each other (Symmetric Tree)?
-- **Scale Question:** If the tree is too large for a single machine's memory, how would you process the inversion in a distributed graph database?
-- **Edge Case Probe:** Does your solution work for an extremely unbalanced tree (essentially a linked list) without hitting a stack overflow?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Can you do this iteratively using a queue? (BFS approach).
+- **Alternative Data Structures:** Does it change if it is a Multi-way tree? Yes, you swap all children.
 
 ## 🔗 Related Problems
-
-- [Max Depth of Binary Tree](../maximum_depth_of_binary_tree/PROBLEM.md) — Next in category
-- [Implement Trie](../../08_tries/implement_trie/PROBLEM.md) — Prerequisite for Tries
-- [Kth Largest in Stream](../../09_heap_priority_queue/kth_largest_element_in_a_stream/PROBLEM.md) — Prerequisite for Heap / Priority Queue
-- [Subsets](../../10_backtracking/subsets/PROBLEM.md) — Prerequisite for Backtracking
+- `Same Tree` — Comparison based on traversal.

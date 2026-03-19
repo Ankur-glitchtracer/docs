@@ -59,4 +59,4 @@ By strictly trusting and accepting commands only from the Controller with the hi
 Explore the low-level implementations of epoch-based consensus and distributed logs:
 
 * [System Design: Kafka Deep Dive](./KAFKA_DEEP_DIVE.md)
-* [Machine Coding: Kafka Lite](../../../machine_coding/distributed/pub_sub/PROBLEM.md)
+* [Machine Coding: Kafka Lite](../../machine_coding/distributed/pub_sub/PROBLEM.md)

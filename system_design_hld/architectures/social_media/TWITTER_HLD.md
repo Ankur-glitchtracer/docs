@@ -1,89 +1,176 @@
-# Design: Twitter (Timeline Generation & Sharding)
+# 🐦 System Design: Twitter
 
-Designing a massively distributed text-broadcasting system like Twitter requires solving the "Hot User" (celebrity) problem and managing extreme read-to-write disparities.
+## 📝 Overview
+Twitter is a massive, globally distributed microblogging and social networking service defined by extreme read-heavy traffic and real-time data propagation. It enables users to broadcast short text messages and media to followers instantly, requiring a highly optimized architecture to solve the complex "celebrity problem" of viral distribution.
 
-## 1. The Core Trade-off: Read Aggregation vs. Write Efficiency
+!!! abstract "Core Concepts"
+    - **Scatter-Gather (Pull Model):** Aggregating a user's timeline at runtime by querying multiple database shards.
+    - **Fan-out on Write (Push Model):** Pre-computing and pushing tweets to followers' cached timelines to ensure low read latency.
+    - **Snowflake IDs:** Generating globally unique, chronologically sortable 64-bit integers without centralized bottlenecks.
+
+---
+
+## 🏭 The Scenario & Requirements
+
+### 😡 The Problem (The Villain)
+Retrieving chronologically sorted feeds for a user who follows thousands of people requires massive database JOINs or multi-shard queries. Furthermore, when a "Hot User" (a celebrity with 50 million followers) posts, updating 50 million feeds simultaneously can melt traditional database and caching layers.
+
+### 🦸 The Solution (The Hero)
+A hybrid fan-out architecture that pushes tweets to active followers for normal users, but forces clients to pull tweets dynamically from celebrities. This is paired with an ingenious 64-bit ID generation scheme (Snowflake) that embeds timestamps directly into the Tweet ID, eliminating the need for expensive secondary chronological indices.
+
+### 📜 Requirements
+- **Functional Requirements:**
+    1. Users can post tweets (text and media).
+    2. Users can follow/unfollow other users.
+    3. Users can view their Home Timeline (an aggregated, chronologically sorted feed of everyone they follow).
+- **Non-Functional Requirements:**
+    1. **High Availability:** The system must never go down (Eventual consistency for timelines is highly acceptable).
+    2. **Low Read Latency:** Home timeline generation must render in < 200ms.
+    3. **Scalability:** Must handle extreme read/write skew and viral load spikes gracefully.
+
+!!! info "Capacity Estimation (Back-of-the-envelope)"
+    - **Traffic:** 300M Daily Active Users (DAU). 50M writes (tweets) per day. 5 Billion reads (timeline requests) per day. -> **100:1 Read/Write ratio**.
+    - **Storage (Text):** 50M tweets * 200 bytes = 10GB/day = ~3.6TB/year.
+    - **Storage (Media):** Assume 20% of tweets contain a 1MB image/video. 10M * 1MB = 10TB/day = ~3.6PB/year.
+    - **Bandwidth:** 10TB / 86400s = ~115 MB/s sustained write throughput.
+
+---
+
+## 📊 API Design & Data Model
+
+=== "REST APIs"
+    - **`POST /api/v1/tweets`**
+        - **Request:** `{ "text": "Hello World!", "media_ids": [...] }`
+        - **Response:** `{ "tweet_id": "123456789012345678", "created_at": "..." }`
+    - **`GET /api/v1/timelines/home`**
+        - **Query Params:** `?limit=20&max_id=123456789012345678`
+        - **Response:** `[ { "tweet_id": "...", "text": "...", "author": {...} }, ... ]`
+    - **`POST /api/v1/users/{user_id}/follow`**
+        - **Response:** `200 OK`
+
+=== "Database Schema"
+    - **Table:** `tweets` (Cassandra / Sharded RDBMS)
+        - `tweet_id` (BigInt, PK) - Snowflake ID
+        - `user_id` (BigInt, Indexed)
+        - `content` (Varchar/Text)
+        - `created_at` (Timestamp)
+    - **Table:** `follows` (RDBMS or Graph DB)
+        - `follower_id` (BigInt, PK)
+        - `followee_id` (BigInt, PK)
+        - *Compound Primary Key (follower_id, followee_id)*
+    - **Cache:** `user_timeline` (Redis)
+        - `Key:` `timeline:{user_id}`
+        - `Value:` `List<tweet_id>` (Bounded to max 800 recent tweets)
+
+---
+
+## 🏗️ High-Level Architecture
+
+### Architecture Diagram
+```mermaid
+graph TD
+    Client[Client App] -->|HTTP/HTTPS| CDN[CDN]
+    CDN --> |API Calls| API_GW[API Gateway / Load Balancer]
+    
+    API_GW --> TweetSvc[Tweet Service]
+    API_GW --> TimelineSvc[Timeline Service]
+    API_GW --> UserSvc[User Service]
+    
+    TweetSvc --> IDGen[Snowflake ID Generator]
+    TweetSvc --> Fanout[Fan-out Workers]
+    
+    Fanout -.-> RedisCache[(Redis Timeline Cache)]
+    TimelineSvc --> RedisCache
+    
+    TweetSvc --> DB_Tweets[(Tweet DB Cluster)]
+    UserSvc --> DB_Users[(User/Graph DB)]
+    
+    TimelineSvc -.-> DB_Tweets
+````
+
+### Component Walkthrough
+
+1.  **API Gateway & CDN:** Serves static media from edge nodes and routes dynamic API requests to internal microservices.
+2.  **Tweet Service:** Handles the ingress of new tweets, requests a unique ID from the Snowflake generator, and persists the data.
+3.  **Fan-out Workers (Asynchronous):** Background processes (Kafka consumers) that fetch a user's followers and push the new `tweet_id` into their Redis timeline caches.
+4.  **Timeline Service:** Serves the actual feed. It first checks the Redis Cache for pre-computed timelines. If missing, it falls back to a scatter-gather query against the Tweet DB.
+5.  **Snowflake ID Generator:** Dedicated microservices returning 64-bit integers ensuring chronologically sortable unique keys.
+
+-----
+
+## 🔬 Deep Dive & Scalability
+
+### Handling Bottlenecks: The Core Trade-off
 
 When generating a timeline, the system must retrieve the most recent tweets from every user the client follows.
 
-### Approach A: Sharding by UserID (The Flawed Approach)
+#### Approach A: Sharding by UserID (The Flawed Approach)
 
 If the database is partitioned by UserID, all of a single user's tweets are stored on the same physical server.
 
-**The Downside (The Celebrity Problem):**  
-If a celebrity with 50 million followers posts a tweet, millions of read requests will instantly hit the single server holding that UserID. This causes massive, concentrated load, leading to immediate resource starvation and server failure.
+  - **The Downside (The Celebrity Problem):** If a celebrity with 50 million followers posts a tweet, millions of read requests instantly hit the single server holding that UserID, causing immediate resource starvation.
 
-### Approach B: Sharding by TweetID (The Optimized Approach)
+#### Approach B: Sharding by TweetID (The Optimized Approach)
 
-Twitter hashes the TweetID itself to determine which partition will store the data.
+Twitter hashes the TweetID itself to determine the partition.
 
-**The Upside:**  
-This architecture completely neutralizes the "hot user" bottleneck. Both write traffic and read traffic are perfectly and uniformly distributed across the entire database cluster. No single machine is overwhelmed.
+  - **The Upside:** Neutralizes the "hot user" bottleneck. Write and read traffic are perfectly distributed across the entire cluster.
+  - **The Downside (Scatter-Gather):** Retrieving a timeline requires a complex network fan-out operation.
 
-**The Downside (Scatter-Gather):**  
-Because a single user's tweets are scattered across every partition, retrieving a timeline requires a complex network fanout operation.
+#### Chronological Sharding & 64-Bit TweetIDs
 
-### Fan-out Latency Trade-offs
+Twitter eliminates the need for expensive secondary timestamp indices by embedding chronological data directly into the primary key (Snowflake ID).
 
-| Feature | Push Model (Fan-out on Write) | Pull Model (Fan-out on Read) |
-| :--- | :--- | :--- |
-| **Write Latency** | High (updating all followers' feeds) | Low (just saving the tweet) |
-| **Read Latency** | Low (pre-computed feed is ready) | High (aggregating feeds at runtime) |
-| **Best For** | Standard users (many followers) | Celebrities (millions of followers) |
+  - **Timestamp (41 bits):** Epoch timestamp in millisecond precision (good for 69 years). *Note: Adjusted bits for standard Snowflake implementation.*
+  - **Machine ID (10 bits):** Identifies the specific worker machine (up to 1024 machines).
+  - **Sequence (12 bits):** Auto-incrementing sequence to prevent collisions within the exact same millisecond (4096 IDs per ms per machine).
 
-## 2. Chronological Sharding & 64-Bit TweetIDs
+Because time occupies the leading bits, any list of TweetIDs sorted numerically is automatically sorted chronologically.
 
-In a traditional database, you would assign a random ID to a tweet and maintain a separate `CreationDate` column. To fetch a user's latest tweets, the database requires a secondary index on that timestamp. However, maintaining secondary indices on write-heavy tables (1,150 new tweets/sec) severely degrades write performance because the database must update multiple tree structures for every insertion.
+### The Scatter-Gather Timeline Generation (Pull Model)
 
-### The Snowflake Schema
-
-Twitter eliminates the need for secondary indices by embedding the chronological data directly into the primary key itself using a 64-bit integer:
-
-- **Timestamp (31 bits):** An epoch timestamp in the leading (most significant) bits. Because time occupies the leading bits, any list of TweetIDs sorted numerically is automatically sorted chronologically.
-- **Sequence & Machine ID (17 bits):** Identifies the specific worker machine generating the ID and provides an auto-incrementing sequence to prevent collisions within the exact same millisecond.
-- **Future-Proofing:** 31 bits + 17 bits = 48 bits (allowing 130,000 tweets per second). Expanding this to a full 64-bit integer allows the system to track time at a millisecond granularity for the next 100 years.
-
-## 3. The Scatter-Gather Timeline Generation
-
-When a client requests their timeline under the TweetID sharding model, the application server must execute a Scatter-Gather fanout.
+When a client requests their timeline under the TweetID sharding model (often used as a fallback or for celebrities), the system executes a Scatter-Gather fanout.
 
 ```mermaid
 sequenceDiagram
     participant Client
-    participant Aggregator as Timeline Aggregator
+    participant Aggregator as Timeline Service
     participant DB1 as Partition 1
     participant DB2 as Partition 2
-    participant DB3 as Partition 3
 
     Client->>Aggregator: Request Timeline
-    Note over Aggregator: Retrieves list of Followed Users
+    Note over Aggregator: Retrieves Followed Users
     Aggregator->>DB1: Broadcast Query (Get latest from Followed)
     Aggregator->>DB2: Broadcast Query (Get latest from Followed)
-    Aggregator->>DB3: Broadcast Query (Get latest from Followed)
     
-    Note over DB1,DB3: Local sort by Recency (O(1) due to Snowflake ID)
+    Note over DB1,DB2: Local sort by Recency (O(1) due to Snowflake)
     
     DB1-->>Aggregator: Return Local Top Tweets
     DB2-->>Aggregator: Return Local Top Tweets
-    DB3-->>Aggregator: Return Local Top Tweets
     
-    Note over Aggregator: Merge datasets & perform Global Sort
+    Note over Aggregator: Merge datasets & Global Sort
     Aggregator-->>Client: Return complete timeline
 ```
 
-## Scatter-Gather Timeline Steps
+### ⚖️ Trade-offs
 
-1. **Broadcast:**  
-   The aggregator retrieves the user's "following" list and sends a query to all database servers simultaneously.
+| Decision | Pros | Cons / Limitations |
+| :--- | :--- | :--- |
+| **Push Model (Fan-out on Write)** | Instant timeline reads (O(1) cache lookup). Great for standard users. | Massive write amplification. A celebrity tweet takes minutes to push to 50M Redis lists. |
+| **Pull Model (Fan-out on Read)** | Zero write amplification. Tweet is saved instantly. Great for celebrities. | High read latency and complex aggregation logic at runtime (Scatter-Gather). |
+| **Hybrid Approach** | Best of both worlds. Push for normal users, Pull for celebrities. | Increased system complexity. Requires tracking "hot" users and maintaining dual-read logic in the Timeline Service. |
 
-2. **Local Sorting:**  
-   Each partition independently searches for matching tweets. Because the TweetID inherently contains the timestamp, this local search and sort by recency is incredibly fast.
+-----
 
-3. **Global Aggregation:**  
-   The centralized aggregator waits for all partitions to respond, merges these distributed datasets, and sorts them a final time to assemble the globally accurate timeline.
-## 4. Practical Implementation
+## 🎤 Interview Toolkit
 
-Explore low-level implementations of social media feeds and distributed ID generation:
+  - **Scale Question:** "Justin Bieber posts a tweet. How do you prevent the system from crashing?" -\> *Use a Hybrid Fan-out. Bieber is marked as a 'celebrity'. His tweets are NOT pushed to followers' Redis queues. Instead, when a follower opens their app, the Timeline Service pulls their pre-computed Redis queue, separately pulls Bieber's recent tweets from the DB/Cache, merges them in memory, and returns the result.*
+  - **Failure Probe:** "What happens if a Redis cache node containing 10,000 user timelines goes down?" -\> *Use Consistent Hashing to minimize reshuffling. Rebuild the lost feeds asynchronously using the Scatter-Gather Pull model from the persistent Tweet DB upon the next user request.*
+  - **Edge Case:** "How do you handle pagination in a rapidly changing feed?" -\> *Never use offset-based pagination (`OFFSET 100`). New tweets will shift the offset, causing users to see duplicate tweets. Use cursor-based pagination using the Snowflake `tweet_id` (e.g., `WHERE tweet_id < {last_seen_id}`).*
 
-* [Machine Coding: Instagram Feed](../../../machine_coding/systems/instagram/PROBLEM.md)
-* [DSA: Design Twitter (K-Way Merge)](../../../dsa/09_heap_priority_queue/design_twitter/PROBLEM.md)
+## 🔗 Related Architectures
+
+  - [Design Instagram (Newsfeed)](./INSTAGRAM_HLD.md) — Highly visual, read-heavy, similar timeline aggregation.
+  - [Design Facebook Newsfeed](./FACEBOOK_NEWSFEED.md) — EdgeRank algorithm heavy, complex privacy checks during fan-out.
+  - [Machine Coding: Instagram Feed](../../../machine_coding/systems/instagram/PROBLEM.md)
+  - [DSA: Design Twitter (K-Way Merge)](../../../dsa/09_heap_priority_queue/design_twitter/PROBLEM.md)

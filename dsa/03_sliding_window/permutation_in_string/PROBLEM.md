@@ -1,97 +1,72 @@
-#  🔀 Sliding Window: Permutation in String
+---
+impact: "Medium"
+nr: false
+confidence: 2
+---
+# 🔀 Sliding Window: Permutation in String
 
 ## 📝 Description
 [LeetCode 567](https://leetcode.com/problems/permutation-in-string/)
-Given two strings `s1` and `s2`, return `true` if `s2` contains a permutation of `s1`, or `false` otherwise. In other words, return `true` if one of `s1`'s permutations is the substring of `s2`.
+Given two strings `s1` and `s2`, return `true` if `s2` contains a permutation of `s1`, or `false` otherwise.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This is effectively finding an **Anagram** as a substring. It's used in **Cryptography** (breaking ciphers via frequency analysis) and **Intrusion Detection Systems** (detecting signatures even if packet content is reordered).
 
-- $1 \le s.length \le 10^5$
-- $s$ consists of standard ASCII characters.
+## 🛠️ Constraints & Edge Cases
+- $1 \le s1.length, s2.length \le 10^4$
+- **Edge Cases to Watch:**
+    - `s1` longer than `s2` (impossible).
+    - Exact match.
+    - No match.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Substring Generator." Checking every substring of `s2` and sorting it to compare with sorted `s1` ($O(N \cdot M \log M)$).
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Fixed-Size Window." Since the substring must be the same length as `s1`, we slide a window of size `len(s1)` across `s2`.
+!!! success "The Aha! Moment"
+    A permutation has the **exact same character counts**. We just need to find a substring in `s2` of length `len(s1)` that has the same frequency map. This is a **Fixed Size Sliding Window**.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Generate all permutations of `s1` and search for them in `s2`.
+- **Time Complexity:** $O(N! \cdot M)$ — Impossible for $N > 10$.
 
-1. Create frequency arrays for `s1` and the first window of `s2`.
-2. Check if they match.
-3. Slide the window one step right:
-   - Add the new character to the count.
-   - Remove the old character (left of window) from the count.
-   - Check match again.
+### 🐇 Optimal Approach
+1.  Use two frequency arrays of size 26 (for 'a'-'z').
+2.  Populate counts for `s1` and the first `len(s1)` chars of `s2`.
+3.  Compare matches.
+4.  **Slide:**
+    - Move right: Increment count for new char.
+    - Move left: Decrement count for old char.
+    - Check for match at each step.
+    - Optimization: Keep a variable `matches` (0 to 26). Update it only when counts change.
 
-**The Twist (Failure):** **The Comparison Cost.** Comparing two arrays of size 26 takes constant time $O(26) = O(1)$. Don't use a full hash map if you can use an array.
-
-**Interview Signal:** Fixed-size **Sliding Window** management.
-
-## 🚀 Approach & Intuition
-Compare character counts in a window of size `s1.length()`.
-
-### C++ Pseudo-Code
-```cpp
-bool checkInclusion(string s1, string s2) {
-    if (s1.length() > s2.length()) return false;
-    vector<int> s1map(26, 0), s2map(26, 0);
-    
-    for (int i = 0; i < s1.length(); i++) {
-        s1map[s1[i] - 'a']++;
-        s2map[s2[i] - 'a']++;
-    }
-    
-    int matches = 0;
-    for (int i = 0; i < 26; i++) 
-        if (s1map[i] == s2map[i]) matches++;
-        
-    int l = 0;
-    for (int r = s1.length(); r < s2.length(); r++) {
-        if (matches == 26) return true;
-        
-        int index = s2[r] - 'a';
-        s2map[index]++;
-        if (s1map[index] == s2map[index]) matches++;
-        else if (s1map[index] + 1 == s2map[index]) matches--;
-        
-        index = s2[l] - 'a';
-        s2map[index]--;
-        if (s1map[index] == s2map[index]) matches++;
-        else if (s1map[index] - 1 == s2map[index]) matches--;
-        l++;
-    }
-    return matches == 26;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    A[s1: ab, s2: eidbaooo]
+    B[Window: eid] -->|Counts mismatch| C[Slide]
+    C[Window: idb] -->|Counts mismatch| D[Slide]
+    D[Window: dba] -->|Counts match!| E[True]
 ```
 
-### Key Observations:
-
-- Maintain a window that satisfies a certain condition and expand/contract it as you iterate.
-- Use a Hash Map or Frequency Array to track elements within the current window in $O(1)$ time.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(1)$ (Size 26 arrays)
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — Sliding window scan.
+- **Space Complexity:** $\mathcal{O}(1)$ — Array of size 26.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** What if the window size is not fixed, or we need to find the count of all windows satisfying a condition?
-- **Scale Question:** In a streaming context (e.g., Flink or Spark Streaming), how would you maintain the window state efficiently?
-- **Edge Case Probe:** How do you handle cases where no window satisfies the condition? What about very small inputs?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Find *all* start indices of such permutations (Find All Anagrams in a String).
 
 ## 🔗 Related Problems
-
 - [Minimum Window Substring](../minimum_window_substring/PROBLEM.md) — Next in category
-- [Longest Repeating Replacement](../longest_repeating_character_replacement/PROBLEM.md) — Previous in category
-- [Valid Palindrome](../../02_two_pointers/valid_palindrome/PROBLEM.md) — Prerequisite: Two Pointers
+- [Find All Anagrams](https://leetcode.com/problems/find-all-anagrams-in-a-string/) — Almost identical

@@ -1,87 +1,71 @@
-#  🔗 Arrays & Hashing: Longest Consecutive Sequence
+---
+impact: "High"
+nr: false
+confidence: 4
+---
+# 🔗 Arrays & Hashing: Longest Consecutive Sequence
 
-## 📝 Description
-[LeetCode 128](https://leetcode.com/problems/longest-consecutive-sequence/)
-Given an unsorted array of integers `nums`, return the length of the longest consecutive elements sequence.
-You must write an algorithm that runs in $O(N)$ time.
+## 📝 Problem Description
+Given an unsorted array of integers `nums`, return the length of the longest consecutive elements sequence. You must write an algorithm that runs in $O(N)$ time.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Used in genomic data analysis to find long DNA sequences or in database query optimization to identify contiguous ranges of IDs for efficient batch processing.
 
+## 🛠️ Constraints & Edge Cases
 - $0 \le nums.length \le 10^5$
 - $-10^9 \le nums[i] \le 10^9$
+- **Edge Cases to Watch:**
+    - Empty array (result should be 0).
+    - Array with all same elements (result should be 1).
+    - Array with no consecutive elements.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Sorting Trap." Sorting the array puts numbers in order, making it easy to find sequences ($O(N \log N)$). But the requirement is $O(N)$.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Start-of-Sequence Check." Only attempt to count a sequence if you are at the *start* of one.
+!!! success "The Aha! Moment"
+    Use a Hash Set for $O(1)$ lookups. The key trick is to **only start counting a sequence from its smallest element**. We identify the start of a sequence by checking if `num - 1` exists in the set.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Sort the array first and then iterate to find the longest streak. This takes $O(N \log N)$ time, which violates the $O(N)$ requirement.
 
-1. Put all numbers in a Hash Set for $O(1)$ lookup.
-2. Iterate through the set.
-3. For each number `num`, check if `num - 1` exists.
-   - If `num - 1` exists, `num` is NOT the start. Skip it.
-   - If `num - 1` does NOT exist, `num` IS the start. Start counting `num + 1`, `num + 2`...
+### 🐇 Optimal Approach
+1. Insert all numbers into a hash set.
+2. Iterate through each number `n` in the set.
+3. Check if `n - 1` is in the set. If not, `n` is the start of a sequence.
+4. If `n` is a start, keep checking for `n + 1`, `n + 2`, etc., and keep track of the current streak length.
+5. Update the maximum streak length found so far.
 
-**The Twist (Failure):** **The Duplicate Redundancy.** Iterating the array instead of the set can lead to redundant checks if duplicates exist. Always iterate the unique set.
-
-**Interview Signal:** Mastery of **HashSet** for $O(N)$ sequence validation.
-
-## 🚀 Approach & Intuition
-Use a set to find sequence starts efficiently.
-
-### C++ Pseudo-Code
-```cpp
-int longestConsecutive(vector<int>& nums) {
-    unordered_set<int> s(nums.begin(), nums.end());
-    int longest = 0;
-    
-    for (int num : s) {
-        // Only start counting if 'num' is the beginning of a sequence
-        if (!s.count(num - 1)) {
-            int currentNum = num;
-            int currentStreak = 1;
-            
-            while (s.count(currentNum + 1)) {
-                currentNum += 1;
-                currentStreak += 1;
-            }
-            longest = max(longest, currentStreak);
-        }
-    }
-    return longest;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    Set["{100, 4, 200, 1, 3, 2}"]
+    100 --> Start100["Start? Yes (99 not in set)"]
+    Start100 --> Count1["Streak: 1"]
+    4 --> Start4["Start? No (3 in set)"]
+    1 --> Start1["Start? Yes (0 not in set)"]
+    Start1 --> Count4["Streak: 4 (1,2,3,4)"]
 ```
 
-### Key Observations:
-
-- A Hash Set allows us to check for the existence of neighbors in $O(1)$ time.
-- Only start counting from the beginning of a sequence (i.e., `num - 1` is not in the set) to ensure $O(N)$ complexity.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(N)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — Each number is visited at most twice (once in the main loop and once in a `while` loop across all sequences).
+- **Space Complexity:** $\mathcal{O}(N)$ — We store all $N$ elements in a hash set.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** What if the array is dynamic and elements are added/removed? How would you maintain the longest consecutive sequence length?
-- **Scale Question:** If the data is distributed, how can you use Union-Find across different shards to find the global longest sequence?
-- **Edge Case Probe:** How does the algorithm perform if the array contains many duplicates or is already sorted?
+## 🎤 Interview Toolkit
+
+- **Why not sort?** Sorting is $O(N \log N)$. The problem explicitly asks for $O(N)$.
+- **Follow-up:** How would you handle this if the numbers were too large to fit in memory? (Hint: External merge sort or distributed Union-Find).
 
 ## 🔗 Related Problems
-
-- [Encode and Decode Strings](../encode_and_decode_strings/PROBLEM.md) — Previous in category
-- [Valid Palindrome](../../02_two_pointers/valid_palindrome/PROBLEM.md) — Prerequisite for Two Pointers
-- [Valid Parentheses](../../04_stack/valid_parentheses/PROBLEM.md) — Prerequisite for Stack
-- [Bubble Sort](../../19_sorting/bubble_sort/PROBLEM.md) — Prerequisite for Sorting
+- [Group Anagrams](../group_anagrams/PROBLEM.md)
+- [Contains Duplicate](../contains_duplicate/PROBLEM.md)

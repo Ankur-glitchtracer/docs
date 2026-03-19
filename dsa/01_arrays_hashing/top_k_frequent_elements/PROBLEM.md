@@ -1,84 +1,67 @@
-#  🔝 Arrays & Hashing: Top K Frequent Elements
+---
+impact: "Medium"
+nr: false
+confidence: 4
+---
+# 🔝 Arrays & Hashing: Top K Frequent Elements
 
-## 📝 Description
-[LeetCode 347](https://leetcode.com/problems/top-k-frequent-elements/)
+## 📝 Problem Description
 Given an integer array `nums` and an integer `k`, return the `k` most frequent elements. You may return the answer in any order.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Trending topics on social media, identifying the most frequent system errors in logs, or cache replacement policies like LFU (Least Frequently Used).
 
+## 🛠️ Constraints & Edge Cases
 - $1 \le nums.length \le 10^5$
-- $k$ is in the range $(To be detailed...)$
+- $k$ is valid ($1 \le k \le$ number of unique elements).
+- **Edge Cases to Watch:**
+    - $k = 1$ in a large array.
+    - All elements have the same frequency.
+    - Array has only one unique element.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Full Sort." Sorting the entire frequency map ($O(N \log N)$) just to get the top few elements. If $N=10M$ and $K=10$, this is incredibly wasteful.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Bucket Sort (or Heap)." Since frequency cannot exceed the array size $N$, we can use an array of lists (buckets) where index $i$ stores elements that appear $i$ times.
+!!! success "The Aha! Moment"
+    Use **Bucket Sort**. Since the frequency of any element is at most $N$, we can use the frequency as an index in an array of buckets. This avoids the $O(N \log N)$ cost of sorting frequencies.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Count frequencies using a hash map, then sort the unique elements by their frequency. This takes $O(N \log N)$.
 
-1. Count frequencies using a Hash Map ($O(N)$).
-2. Create a "Bucket" array where `bucket[i]` contains numbers that appeared `i` times.
-3. Iterate backwards from the max frequency.
-4. Collect elements until we have $K$ results.
+### 🐇 Optimal Approach
+1. Count the frequency of each element using a hash map.
+2. Create an array of lists (buckets), where the index `i` represents a frequency of `i`.
+3. Iterate through the hash map and place each element into the bucket corresponding to its frequency.
+4. Iterate through the buckets from $N$ down to $0$, collecting elements until we have $k$ elements.
 
-**The Twist (Failure):** **The Min-Heap Alternative.** Using a Min-Heap of size $K$ gives $O(N \log K)$. This is better if the range of frequencies is massive (sparse), but generally Bucket Sort is $O(N)$.
-
-**Interview Signal:** Mastery of **Bucket Sort** and analyzing input constraints.
-
-## 🚀 Approach & Intuition
-Count frequencies, then map frequency -> list of numbers.
-
-### C++ Pseudo-Code
-```cpp
-vector<int> topKFrequent(vector<int>& nums, int k) {
-    unordered_map<int, int> count;
-    for (int n : nums) count[n]++;
-    
-    vector<vector<int>> buckets(nums.size() + 1);
-    for (auto p : count) {
-        buckets[p.second].push_back(p.first);
-    }
-    
-    vector<int> res;
-    for (int i = buckets.size() - 1; i >= 0 && res.size() < k; i--) {
-        for (int n : buckets[i]) {
-            res.push_back(n);
-            if (res.size() == k) return res;
-        }
-    }
-    return res;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    Map["{1:3, 2:2, 3:1}"] --> Buckets
+    Buckets["[0:[], 1:[3], 2:[2], 3:[1]]"]
+    Buckets --> Result["Top 2: [1, 2]"]
 ```
 
-### Key Observations:
-
-- A Max-Heap can solve this in $O(N \log K)$, which is efficient for large $N$ and small $K$.
-- Bucket Sort can achieve $O(N)$ time complexity by using the frequency as an index.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$ (Bucket Sort) or $O(N \log K)$ (Heap)
-    - **Space Complexity:** $O(N)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — We iterate through the array to count, then through the map to bucket, and finally through the buckets. All steps are linear.
+- **Space Complexity:** $\mathcal{O}(N)$ — To store the frequency map and the buckets.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you achieve $O(N)$ time complexity on average using QuickSelect (Hoare's Selection Algorithm)?
-- **Scale Question:** How would you handle this in a real-time system where you need the top $K$ most frequent items in the last hour (Sliding Window)?
-- **Edge Case Probe:** What if multiple elements have the same frequency? Does the order of the top $K$ matter?
+## 🎤 Interview Toolkit
+
+- **Heap vs Bucket Sort:** A Min-Heap takes $O(N \log K)$. Bucket Sort is $O(N)$. Bucket sort is usually faster unless the range of frequencies is very sparse.
+- **QuickSelect:** You can also use QuickSelect to find the $k$-th most frequent element in $O(N)$ average time.
 
 ## 🔗 Related Problems
-
-- [Product of Array Except Self](../product_of_array_except_self/PROBLEM.md) — Next in category
-- [Group Anagrams](../group_anagrams/PROBLEM.md) — Previous in category
-- [Valid Palindrome](../../02_two_pointers/valid_palindrome/PROBLEM.md) — Prerequisite for Two Pointers
-- [Valid Parentheses](../../04_stack/valid_parentheses/PROBLEM.md) — Prerequisite for Stack
+- [Group Anagrams](../group_anagrams/PROBLEM.md)
+- [Sort Characters By Frequency](https://leetcode.com/problems/sort-characters-by-frequency/)

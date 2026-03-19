@@ -138,7 +138,7 @@ Analyze the design for breaking points.
 ## 📋 Pre-Interview Checklist
 
 - [ ] Review the [Learning Path & Roadmap](./index.md) for architectural pillars.
-- [ ] Skim the [Engineering Mastery Dashboard](./engineering_metrics.md) for low-confidence topics.
+- [ ] Skim the [Engineering Mastery Dashboard](./dashboard/engineering_metrics.md) for low-confidence topics.
 - [ ] Re-solve 2-3 problems from the [Mastery Progress Tracker](./todo.md).
 - [ ] Review the relevant INSIGHTS file for the specific interview type.
 - [ ] Prepare 3 STAR-method stories for behavioral alignment.

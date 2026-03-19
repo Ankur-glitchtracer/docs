@@ -1,84 +1,73 @@
-#  ⭐ Greedy: Valid Parenthesis String
+---
+impact: "High"
+nr: false
+confidence: 4
+---
+# 🧩 Greedy: Valid Parenthesis String
 
-## 📝 Description
-[LeetCode 678](https://leetcode.com/problems/valid-parenthesis-string/)
-Given a string `s` containing only three types of characters: '(', ')' and '*', return `true` if `s` is valid. The '*' can be treated as a single right parenthesis ')', a single left parenthesis '(', or an empty string "".
+## 📝 Problem Description
+Given a string `s` containing only three types of characters: '(', ')', and '*', write a function to check whether this string is valid. We define valid as:
+1. Any left parenthesis '(' must have a corresponding right parenthesis ')'.
+2. Left parenthesis '(' must go before the corresponding right parenthesis ')'.
+3. '*' could be treated as a single right parenthesis ')' or a single left parenthesis '(' or an empty string "".
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Used in template engine parsing, code analysis tools, or DSL (Domain Specific Language) parsers where certain tokens can act as wildcards.
 
-- $1 \le nums.length \le 10^5$
-- Values represent jumps, costs, or intervals.
+## 🛠️ Constraints & Edge Cases
+- $0 \le s.length \le 100$
+- **Edge Cases to Watch:** 
+    - Empty string is valid.
+    - `*` at the beginning or end.
+    - Sequence of `***` with mismatched `()` elsewhere.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Backtracking Star." Treating `*` as `(`, `)`, or `` creates $3^N$ branches.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Range Tracker." Instead of a single balance count, track the *possible range* of open parentheses `(To be detailed...)`.
+!!! success "The Aha! Moment"
+    Instead of counting a single number for open parentheses, track a *range* of possible open parentheses: `[min_open, max_open]`. `*` expands the possible range, and closing parentheses contract it. If `max_open` drops below 0, it's invalid. If we finish and `min_open` is 0, it's valid.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Trying every possible interpretation of `*` (as `(`, `)`, or `""`) is $\mathcal{O}(3^N)$, which is prohibitive.
 
-1. `lo = 0, hi = 0`.
-2. Iterate `c` in string:
-   - `(` : `lo++`, `hi++`.
-   - `)` : `lo--`, `hi--`.
-   - `*` : `lo--` (treat as `)`), `hi++` (treat as `(`).
-3. **Logic Check:**
-   - If `hi < 0`: Too many closing parens. Impossible. Return False.
-   - If `lo < 0`: `lo = 0`. (We can't have negative open parens, treat `*` as empty instead of `)`).
-4. Return `lo == 0` (Can we satisfy the requirement of 0 open parens?).
+### 🐇 Optimal Approach
+1. Initialize `min_open = 0, max_open = 0`.
+2. For each character:
+    - If `(`: increment both.
+    - If `)`: decrement both.
+    - If `*`: `min_open` decreases (it could be `)`), `max_open` increases (it could be `(`).
+3. Ensure `max_open` never drops below 0.
+4. Ensure `min_open` stays at least 0.
 
-**The Twist (Failure):** **Stack Approach.** You can use two stacks (indices of `(` and `*`), but the greedy range is $O(1)$ space.
-
-**Interview Signal:** **Range Tracking** state.
-
-## 🚀 Approach & Intuition
-Track min and max possible open parentheses.
-
-### C++ Pseudo-Code
-```cpp
-bool checkValidString(string s) {
-    int lo = 0, hi = 0;
-    for (char c : s) {
-        if (c == '(') {
-            lo++; hi++;
-        } else if (c == ')') {
-            lo--; hi--;
-        } else {
-            lo--; hi++;
-        }
-        if (hi < 0) return false;
-        if (lo < 0) lo = 0;
-    }
-    return lo == 0;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    C[Character] -- '(' --> U1[min++, max++]
+    C -- ')' --> U2[min--, max--]
+    C -- '*' --> U3[min--, max++]
+    U1 & U2 & U3 --> Check{max < 0?}
 ```
 
-### Key Observations:
-
-- Greedy algorithms make the locally optimal choice at each step with the hope of finding a global optimum.
-- The key is to prove that the greedy choice property and optimal substructure hold for the given problem.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — One pass through the string.
+- **Space Complexity:** $\mathcal{O}(1)$ — Only two integer counters used.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** What if the input is sorted or has a limited range? Can you optimize space from $O(N)$ to $O(1)$?
-- **Scale Question:** If the dataset is too large to fit in RAM, how would you use external sorting or a distributed hash table?
-- **Edge Case Probe:** How does your solution handle duplicates, empty inputs, or extremely large integers?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** What if you had to return the *number* of ways to make it valid? (Would require Dynamic Programming).
+- **Alternative Data Structures:** Two stacks can also be used, but are $\mathcal{O}(N)$ space.
 
 ## 🔗 Related Problems
-
-- [Partition Labels](../partition_labels/PROBLEM.md) — Previous in category
-- [Kth Largest in Stream](../../09_heap_priority_queue/kth_largest_element_in_a_stream/PROBLEM.md) — Prerequisite: Heap / Priority Queue
+- [Valid Parentheses](../../04_stack/valid_parentheses/PROBLEM.md)
+- [Generate Parentheses](../../04_stack/generate_parentheses/PROBLEM.md)

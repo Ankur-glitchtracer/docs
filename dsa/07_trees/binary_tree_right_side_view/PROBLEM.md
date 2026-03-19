@@ -1,86 +1,66 @@
-#  🌲 Tree: Binary Tree Right Side View
+---
+impact: "Medium"
+nr: false
+confidence: 2
+---
+# 🌲 Tree: Binary Tree Right Side View
 
 ## 📝 Description
 [LeetCode 199](https://leetcode.com/problems/binary-tree-right-side-view/)
 Given the `root` of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This mimics **Occlusion Culling** in Computer Graphics (rendering a scene from a specific camera angle) or finding the "boundary" of a hierarchical structure.
 
+## 🛠️ Constraints & Edge Cases
 - Number of nodes is between 0 and $10^4$.
-- $-1000 \le Node.val \le 1000$
+- **Edge Cases to Watch:**
+    - Left branch is deeper/longer than right branch (must see left nodes).
+    - Empty tree.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Blocked View." You can't just take all right children (`curr.right`). A left child might be visible if the right branch ends early.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Level Order Snapshot." Perform BFS (Level Order). The last element added to the queue at each level is the rightmost node.
+!!! success "The Aha! Moment"
+    The "right side view" is simply the **last node visited in each level** during a Level Order Traversal (BFS). Alternatively, in DFS (Root -> Right -> Left), it's the first node visited at each depth.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+BFS and store all levels, then pick the last element. Space inefficient ($O(N)$ storage for result of all levels).
 
-1. Initialize queue with root.
-2. While queue is not empty:
-   - Determine `level_size`.
-   - Iterate `i` from 0 to `level_size`.
-   - Pop node. Add children.
-   - If `i == level_size - 1`, this is the rightmost node. Add to result.
+### 🐇 Optimal Approach (BFS)
+1.  Standard BFS with Queue.
+2.  At each level iteration, identify the last node (`i == len(q) - 1`).
+3.  Add it to result.
 
-**The Twist (Failure):** **The DFS Alternative.** You can also use DFS (Root -> Right -> Left). If `result.size() == depth`, add the node. This captures the first node visited at each depth (which is the rightmost).
-
-**Interview Signal:** Mastery of **BFS Variations**.
-
-## 🚀 Approach & Intuition
-Capture the last element of each level.
-
-### C++ Pseudo-Code
-```cpp
-vector<int> rightSideView(TreeNode* root) {
-    if (!root) return {};
-    vector<int> res;
-    queue<TreeNode*> q;
-    q.push(root);
-    
-    while (!q.empty()) {
-        int n = q.size();
-        for (int i = 0; i < n; i++) {
-            TreeNode* node = q.front(); q.pop();
-            if (i == n - 1) res.push_back(node->val);
-            
-            if (node->left) q.push(node->left);
-            if (node->right) q.push(node->right);
-        }
-    }
-    return res;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    A[1] --> B[2]
+    A --> C[3]
+    B --> D[5]
+    C --> E[4]
+    Res[View: 1, 3, 4]
 ```
 
-### Key Observations:
-
-- Most tree problems can be solved using either DFS (recursion) or BFS (queue).
-- In-order traversal of a Binary Search Tree (BST) yields elements in sorted order.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(D)$ (Diameter/Width of tree)
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — BFS visits all nodes.
+- **Space Complexity:** $\mathcal{O}(D)$ — Diameter of tree (max width).
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you solve this iteratively if you were worried about stack overflow from deep recursion?
-- **Scale Question:** If the tree is a multi-terabyte B-Tree in a database, how do you optimize node traversal to minimize disk hits?
-- **Edge Case Probe:** What if the tree is extremely skewed (effectively a linked list)? What if it's empty?
+## 🎤 Interview Toolkit
+
+- **Alternative:** DFS (Pre-order Root->Right->Left). Pass `level`. If `level == len(res)`, add node.
 
 ## 🔗 Related Problems
-
 - [Count Good Nodes](../count_good_nodes_in_binary_tree/PROBLEM.md) — Next in category
-- [Level Order Traversal](../binary_tree_level_order_traversal/PROBLEM.md) — Previous in category
-- [Implement Trie](../../08_tries/implement_trie/PROBLEM.md) — Prerequisite for Tries
-- [Kth Largest in Stream](../../09_heap_priority_queue/kth_largest_element_in_a_stream/PROBLEM.md) — Prerequisite for Heap / Priority Queue
+- [Binary Tree Level Order Traversal](../binary_tree_level_order_traversal/PROBLEM.md) — Previous in category

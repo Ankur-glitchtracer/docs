@@ -1,80 +1,69 @@
-#  🎯 DP: Target Sum
+---
+impact: "Medium"
+nr: false
+confidence: 4
+---
+# 🎯 2D DP (Reduced): Target Sum
 
-## 📝 Description
-[LeetCode 494](https://leetcode.com/problems/target-sum/)
-You are given an integer array `nums` and an integer `target`. You want to build an expression out of nums by adding one of the symbols '+' and '-' before each integer in nums and then concatenate all the integers. Return the number of different expressions that you can build, which evaluates to `target`.
+## 📝 Problem Description
+Given an array `nums` and a `target`, add '+' or '-' before each element to make the total sum equal to `target`. Return the number of different ways.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This variation of the subset sum problem is used in resource allocation, balancing portfolios under constraints, and signal processing.
 
-- $M, N \le 1000$
-- Time complexity is typically $O(M \cdot N)$.
+## 🛠️ Constraints & Edge Cases
+- $1 \le |nums| \le 20$
+- $0 \le nums[i] \le 1000$
+- **Edge Cases to Watch:** Empty array, target sum impossible to reach, presence of zeros.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Sign Flipper." You have to assign `+` or `-` to every number. $2^N$ combinations.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Subset Sum Transformation."
+!!! success "The Aha! Moment"
+    This is a subset sum problem in disguise! If $P$ is the set of positive numbers and $N$ the set of negative:
+    Sum(P) - Sum(N) = Target
+    Sum(P) + Sum(N) = TotalSum
+    Adding equations: 2 * Sum(P) = Target + TotalSum
+    So, Sum(P) = (Target + TotalSum) / 2. We just need to find the number of ways to pick numbers to sum to `(Target + TotalSum) / 2`.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Generating all possible combinations with signs is $O(2^N)$, which for $N=20$ is $\sim 10^6$ (manageable but slow) and gets worse as $N$ increases.
 
-1. Check if `(Target + TotalSum)` is even and non-negative. If not, return 0.
-2. Find the number of subsets that sum to `(Target + TotalSum) / 2`.
-3. This is exactly **0/1 Knapsack (Count Ways)**.
+### 🐇 Optimal Approach
+Use DP to count subsets summing to `(Target + TotalSum) / 2`.
+1. Check if `(Target + TotalSum)` is even and non-negative.
+2. Initialize `dp[subset_target + 1]` with `dp[0] = 1`.
+3. For each number, iterate backwards (Knapsack style) and update `dp[j] += dp[j - num]`.
 
-**The Twist (Failure):** **The Zero.** If the array contains 0s, standard subset sum might undercount if not handled carefully (0 can be +0 or -0, effectively doubling ways for each zero). DP handles this naturally if iterated correctly.
-
-**Interview Signal:** **Math Reduction** to simplify search space.
-
-## 🚀 Approach & Intuition
-Find subset with sum `(total + target) / 2`.
-
-### C++ Pseudo-Code
-```cpp
-int findTargetSumWays(vector<int>& nums, int target) {
-    long total = accumulate(nums.begin(), nums.end(), 0);
-    if ((total + target) % 2 != 0 || abs(target) > total) return 0;
-    
-    int newTarget = (total + target) / 2;
-    vector<int> dp(newTarget + 1, 0);
-    dp[0] = 1;
-    
-    for (int n : nums) {
-        for (int i = newTarget; i >= n; i--) {
-            dp[i] += dp[i - n];
-        }
-    }
-    return dp[newTarget];
-}
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    A[Total Sum] --> B[Target]
+    A --> C[Subset Sum Calculation]
+    C --> D[DP Table Update]
+    style D fill:#ddf,stroke:#333
 ```
 
-### Key Observations:
-
-- 2D DP is common for string comparison (LCS, Edit Distance) or matrix-based pathfinding.
-- Space can often be optimized from $O(M \cdot N)$ to $O(N)$ by only keeping the previous row or column.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N \cdot \text{Sum})$
-    - **Space Complexity:** $O(\text{Sum})$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N \cdot \text{Sum})$ — Where $N$ is count and $Sum$ is subset sum value.
+- **Space Complexity:** $\mathcal{O}(\text{Sum})$ — Optimized to 1D array.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you optimize the space complexity from $O(N^2)$ to $O(N)$? Can you solve it using a top-down vs bottom-up approach?
-- **Scale Question:** If the DP table is too large for memory, can you use 'Check-pointing' or a sliding window of rows to save space?
-- **Edge Case Probe:** What are the base cases for empty or single-element inputs? How do you handle negative values if they aren't expected?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** What if you need to return the expressions themselves? (Use backtracking).
+- **Alternative:** Is this the same as 0/1 Knapsack? Yes, it's a variation of "count ways to fill knapsack".
 
 ## 🔗 Related Problems
-
-- [Interleaving String](../interleaving_string/PROBLEM.md) — Next in category
-- [Coin Change II](../coin_change_ii/PROBLEM.md) — Previous in category
-- [Number of Islands](../../11_graphs/number_of_islands/PROBLEM.md) — Prerequisite: Graphs
-- [Climbing Stairs](../../13_1d_dynamic_programming/climbing_stairs/PROBLEM.md) — Prerequisite: 1-D Dynamic Programming
+- `Coin Change II` — Similar counting subsets problem.
+- `Partition Equal Subset Sum` — Same reduction logic.

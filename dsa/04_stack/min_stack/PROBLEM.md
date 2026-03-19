@@ -1,82 +1,73 @@
-#  🔽 Stack: Min Stack
+---
+impact: "Medium"
+nr: false
+confidence: 2
+---
+# 🔽 Stack: Min Stack
 
 ## 📝 Description
 [LeetCode 155](https://leetcode.com/problems/min-stack/)
 Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Useful in systems where you need to track state history with snapshot capabilities, such as **Undo/Redo** features in text editors where you might want to know the "min" or "max" property of the state at any point in history without scanning.
 
-- $1 \le s.length \le 10^5$
-- Constraints vary depending on the specific stack application.
+## 🛠️ Constraints & Edge Cases
+- $-2^{31} \le \text{val} \le 2^{31} - 1$
+- Methods `pop`, `top`, and `getMin` operations will always be called on non-empty stacks.
+- **Edge Cases to Watch:**
+    - Duplicate minimum values (need to ensure popping one doesn't lose the record of the other).
+    - Empty stack operations (though constraints say otherwise, good to clarify).
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Linear Scan." Finding the minimum element in a standard stack takes $O(N)$ because you have to pop everything off to check.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Parallel Stack." Keep a secondary stack that tracks the "minimum so far" at every level of the main stack.
+!!! success "The Aha! Moment"
+    A single variable `min_val` isn't enough because when we pop the minimum, we forget what the *previous* minimum was. We need to store the history of minimums. We can use a **second stack** that stays in sync with the main stack.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Use a standard list. `getMin()` iterates the list to find the minimum.
+- **Time Complexity:** $O(N)$ for `getMin()`.
 
-1. Push to `main_stack` normally.
-2. For `min_stack`, push `min(val, min_stack.top())`.
-3. When popping, pop from both.
-4. `getMin()` simply returns `min_stack.top()`.
+### 🐇 Optimal Approach
+1.  **Main Stack:** Stores all values normally.
+2.  **Min Stack:** Stores the minimum value seen *so far*.
+3.  **Push(val):**
+    - Push to `Main`.
+    - Push `min(val, MinStack.top)` to `MinStack` (or only push if `val <= MinStack.top`).
+4.  **Pop():**
+    - Pop `Main`.
+    - If popped value matches `MinStack.top`, Pop `MinStack`.
 
-**The Twist (Failure):** **The Empty Check.** Trying to access `min_stack.top()` on the very first push when it's empty. Initialize with infinity or handle the base case.
-
-**Interview Signal:** Mastery of **State Tracking** alongside data structure operations.
-
-## 🚀 Approach & Intuition
-Use a second stack to keep track of the minimum value at each depth.
-
-### C++ Pseudo-Code
-```cpp
-class MinStack {
-    stack<int> s;
-    stack<int> minS;
-public:
-    void push(int val) {
-        s.push(val);
-        if (minS.empty() || val <= minS.top()) minS.push(val);
-    }
-    
-    void pop() {
-        if (s.top() == minS.top()) minS.pop();
-        s.pop();
-    }
-    
-    int top() { return s.top(); }
-    int getMin() { return minS.top(); }
-};
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    A[Push -2] -->|Main: [-2], Min: [-2]| B
+    B[Push 0] -->|Main: [-2, 0], Min: [-2]| C
+    C[Push -3] -->|Main: [-2, 0, -3], Min: [-2, -3]| D
+    D[Pop] -->|Main: [-2, 0], Min: [-2]| E
 ```
 
-### Key Observations:
-
-- Stacks are essential for problems involving nested structures, like parentheses or expression evaluation.
-- Monotonic stacks are a powerful variation used to find the next greater or smaller element in $O(N)$ time.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(1)$ for all operations.
-    - **Space Complexity:** $O(N)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(1)$ — All operations are constant time.
+- **Space Complexity:** $\mathcal{O}(N)$ — We store an auxiliary stack.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you implement a 'Max Stack'? Can you implement a stack where `popMin()` runs in $O(\log N)$ or $O(1)$?
-- **Scale Question:** If the stack grows to millions of elements, how would you persist it to disk while keeping the $O(1)$ property for `getMin()`?
-- **Edge Case Probe:** What should the behavior be when calling `getMin()` or `top()` on an empty stack?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Implement `MaxStack`. Implement `MinStack` with $O(1)$ extra space (using encoded values: `val = 2*x - min`).
+- **Optimization:** Only push to `MinStack` if the new value is $\le$ current min to save space on average.
 
 ## 🔗 Related Problems
-
 - [Evaluate RPN](../evaluate_reverse_polish_notation/PROBLEM.md) — Next in category
-- [Valid Parentheses](../valid_parentheses/PROBLEM.md) — Previous in category
-- [Contains Duplicate](../../01_arrays_hashing/contains_duplicate/PROBLEM.md) — Prerequisite: Arrays & Hashing
+- [Sliding Window Maximum](../../03_sliding_window/sliding_window_maximum/PROBLEM.md) — Related concept

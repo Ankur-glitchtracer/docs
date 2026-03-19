@@ -1,88 +1,68 @@
-#  🌲 Tree: Construct Binary Tree from Preorder and Inorder Traversal
+---
+impact: "Medium"
+nr: false
+confidence: 4
+---
+# 🌲 Tree: Construct Binary Tree from Preorder and Inorder Traversal
 
-## 📝 Description
-[LeetCode 105](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
+## 📝 Problem Description
 Given two integer arrays `preorder` and `inorder` where `preorder` is the preorder traversal of a binary tree and `inorder` is the inorder traversal of the same tree, construct and return the binary tree.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This problem is essential in understanding data serialization and deserialization. In systems where tree structures need to be stored in databases or transmitted over networks (e.g., UI component hierarchies, syntax trees in compilers), reconstructive algorithms like this are foundational.
 
-- Number of nodes is between 0 and $10^4$.
-- $-1000 \le Node.val \le 1000$
+## 🛠️ Constraints & Edge Cases
+- $0 \le \text{node.val} \le 10^4$
+- The number of nodes is up to $10^4$.
+- **Edge Cases to Watch:**
+    - Empty trees (null arrays).
+    - Single-node trees.
+    - Extremely skewed trees (linear structure).
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Ambiguous List." A single traversal isn't enough to reconstruct a tree. You need two perspectives.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Root Finder."
+!!! success "The Aha! Moment"
+    The first element in `preorder` is always the root. Using this root, we can split the `inorder` array into two halves: left and right subtrees. A hash map allows us to find the root's position in `inorder` in $\mathcal{O}(1)$ time.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Searching for the root in the `inorder` array takes $\mathcal{O}(N)$ for each node, leading to a total time complexity of $\mathcal{O}(N^2)$.
 
-1. Take `preorder[0]`. This is the `root`.
-2. Find `root` inside `inorder` array (index `mid`).
-3. Elements `inorder[0...mid]` are the Left Subtree.
-4. Elements `inorder[mid+1...]` are the Right Subtree.
-5. Recursively build left and right children using the corresponding segments of `preorder`.
+### 🐇 Optimal Approach
+1. Pre-process the `inorder` array into a Hash Map to store `value -> index` mappings.
+2. Use a recursive helper function that takes the current range of the `inorder` array.
+3. The root for the current subtree is always the next available element from the `preorder` array.
+4. Recursively build the left child using elements before the root's index in `inorder`.
+5. Recursively build the right child using elements after the root's index.
 
-**The Twist (Failure):** **Linear Search.** Searching for `root` in `inorder` takes $O(N)$. Total $O(N^2)$. Use a Hash Map to index `inorder` for $O(1)$ lookup -> Total $O(N)$.
-
-**Interview Signal:** Converting **Linear Data to Hierarchical Structures**.
-
-## 🚀 Approach & Intuition
-Use Preorder for root, Inorder for boundaries.
-
-### C++ Pseudo-Code
-```cpp
-class Solution {
-    unordered_map<int, int> inMap;
-    int preIdx = 0;
-public:
-    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        for (int i = 0; i < inorder.size(); i++) inMap[inorder[i]] = i;
-        return build(preorder, 0, inorder.size() - 1);
-    }
-    
-    TreeNode* build(vector<int>& preorder, int inStart, int inEnd) {
-        if (inStart > inEnd) return nullptr;
-        
-        int rootVal = preorder[preIdx++];
-        TreeNode* root = new TreeNode(rootVal);
-        int mid = inMap[rootVal];
-        
-        root->left = build(preorder, inStart, mid - 1);
-        root->right = build(preorder, mid + 1, inEnd);
-        return root;
-    }
-};
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    Pre[Preorder: root, left, right] --> Root(Root)
+    Root --> L[Left Subtree]
+    Root --> R[Right Subtree]
 ```
 
-### Key Observations:
-
-- Most tree problems can be solved using either DFS (recursion) or BFS (queue).
-- In-order traversal of a Binary Search Tree (BST) yields elements in sorted order.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(N)$ (Hash Map)
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — We visit each node exactly once and map lookups are $\mathcal{O}(1)$.
+- **Space Complexity:** $\mathcal{O}(N)$ — Hash map stores $N$ elements, plus $\mathcal{O}(H)$ for the recursion stack (where $H$ is the tree height).
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you solve this iteratively if you were worried about stack overflow from deep recursion?
-- **Scale Question:** If the tree is a multi-terabyte B-Tree in a database, how do you optimize node traversal to minimize disk hits?
-- **Edge Case Probe:** What if the tree is extremely skewed (effectively a linked list)? What if it's empty?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Solve it iteratively if stack depth is a concern.
+- **Alternative:** What if we had Postorder and Inorder instead? (Similar logic: last element of Postorder is the root).
 
 ## 🔗 Related Problems
-
-- [Max Path Sum](../binary_tree_maximum_path_sum/PROBLEM.md) — Next in category
-- [Kth Smallest in BST](../kth_smallest_element_in_bst/PROBLEM.md) — Previous in category
-- [Implement Trie](../../08_tries/implement_trie/PROBLEM.md) — Prerequisite for Tries
-- [Kth Largest in Stream](../../09_heap_priority_queue/kth_largest_element_in_a_stream/PROBLEM.md) — Prerequisite for Heap / Priority Queue
+- [Kth Smallest in BST](../kth_smallest_element_in_bst/PROBLEM.md)
+- [Max Path Sum](../binary_tree_maximum_path_sum/PROBLEM.md)

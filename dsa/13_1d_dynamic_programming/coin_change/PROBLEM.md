@@ -1,63 +1,76 @@
-#  💰 DP: Coin Change
+---
+impact: "Medium"
+nr: false
+confidence: 4
+---
+# 💰 Dynamic Programming: Coin Change
 
-## 📝 Description
-[LeetCode 322](https://leetcode.com/problems/coin-change/)
-You are given an integer array `coins` and an integer `amount`. Return the fewest number of coins that you need to make up that amount.
+## 📝 Problem Description
+You are given an integer array `coins` representing coins of different denominations and an integer `amount` representing a total amount of money. Return the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return `-1`.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This is a variation of the Unbounded Knapsack problem, widely used in financial systems, currency exchange, and resource allocation where you need to reach a target with minimal units.
 
-- $1 \le n \le 1000$ (Problem size)
-- Values fit within a 64-bit integer.
+## 🛠️ Constraints & Edge Cases
+- $1 \le \text{coins.length} \le 12$
+- $1 \le \text{coins[i]} \le 2^{31}-1$
+- $0 \le \text{amount} \le 10^4$
+- **Edge Cases to Watch:** 
+    - `amount` is 0 (Return 0)
+    - No possible combination (Return -1)
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Greedy Failure." Thinking you can always pick the largest coin first (e.g., if coins are [1, 3, 4] and target is 6, Greedy picks 4+1+1=3 coins, but the Hero knows 3+3=2 coins is better).
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Min-Cost Tabulator." Building a table of the minimum coins needed for every amount from 0 to `amount`.
+!!! success "The Aha! Moment"
+    Don't use a greedy approach (e.g., picking the largest coin first). Instead, realize that for any amount `A`, the optimal answer is `1 + min(dp[A - coin])` for all `coin` in `coins`.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Using recursion, we try every possible combination of coins. This leads to an exponential number of paths, resulting in $\mathcal{O}(S^n)$ where $S$ is the amount and $n$ is the number of coin types.
 
-1. Initialize `dp` array of size `amount + 1` with `infinity`, and `dp[0] = 0`.
-2. For every amount `i` from 1 to `amount`:
-   - For every coin `c`:
-     - If `i - c >= 0`, then `dp[i] = min(dp[i], 1 + dp[i-c])`.
+### 🐇 Optimal Approach (Tabulation)
+We use a bottom-up DP table where `dp[i]` represents the minimum coins for amount `i`.
+1. Initialize `dp` of size `amount + 1` with `infinity`, and `dp[0] = 0`.
+2. Iterate `a` from 1 to `amount`:
+    - For each `c` in `coins`: if `a - c >= 0`, `dp[a] = min(dp[a], 1 + dp[a - c])`.
 3. If `dp[amount]` is still `infinity`, return -1.
 
-**The Twist (Failure):** **The Default Value.** Using `0` as a default instead of `infinity` makes every `min()` call return 0, breaking the logic.
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    subgraph DP_Table
+    A0[0: 0]
+    A1[1: inf]
+    A2[2: inf]
+    A3[3: inf]
+    end
+    A0 -- +1 --> A1
+    A0 -- +2 --> A2
+    A0 -- +3 --> A3
+    A1 -- +1 --> A2
+    A2 -- +1 --> A3
+```
 
-**Interview Signal:** Mastery of **Unbounded Knapsack** and identifying why Greedy fails.
-
-## 🚀 Approach & Intuition
-(To be detailed...)
-
-### Key Observations:
-
-- Break down the problem into smaller sub-problems and store their results to avoid redundant calculations.
-- Determine the base cases and the recurrence relation; bottom-up (tabulation) is often more space-efficient.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N 	imes 	ext{amount})$
-    - **Space Complexity:** $O(	ext{amount})$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(\text{amount} \times \text{coins.length})$ — We compute values for each amount up to `amount` and iterate through all coins for each.
+- **Space Complexity:** $\mathcal{O}(\text{amount})$ — We store the minimum coins needed for each amount from 0 to `amount`.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you optimize the space complexity from $O(N^2)$ to $O(N)$? Can you solve it using a top-down vs bottom-up approach?
-- **Scale Question:** If the DP table is too large for memory, can you use 'Check-pointing' or a sliding window of rows to save space?
-- **Edge Case Probe:** What are the base cases for empty or single-element inputs? How do you handle negative values if they aren't expected?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Can you return *all* combinations of coins that form the amount?
+- **Optimization:** If coins were infinite, could this be solved with BFS?
 
 ## 🔗 Related Problems
-
-- [Max Product Subarray](../maximum_product_subarray/PROBLEM.md) — Next in category
-- [Decode Ways](../decode_ways/PROBLEM.md) — Previous in category
-- [Unique Paths](../../14_2d_dynamic_programming/unique_paths/PROBLEM.md) — Prerequisite for 2-D Dynamic Programming
-- [Single Number](../../18_bit_manipulation/single_number/PROBLEM.md) — Prerequisite for Bit Manipulation
+<!-- - [Combination Sum IV](../../14_2d_dynamic_programming/combination_sum_iv/PROBLEM.md) -->
+<!-- - [Perfect Squares](../perfect_squares/PROBLEM.md) -->

@@ -1,84 +1,66 @@
-#  🪞 DP: Palindromic Substrings
+---
+impact: "Medium"
+nr: false
+confidence: 4
+---
+# 🪞 DP: Palindromic Substrings
 
-## 📝 Description
-[LeetCode 647](https://leetcode.com/problems/palindromic-substrings/)
-Given a string `s`, return the number of palindromic substrings in it. A string is a palindrome when it reads the same backward as forward. A substring is a contiguous sequence of characters within the string.
+## 📝 Problem Description
+Given a string `s`, return the number of palindromic substrings in it. A string is a palindrome if it reads the same forward and backward. A substring is a contiguous sequence of characters.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Used in bioinformatics (identifying palindromic sequences in DNA), data compression, and text searching algorithms where structure detection is critical.
 
-- $1 \le n \le 1000$ (Problem size)
-- Values fit within a 64-bit integer.
+## 🛠️ Constraints & Edge Cases
+- $1 \le \text{s.length} \le 1000$
+- `s` consists of lowercase English letters.
+- **Edge Cases:** Single character string (count 1), string with all same characters (e.g., "aaa").
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Count." Similar to Longest Palindromic Substring, but now we count *all* of them. "aaa" has "a", "a", "a", "aa", "aa", "aaa" (6 total).
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Accumulating Expander." Same expand strategy. Every time you successfully expand (`s[l] == s[r]`), that's a valid palindrome. Increment count.
+!!! success "The Aha! Moment"
+    A palindrome is symmetric around its center. There are $2N-1$ possible centers (each character and the spaces between characters). Expanding from these centers allows us to count all palindromes efficiently.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Generate all possible substrings ($\mathcal{O}(N^2)$) and check if each is a palindrome ($\mathcal{O}(N)$). Total time: $\mathcal{O}(N^3)$, leading to TLE.
 
-1. Initialize `count = 0`.
-2. Iterate `i` from 0 to `n`.
-3. Expand Odd: `l=i, r=i`. While valid: `count++`, expand.
-4. Expand Even: `l=i, r=i+1`. While valid: `count++`, expand.
+### 🐇 Optimal Approach
+Use the **Expand Around Center** strategy:
+1. Iterate through each index `i` from $0$ to $n-1$.
+2. Expand around center `i` for odd-length palindromes (left pointer `i`, right pointer `i`).
+3. Expand around centers `i` and `i+1` for even-length palindromes.
+4. Each successful expansion (while `left >= 0`, `right < n`, and `s[left] == s[right]`) corresponds to a unique palindromic substring.
 
-**The Twist (Failure):** **Double Counting.** Actually, expanding *is* the correct way to avoid double counting because every palindrome has a unique center.
-
-**Interview Signal:** Reusing **Center Expansion** pattern.
-
-## 🚀 Approach & Intuition
-Count valid expansions.
-
-### C++ Pseudo-Code
-```cpp
-int countSubstrings(string s) {
-    int count = 0;
-    for (int i = 0; i < s.length(); i++) {
-        // Odd
-        int l = i, r = i;
-        while (l >= 0 && r < s.length() && s[l] == s[r]) {
-            count++;
-            l--; r++;
-        }
-        // Even
-        l = i; r = i + 1;
-        while (l >= 0 && r < s.length() && s[l] == s[r]) {
-            count++;
-            l--; r++;
-        }
-    }
-    return count;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    C[Center] --> L[Left]
+    C --> R[Right]
+    L -- expand --> L1[L-1]
+    R -- expand --> R1[R+1]
 ```
 
-### Key Observations:
-
-- Break down the problem into smaller sub-problems and store their results to avoid redundant calculations.
-- Determine the base cases and the recurrence relation; bottom-up (tabulation) is often more space-efficient.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N^2)$
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N^2)$ — We have $2N-1$ centers, and each expansion can take $\mathcal{O}(N)$ in the worst case (e.g., "aaaaa").
+- **Space Complexity:** $\mathcal{O}(1)$ — No extra space is used for the logic.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you optimize the space complexity from $O(N^2)$ to $O(N)$? Can you solve it using a top-down vs bottom-up approach?
-- **Scale Question:** If the DP table is too large for memory, can you use 'Check-pointing' or a sliding window of rows to save space?
-- **Edge Case Probe:** What are the base cases for empty or single-element inputs? How do you handle negative values if they aren't expected?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** If you need to return the longest palindromic substring, use the same expansion logic but store the start and end indices of the longest one found.
+- **Alternative Data Structures:** Manacher's Algorithm can solve this in $\mathcal{O}(N)$ time, but it is complex to implement and rarely required in interviews.
 
 ## 🔗 Related Problems
-
-- [Decode Ways](../decode_ways/PROBLEM.md) — Next in category
-- [Longest Palindromic Substring](../longest_palindromic_substring/PROBLEM.md) — Previous in category
-- [Unique Paths](../../14_2d_dynamic_programming/unique_paths/PROBLEM.md) — Prerequisite for 2-D Dynamic Programming
-- [Single Number](../../18_bit_manipulation/single_number/PROBLEM.md) — Prerequisite for Bit Manipulation
+- [Longest Palindromic Substring](../longest_palindromic_substring/PROBLEM.md) — Solved using the same center-expansion logic.
+- [Valid Palindrome](../../02_two_pointers/valid_palindrome/PROBLEM.md) — Base problem.

@@ -60,5 +60,5 @@ While LWW is extremely fast and simple, it is vulnerable to **NTP Clock Drift**.
 Explore low-level implementations of distributed consensus and conflict resolution:
 
 * [System Design: NoSQL Internals](./NOSQL_INTERNALS.md)
-* [System Design: Dynamo & Cassandra](./DYNAMO_AND_CASSANDRA.md)
-* [Machine Coding: Cache System](../../../machine_coding/systems/cache_system/PROBLEM.md)
+* [System Design: Dynamo & Cassandra](../architectures/distributed_storage/DYNAMO_AND_CASSANDRA.md)
+* [Machine Coding: Cache System](../../machine_coding/systems/cache_system/PROBLEM.md)

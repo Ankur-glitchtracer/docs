@@ -1,96 +1,87 @@
-#  🔄 Linked Lists: Reverse Nodes in k-Group
+---
+impact: "High"
+nr: false
+confidence: 4
+---
+# 🔄 Linked Lists: Reverse Nodes in k-Group
 
-## 📝 Description
+## 📝 Problem Description
 [LeetCode 25](https://leetcode.com/problems/reverse-nodes-in-k-group/)
+
 Given the `head` of a linked list, reverse the nodes of the list `k` at a time, and return the modified list. `k` is a positive integer and is less than or equal to the length of the linked list. If the number of nodes is not a multiple of `k` then left-out nodes, in the end, should remain as it is.
 
-## 🛠️ Requirements/Constraints
+You may not modify the values in the list's nodes. Only nodes themselves may be changed.
 
-- Number of nodes is between 0 and 5000.
-- $-1000 \le Node.val \le 1000$
+!!! info "Real-World Application"
+    This algorithm is essential in **Batch Processing systems** where data streams are processed in fixed-size chunks. For instance, in communication protocols or file storage systems, data might be reordered or transformed in groups of `k` bytes before transmission or encryption.
 
-## 🧠 The Engineering Story
+## 🛠️ Constraints & Edge Cases
+- The number of nodes in the list is $n$.
+- $1 \le k \le n \le 5000$.
+- $0 \le Node.val \le 1000$.
+- **Edge Cases to Watch:**
+    - $k = 1$: List remains the same.
+    - $n$ is a multiple of $k$: All nodes are reversed in groups.
+    - $n$ is not a multiple of $k$: The last group (less than $k$ nodes) is not reversed.
 
-**The Villain:** "The Partial Reversal." You need to reverse sub-segments of a list, but only if the segment has length `k`. If it's shorter (at the end), leave it alone.
+---
 
-**The Hero:** "The Look-Ahead & Reverse."
+## 🧠 Approach & Intuition
 
-**The Plot:**
+!!! success "The Aha! Moment"
+    The core challenge is maintaining the connections *between* groups after reversing the nodes *within* a group. Using a **Dummy Node** simplifies the head replacement, and a **Look-Ahead** check ensures we only reverse if at least `k` nodes are available.
 
-1. Iterate through the list to check if `k` nodes exist ahead.
-2. If yes:
-   - Identify the `groupStart` and `groupEnd`.
-   - Reverse the links within this group.
-   - Connect the previous group's tail to the new group's head.
-   - Move pointers to the next group.
-3. If no: Stop.
+### 🐢 Brute Force (Naive)
+Traverse the list and store nodes in groups of `k` in an array. Reverse the array for each group and relink all nodes.
+- **Time Complexity:** $O(N)$
+- **Space Complexity:** $O(k)$ or $O(N)$ depending on the implementation.
 
-**The Twist (Failure):** **The Connection Logic.** After reversing `A->B->C` to `C->B->A`, `A` is now the tail. You must connect `A` to the *next* group (or `D`).
+### 🐇 Optimal Approach
+1.  **Iterate and Count:** Use a pointer to check if there are at least `k` nodes ahead.
+2.  **Reverse In-Place:** Perform a standard linked list reversal on the current group of `k` nodes.
+3.  **Relink Groups:** Connect the tail of the previously processed group to the new head of the current reversed group, and connect the tail of the current group to the head of the next unprocessed group.
+4.  **Repeat:** Move to the next group of `k` nodes.
 
-**Interview Signal:** Mastery of **Complex Pointer Manipulation**.
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    subgraph "Before Reversal (k=2)"
+    D[Dummy] --> A[1] --> B[2] --> C[3] --> E[4]
+    end
 
-## 🚀 Approach & Intuition
-Check k-length, reverse, connect.
+    subgraph "Step 1: Reverse Group 1"
+    D1[Dummy] --> B1[2] --> A1[1] --> C1[3] --> E1[4]
+    style A1 fill:#f96,stroke:#333
+    style B1 fill:#f96,stroke:#333
+    end
 
-### C++ Pseudo-Code
-```cpp
-ListNode* reverseKGroup(ListNode* head, int k) {
-    ListNode* dummy = new ListNode(0, head);
-    ListNode* groupPrev = dummy;
-    
-    while (true) {
-        ListNode* kth = groupPrev;
-        // Check if k nodes exist
-        for (int i = 0; i < k && kth; i++) kth = kth->next;
-        if (!kth) break;
-        
-        ListNode* groupNext = kth->next;
-        
-        // Reverse group
-        ListNode* prev = groupNext, *curr = groupPrev->next;
-        while (curr != groupNext) {
-            ListNode* tmp = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr = tmp;
-        }
-        
-        // Connect
-        ListNode* tmp = groupPrev->next;
-        groupPrev->next = kth;
-        groupPrev = tmp;
-    }
-    return dummy->next;
-}
+    subgraph "Step 2: Reverse Group 2"
+    D2[Dummy] --> B2[2] --> A2[1] --> E2[4] --> C2[3]
+    style C2 fill:#9f6,stroke:#333
+    style E2 fill:#9f6,stroke:#333
+    end
 ```
 
-### Key Observations:
-
-- Always consider using a dummy head node to simplify edge cases like inserting at the head or deleting the only node.
-- Fast and slow pointers are a common pattern for finding the middle or detecting cycles.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — We visit each node at most twice (once to count and once to reverse).
+- **Space Complexity:** $\mathcal{O}(1)$ — We only use a few auxiliary pointers.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** What if the input is sorted or has a limited range? Can you optimize space from $O(N)$ to $O(1)$?
-- **Scale Question:** If the dataset is too large to fit in RAM, how would you use external sorting or a distributed hash table?
-- **Edge Case Probe:** How does your solution handle duplicates, empty inputs, or extremely large integers?
+## 🎤 Interview Toolkit
+
+- **Recursion vs. Iteration:** While recursion is often easier to write for this problem, it uses $O(N/k)$ stack space. Interviews frequently ask for the $O(1)$ iterative solution.
+- **Node Swap Pattern:** Mastering this problem proves you can handle complex pointer manipulation, which is a key signal for seniority in technical interviews.
 
 ## 🔗 Related Problems
-
-- [Merge K Sorted Lists](../merge_k_sorted_lists/PROBLEM.md) — Previous in category
-- [Invert Binary Tree](../../07_trees/invert_binary_tree/PROBLEM.md) — Prerequisite for Trees
-- [Valid Palindrome](../../02_two_pointers/valid_palindrome/PROBLEM.md) — Prerequisite: Two Pointers
+- [Reverse Linked List](../reverse_list/PROBLEM.md) — The fundamental primitive used here.
+- [Swap Nodes in Pairs](https://leetcode.com/problems/swap-nodes-in-pairs/) — A special case where $k=2$.
+- [Reorder List](../reorder_list/PROBLEM.md) — Another complex pointer manipulation problem.

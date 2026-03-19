@@ -1,90 +1,67 @@
-#  🗺️ Advanced Graph: Reconstruct Itinerary
+---
+impact: "Medium"
+nr: false
+confidence: 4
+---
+# 🗺️ Advanced Graph: Reconstruct Itinerary
 
-## 📝 Description
-[LeetCode 332](https://leetcode.com/problems/reconstruct-itinerary/)
-You are given a list of airline `tickets` where `tickets[i] = (To be detailed...)` represent the departure and the arrival airports of one flight. Reconstruct the itinerary in order and return it. The itinerary must begin with "JFK". If there are multiple valid itineraries, you should return the itinerary that has the smallest lexical order when read as a single string. You must use all the tickets once and only once.
+## 📝 Problem Description
+You are given a list of airline `tickets` where `tickets[i] = [from_i, to_i]` represent the departure and arrival airports of one flight. Reconstruct the itinerary in order and return it. All of the tickets belong to a man who departs from "JFK", thus the itinerary must begin with "JFK". If there are multiple valid itineraries, you should return the itinerary that has the smallest lexical order when read as a single string.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Finding a route that visits every edge in a graph exactly once is the definition of an **Eulerian Path**. This is useful in logistics, network routing, and circuit testing (e.g., ensuring a robotic arm visits all necessary connections).
 
-- $V \le 1000, E \le 10^4$
-- Edge weights are non-negative for Dijkstra.
+## 🛠️ Constraints & Edge Cases
+- $1 \le tickets.length \le 300$
+- $tickets[i].length == 2$
+- **Edge Cases:**
+    - Disconnected graph (all tickets are assumed to form a valid component starting at JFK).
+    - Circular itineraries.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Stuck Traveler." You need to use all plane tickets. Simply following the lexicographically smallest destination might get you stuck in a dead-end airport with tickets remaining elsewhere.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Hierholzer's Algorithm (Eulerian Path)." An Eulerian Path visits every edge exactly once.
+!!! success "The Aha! Moment"
+    This is an Eulerian Path problem. Since we must visit *every* ticket exactly once, Hierholzer's Algorithm (DFS variant) is the optimal approach. By sorting departures lexicographically and traversing the path, we ensure lexical minimality by always visiting the smallest next destination.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Recursive backtracking trying all possible paths will explore paths of length $N$, leading to $O(N!)$ in worst-case branching scenarios.
 
-1. Build adjacency list: `from -> min_heap(to)` (sorted for lexicographical order).
+### 🐇 Optimal Approach (Hierholzer's Algorithm)
+1. Store flight graph in an adjacency list with sorted destinations (descending order so we can `pop()` the smallest).
 2. Start DFS from "JFK".
-3. **DFS Logic:**
-   - While the current airport has destinations:
-     - Pop the smallest destination.
-     - Recurse into it.
-   - After visiting all neighbors (stuck), add current airport to `result`.
-4. The result is in reverse order. Reverse it to get the path.
+3. Traverse until a node has no outgoing edges, then add it to the result list.
+4. The itinerary will be the result list in reverse order.
 
-**The Twist (Failure):** **Adding to path early.** If you add to path *before* recursion, you get stuck. You must add to path *after* visiting all edges (Post-Order), guaranteeing dead-ends are at the end of the list (which becomes the "end" of our journey).
-
-**Interview Signal:** Mastery of **Eulerian Paths**.
-
-## 🚀 Approach & Intuition
-Visit edges until stuck, then add to path.
-
-### C++ Pseudo-Code
-```cpp
-class Solution {
-    unordered_map<string, priority_queue<string, vector<string>, greater<string>>> adj;
-    vector<string> res;
-public:
-    vector<string> findItinerary(vector<vector<string>>& tickets) {
-        for (auto& t : tickets) adj[t[0]].push(t[1]);
-        
-        dfs("JFK");
-        reverse(res.begin(), res.end());
-        return res;
-    }
-    
-    void dfs(string src) {
-        while (!adj[src].empty()) {
-            string dst = adj[src].top();
-            adj[src].pop();
-            dfs(dst);
-        }
-        res.push_back(src);
-    }
-};
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    JFK -- 1 --> A
+    JFK -- 2 --> B
+    A -- 3 --> JFK
+    style JFK stroke:#f66,stroke-width:2px
 ```
 
-### Key Observations:
-
-- Dijkstra's and Prim's algorithms use a Priority Queue to find the shortest path or MST in $O(E \log V)$ time.
-- Kruskal's algorithm uses Disjoint Set Union (DSU) to efficiently manage connected components and detect cycles.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(E \log E)$ (Sorting edges)
-    - **Space Complexity:** $O(E)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $O(E \log E)$, where $E$ is the number of tickets, due to sorting the adjacency lists.
+- **Space Complexity:** $O(V + E)$ to store the graph and the recursion stack.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you solve this using BFS for shortest paths or DFS for connectivity? When would you use Union-Find?
-- **Scale Question:** If the graph has billions of edges (like a social network), how would you use a Pregel or Giraph-style distributed processing model?
-- **Edge Case Probe:** How do you handle cycles, disconnected components, or self-loops in the graph?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** What if the graph doesn't have an Eulerian path?
+- **Alternative Data Structures:** Can we solve this iteratively to avoid stack overflow? (Yes, by using an explicit stack).
 
 ## 🔗 Related Problems
-
-- [Min Cost to Connect Points](../min_cost_to_connect_all_points/PROBLEM.md) — Next in category
-- [Kth Largest in Stream](../../09_heap_priority_queue/kth_largest_element_in_a_stream/PROBLEM.md) — Prerequisite: Heap / Priority Queue
-- [Number of Islands](../../11_graphs/number_of_islands/PROBLEM.md) — Prerequisite: Graphs
+- [Network Delay Time](../network_delay_time/PROBLEM.md)
+- [Cheapest Flights Within K Stops](../cheapest_flights_within_k_stops/PROBLEM.md)

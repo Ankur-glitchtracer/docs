@@ -1,83 +1,64 @@
-#  🚀 Math: Pow(x, n)
+---
+impact: "Medium"
+nr: true
+confidence: 4
+---
+# 🟦 Math & Geometry: Pow(x, n)
 
-## 📝 Description
-[LeetCode 50](https://leetcode.com/problems/powx-n/)
+## 📝 Problem Description
 Implement `pow(x, n)`, which calculates `x` raised to the power `n` (i.e., $x^n$).
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This algorithm is essential for **public-key cryptography** (RSA exponentiation), computational geometry (distance metrics), and scientific simulations where rapid power calculation is critical for performance.
 
-- Numerical values fit within standard data types (int, long).
-- Coordinate ranges are typically within $10^4$.
+## 🛠️ Constraints & Edge Cases
+- $-100.0 < x < 100.0$
+- $-2^{31} \le n \le 2^{31}-1$
+- **Edge Cases:** $n = 0$, $n < 0$ (reciprocal).
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Naive Multiplication." Multiplying $x$ by itself $n$ times takes $O(n)$. If $n = 2^{31}$, this times out.
+## 🧠 Approach & Intuition
 
-**The Hero:** "Exponentiation by Squaring." $x^{10} = (x^5)^2$. $x^5 = x \cdot (x^2)^2$. We can halve $n$ at every step.
+!!! success "The Aha! Moment"
+    Exponentiation can be solved in logarithmic time using "Binary Exponentiation" (Exponentiation by Squaring): $x^n = (x^{n/2})^2$ if $n$ is even.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Multiply $x$ by itself $n$ times. $\mathcal{O}(n)$, which will time out for large $n$.
 
-1. Handle negative $n$: $x = 1/x, n = -n$.
-2. Base case: $n == 0$, return 1.
-3. If $n$ is even: `half = myPow(x, n/2)`, return `half * half`.
-4. If $n$ is odd: return `x * myPow(x, n-1)`.
+### 🐇 Optimal Approach
+Use recursive or iterative approach:
+1. If $n$ is even, $x^n = (x^2)^{n/2}$.
+2. If $n$ is odd, $x^n = x * (x^2)^{(n-1)/2}$.
+3. Handle negative $n$ by $x^n = (1/x)^{-n}$.
 
-**The Twist (Failure):** **Integer Overflow.** $n = -2^{31}$ (INT_MIN). If you do $n = -n$, it overflows positive INT_MAX. Use `long long` for $n$.
-
-**Interview Signal:** **Divide and Conquer** / Logarithmic Math.
-
-## 🚀 Approach & Intuition
-Square the base, halve the exponent.
-
-### C++ Pseudo-Code
-```cpp
-double myPow(double x, int n) {
-    long long N = n;
-    if (N < 0) {
-        x = 1 / x;
-        N = -N;
-    }
-    
-    double res = 1;
-    double current_product = x;
-    
-    while (N > 0) {
-        if (N % 2 == 1) res *= current_product;
-        current_product *= current_product;
-        N /= 2;
-    }
-    return res;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    A[x^8] --> B[x^4 * x^4]
+    B --> C[x^2 * x^2]
+    C --> D[x * x]
 ```
 
-### Key Observations:
-
-- Use modular arithmetic to prevent integer overflow and the Euclidean algorithm for GCD/LCM problems.
-- In geometry, use cross products to determine orientation and the distance formula for proximity checks.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(\log N)$
-    - **Space Complexity:** $O(\log N)$ (Recursion stack)
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(\log N)$ because the exponent is halved in each step.
+- **Space Complexity:** $\mathcal{O}(\log N)$ (recursion stack) or $\mathcal{O}(1)$ (iterative).
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you solve this without using any arithmetic operators (+, -, *, /)?
-- **Scale Question:** How do you handle bit operations on arbitrarily large integers (BigInt)?
-- **Edge Case Probe:** How does your code handle signed vs unsigned integers and overflow/underflow?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Implement modulo power `(x^n) % m`.
+- **Alternative Data Structures:** Iterative version is preferred to avoid recursion depth issues.
 
 ## 🔗 Related Problems
-
-- [Multiply Strings](../multiply_strings/PROBLEM.md) — Next in category
-- [Plus One](../plus_one/PROBLEM.md) — Previous in category
-- [Number of Islands](../../11_graphs/number_of_islands/PROBLEM.md) — Prerequisite: Graphs
-- [Single Number](../../18_bit_manipulation/single_number/PROBLEM.md) — Prerequisite: Bit Manipulation
+- `[Missing Number](#)` — Using math to find values.
+- `[Sqrt(x)](#)` — Other math optimization problems.

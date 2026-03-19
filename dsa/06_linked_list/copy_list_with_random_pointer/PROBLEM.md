@@ -1,82 +1,92 @@
-#  👯 Linked Lists: Copy List with Random Pointer
+---
+impact: "High"
+nr: false
+confidence: 4
+---
+# 👯 Linked List: Copy List with Random Pointer
 
-## 📝 Description
+## 📝 Problem Description
 [LeetCode 138](https://leetcode.com/problems/copy-list-with-random-pointer/)
-A linked list of length `n` is given such that each node contains an additional random pointer, which could point to any node in the list, or `null`. Construct a deep copy of the list.
 
-## 🛠️ Requirements/Constraints
+A linked list of length `n` is given such that each node contains an additional random pointer, which could point to any node in the list, or `null`. 
 
-- Number of nodes is between 0 and 5000.
-- $-1000 \le Node.val \le 1000$
+Construct a **deep copy** of the list. The deep copy should consist of exactly `n` brand new nodes, where each new node has its value set to the value of its corresponding original node. Both the `next` and `random` pointer of the new nodes should point to new nodes in the copied list such that the pointers in the original list and copied list represent the same list state. **None of the pointers in the new list should point to nodes in the original list.**
 
-## 🧠 The Engineering Story
+!!! info "Real-World Application"
+    **Deep Cloning Complex Objects:** This problem mirrors how libraries (like Java's `clone()` or Python's `copy.deepcopy()`) handle objects with complex circular references or pointers. It's essential when you need to duplicate a data structure (like a state in a game or a database graph) without affecting the original.
 
-**The Villain:** "The Deep Copy Dilemma." If you just copy `next` pointers, you get a new list. But how do you connect `random` pointers if the target nodes haven't been created yet?
+## 🛠️ Constraints & Edge Cases
+- $0 \le n \le 1000$
+- $-10^4 \le Node.val \le 10^4$
+- `Node.random` is `null` or points to some node in the linked list.
+- **Edge Cases to Watch:**
+    - Empty list (`head is null`).
+    - Random pointers pointing to themselves.
+    - Random pointers pointing to the same node multiple times.
+    - All random pointers being `null`.
 
-**The Hero:** "The Interwoven Weave (or Hash Map)."
+---
 
-**The Plot:**
+## 🧠 Approach & Intuition
 
-1. (To be detailed...)
-2. (To be detailed...)
+!!! success "The Aha! Moment"
+    The challenge is that `random` pointers can point to nodes that **haven't been created yet** during a single-pass traversal. We have two main ways to solve this:
+    1. **The Hash Map:** Use a dictionary to map `OriginalNode -> CopyNode`.
+    2. **The Interweaving (Space Hero):** Temporarily interweave the copy nodes directly into the original list (`A -> A' -> B -> B'`). This allows us to find the copy of any original node `X` by just looking at `X.next`.
 
-**The Twist (Failure):** **The Interwoven Strategy ($O(1)$ Space).**
+### 🐢 Brute Force (Hash Map)
+1. **Pass 1:** Traverse the list and create a new node for each original node. Store the mapping in a hash map: `{OriginalNode: CopyNode}`.
+2. **Pass 2:** Traverse the list again. For each node, set `CopyNode.next = Map[OriginalNode.next]` and `CopyNode.random = Map[OriginalNode.random]`.
+- **Complexity:** $\mathcal{O}(N)$ Time, $\mathcal{O}(N)$ Space.
 
-**Interview Signal:** Handling **Complex Object Deep Copies**.
+### 🐇 Optimal Approach (Interweaving)
+This approach achieves $\mathcal{O}(1)$ extra space by using the original list's pointers to find the copies.
 
-## 🚀 Approach & Intuition
-Map original nodes to new nodes.
+1. **Step 1 (Create Copies):** Create a copy of each node and insert it immediately after the original node: `Curr -> Copy -> Next`.
+2. **Step 2 (Connect Randoms):** For each original node `curr`, its copy's random should be `curr.random.next` (if `curr.random` exists).
+3. **Step 3 (Extract List):** Split the interweaved list into the original list and the copy list.
 
-### C++ Pseudo-Code
-```cpp
-Node* copyRandomList(Node* head) {
-    if (!head) return nullptr;
-    unordered_map<Node*, Node*> map;
+### 🧩 Visual Tracing
+Interweaving $A \to B \to C$:
+
+```mermaid
+graph LR
+    subgraph Step_1_Interweave
+    A[A] --> AC[A'] --> B[B] --> BC[B']
+    end
     
-    Node* curr = head;
-    while (curr) {
-        map[curr] = new Node(curr->val);
-        curr = curr->next;
-    }
+    subgraph Step_2_Random_Connect
+    AR[A] --random--> C[C]
+    ACR[A'] --random--> CC[C']
+    end
     
-    curr = head;
-    while (curr) {
-        map[curr]->next = map[curr->next];
-        map[curr]->random = map(To be detailed...);
-        curr = curr->next;
-    }
-    return map[head];
-}
+    style AC fill:#f9f,stroke:#333
+    style BC fill:#f9f,stroke:#333
+    style CC fill:#f9f,stroke:#333
 ```
 
-### Key Observations:
-
-- Always consider using a dummy head node to simplify edge cases like inserting at the head or deleting the only node.
-- Fast and slow pointers are a common pattern for finding the middle or detecting cycles.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(N)$ (Map) or $O(1)$ (Interweaving)
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — We make three passes through the list (creation, random-linking, and separation).
+- **Space Complexity:** $\mathcal{O}(1)$ — No extra data structures are used (excluding the memory for the new nodes).
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** What if the input is sorted or has a limited range? Can you optimize space from $O(N)$ to $O(1)$?
-- **Scale Question:** If the dataset is too large to fit in RAM, how would you use external sorting or a distributed hash table?
-- **Edge Case Probe:** How does your solution handle duplicates, empty inputs, or extremely large integers?
+## 🎤 Interview Toolkit
+
+- **Follow-up:** Can we solve this in one pass?
+    - *Answer:* Yes, with a hash map. As you traverse, if you encounter a `next` or `random` node that hasn't been created, create it on the fly and store it in the map.
+- **Comparison:** Why use interweaving over a hash map?
+    - *Answer:* If memory is extremely tight (e.g., embedded systems) and the number of nodes is large, avoiding $\mathcal{O}(N)$ extra hash map memory is a significant win.
 
 ## 🔗 Related Problems
-
-- [Add Two Numbers](../add_two_numbers/PROBLEM.md) — Next in category
-- [Remove Nth Node From End](../remove_nth_node_from_end_of_list/PROBLEM.md) — Previous in category
-- [Invert Binary Tree](../../07_trees/invert_binary_tree/PROBLEM.md) — Prerequisite for Trees
-- [Valid Palindrome](../../02_two_pointers/valid_palindrome/PROBLEM.md) — Prerequisite: Two Pointers
+- [Clone Graph](../../11_graphs/clone_graph/PROBLEM.md) — The 2D version of this problem.
+- [Linked List Cycle](../linked_list_cycle/PROBLEM.md) — Basic pointer manipulation.
+- [LRU Cache](../lru_cache/PROBLEM.md) — Managing nodes in a hash map + linked list.

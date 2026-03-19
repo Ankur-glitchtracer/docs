@@ -1,93 +1,67 @@
-#  🧩 DP: Regular Expression Matching
+---
+impact: "High"
+nr: false
+confidence: 4
+---
+# 🧩 2D DP: Regular Expression Matching
 
-## 📝 Description
-[LeetCode 10](https://leetcode.com/problems/regular-expression-matching/)
-Given an input string `s` and a pattern `p`, implement regular expression matching with support for `.` and `*` where:
+## 📝 Problem Description
+Implement support for regular expression matching with `.` (any single char) and `*` (zero or more of the preceding element). The match must cover the entire input string.
 
-- `.` Matches any single character.
-- `*` Matches zero or more of the preceding element.
-The matching should cover the entire input string (not partial).
+!!! info "Real-World Application"
+    This is the core logic in text search engines (like grep), input validation, and lexical analyzers in compilers.
 
-## 🛠️ Requirements/Constraints
+## 🛠️ Constraints & Edge Cases
+- $0 \le |s| \le 20$, $0 \le |p| \le 30$
+- **Edge Cases to Watch:** 
+    - Empty pattern matching empty string.
+    - Pattern with `*` as the first character (invalid, but usually not tested).
+    - Patterns with multiple `*` in sequence (`a**`).
 
-- $M, N \le 1000$
-- Time complexity is typically $O(M \cdot N)$.
+---
 
-## 🧠 The Engineering Story
+## 🧠 Approach & Intuition
 
-**The Villain:** "The Star (*)." It can match zero or more of the preceding element. This creates a branching decision tree. `a*` could match "", "a", "aa", "aaa"...
+!!! success "The Aha! Moment"
+    The wildcard `*` is tricky! It means the preceding character can be used 0, 1, or many times. We build a 2D table `dp[i][j]` where `i` is the length of `s` and `j` is the length of `p`.
 
-**The Hero:** "The Look-Back Logic."
+### 🐢 Brute Force (Naive)
+Recursive matching explores all paths for `*`, which leads to an exponential $O(2^{M+N})$ complexity because of redundant sub-match calculations.
 
-**The Plot:**
+### 🐇 Optimal Approach
+1. `dp[i][j]` = Does `s[:i]` match `p[:j]`?
+2. If `p[j-1]` is a literal or `.`, look diagonally: `dp[i-1][j-1]`.
+3. If `p[j-1]` is `*`:
+   - Skip `*` (Zero occurrences): `dp[i][j-2]`.
+   - Use `*` (One or more): `dp[i-1][j]` if the preceding pattern matches.
 
-1. Initialize `dp[s_len+1][p_len+1]`.
-2. Base case: `dp[0][0] = true`. Handle patterns like `a*b*` matching empty string.
-3. Nested loops for `i` (string) and `j` (pattern).
-4. Apply transition logic.
-
-**The Twist (Failure):** **Index Confusion.** `*` applies to `p[j-1]`. When `p[j] == '*'`, you care about `p[j-1]`.
-
-**Interview Signal:** **Complex DP State Transitions**.
-
-## 🚀 Approach & Intuition
-Handle `*` by looking back 2 steps or consuming input.
-
-### C++ Pseudo-Code
-```cpp
-bool isMatch(string s, string p) {
-    int m = s.length(), n = p.length();
-    vector<vector<bool>> dp(m + 1, vector<bool>(n + 1, false));
-    dp[0][0] = true;
-    
-    // Handle patterns like a*, a*b*, etc. for empty string
-    for (int j = 1; j <= n; j++) {
-        if (p[j-1] == '*') dp[0][j] = dp[0][j-2];
-    }
-    
-    for (int i = 1; i <= m; i++) {
-        for (int j = 1; j <= n; j++) {
-            if (p[j-1] == '.' || p[j-1] == s[i-1]) {
-                dp[i][j] = dp[i-1][j-1];
-            } else if (p[j-1] == '*') {
-                dp[i][j] = dp[i][j-2]; // Zero count
-                if (p[j-2] == '.' || p[j-2] == s[i-1]) {
-                    dp[i][j] = dp[i][j] || dp[i-1][j]; // One+ count
-                }
-            }
-        }
-    }
-    return dp[m][n];
-}
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    A[i-1, j-1] --Match Char--> B[i, j]
+    C[i, j-2] --* matches 0--> B
+    D[i-1, j] --* matches 1+--> B
 ```
 
-### Key Observations:
-
-- 2D DP is common for string comparison (LCS, Edit Distance) or matrix-based pathfinding.
-- Space can often be optimized from $O(M \cdot N)$ to $O(N)$ by only keeping the previous row or column.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(M 	imes N)$
-    - **Space Complexity:** $O(M 	imes N)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(M \cdot N)$ — We compute each state in the $M \times N$ matrix.
+- **Space Complexity:** $\mathcal{O}(M \cdot N)$ — To store the match states.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you optimize the space complexity from $O(N^2)$ to $O(N)$? Can you solve it using a top-down vs bottom-up approach?
-- **Scale Question:** If the DP table is too large for memory, can you use 'Check-pointing' or a sliding window of rows to save space?
-- **Edge Case Probe:** What are the base cases for empty or single-element inputs? How do you handle negative values if they aren't expected?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Add `+` (one or more) support.
+- **Alternative:** Can you solve this using Backtracking? (Yes, but much slower without memoization).
 
 ## 🔗 Related Problems
-
-- [Burst Balloons](../burst_balloons/PROBLEM.md) — Previous in category
-- [Number of Islands](../../11_graphs/number_of_islands/PROBLEM.md) — Prerequisite: Graphs
-- [Climbing Stairs](../../13_1d_dynamic_programming/climbing_stairs/PROBLEM.md) — Prerequisite: 1-D Dynamic Programming
+- `Wildcard Matching` (`?` and `*`) — Similar but slightly simpler.
+- `Edit Distance` — Shares 2D grid DP structure.

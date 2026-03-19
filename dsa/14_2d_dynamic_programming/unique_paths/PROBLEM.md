@@ -1,76 +1,70 @@
-#  🤖 DP: Unique Paths
+---
+impact: "Medium"
+nr: false
+confidence: 5
+---
+# 🤖 2D DP: Unique Paths
 
-## 📝 Description
-[LeetCode 62](https://leetcode.com/problems/unique-paths/)
-There is a robot on an `m x n` grid. The robot is initially located at the top-left corner (i.e., `grid[0][0]`). The robot tries to move to the bottom-right corner (i.e., `grid[m - 1][n - 1]`). The robot can only move either down or right at any point in time. Given the two integers `m` and `n`, return the number of possible unique paths that the robot can take to reach the bottom-right corner.
+## 📝 Problem Description
+There is a robot on an $m \times n$ grid. The robot is initially located at the top-left corner (i.e., `grid[0][0]`). The robot tries to move to the bottom-right corner (i.e., `grid[m - 1][n - 1]`). The robot can only move either down or right at any point in time. Given the two integers $m$ and $n$, return the number of possible unique paths that the robot can take to reach the bottom-right corner.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Grid-based pathfinding is fundamental in robotics for motion planning, in logistics for calculating delivery routes on a city block grid, and in game development for NPC navigation in structured maps.
 
-- $M, N \le 1000$
-- Time complexity is typically $O(M \cdot N)$.
+## 🛠️ Constraints & Edge Cases
+- $1 \le m, n \le 100$
+- **Edge Cases to Watch:** 
+    - $m=1$ or $n=1$: Only 1 path exists (straight line).
+    - Large $m, n$: The number of paths can exceed $2^{31}-1$.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Maze of Many Paths." Counting all possible paths from Top-Left to Bottom-Right. Recursion is $O(2^{M+N})$.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Grid Accumulator." The number of ways to reach cell `(i, j)` is simply `ways(i-1, j) + ways(i, j-1)` (from top + from left).
+!!! success "The Aha! Moment"
+    The number of paths to any cell $(i, j)$ is the sum of the paths to the cell above $(i-1, j)$ and the cell to the left $(i, j-1)$. This allows us to build the solution incrementally.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Using recursion: for every cell, we branch into two directions (down and right). This creates an exponential time complexity $\mathcal{O}(2^{m+n})$, which leads to redundant calculations of the same sub-grids.
 
-1. Create `dp` table or simply use a 1D array (row).
-2. Initialize first row to 1s.
-3. For each subsequent row:
-   - `new_row[0] = 1`.
-   - `new_row[j] = new_row[j-1] (left) + old_row[j] (top)`.
-4. Return last element.
+### 🐇 Optimal Approach
+We use Dynamic Programming. We can maintain a 1D row of size $n$ to store the number of ways to reach cells in the current row.
+1. Initialize the row with all $1$s (representing the first row).
+2. For each subsequent row, update each cell $j$ by adding the value of the cell to its left (`row[j-1]`) to its current value (which acts as the "top" cell `row[j]`).
+3. After filling $m$ rows, the last element is the total paths.
 
-**The Twist (Failure):** **Integer Overflow.** For very large grids, the number of paths exceeds 32-bit int. (LeetCode constraints are usually small enough).
-
-**Interview Signal:** Basic **2D Grid DP**.
-
-## 🚀 Approach & Intuition
-Accumulate paths from top and left.
-
-### C++ Pseudo-Code
-```cpp
-int uniquePaths(int m, int n) {
-    vector<int> row(n, 1);
-    for (int i = 1; i < m; i++) {
-        for (int j = 1; j < n; j++) {
-            row[j] += row[j-1];
-        }
-    }
-    return row[n-1];
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    A[0,0] --> B[0,1]
+    B --> C[0,2]
+    A --> D[1,0]
+    D --> E[1,1]
+    B --> E
+    C --> F[1,2]
+    E --> F
 ```
 
-### Key Observations:
-
-- 2D DP is common for string comparison (LCS, Edit Distance) or matrix-based pathfinding.
-- Space can often be optimized from $O(M \cdot N)$ to $O(N)$ by only keeping the previous row or column.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(M 	imes N)$
-    - **Space Complexity:** $O(N)$ (Row optimized) or $O(1)$ (Math combinations)
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(m \cdot n)$ — We iterate through the grid once.
+- **Space Complexity:** $\mathcal{O}(n)$ — We only store the state of the current row being processed.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you optimize the space complexity from $O(N^2)$ to $O(N)$? Can you solve it using a top-down vs bottom-up approach?
-- **Scale Question:** If the DP table is too large for memory, can you use 'Check-pointing' or a sliding window of rows to save space?
-- **Edge Case Probe:** What are the base cases for empty or single-element inputs? How do you handle negative values if they aren't expected?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** What if obstacles are present in the grid? (See: *Unique Paths II*)
+- **Alternative Approach:** Combinatorics. The robot must take exactly $m-1$ down moves and $n-1$ right moves. The total number of ways is $\binom{(m-1) + (n-1)}{m-1}$.
 
 ## 🔗 Related Problems
-
-- [Longest Common Subsequence](../longest_common_subsequence/PROBLEM.md) — Next in category
-- [Number of Islands](../../11_graphs/number_of_islands/PROBLEM.md) — Prerequisite: Graphs
-- [Climbing Stairs](../../13_1d_dynamic_programming/climbing_stairs/PROBLEM.md) — Prerequisite: 1-D Dynamic Programming
+- `Unique Paths II` — Adds grid obstacles.
+- `Climbing Stairs` — 1D version of the same additive logic.
+- `Edit Distance` — 2D DP on strings.

@@ -1,77 +1,67 @@
-#  💰 DP: Coin Change II
+---
+impact: "Low"
+nr: false
+confidence: 5
+---
+# 🪙 Dynamic Programming: Coin Change II
 
-## 📝 Description
-[LeetCode 518](https://leetcode.com/problems/coin-change-2/)
-You are given an integer array `coins` representing coins of different denominations and an integer `amount` representing a total amount of money. Return the number of combinations that make up that amount. If that amount of money cannot be made up by any combination of the coins, return 0. You may assume that you have an infinite number of each kind of coin.
+## 📝 Problem Description
+You are given an integer array `coins` representing coins of different denominations and an integer `amount` representing a total amount of money. Return the number of combinations that make up that amount. If that amount of money cannot be made up by any combination of the coins, return 0.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This is a classic "Unbounded Knapsack" problem variation, widely used in financial systems, vending machine logic, and resource allocation where order of items does not matter but quantity combinations do.
 
-- $M, N \le 1000$
-- Time complexity is typically $O(M \cdot N)$.
+## 🛠️ Constraints & Edge Cases
+- $1 \le coins.length \le 300$
+- $1 \le coins[i] \le 5000$
+- $0 \le amount \le 5000$
+- **Edge Cases to Watch:** 
+    - Amount 0 (always 1 combination: empty set).
+    - No coins provided for a non-zero amount.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Combination Count." Coin Change I asked for the *minimum* coins. Now we want the *number of ways*.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Unbounded Knapsack Count."
+!!! success "The Aha! Moment"
+    The order of the outer and inner loops matters. By iterating through `coins` first, we build the combinations for each amount one coin type at a time, effectively ensuring we don't count permutations (e.g., [1, 2] and [2, 1] are treated as one combination).
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Recursive backtracking explores every branch, resulting in exponential time complexity, essentially $O(coins^{amount})$, as it tries all possible counts of each coin.
 
-1. `dp[i]` = Number of ways to make amount `i`.
-2. `dp[0] = 1`.
-3. **Outer Loop (Coins):** For each coin `c`.
-4. **Inner Loop (Amounts):** For `i` from `c` to `amount`:
-   - `dp[i] += dp[i - c]`.
+### 🐇 Optimal Approach
+We use 1D DP. Let `dp[i]` be the number of ways to make amount `i`.
+1. Initialize `dp[0] = 1` (one way to make 0: use no coins).
+2. For each coin `c` in `coins`:
+    - Update `dp[x] += dp[x - c]` for all `x` from `c` to `amount`.
 
-**The Twist (Failure):** **Swapping Loops.** If you loop `Amount` then `Coins` (`for i in amount: for c in coins`), you calculate **Permutations** (e.g., `1+2` and `2+1` are counted distinct). The problem asks for **Combinations**. You must process one coin fully before moving to the next.
-
-**Interview Signal:** Distinction between **Permutations and Combinations** in DP.
-
-## 🚀 Approach & Intuition
-Outer loop coins, inner loop amounts.
-
-### C++ Pseudo-Code
-```cpp
-int change(int amount, vector<int>& coins) {
-    vector<int> dp(amount + 1, 0);
-    dp[0] = 1;
-    for (int c : coins) {
-        for (int i = c; i <= amount; i++) {
-            dp[i] += dp[i - c];
-        }
-    }
-    return dp[amount];
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    C1[Coin 1] --> D[DP Table]
+    C2[Coin 2] --> D
+    style D fill:#f9f,stroke:#333,stroke-width:2px
 ```
 
-### Key Observations:
-
-- 2D DP is common for string comparison (LCS, Edit Distance) or matrix-based pathfinding.
-- Space can often be optimized from $O(M \cdot N)$ to $O(N)$ by only keeping the previous row or column.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N \cdot \text{Amount})$
-    - **Space Complexity:** $O(\text{Amount})$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N \times A)$, where $N$ is the number of coins and $A$ is the amount.
+- **Space Complexity:** $\mathcal{O}(A)$ — We use an array of size `amount + 1` to track ways to make each total.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you optimize the space complexity from $O(N^2)$ to $O(N)$? Can you solve it using a top-down vs bottom-up approach?
-- **Scale Question:** If the DP table is too large for memory, can you use 'Check-pointing' or a sliding window of rows to save space?
-- **Edge Case Probe:** What are the base cases for empty or single-element inputs? How do you handle negative values if they aren't expected?
+## 🎤 Interview Toolkit
+
+- **Difference:** Contrast this with "Coin Change I" (min coins), which uses a similar approach but takes the `min` instead of sum.
+- **Harder Variant:** What if you had to return the *combinations* themselves, not just the count?
 
 ## 🔗 Related Problems
-
-- [Target Sum](../target_sum/PROBLEM.md) — Next in category
-- [Stock with Cooldown](../best_time_to_buy_and_sell_stock_with_cooldown/PROBLEM.md) — Previous in category
-- [Number of Islands](../../11_graphs/number_of_islands/PROBLEM.md) — Prerequisite: Graphs
-- [Climbing Stairs](../../13_1d_dynamic_programming/climbing_stairs/PROBLEM.md) — Prerequisite: 1-D Dynamic Programming
+- `[Best Time to Buy and Sell Stock with Cooldown](../best_time_to_buy_and_sell_stock_with_cooldown/PROBLEM.md)`
+- `[Target Sum](../target_sum/PROBLEM.md)`

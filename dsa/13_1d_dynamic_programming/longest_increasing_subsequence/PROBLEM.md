@@ -1,64 +1,64 @@
-#  📈 DP: Longest Increasing Subsequence
+---
+impact: "Medium"
+nr: false
+confidence: 4
+---
+# 📈 DP: Longest Increasing Subsequence
 
-## 📝 Description
-[LeetCode 300](https://leetcode.com/problems/longest-increasing-subsequence/)
-Given an integer array `nums`, return the length of the longest strictly increasing subsequence.
+## 📝 Problem Description
+Given an integer array `nums`, return the length of the longest strictly increasing subsequence. A subsequence is a sequence that can be derived from an array by deleting some or no elements without changing the order of the remaining elements.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This problem is widely used in version control systems to find the difference between two files, as well as in algorithmic trading to identify long-term trends in price data.
 
-- $1 \le n \le 1000$ (Problem size)
-- Values fit within a 64-bit integer.
+## 🛠️ Constraints & Edge Cases
+- $1 \le \text{nums.length} \le 2500$
+- $-10^4 \le \text{nums}[i] \le 10^4$
+- **Edge Cases to Watch:** 
+    - Empty array (return 0)
+    - Array with one element (return 1)
+    - Strictly decreasing array (return 1)
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Non-Contiguous Nightmare." Unlike substrings, subsequences can skip elements, making a simple window approach impossible.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Look-Back Optimizer." For every element, looking back at all previous elements to see which one it can extend.
+!!! success "The Aha! Moment"
+    Instead of standard DP, we can maintain a "tail" list where `tails[i]` is the smallest tail of all increasing subsequences of length `i+1`. We can use binary search to efficiently update this list.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Generating all $2^N$ subsequences and checking if they are increasing is $\mathcal{O}(2^N)$. A standard DP approach (`dp[i]` = length of LIS ending at `i`) is $\mathcal{O}(N^2)$.
 
-1. `dp[i]` represents the length of LIS ending at index `i`.
-2. Initialize all `dp[i] = 1`.
-3. For `i` from 1 to `n`:
-   - For `j` from 0 to `i-1`:
-     - If `nums[i] > nums[j]`, then `dp[i] = max(dp[i], 1 + dp[j])`.
-4. Result is `max(dp)`.
+### 🐇 Optimal Approach
+Maintain a `sub` list where we keep track of the potential LIS. For each element, either append it to `sub` (if it's larger than the last element) or replace the smallest element in `sub` that is $\ge$ current element using binary search. This ensures `sub` is sorted and maintains the potential for the longest sequence.
 
-**The Twist (Failure):** **The $O(N^2)$ Wall.** For $N > 10,000$, this approach is too slow. The "Ultimate Hero" uses Binary Search + Patience Sorting to solve it in $O(N \log N)$.
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    A[nums: 10, 9, 2, 5, 3, 7, 101, 18] --> B{Binary Search}
+    B --> C[sub: 2, 3, 7, 18, 101]
+    style C fill:#f9f,stroke:#333,stroke-width:2px
+```
 
-**Interview Signal:** Mastery of **1D DP** and identifying optimal sub-structure.
-
-## 🚀 Approach & Intuition
-(To be detailed...)
-
-### Key Observations:
-
-- Break down the problem into smaller sub-problems and store their results to avoid redundant calculations.
-- Determine the base cases and the recurrence relation; bottom-up (tabulation) is often more space-efficient.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N^2)$ (Standard DP)
-    - **Space Complexity:** $O(N)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N \log N)$ — We iterate through $N$ elements and perform binary search ($\log N$) for each.
+- **Space Complexity:** $\mathcal{O}(N)$ — To store the `sub` list.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you optimize the space complexity from $O(N^2)$ to $O(N)$? Can you solve it using a top-down vs bottom-up approach?
-- **Scale Question:** If the DP table is too large for memory, can you use 'Check-pointing' or a sliding window of rows to save space?
-- **Edge Case Probe:** What are the base cases for empty or single-element inputs? How do you handle negative values if they aren't expected?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Longest Increasing Subsequence in $\mathcal{O}(N \log N)$ is often expected. Also, reconstruct the actual sequence, not just the length.
+- **Alternative Data Structures:** Fenwick Tree or Segment Tree can also achieve $\mathcal{O}(N \log N)$ if the range of values is constrained.
 
 ## 🔗 Related Problems
-
-- [Partition Equal Subset Sum](../partition_equal_subset_sum/PROBLEM.md) — Next in category
-- [Word Break](../word_break/PROBLEM.md) — Previous in category
-- [Unique Paths](../../14_2d_dynamic_programming/unique_paths/PROBLEM.md) — Prerequisite for 2-D Dynamic Programming
-- [Single Number](../../18_bit_manipulation/single_number/PROBLEM.md) — Prerequisite for Bit Manipulation
+- [Longest Palindromic Substring](../longest_palindromic_substring/PROBLEM.md) — Another classic sequence problem.
+- [Longest Common Subsequence](../../14_2d_dynamic_programming/longest_common_subsequence/PROBLEM.md) — Related sequence optimization.

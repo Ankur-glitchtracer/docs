@@ -1,73 +1,64 @@
-#  🕵️ Bit Manipulation: Missing Number
+---
+impact: "Low"
+nr: true
+confidence: 5
+---
+# 🧩 Bit Manipulation: Missing Number
 
-## 📝 Description
-[LeetCode 268](https://leetcode.com/problems/missing-number/)
+## 📝 Problem Description
 Given an array `nums` containing `n` distinct numbers in the range `[0, n]`, return the only number in the range that is missing from the array.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This is used in **detecting missing packets** in networking, identifying missing identifiers in database sequences, or finding gaps in file system allocation tables.
 
-- Inputs are typically 32-bit or 64-bit integers.
-- The number of operations is $O(1)$ relative to word size.
+## 🛠️ Constraints & Edge Cases
+- `n` = `nums.length`.
+- All numbers are unique.
+- **Edge Cases:** Array is empty, array missing the first or last number.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Sum Overflow." Summing `0..n` using `n*(n+1)/2` might overflow if `n` is huge (though usually fine for `int`). Sorting is $O(N \log N)$. Hash Set is $O(N)$ space.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The XOR Cancellation."
+!!! success "The Aha! Moment"
+    XOR all numbers in the array with all numbers in the range `[0, n]`. The duplicate numbers cancel out (XOR property $A \oplus A = 0$), leaving only the missing one.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Sorting the array and checking gaps, or using a Hash Set to track seen numbers. Complexity $\mathcal{O}(N \log N)$ or $\mathcal{O}(N)$ space.
 
-1. XOR all numbers `0` to `n`.
-2. XOR all numbers in `nums`.
-3. `Result = (XOR of range) ^ (XOR of array)`.
-4. Everything present cancels out. Only the missing number remains.
+### 🐇 Optimal Approach
+Use XOR:
+1. `res = 0`.
+2. XOR `res` with `i` (index) for all `i`.
+3. XOR `res` with `nums[i]` for all `i`.
+4. The remaining `res` is the missing number.
 
-**The Twist (Failure):** **The Index Loop.** You can do it in one loop: `res ^= i ^ nums[i]`, but array is size `n` (missing one), range is size `n+1`. XOR `n` separately.
-
-**Interview Signal:** **XOR Properties**.
-
-## 🚀 Approach & Intuition
-XOR indices and values.
-
-### C++ Pseudo-Code
-```cpp
-int missingNumber(vector<int>& nums) {
-    int res = nums.size();
-    for (int i = 0; i < nums.size(); i++) {
-        res ^= i ^ nums[i];
-    }
-    return res;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    A[Range 0..n] --> B[Array Elements]
+    B -->|XOR| C[Result: Missing Number]
 ```
 
-### Key Observations:
-
-- Bitwise operations (AND, OR, XOR, NOT) allow for $O(1)$ constant time operations on binary data.
-- XOR is particularly useful for finding single elements or toggling states, as $x \oplus x = 0$.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ to iterate.
+- **Space Complexity:** $\mathcal{O}(1)$ additional memory.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you solve this without using any arithmetic operators (+, -, *, /)?
-- **Scale Question:** How do you handle bit operations on arbitrarily large integers (BigInt)?
-- **Edge Case Probe:** How does your code handle signed vs unsigned integers and overflow/underflow?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** What if multiple numbers are missing? (Requires frequency map).
+- **Alternative Data Structures:** Math formula $Sum(0..N) - Sum(nums)$ works too, but prone to overflow in other languages.
 
 ## 🔗 Related Problems
-
-- [Sum of Two Integers](../sum_of_two_integers/PROBLEM.md) — Next in category
-- [Reverse Bits](../reverse_bits/PROBLEM.md) — Previous in category
-- [Rotate Image](../../17_math_geometry/rotate_image/PROBLEM.md) — Prerequisite for Math & Geometry
-- [Climbing Stairs](../../13_1d_dynamic_programming/climbing_stairs/PROBLEM.md) — Prerequisite: 1-D Dynamic Programming
+- `[Single Number](#)` — Using XOR property.
+- `[Find the Duplicate Number](#)` — Related sequence problem.

@@ -1,91 +1,72 @@
-#  🎯 Backtracking: Combination Sum II
+---
+impact: "Medium"
+nr: false
+confidence: 2
+---
+# 🎯 Backtracking: Combination Sum II
 
 ## 📝 Description
 [LeetCode 40](https://leetcode.com/problems/combination-sum-ii/)
 Given a collection of candidate numbers (`candidates`) and a target number (`target`), find all unique combinations in `candidates` where the candidate numbers sum to `target`. Each number in `candidates` may only be used once in the combination. The solution set must not contain duplicate combinations.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Similar to **Shopping Cart** logic (finding items that sum to a coupon threshold where items are unique entities), or finding subsets of data packets that fill a buffer exactly.
 
-- Input size is usually small ($N \le 20$) due to exponential complexity.
-- All possible solutions must be returned.
+## 🛠️ Constraints & Edge Cases
+- $1 \le \text{candidates.length} \le 100$
+- **Edge Cases to Watch:**
+    - Input contains duplicates (e.g., `[1, 1, 2]`).
+    - Output must be unique sets (e.g., if we have two `1`s, `[1_a, 2]` and `[1_b, 2]` are the same set `[1, 2]`).
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Finite Duplicates." Unlike Combination Sum I, you can't reuse numbers. Unlike Subsets, you have a target sum. Input `(To be detailed...)`, Target `8`. Duplicates (`1, 1`) exist but each can be used once.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Sorted Loop." Sort the candidates to group duplicates. Iterate through options.
+!!! success "The Aha! Moment"
+    The challenge is handling duplicates in the *input* to avoid duplicates in the *output*. If we sort the input first, identical numbers end up adjacent. In our recursion loop, if we decide to **skip** a number (say, the first `1`), we must also skip **all subsequent `1`s** at that specific tree level. Why? Because the "Include" branch of the first `1` already covers all combinations involving a `1`.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Generate all subsets, filter by sum, convert to tuple/set to remove duplicates.
+- **Time Complexity:** Extremely inefficient due to set storage and generation.
 
-1. Sort `candidates`.
-2. Iterate `i` from `start` to `end`.
-3. If `i > start` and `candidates[i] == candidates[i-1]`: Continue (Skip duplicates at the same tree level).
-4. If `candidates[i] > target`: Break (Sorted array, no hope for future elements).
-5. Pick `candidates[i]`, recurse with `target - val` and `i + 1`.
-6. Backtrack.
+### 🐇 Optimal Approach (Backtracking with Sorting)
+1.  **Sort** `candidates`.
+2.  Define `backtrack(start_index, target)`.
+3.  Loop `i` from `start_index` to end:
+    - **Skip Duplicates:** If `i > start_index` and `candidates[i] == candidates[i-1]`, continue.
+    - **Prune:** If `candidates[i] > target`, break (array is sorted, no point continuing).
+    - **Recurse:** `backtrack(i + 1, target - candidates[i])`.
+4.  Backtrack (pop).
 
-**The Twist (Failure):** **The Loop vs Recursion.** We use a `for` loop inside the recursion to try different starting numbers for the current slot. `i > start` ensures we allow `1, 1` (different levels) but not `1` (same level skipping).
-
-**Interview Signal:** Advanced **Duplicate Handling** in constraints.
-
-## 🚀 Approach & Intuition
-Use a loop inside recursion to manage branches, skipping duplicates.
-
-### C++ Pseudo-Code
-```cpp
-vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-    sort(candidates.begin(), candidates.end());
-    vector<vector<int>> res;
-    vector<int> curr;
-    
-    function<void(int, int)> backtrack = [&](int start, int remain) {
-        if (remain == 0) {
-            res.push_back(curr);
-            return;
-        }
-        for (int i = start; i < candidates.size(); i++) {
-            if (i > start && candidates[i] == candidates[i-1]) continue;
-            if (candidates[i] > remain) break;
-            
-            curr.push_back(candidates[i]);
-            backtrack(i + 1, remain - candidates[i]);
-            curr.pop_back();
-        }
-    };
-    
-    backtrack(0, target);
-    return res;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    A[Input: 1, 1, 2, 5, Target: 4]
+    Root -->|Pick 1a| B[Target: 3]
+    B -->|Pick 1b| C[Target: 2]
+    C -->|Pick 2| D[Target: 0 (Found [1,1,2])]
+    Root -->|Skip 1a| E[Must also skip 1b!]
+    E -->|Pick 2| F[Target: 2]
 ```
 
-### Key Observations:
-
-- Backtracking is essentially a DFS on a state-space tree where we 'undo' the last move to explore other branches.
-- Pruning is the most important optimization to skip branches that cannot lead to a valid solution.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(2^N)$
-    - **Space Complexity:** $O(N)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(2^N)$ — Worst case all subsets.
+- **Space Complexity:** $\mathcal{O}(N)$ — Recursion depth.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you use Pruning or Bitmasking to significantly reduce the search space?
-- **Scale Question:** How would you parallelize the search? Would you use Work Stealing to balance the load between threads?
-- **Edge Case Probe:** What is the maximum depth of recursion before you hit a stack overflow?
+## 🎤 Interview Toolkit
+
+- **Key Question:** Why do we check `i > pos`? (To ensure we allow picking `1, 1` in a vertical recursion branch, but prevent picking `1` (index 0) then `1` (index 1) as "first choices" at the same horizontal level).
 
 ## 🔗 Related Problems
-
-- [Word Search](../word_search/PROBLEM.md) — Next in category
-- [Subsets II](../subsets_ii/PROBLEM.md) — Previous in category
-- [Number of Islands](../../11_graphs/number_of_islands/PROBLEM.md) — Prerequisite for Graphs
-- [Climbing Stairs](../../13_1d_dynamic_programming/climbing_stairs/PROBLEM.md) — Prerequisite for 1-D Dynamic Programming
+- [Subsets II](../subsets_ii/PROBLEM.md) — Logic for duplicate handling is identical
+- [Combination Sum](../combination_sum/PROBLEM.md) — Previous in category

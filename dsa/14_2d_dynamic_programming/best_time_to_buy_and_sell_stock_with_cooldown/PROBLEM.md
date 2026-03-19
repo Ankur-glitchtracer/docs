@@ -1,82 +1,75 @@
-#  📉 DP: Best Time to Buy and Sell Stock with Cooldown
+---
+impact: "Medium"
+nr: false
+confidence: 4
+---
+# 📉 Dynamic Programming: Best Time to Buy and Sell Stock with Cooldown
 
-## 📝 Description
-[LeetCode 309](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/)
+## 📝 Problem Description
 You are given an array `prices` where `prices[i]` is the price of a given stock on the `i`th day. Find the maximum profit you can achieve. You may complete as many transactions as you like (i.e., buy one and sell one share of the stock multiple times) with the following restrictions:
-
 - After you sell your stock, you cannot buy stock on the next day (i.e., cooldown one day).
-- Note: You may not engage in multiple transactions simultaneously (i.e., you must sell the stock before you buy again).
+- You may not engage in multiple transactions simultaneously.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This problem is a classic example of **state-machine based optimization**, often found in automated trading algorithms and resource management systems where specific action sequences (like a "cooldown" period) are required after performing a task.
 
-- $M, N \le 1000$
-- Time complexity is typically $O(M \cdot N)$.
+## 🛠️ Constraints & Edge Cases
+- $1 \le prices.length \le 5000$
+- $0 \le prices[i] \le 1000$
+- **Edge Cases to Watch:** 
+    - Empty or single-day arrays (result is always 0).
+    - Prices strictly decreasing (no profit possible).
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The State Complexity." You can't just buy/sell whenever. You have a "Cooldown" state. This creates dependencies between actions across 2 days.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The State Machine." Define 3 states:
+!!! success "The Aha! Moment"
+    Instead of tracking time, track the **State** of your portfolio. On any given day, you can be in one of three states: holding a stock, having just sold a stock (cooldown), or resting. The transition between these states depends solely on the current price and your previous state.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Trying every possible combination of buy/sell days results in an exponential $O(2^N)$ time complexity, as you explore all possible buy-sell-cooldown decision paths.
 
-1. `held[i] = max(held[i-1], reset[i-1] - price)`.
-2. `sold[i] = held[i-1] + price`.
-3. `reset[i] = max(reset[i-1], sold[i-1])`.
-4. Initial: `held = -inf`, `sold = 0`, `reset = 0`.
+### 🐇 Optimal Approach
+We maintain three variables representing the maximum profit at the end of each day in each state:
+1. `hold`: Max profit while holding a stock (bought on or before today).
+2. `sold`: Max profit having just sold a stock today.
+3. `rest`: Max profit after a day of rest or cooldown.
 
-**The Twist (Failure):** **The Initial State.** If you start with `held = 0`, it means you bought a stock for free. Wrong. It must be `-infinity` or `-prices[0]` if day 0 logic allows.
+Transitions:
+- `new_hold = max(hold, rest - price)`
+- `new_sold = hold + price`
+- `new_rest = max(rest, sold)`
 
-**Interview Signal:** Modeling **State Machines** with DP.
-
-## 🚀 Approach & Intuition
-Track states: Hold, Sold, Rest.
-
-### C++ Pseudo-Code
-```cpp
-int maxProfit(vector<int>& prices) {
-    int sold = 0;
-    int hold = INT_MIN;
-    int rest = 0;
-    
-    for (int p : prices) {
-        int prevSold = sold;
-        sold = hold + p;
-        hold = max(hold, rest - p);
-        rest = max(rest, prevSold);
-    }
-    return max(sold, rest);
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    H[Hold] -- Sell --> S[Sold]
+    S -- Cooldown --> R[Rest]
+    R -- Buy --> H
+    H -- Hold --> H
+    R -- Rest --> R
 ```
 
-### Key Observations:
-
-- 2D DP is common for string comparison (LCS, Edit Distance) or matrix-based pathfinding.
-- Space can often be optimized from $O(M \cdot N)$ to $O(N)$ by only keeping the previous row or column.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(1)$ (3 variables)
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — We iterate through the `prices` array exactly once.
+- **Space Complexity:** $\mathcal{O}(1)$ — We use only three variables to store the state, regardless of input size.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you optimize the space complexity from $O(N^2)$ to $O(N)$? Can you solve it using a top-down vs bottom-up approach?
-- **Scale Question:** If the DP table is too large for memory, can you use 'Check-pointing' or a sliding window of rows to save space?
-- **Edge Case Probe:** What are the base cases for empty or single-element inputs? How do you handle negative values if they aren't expected?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** What if you had a transaction fee per sale? You would simply subtract the fee during the `sold` state transition.
+- **Alternative:** Could be solved using a full 2D DP array of size $N \times 3$, but space optimization is standard for this problem.
 
 ## 🔗 Related Problems
-
-- [Coin Change II](../coin_change_ii/PROBLEM.md) — Next in category
-- [Longest Common Subsequence](../longest_common_subsequence/PROBLEM.md) — Previous in category
-- [Number of Islands](../../11_graphs/number_of_islands/PROBLEM.md) — Prerequisite: Graphs
-- [Climbing Stairs](../../13_1d_dynamic_programming/climbing_stairs/PROBLEM.md) — Prerequisite: 1-D Dynamic Programming
+- `[Coin Change II](../coin_change_ii/PROBLEM.md)`
+- `[Longest Common Subsequence](../longest_common_subsequence/PROBLEM.md)`

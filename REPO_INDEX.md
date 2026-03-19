@@ -327,7 +327,7 @@ A comprehensive, searchable index of every architectural pattern, system design,
 | Architecture | Sector | Path |
 | :--- | :--- | :--- |
 | [WhatsApp](system_design_hld/architectures/social_media/WHATSAPP.md) | Messaging | `system_design_hld/architectures/social_media/WHATSAPP.md` |
-| [Netflix](system_design_hld/architectures/streaming/NETFLIX.md) | Video Streaming | `system_design_hld/architectures/streaming/NETFLIX.md` |
+| [Video Streaming (Netflix/YouTube)](system_design_hld/architectures/streaming/VIDEO_STREAMING_SERVICE.md) | Video Streaming | `system_design_hld/architectures/streaming/VIDEO_STREAMING_SERVICE.md` |
 | [Uber Global](system_design_hld/architectures/payment_systems/UBER_HLD.md) | Logistics | `system_design_hld/architectures/payment_systems/UBER_HLD.md` |
 | [S3 Lite](system_design_hld/architectures/distributed_storage/S3_LITE.md) | Storage | `system_design_hld/architectures/distributed_storage/S3_LITE.md` |
 | [URL Shortener](system_design_hld/architectures/utilities/URL_SHORTENER.md) | Utility | `system_design_hld/architectures/utilities/URL_SHORTENER.md` |

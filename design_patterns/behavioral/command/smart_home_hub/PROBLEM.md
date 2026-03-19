@@ -1,75 +1,159 @@
+---
+impact: "Medium"    # Low | Medium | High
+nr: false           # No Review Required (true/false)
+confidence: 2       # 1 (Learning) to 5 (Mastered)
+---
 # 🕹️ Command Pattern: Programmable Smart Home Hub
 
 ## 📝 Overview
-The **Command Pattern** encapsulates a request as an object, allowing you to parameterize clients with different requests, queue or log requests, and support undoable operations. This implementation focuses on a **Universal Smart Home Remote** that must control diverse devices (Lights, TVs, Thermostats) with a uniform interface.
+The **Command Pattern** encapsulates a request as a standalone object, allowing you to parameterize clients with different requests, queue or log requests, and support undoable operations. It decouples the object that invokes the operation from the one that knows how to perform it.
 
 !!! abstract "Core Concepts"
+    - **Encapsulation of Request:** Turning a method call into an object.
+    - **Decoupling:** The Invoker (remote) knows nothing about the Receiver (light bulb).
+    - **Undo/Redo:** Commands can store state to reverse their effects.
+    - **Macro Commands:** Composing multiple commands into a single "macro" for batch execution.
 
-    - **Uniform Interface:** Slots for buttons that can be assigned any device action.
-        - **Undo Functionality:** A single button to reverse the last executed command.
-        - **Macro Commands:** "Party Mode" to execute a sequence of commands in one click.
+---
 
-!!! info "Why Use This Pattern?"
+## 🏭 The Engineering Story & Problem
 
-    - **Encapsulates a request as an object**
-    - **Supports undo/redo and logging**
-    - **Decouples the invoker from the receiver**
+### 😡 The Villain (The Problem)
+Imagine a "Hardwired Remote Control" where every button is soldered directly to a specific device's circuit. Button 1 is hardwired to the Living Room Light. Button 2 to the Stereo.
+If you want to change Button 1 to turn on the Kitchen Light instead, you have to physically rewire the remote (change the `Remote` class code). The remote acts like a God Object that needs to know the specific API of every device (`light.turnOn()`, `stereo.setVolume()`, `door.lock()`). This tight coupling makes the system rigid and hard to extend.
 
+### 🦸 The Hero (The Solution)
+The **Command Pattern** introduces a "Universal Connector." We create a standard `Command` interface with an `execute()` method. We wrap every specific device action (like "Turn on Light") into its own little class (e.g., `LightOnCommand`).
+The remote just holds a list of these Command objects. When you press a button, it just says `command.execute()`. It doesn't care if it's turning on a light or launching a missile. You can swap commands in and out dynamically without touching the remote's code.
 
-## 🚀 Problem Statement
-You are building a backend for a programmable remote. The remote should not know the internal mechanics of each device (e.g., whether a light uses `on()` or a stereo uses `setVolume()`). Instead, it should interact solely with `Command` objects.
+### 📜 Requirements & Constraints
+1.  **(Functional):** The Remote Control must have programmable slots that can be assigned any command.
+2.  **(Functional):** Support an "Undo" button that reverses the last action.
+3.  **(Technical):** The Remote must be decoupled from specific device implementations (Light, Stereo, TV).
 
-## 🛠️ Requirements
+---
 
-1. **Command Interface:** Define standard `execute()` and `undo()` methods.
-2. **Concrete Commands:** Implement commands for various device actions.
-3. **Receiver Objects:** Implement `Light`, `Stereo`, and `TV`.
-4. **Invoker:** A `RemoteControl` with programmable slots.
+## 🏗️ Structure & Blueprint
 
-### Technical Constraints
-
-- **Receivers (Devices):** Implement `Light`, `Stereo`, and `TV` with unique method names to simulate heterogeneous hardware.
-- **Invoker (Remote):** Must hold 4 programmable slots and a reference to the last command for undoing.
-- **Decoupling:** Adding a new device should require a new `Command` class, not modifications to the `Remote` class.
-
-## 🧠 Thinking Process & Approach
-**The Villain:** "Hardwired Requests." A UI button directly calls business logic. You can't undo, queue, or log the action.
-
-**The Hero:** "The Request Object." Encapsulates a request as an object.
-
-**The Plot:**
-
-1. Turn a method call (`light.turnOn()`) into an object (`TurnOnCommand(light)`).
-2. The Invoker (Button) just calls `execute()`.
-3. You can now store these objects in a list for **Undo/Redo**.
-
-**The Twist (Failure):** **Loss of History**. You cannot replay actions to recover from a crash or audit user activity.
-
-**Interview Signal:** Key for implementing **Undo/Redo**, **Command Queuing**, and **Replay Systems**.
-
-Triggering actions directly couples the invoker to the receiver. The approach is to wrap every request in a Command object. This allows us to queue, log, and undo operations simply by managing a list of these objects.
-
-### Key Observations:
-
-- Encapsulation of requests as objects.
-- Support for Undo/Redo through command stacks.
-
-## 💻 Solution Implementation
-
-```python
---8<-- "design_patterns/behavioral/command/smart_home_hub/smart_home_hub.py"
+### Class Diagram
+```mermaid
+classDiagram
+    direction TB
+    class Command {
+        <<interface>>
+        +execute()
+        +undo()
+    }
+    class LightOnCommand {
+        -light: Light
+        +execute()
+        +undo()
+    }
+    class StereoOnWithCDCommand {
+        -stereo: Stereo
+        +execute()
+        +undo()
+    }
+    class RemoteControl {
+        -onCommands: Command[]
+        -offCommands: Command[]
+        -undoCommand: Command
+        +setCommand(slot, onCommand, offCommand)
+        +onButtonWasPushed(slot)
+        +offButtonWasPushed(slot)
+        +undoButtonWasPushed()
+    }
+    class Light {
+        +on()
+        +off()
+    }
+    
+    Command <|.. LightOnCommand
+    Command <|.. StereoOnWithCDCommand
+    RemoteControl o-- Command
+    LightOnCommand --> Light : receiver
+    StereoOnWithCDCommand --> Stereo : receiver
 ```
 
-!!! success "Why this works"
-    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.
+### Runtime Context (Sequence)
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Remote
+    participant LightOnCmd
+    participant Light
+    
+    Client->>Remote: setCommand(0, LightOnCmd, LightOffCmd)
+    Client->>Remote: onButtonWasPushed(0)
+    Remote->>LightOnCmd: execute()
+    LightOnCmd->>Light: on()
+    
+    Client->>Remote: undoButtonWasPushed()
+    Remote->>LightOnCmd: undo()
+    LightOnCmd->>Light: off()
+```
 
-## 🎤 Interview Follow-ups
+---
 
-- **Scalability Probe:** How would this design hold up under high load?
-- **Design Trade-off:** What are the pros/cons of this approach compared to alternatives?
+## 💻 Implementation & Code
+
+### 🧠 SOLID Principles Applied
+- **Single Responsibility:** The `Remote` only knows how to trigger commands; `Commands` only know how to map trigger to action; `Devices` only know how to perform actions.
+- **Open/Closed:** You can add new commands (e.g., `GarageDoorOpenCommand`) without changing the `Remote` code.
+
+### 🐍 The Code
+
+??? failure "The Villain's Code (Without Pattern)"
+    ```python
+    class RemoteControl:
+        def on_button_pressed(self, slot):
+            # 😡 Tight coupling and rigid logic
+            if slot == 0:
+                self.living_room_light.on()
+            elif slot == 1:
+                self.kitchen_light.on()
+            elif slot == 2:
+                self.stereo.on()
+                self.stereo.set_cd()
+                self.stereo.set_volume(11)
+            # If we want to change slot 0, we must edit this class!
+    ```
+
+???+ success "The Hero's Code (With Pattern)"
+    ```python
+    --8<-- "design_patterns/behavioral/command/smart_home_hub/smart_home_hub.py"
+    ```
+
+---
+
+## ⚖️ Trade-offs & Testing
+
+| Pros (Why it works) | Cons (The Twist / Pitfalls) |
+| :--- | :--- |
+| **Decoupling:** Invoker and Receiver are independent. | **Class Explosion:** Every action requires a new concrete Command class. |
+| **Extensibility:** Easy to add new commands or Macro commands. | **Complexity:** Can feel like overkill for simple callback logic. |
+| **Undo/Redo:** State can be saved in the command to reverse it. | **Memory:** Keeping a history of commands for unlimited undo consumes RAM. |
+
+### 🧪 Testing Strategy
+1.  **Unit Test Commands:** verify that `LightOnCommand.execute()` calls `light.on()`.
+2.  **Test Remote (Invoker):** Verify that the remote calls `execute()` on the injected mock command.
+3.  **Test Undo:** Execute a command, then call undo, and verify the state is rolled back.
+
+---
+
+## 🎤 Interview Toolkit
+
+- **Interview Signal:** mastery of **encapsulation**, **callbacks vs objects**, and **transactional behavior** (undo).
+- **When to Use:**
+    - "Implement a menu system where actions are configurable..."
+    - "Build a task queue or job scheduler..."
+    - "Support Undo/Redo functionality..."
+- **Scalability Probe:** "How to handle thousands of commands?" (Answer: Use a command queue/worker pool pattern. Serializing commands to DB allows persistent queues.)
+- **Design Alternatives:**
+    - **Strategy:** Similar (encapsulating behavior), but Strategy is about *how* to do something, Command is about *what* to do.
+    - **Memento:** Often used *with* Command to save state for undo.
 
 ## 🔗 Related Patterns
-
-- [Memento](../../memento/text_editor_history/PROBLEM.md) — Memento can keep the state required for undoing a Command.
-- [Prototype](../../../creational/prototype/PROBLEM.md) — Prototype can be used to clone Commands before putting them on a history list.
-- [Observer](../../observer/basic_observer/PROBLEM.md) — Command can be used as an action triggered by an Observer.
+- [Memento](../../memento/text_editor_history/PROBLEM.md) — Used to store state for Command's undo.
+- [Chain of Responsibility](../../chain_of_responsibility/PROBLEM.md) — A command can be passed along a chain.
+- [Composite](../../../structural/composite/organisation_chart/PROBLEM.md) — MacroCommands are Composites of Commands.

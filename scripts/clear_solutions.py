@@ -89,12 +89,62 @@ def clear_solution_content(file_path):
     with open(file_path, 'w') as f:
         f.writelines(new_lines)
 
+def clear_problem_md_content(file_path):
+    """
+    Clears python implementation details in PROBLEM.md files.
+    """
+    with open(file_path, 'r') as f:
+        content = f.read()
+
+    # Pattern to find the Solution Implementation section and the python block following it
+    # We look for "## 💻 Solution Implementation", optional whitespace/newlines, then a python block.
+    # We want to replace the content inside the python block.
+    # The pattern captures:
+    # 1. The header and start of code block
+    # 2. The content inside (non-greedy)
+    # 3. The end of code block
+    pattern = r"(## 💻 Solution Implementation\s*\n+```python\n)([\s\S]*?)(\n```)"
+    replacement = r"\1(Implementation details need to be added...)\3"
+    
+    new_content = re.sub(pattern, replacement, content)
+    
+    if new_content != content:
+        with open(file_path, 'w') as f:
+            f.write(new_content)
+        return True
+    return False
+
+def reset_dashboards(root_dir):
+    dashboard_dir = root_dir / 'docs' / 'dashboard' / 'categories'
+    default_content = {
+        "design_patterns.md": "# 🧩 Dashboard: Design Patterns\n\nTrack your understanding of core design patterns.\n\n---\n\n## 📊 Summary\n\n| Metric | Value |\n|------|------|\n| Total Topics | 0 |\n| Strong (4–5) | 0 |\n| Medium (3) | 0 |\n| Weak (≤2) | 0 |\n\n---\n\n## ⏰ Needs Review\n\n| Topic | Category | Impact | Last Reviewed | Confidence | Next Review |\n| :--- | :--- | :--- | :--- | :--- | :--- |\n\n---\n\n## ✅ Active Topics\n\n| Topic | Category | Impact | Last Reviewed | Confidence | Next Review |\n| :--- | :--- | :--- | :--- | :--- | :--- |\n\n---\n\n## 📈 Confidence Legend\n\n- **5/5** → Production-ready  \n- **4/5** → Strong  \n- **3/5** → Comfortable  \n- **2/5** → Needs revision  \n- **1/5** → Learning  \n",
+        "dsa.md": "# 🧩 Dashboard: DSA\n\nTrack your understanding of algorithms and data structures.\n\n---\n\n## 📊 Summary\n\n| Metric | Value |\n|------|------|\n| Total Topics | 0 |\n| Strong (4–5) | 0 |\n| Medium (3) | 0 |\n| Weak (≤2) | 0 |\n\n---\n\n## ⏰ Needs Review\n\n| Topic | Category | Impact | Last Reviewed | Confidence | Next Review |\n| :--- | :--- | :--- | :--- | :--- | :--- |\n\n---\n\n## ✅ Active Topics\n\n| Topic | Category | Impact | Last Reviewed | Confidence | Next Review |\n| :--- | :--- | :--- | :--- | :--- | :--- |\n\n---\n\n## 📈 Confidence Legend\n\n- **5/5** → Production-ready  \n- **4/5** → Strong  \n- **3/5** → Comfortable  \n- **2/5** → Needs revision  \n- **1/5** → Learning  \n",
+        "infrastructure_challenges.md": "# ⚙️ Dashboard: Infrastructure Challenges\n\nTrack your expertise in system-level challenges.\n\n---\n\n## 📊 Summary\n\n| Metric | Value |\n|------|------|\n| Total Topics | 0 |\n| Strong (4–5) | 0 |\n| Medium (3) | 0 |\n| Weak (≤2) | 0 |\n\n---\n\n## ⏰ Needs Review\n\n| Topic | Category | Impact | Last Reviewed | Confidence | Next Review |\n| :--- | :--- | :--- | :--- | :--- | :--- |\n\n---\n\n## ✅ Active Topics\n\n| Topic | Category | Impact | Last Reviewed | Confidence | Next Review |\n| :--- | :--- | :--- | :--- | :--- | :--- |\n\n---\n\n## 📈 Confidence Legend\n\n- **5/5** → Production-ready  \n- **4/5** → Strong  \n- **3/5** → Comfortable  \n- **2/5** → Needs revision  \n- **1/5** → Learning  \n",
+        "machine_coding.md": "# 🏗 Dashboard: Machine Coding\n\nTrack your progress in Low-Level Design (LLD).\n\n---\n\n## 📊 Summary\n\n| Metric | Value |\n|------|------|\n| Total Topics | 0 |\n| Strong (4–5) | 0 |\n| Medium (3) | 0 |\n| Weak (≤2) | 0 |\n\n---\n\n## ⏰ Needs Review\n\n| Topic | Category | Impact | Last Reviewed | Confidence | Next Review |\n| :--- | :--- | :--- | :--- | :--- | :--- |\n\n---\n\n## ✅ Active Topics\n\n| Topic | Category | Impact | Last Reviewed | Confidence | Next Review |\n| :--- | :--- | :--- | :--- | :--- | :--- |\n\n---\n\n## 📈 Confidence Legend\n\n- **5/5** → Production-ready  \n- **4/5** → Strong  \n- **3/5** → Comfortable  \n- **2/5** → Needs revision  \n- **1/5** → Learning  \n"
+    }
+
+    for name, content in default_content.items():
+        (dashboard_dir / name).write_text(content)
+        print(f"Reset {name} to default.")
+
 def main():
     target_dirs = ['dsa', 'design_patterns', 'machine_coding', 'infrastructure_challenges']
     root_dir = Path(__file__).parent.parent
     
+    # Reset dashboards
+    reset_dashboards(root_dir)
+    
+    # Clear solutions
     extensions = tuple(LANGUAGE_CONFIG.keys())
     
+    # Process DSA PROBLEM.md files specifically
+    dsa_dir = root_dir / 'dsa'
+    if dsa_dir.exists():
+        print("Processing PROBLEM.md files in: dsa")
+        for file_path in dsa_dir.rglob('PROBLEM.md'):
+            if clear_problem_md_content(file_path):
+                print(f"  Cleared solution in: {file_path.relative_to(root_dir)}")
+
     for dir_name in target_dirs:
         dir_path = root_dir / dir_name
         if not dir_path.exists():
@@ -107,6 +157,7 @@ def main():
                     continue
                 print(f"  Clearing solutions in: {file_path.relative_to(root_dir)}")
                 clear_solution_content(file_path)
+
 
 if __name__ == "__main__":
     main()

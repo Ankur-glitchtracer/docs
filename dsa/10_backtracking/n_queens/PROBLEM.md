@@ -1,98 +1,76 @@
-#  👑 Backtracking: N-Queens
+---
+impact: "Hard"
+nr: false
+confidence: 2
+---
+# 👑 Backtracking: N-Queens
 
 ## 📝 Description
 [LeetCode 51](https://leetcode.com/problems/n-queens/)
 The n-queens puzzle is the problem of placing `n` queens on an `n x n` chessboard such that no two queens attack each other. Return all distinct solutions to the n-queens puzzle.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This is a **Constraint Satisfaction Problem (CSP)**. It maps to problems like **Sudoku Solvers**, **Resource Allocation** (scheduling tasks that conflict on shared resources), and VLSI chip layout design.
 
-- Input size is usually small ($N \le 20$) due to exponential complexity.
-- All possible solutions must be returned.
+## 🛠️ Constraints & Edge Cases
+- $1 \le n \le 9$
+- **Edge Cases to Watch:**
+    - `n=1` (One solution: `[["Q"]]`).
+    - `n=2` or `n=3` (No solution).
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Diagonal Threat." Placing `N` queens on an `NxN` board so no two attack each other. Checking diagonals efficiently is the hard part.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Set Tracker." Use 3 Sets (or boolean arrays) to track occupied lines:
+!!! success "The Aha! Moment"
+    A Queen attacks row, column, and diagonals.
+    - **Row:** We place one queen per row, so this constraint is handled by recursion depth.
+    - **Col:** Track occupied columns.
+    - **Diagonals:** The trick is identifying diagonals.
+        - **Positive Diagonal (/)**: `r + c` is constant.
+        - **Negative Diagonal (\)**: `r - c` is constant.
+    We can use 3 Sets to track these constraints in $O(1)$.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Place N queens in all $N^2$ positions. Check board validity. Complexity: $O(N^N)$.
 
-1. Iterate `row` from 0 to N.
-2. For each `col` in 0 to N:
-   - Check if `col`, `r+c`, or `r-c` is in sets.
-   - If valid: Add Queen. Update Sets. Recurse `row + 1`.
-   - Backtrack: Remove Queen. Revert Sets.
+### 🐇 Optimal Approach
+1.  Sets: `cols`, `posDiag`, `negDiag`.
+2.  `backtrack(r)`:
+    - If `r == n`: We found a valid board. Format and add to results.
+    - Loop `c` from `0` to `n-1`:
+        - If `c` in `cols` or `r+c` in `posDiag` or `r-c` in `negDiag`: Continue (Skip).
+        - **Place Queen:** Add to sets, update board.
+        - **Recurse:** `backtrack(r + 1)`.
+        - **Backtrack:** Remove from sets, revert board.
 
-**The Twist (Failure):** **String Construction.** Building the board representation (`(To be detailed...)`) at the very end is faster than maintaining a grid of strings throughout recursion.
-
-**Interview Signal:** Optimizing **Constraint Checking** with math.
-
-## 🚀 Approach & Intuition
-Track columns and diagonals to place queens safely.
-
-### C++ Pseudo-Code
-```cpp
-vector<vector<string>> solveNQueens(int n) {
-    vector<vector<string>> res;
-    vector<string> board(n, string(n, '.'));
-    unordered_set<int> cols, posDiag, negDiag;
-    
-    function<void(int)> backtrack = [&](int r) {
-        if (r == n) {
-            res.push_back(board);
-            return;
-        }
-        for (int c = 0; c < n; c++) {
-            if (cols.count(c) || posDiag.count(r + c) || negDiag.count(r - c))
-                continue;
-                
-            cols.insert(c);
-            posDiag.insert(r + c);
-            negDiag.insert(r - c);
-            board[r][c] = 'Q';
-            
-            backtrack(r + 1);
-            
-            cols.erase(c);
-            posDiag.erase(r + c);
-            negDiag.erase(r - c);
-            board[r][c] = '.';
-        }
-    };
-    
-    backtrack(0);
-    return res;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    R0[Row 0] -->|Try Col 0| C0[Q at 0,0]
+    C0 -->|Row 1: Col 0 blocked| C1a[Try Col 1? Blocked by Diag]
+    C0 -->|Row 1: Try Col 2| C1b[Q at 1,2]
 ```
 
-### Key Observations:
-
-- Backtracking is essentially a DFS on a state-space tree where we 'undo' the last move to explore other branches.
-- Pruning is the most important optimization to skip branches that cannot lead to a valid solution.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N!)$
-    - **Space Complexity:** $O(N)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N!)$ — First row has N choices, second has N-1 (roughly), etc.
+- **Space Complexity:** $\mathcal{O}(N^2)$ — Board storage + recursion stack + constraint sets.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you use Pruning or Bitmasking to significantly reduce the search space?
-- **Scale Question:** How would you parallelize the search? Would you use Work Stealing to balance the load between threads?
-- **Edge Case Probe:** What is the maximum depth of recursion before you hit a stack overflow?
+## 🎤 Interview Toolkit
+
+- **Optimization:** Use Bitmasks (integers) instead of Sets for `cols`, `diags` to speed up constant factors.
+- **Variant:** N-Queens II (Just count solutions, don't return boards).
 
 ## 🔗 Related Problems
-
-- [Letter Combinations](../letter_combinations_of_a_phone_number/PROBLEM.md) — Previous in category
-- [Number of Islands](../../11_graphs/number_of_islands/PROBLEM.md) — Prerequisite for Graphs
-- [Climbing Stairs](../../13_1d_dynamic_programming/climbing_stairs/PROBLEM.md) — Prerequisite for 1-D Dynamic Programming
-- [Invert Binary Tree](../../07_trees/invert_binary_tree/PROBLEM.md) — Prerequisite: Trees
+- [Sudoku Solver](https://leetcode.com/problems/sudoku-solver/) — Similar CSP
+- [Permutations](../permutations/PROBLEM.md) — Related recursion

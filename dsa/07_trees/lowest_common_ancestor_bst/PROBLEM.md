@@ -1,77 +1,71 @@
-#  🌲 Tree: Lowest Common Ancestor of a Binary Search Tree
+---
+impact: "Easy"
+nr: false
+confidence: 3
+---
+# 🌳 Trees: Lowest Common Ancestor of a BST
 
-## 📝 Description
-[LeetCode 235](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/)
-Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.
+## 📝 Problem Description
+Given a Binary Search Tree (BST) and two nodes $p$ and $q$, find the Lowest Common Ancestor (LCA) of the two nodes. The LCA is the lowest node in the tree that has both $p$ and $q$ as descendants.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    LCA is used in Git version control to find the common ancestor of two branches, and in DOM tree manipulation for finding the common parent of two elements.
 
-- Number of nodes is between 0 and $10^4$.
-- $-1000 \le Node.val \le 1000$
+## 🛠️ Constraints & Edge Cases
+- Number of nodes: $[2, 10^5]$.
+- $p \neq q$.
+- $p$ and $q$ exist in the BST.
+- **Edge Cases:** 
+    - One node is the parent of the other.
+    - Nodes are at different levels.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Blind Search." Searching the entire tree for `p` and `q` ($O(N)$). We are ignoring the BST property!
+## 🧠 Approach & Intuition
 
-**The Hero:** "The BST Split." In a BST, the LCA is the node where `p` and `q` split ways (one is smaller, one is larger).
+!!! success "The Aha! Moment"
+    Exploit the BST property: for any node, all left descendants are smaller and all right descendants are larger. The LCA is the first node we encounter where the values of $p$ and $q$ "split" (one is $\le$ current, one is $\ge$ current).
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Collect paths from the root to $p$ and $q$ in lists and compare them. $\mathcal{O}(H)$ time and $\mathcal{O}(H)$ space.
 
-1. Start at `root`.
-2. If `p.val < root.val` and `q.val < root.val`: Both are in the left subtree. Move left.
-3. If `p.val > root.val` and `q.val > root.val`: Both are in the right subtree. Move right.
-4. Else: We found the split point (or one of them is the root). This is the LCA.
+### 🐇 Optimal Approach
+Use the BST property to traverse downward from the root.
+1. If $p.val > \text{root.val}$ and $q.val > \text{root.val}$, go right.
+2. If $p.val < \text{root.val}$ and $q.val < \text{root.val}$, go left.
+3. Otherwise, the current node is the LCA.
 
-**The Twist (Failure):** **General Binary Tree.** This logic only works for BSTs. For general trees, you need post-order traversal to bubble up existence.
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    A((6)) --> B((2))
+    A --> C((8))
+    B --> D((0))
+    B --> E((4))
+    C --> F((7))
+    C --> G((9))
 
-**Interview Signal:** Leveraging **BST Properties** for $O(\log N)$ optimization.
-
-## 🚀 Approach & Intuition
-Utilize value comparisons to find split point.
-
-### C++ Pseudo-Code
-```cpp
-TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-    while (root) {
-        if (p->val < root->val && q->val < root->val)
-            root = root->left;
-        else if (p->val > root->val && q->val > root->val)
-            root = root->right;
-        else
-            return root;
-    }
-    return nullptr;
-}
+    %% p=2, q=8. LCA=6
 ```
 
-### Key Observations:
-
-- Most tree problems can be solved using either DFS (recursion) or BFS (queue).
-- In-order traversal of a Binary Search Tree (BST) yields elements in sorted order.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(H)$ (Height of tree, $\log N$ if balanced)
-    - **Space Complexity:** $O(1)$ (Iterative)
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(H)$ — Where $H$ is the tree height.
+- **Space Complexity:** $\mathcal{O}(1)$ — If implemented iteratively.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you solve this iteratively if you were worried about stack overflow from deep recursion?
-- **Scale Question:** If the tree is a multi-terabyte B-Tree in a database, how do you optimize node traversal to minimize disk hits?
-- **Edge Case Probe:** What if the tree is extremely skewed (effectively a linked list)? What if it's empty?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** What if it's a binary tree instead of BST? (Need to traverse children and return the node if found; backtracking is needed).
+- **Alternative Data Structures:** Can we do this for general trees? (Yes, parent pointers help).
 
 ## 🔗 Related Problems
-
-- [Level Order Traversal](../binary_tree_level_order_traversal/PROBLEM.md) — Next in category
-- [Subtree of Another Tree](../subtree_of_another_tree/PROBLEM.md) — Previous in category
-- [Implement Trie](../../08_tries/implement_trie/PROBLEM.md) — Prerequisite for Tries
-- [Kth Largest in Stream](../../09_heap_priority_queue/kth_largest_element_in_a_stream/PROBLEM.md) — Prerequisite for Heap / Priority Queue
+- `Lowest Common Ancestor of a Binary Tree` — Harder variant without BST property.

@@ -1,61 +1,66 @@
-#  🌲 Tree: Maximum Depth of Binary Tree
+---
+impact: "Easy"
+nr: false
+confidence: 3
+---
+# 🌳 Trees: Maximum Depth of Binary Tree
 
-## 📝 Description
-[LeetCode 104](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
-Given the `root` of a binary tree, return its maximum depth.
+## 📝 Problem Description
+Given the root of a binary tree, return its maximum depth. The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Tree depth calculation is crucial for balancing self-balancing trees (AVL, Red-Black) and determining network latency in hierarchies.
 
-- Number of nodes is between 0 and $10^4$.
-- $-1000 \le Node.val \le 1000$
+## 🛠️ Constraints & Edge Cases
+- Number of nodes: $[0, 10^4]$.
+- Node values: $[-100, 100]$.
+- **Edge Cases:** 
+    - Empty tree: 0.
+    - Only root: 1.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Infinite Descent." Not knowing how deep a structure goes and risking a stack overflow if not handled with base cases.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Bottom-Up Reporter." A recursive approach where each node reports the height of its tallest child back up to its parent.
+!!! success "The Aha! Moment"
+    The depth of a tree is simply `1 + max(depth(left), depth(right))`. This is a classic recursive problem.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Performing an exhaustive search (BFS) level by level and counting levels is valid, but recursive DFS is more concise and idiomatic for this specific problem.
 
-1. Base Case: If node is `None`, its depth is 0.
-2. Recursive Step: Get `max_depth` of left and right children.
-3. Return `1 + max(left_depth, right_depth)`.
+### 🐇 Optimal Approach
+Use recursive DFS:
+1. Base case: `if not root: return 0`.
+2. Recursive step: `return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))`.
 
-**The Twist (Failure):** **The Skewed Tree.** On a very deep, single-branch tree (like a linked list), recursion can hit the limit. Use an iterative BFS if the stack is constrained.
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    A((3)) --> B((9))
+    A --> C((20))
+    C --> D((15))
+    C --> E((7))
+```
 
-**Interview Signal:** Mastery of **Recursive DFS** and tree property calculation.
-
-## 🚀 Approach & Intuition
-(To be detailed...)
-
-### Key Observations:
-
-- Most tree problems can be solved using either DFS (recursion) or BFS (queue).
-- In-order traversal of a Binary Search Tree (BST) yields elements in sorted order.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(H)$ (Tree height)
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — Where $N$ is the number of nodes (we visit each node exactly once).
+- **Space Complexity:** $\mathcal{O}(H)$ — Where $H$ is the tree height (recursion stack space).
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you solve this iteratively if you were worried about stack overflow from deep recursion?
-- **Scale Question:** If the tree is a multi-terabyte B-Tree in a database, how do you optimize node traversal to minimize disk hits?
-- **Edge Case Probe:** What if the tree is extremely skewed (effectively a linked list)? What if it's empty?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Minimum depth of binary tree? (Requires BFS, stopping at the first leaf node).
+- **Alternative Data Structures:** Can we do this iteratively using BFS? (Yes, use a queue and a level counter).
 
 ## 🔗 Related Problems
-
-- [Diameter of Binary Tree](../diameter_of_binary_tree/PROBLEM.md) — Next in category
-- [Invert Binary Tree](../invert_binary_tree/PROBLEM.md) — Previous in category
-- [Implement Trie](../../08_tries/implement_trie/PROBLEM.md) — Prerequisite for Tries
-- [Kth Largest in Stream](../../09_heap_priority_queue/kth_largest_element_in_a_stream/PROBLEM.md) — Prerequisite for Heap / Priority Queue
+- `Diameter of Binary Tree` — Extension of depth calculation.
+- `Balanced Binary Tree` — Checks depth difference.

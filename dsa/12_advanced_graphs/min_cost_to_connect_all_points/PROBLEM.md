@@ -1,99 +1,66 @@
-#  🔌 Advanced Graph: Min Cost to Connect All Points
+---
+impact: "Medium"
+nr: false
+confidence: 3
+---
+# 🏗️ Advanced Graph: Min Cost to Connect All Points
 
-## 📝 Description
-[LeetCode 1584](https://leetcode.com/problems/min-cost-to-connect-all-points/)
-You are given an array `points` representing integer coordinates of some points on a 2D-plane, where `points[i] = [xi, yi]`. The cost of connecting two points `[xi, yi]` and `[xj, yj]` is the Manhattan distance between them: `|xi - xj| + |yi - yj|`. Return the minimum cost to make all points connected. All points are connected if there is exactly one simple path between any two points.
+## 📝 Problem Description
+You are given an array `points` representing integer coordinates of some points on a 2D-plane, where `points[i] = [xi, yi]`. The cost of connecting two points `[xi, yi]` and `[xj, yj]` is the manhattan distance between them: `|xi - xj| + |yi - yj|`. Return the minimum cost to make all points connected.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This problem is a classic example of constructing a Minimum Spanning Tree (MST). It is foundational in network design, such as laying cables between buildings or optimizing infrastructure routes to minimize total construction costs.
 
-- $V \le 1000, E \le 10^4$
-- Edge weights are non-negative for Dijkstra.
+## 🛠️ Constraints & Edge Cases
+- $1 \le points.length \le 1000$
+- $-10^6 \le xi, yi \le 10^6$
+- **Edge Cases:** 
+    - A single point (cost is 0).
+    - Points with identical coordinates.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Cable Bill." You need to connect N servers with cables. Connecting every pair ($N^2$ cables) is expensive. You want the Minimum Spanning Tree (MST).
+## 🧠 Approach & Intuition
 
-**The Hero:** "Prim's Algorithm." Start from one node and greedily attach the closest unvisited node.
+!!! success "The Aha! Moment"
+    Connecting all points with minimum cost is equivalent to finding the Minimum Spanning Tree (MST) of a complete graph where edges are Manhattan distances.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Generating all possible spanning trees and selecting the minimum is $O(N^{N-2})$ via Cayley's formula, which is intractable.
 
-1. Start at point
-0. `cost = 0`. `visited = {0}`.
-2. Maintain a Min-Heap of edges `{dist, node}` from the *visited* set to the *unvisited* world.
-3. Initially push all edges from point 0.
-4. While `visited.size() < N`:
-   - Pop smallest edge `{d, u}`.
-   - If `u` visited, skip.
-   - Else:
-     - Mark `u` visited.
-     - `cost += d`.
-     - Push all edges from `u` to unvisited nodes.
+### 🐇 Optimal Approach (Prim's Algorithm)
+1. Treat the points as a graph where every pair is connected.
+2. Use Prim's algorithm with a Min-Heap to greedily select the shortest edge that connects a new point to the existing tree.
+3. Start from an arbitrary point, maintain a set of visited points, and expand until all points are connected.
 
-**The Twist (Failure):** **Kruskal's vs Prim's.** Kruskal's (sort edges + Union-Find) works well too ($O(E \log E)$). Since this is a dense graph ($E \approx V^2$), Prim's is often preferred or equal.
-
-**Interview Signal:** Implementing **MST (Minimum Spanning Tree)**.
-
-## 🚀 Approach & Intuition
-Greedily pick shortest edge from visited to unvisited.
-
-### C++ Pseudo-Code
-```cpp
-int minCostConnectPoints(vector<vector<int>>& points) {
-    int n = points.size();
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-    vector<bool> visited(n, false);
-    
-    pq.push({0, 0}); // {cost, node}
-    int res = 0, connected = 0;
-    
-    while (connected < n) {
-        auto [cost, u] = pq.top(); pq.pop();
-        if (visited[u]) continue;
-        
-        visited[u] = true;
-        res += cost;
-        connected++;
-        
-        for (int v = 0; v < n; v++) {
-            if (!visited[v]) {
-                int dist = abs(points[u][0] - points[v][0]) + 
-                           abs(points[u][1] - points[v][1]);
-                pq.push({dist, v});
-            }
-        }
-    }
-    return res;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    P0((P0)) -. 5 .-> P1((P1))
+    P1 -. 3 .-> P2((P2))
+    P0 -. 7 .-> P2
+    style P1 stroke:#f66,stroke-width:2px
 ```
 
-### Key Observations:
-
-- Dijkstra's and Prim's algorithms use a Priority Queue to find the shortest path or MST in $O(E \log V)$ time.
-- Kruskal's algorithm uses Disjoint Set Union (DSU) to efficiently manage connected components and detect cycles.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N^2 \log N)$ (Prim's) or $O(N^2)$ (Optimized Prim's)
-    - **Space Complexity:** $O(N^2)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $O(N^2 \log N)$ if using a priority queue, or $O(N^2)$ with a simple array-based Prim's implementation.
+- **Space Complexity:** $O(N^2)$ to store the graph (or $O(N)$ if calculating edges on-the-fly).
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you solve this using BFS for shortest paths or DFS for connectivity? When would you use Union-Find?
-- **Scale Question:** If the graph has billions of edges (like a social network), how would you use a Pregel or Giraph-style distributed processing model?
-- **Edge Case Probe:** How do you handle cycles, disconnected components, or self-loops in the graph?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** What if the cost function changes (e.g., Euclidean distance)?
+- **Alternative Data Structures:** Kruskal's algorithm (using DSU) is another valid approach.
 
 ## 🔗 Related Problems
-
-- [Network Delay Time](../network_delay_time/PROBLEM.md) — Next in category
-- [Reconstruct Itinerary](../reconstruct_itinerary/PROBLEM.md) — Previous in category
-- [Kth Largest in Stream](../../09_heap_priority_queue/kth_largest_element_in_a_stream/PROBLEM.md) — Prerequisite: Heap / Priority Queue
-- [Number of Islands](../../11_graphs/number_of_islands/PROBLEM.md) — Prerequisite: Graphs
+- [Cheapest Flights Within K Stops](../cheapest_flights_within_k_stops/PROBLEM.md)
+- [Swim in Rising Water](../swim_in_rising_water/PROBLEM.md)

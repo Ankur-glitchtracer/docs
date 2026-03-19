@@ -1,88 +1,70 @@
-#  🌳 Tree: Binary Tree Level Order Traversal
+---
+impact: "Medium"
+nr: false
+confidence: 2
+---
+# 🌳 Tree: Binary Tree Level Order Traversal
 
 ## 📝 Description
 [LeetCode 102](https://leetcode.com/problems/binary-tree-level-order-traversal/)
 Given the `root` of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This is **Breadth-First Search (BFS)**. It's used in **Social Networks** (finding friends of friends), **Web Crawlers** (visiting links layer by layer), and broadcasting in networks.
 
+## 🛠️ Constraints & Edge Cases
 - Number of nodes is between 0 and $10^4$.
-- $-1000 \le Node.val \le 1000$
+- **Edge Cases to Watch:**
+    - Empty tree (return `[]`).
+    - Skewed tree (still processes level by level).
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Fog of War." Not knowing the shortest path or the "width" of a tree at a specific depth because you're diving deep into one branch (DFS).
+## 🧠 Approach & Intuition
 
-**The Hero:** "The FIFO Queue (BFS)." Processing nodes layer by layer, ensuring you see every node at distance `D` before seeing anyone at `D+1`.
+!!! success "The Aha! Moment"
+    We need to process nodes row by row. A **Queue** (FIFO) is perfect for this. We put the root in. Then, for every node we take out, we put its children in the back. To separate levels, we can snapshot the queue size at the start of each level loop.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+DFS with a `depth` parameter, adding to `res[depth]`. This works ($O(N)$) but isn't "level order" traversal logic, it's just organizing DFS output.
 
-1. Initialize a `Queue` with the root.
-2. While the queue is not empty, take a snapshot of its `size` (current level count).
-3. Process exactly `size` nodes, adding their children back into the queue.
-4. Add the level's results to the final list.
+### 🐇 Optimal Approach
+1.  Initialize `q` with `root`.
+2.  While `q` is not empty:
+    - Get `len(q)` (this is the number of nodes in the current level).
+    - Iterate that many times:
+        - Pop node.
+        - Add value to `level_list`.
+        - Add children to `q`.
+    - Append `level_list` to result.
 
-**The Twist (Failure):** **The Queue Bloat.** In a perfectly balanced tree, the last level contains $N/2$ nodes, requiring $O(N)$ space.
-
-**Interview Signal:** Mastery of **Breadth-First Search** and level-by-level processing.
-
-## 🚀 Approach & Intuition
-Using a queue is the standard way to perform Breadth-First Search. We process nodes level by level.
-
-### C++ Pseudo-Code
-```cpp
-vector<vector<int>> levelOrder(TreeNode* root) {
-    if (!root) return {};
-    vector<vector<int>> result;
-    queue<TreeNode*> q;
-    q.push(root);
-
-    while (!q.empty()) {
-        int levelSize = q.size(); // Snapshot current level size
-        vector<int> currentLevel;
-        
-        for (int i = 0; i < levelSize; i++) {
-            TreeNode* node = q.front();
-            q.pop();
-            currentLevel.push_back(node->val);
-            
-            if (node->left) q.push(node->left);
-            if (node->right) q.push(node->right);
-        }
-        result.push_back(currentLevel);
-    }
-    return result;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    Q[Queue: 3] -->|Pop 3| L1[Level 1: 3]
+    L1 -->|Push 9, 20| Q2[Queue: 9, 20]
+    Q2 -->|Pop 9, 20| L2[Level 2: 9, 20]
+    L2 -->|Push 15, 7| Q3[Queue: 15, 7]
 ```
 
-### Key Observations:
-
-- Most tree problems can be solved using either DFS (recursion) or BFS (queue).
-- In-order traversal of a Binary Search Tree (BST) yields elements in sorted order.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$ (To be detailed...)
-    - **Space Complexity:** $O(1)$ (To be detailed...)
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — Visit every node once.
+- **Space Complexity:** $\mathcal{O}(N)$ — The queue can hold up to $N/2$ nodes (leaf level).
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you solve this iteratively if you were worried about stack overflow from deep recursion?
-- **Scale Question:** If the tree is a multi-terabyte B-Tree in a database, how do you optimize node traversal to minimize disk hits?
-- **Edge Case Probe:** What if the tree is extremely skewed (effectively a linked list)? What if it's empty?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** ZigZag Level Order Traversal.
+- **Alternative:** Recursive DFS passing `level` index (Pre-order).
 
 ## 🔗 Related Problems
-
-- [Right Side View](../binary_tree_right_side_view/PROBLEM.md) — Next in category
-- [LCA of BST](../lowest_common_ancestor_bst/PROBLEM.md) — Previous in category
-- [Implement Trie](../../08_tries/implement_trie/PROBLEM.md) — Prerequisite for Tries
-- [Kth Largest in Stream](../../09_heap_priority_queue/kth_largest_element_in_a_stream/PROBLEM.md) — Prerequisite for Heap / Priority Queue
+- [Binary Tree Right Side View](../binary_tree_right_side_view/PROBLEM.md) — Next in category

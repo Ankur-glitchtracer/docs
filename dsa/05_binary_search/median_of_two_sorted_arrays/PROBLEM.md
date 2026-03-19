@@ -1,97 +1,92 @@
-#  📊 Binary Search: Median of Two Sorted Arrays
+---
+impact: "High"
+nr: false
+confidence: 3
+---
+# 📊 Binary Search: Median of Two Sorted Arrays
 
-## 📝 Description
+## 📝 Problem Description
+Given two sorted arrays `nums1` and `nums2` of size `m` and `n` respectively, return the median of the two sorted arrays. The overall run time complexity should be $\mathcal{O}(\log (m+n))$.
+
 [LeetCode 4](https://leetcode.com/problems/median-of-two-sorted-arrays/)
-Given two sorted arrays `nums1` and `nums2` of size `m` and `n` respectively, return the median of the two sorted arrays. The overall run time complexity should be $O(\log (m+n))$.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Critical for **distributed data processing** where datasets are split across multiple servers. Instead of merging massive sorted logs to find the median, you can apply binary search to find the partition point across machines, saving massive amounts of network and memory bandwidth.
 
-- $1 \le nums.length \le 10^5$
-- Target value is within the range of the data type.
+## 🛠️ Constraints & Edge Cases
+- $0 \le m \le 1000$
+- $0 \le n \le 1000$
+- $1 \le m + n \le 2000$
+- **Edge Cases to Watch:**
+    - One array is completely empty.
+    - Arrays are of the same size.
+    - Median is a single middle element (odd total length).
+    - Median is the average of two middle elements (even total length).
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Linear Merge." Merging the two arrays into one big array takes $O(M+N)$ time and space. Too slow/heavy.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Virtual Partition." We want to cut both arrays such that the left half contains exactly half the total elements, and every element on the left is smaller than every element on the right.
+!!! success "The Aha! Moment"
+    Instead of merging, we use **Binary Search on the partition points**. We need to find a way to cut both arrays such that the total number of elements in the left parts equals the total in the right parts, and all elements on the left are smaller than those on the right.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Merge the two arrays into a single sorted array of size $(m+n)$ and return the middle element.
+- **Time Complexity:** $\mathcal{O}(M+N)$
+- **Space Complexity:** $\mathcal{O}(M+N)$
+- **Why it fails:** The problem specifically requires $\mathcal{O}(\log(M+N))$ time complexity.
 
-1. Perform binary search on the *smaller* array (say `A`).
-2. Partition `A` at `i`. This forces a partition at `j` in `B` such that `i + j = total_half`.
-3. Check validity:
-   - `A[i-1] <= B[j]` (Left A < Right B)
-   - `B[j-1] <= A[i]` (Left B < Right A)
-4. If valid, calculate median from the boundary values.
-5. If not, adjust binary search range.
+### 🐇 Optimal Approach
+Use **Binary Search** to partition the *smaller* array (let's call it `A`).
+1. Ensure `A` is the smaller array to minimize the binary search range.
+2. Initialize `low = 0`, `high = len(A)`.
+3. While `low <= high`:
+    - `partA = (low + high) // 2`
+    - `partB = (total_elements + 1) // 2 - partA`
+    - Determine boundary values: `L_A, R_A, L_B, R_B`. (Use $-\infty$ or $+\infty$ if partitions are empty).
+    - If `L_A <= R_B` and `L_B <= R_A`:
+        - Partition is correct.
+        - If odd total: `return max(L_A, L_B)`
+        - If even total: `return (max(L_A, L_B) + min(R_A, R_B)) / 2.0`
+    - Else if `L_A > R_B`: Partition `A` too far right; move `high = partA - 1`.
+    - Else: Partition `A` too far left; move `low = partA + 1`.
 
-**The Twist (Failure):** **The Edge Cases.** Partitioning at index 0 or `len` (empty left or right parts). Use infinity/negative-infinity to handle these boundaries cleanly.
-
-**Interview Signal:** Mastery of **Hard** binary search and array partitioning.
-
-## 🚀 Approach & Intuition
-Find the correct split point in the smaller array.
-
-### C++ Pseudo-Code
-```cpp
-double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-    if (nums1.size() > nums2.size()) return findMedianSortedArrays(nums2, nums1);
-    
-    int x = nums1.size(), y = nums2.size();
-    int l = 0, r = x;
-    
-    while (l <= r) {
-        int partX = (l + r) / 2;
-        int partY = (x + y + 1) / 2 - partX;
-        
-        int maxLeftX = (partX == 0) ? INT_MIN : nums1[partX - 1];
-        int minRightX = (partX == x) ? INT_MAX : nums1[partX];
-        int maxLeftY = (partY == 0) ? INT_MIN : nums2[partY - 1];
-        int minRightY = (partY == y) ? INT_MAX : nums2[partY];
-        
-        if (maxLeftX <= minRightY && maxLeftY <= minRightX) {
-            if ((x + y) % 2 == 0)
-                return (max(maxLeftX, maxLeftY) + min(minRightX, minRightY)) / 2.0;
-            else
-                return max(maxLeftX, maxLeftY);
-        } else if (maxLeftX > minRightY) {
-            r = partX - 1;
-        } else {
-            l = partX + 1;
-        }
-    }
-    return 0.0;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    subgraph "Array A Partitioning"
+    A_Left[A_0 ... L_A] --- A_Right[R_A ... A_m]
+    end
+    subgraph "Array B Partitioning"
+    B_Left[B_0 ... L_B] --- B_Right[R_B ... B_n]
+    end
+    A_Left --- B_Left
+    A_Right --- B_Right
+    style A_Left fill:#f9f,stroke:#333
+    style B_Left fill:#f9f,stroke:#333
+    style A_Right fill:#bbf,stroke:#333
+    style B_Right fill:#bbf,stroke:#333
 ```
 
-### Key Observations:
-
-- Binary search can be applied not just to sorted arrays, but to any monotonic search space (Search on Answer).
-- Be careful with the boundaries ($left, right$) and the condition for moving them to avoid infinite loops.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(\log(\min(M, N)))$
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(\log(\min(M, N)))$ — We binary search over the shorter array's partition points.
+- **Space Complexity:** $\mathcal{O}(1)$ — No extra memory besides a few pointers.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you apply 'Binary Search on Answer' to solve optimization problems (e.g., minimize max distance)?
-- **Scale Question:** If you are searching in a distributed database, how can you reduce the number of network round trips?
-- **Edge Case Probe:** Does your mid-point calculation `(left + right) / 2` overflow for very large indices?
+## 🎤 Interview Toolkit
+
+- **Why the smaller array?** Searching the smaller array ensures the corresponding partition point in the larger array is always within valid bounds.
+- **Median calculation:** Be careful with the `(x + y + 1) // 2` formula for odd/even cases.
 
 ## 🔗 Related Problems
-
-- [Time Based KV Store](../time_based_key_value_store/PROBLEM.md) — Previous in category
-- [Invert Binary Tree](../../07_trees/invert_binary_tree/PROBLEM.md) — Prerequisite for Trees
-- [Valid Palindrome](../../02_two_pointers/valid_palindrome/PROBLEM.md) — Prerequisite: Two Pointers
-- [Bubble Sort](../../19_sorting/bubble_sort/PROBLEM.md) — Prerequisite: Sorting
+- [Koko Eating Bananas](../koko_eating_bananas/PROBLEM.md) — Search on Answer.
+- [Find Minimum in Rotated Sorted Array](../find_minimum_in_rotated_sorted_array/PROBLEM.md) — Pivot search.

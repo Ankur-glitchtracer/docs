@@ -46,7 +46,7 @@ A stack is the natural choice for problems involving nested structures. As we en
 ## 💻 Solution Implementation
 
 ```python
---8<-- "dsa/04_stack/valid_parentheses/solution.py"
+(Implementation details need to be added...)
 ```
 
 !!! success "Aha! Moment"

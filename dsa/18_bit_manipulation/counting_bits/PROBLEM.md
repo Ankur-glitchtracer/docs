@@ -1,74 +1,62 @@
-#  🔢 Bit Manipulation: Counting Bits
+---
+impact: "Low"
+nr: true
+confidence: 5
+---
+# 🧩 Bit Manipulation: Counting Bits
 
-## 📝 Description
-[LeetCode 338](https://leetcode.com/problems/counting-bits/)
-Given an integer `n`, return an array `ans` of length `n + 1` such that for each `i` (`0 <= i <= n`), `ans[i]` is the number of `1`'s in the binary representation of `i`.
+## 📝 Problem Description
+Given an integer `n`, return an array `ans` of length `n + 1` such that for each `i`, `ans[i]` is the number of `1` bits in the binary representation of `i`.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Essential for **performance-sensitive optimization** tasks, such as calculating Hamming weight for checksums, error detection, or data compression algorithms (e.g., LZ77) where counting bits is a frequent operation.
 
-- Inputs are typically 32-bit or 64-bit integers.
-- The number of operations is $O(1)$ relative to word size.
+## 🛠️ Constraints & Edge Cases
+- $0 \le n \le 10^5$
+- **Edge Cases:** $n=0$.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Repeated Count." Calling `hammingWeight(i)` for every `i` from 0 to `n`. Total $O(N \log N)$ or $O(32N)$.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Pattern DP."
+!!! success "The Aha! Moment"
+    Use dynamic programming: For any number `i`, the number of bits is `bits[i >> 1] + (i & 1)`. This reuses computed results from the previous sub-problems.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Iterate from 0 to $n$ and count bits for each using `n & (n-1)` or built-in functions. Complexity $\mathcal{O}(N \log N)$.
 
-1. `dp` array of size `n+1`.
-2. `dp[0] = 0`.
-3. Iterate `i` from 1 to `n`.
-   - `dp[i] = dp[i >> 1] + (i & 1)`.
+### 🐇 Optimal Approach
+Use DP:
+- `ans[i] = ans[i >> 1] + (i % 2)`.
+- This works because shifting right removes the last bit, and the remainder tells us if the last bit was 1.
 
-**The Twist (Failure):** **Offset.** Another pattern is `dp[i] = dp[i & (i-1)] + 1` (Using Kernighan's logic in DP). Both work.
-
-**Interview Signal:** **Bitwise DP**.
-
-## 🚀 Approach & Intuition
-`bits[i] = bits[i >> 1] + (i & 1)`.
-
-### C++ Pseudo-Code
-```cpp
-vector<int> countBits(int n) {
-    vector<int> res(n + 1);
-    res[0] = 0;
-    for (int i = 1; i <= n; i++) {
-        res[i] = res[i >> 1] + (i & 1);
-    }
-    return res;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    A[i: 5 binary 101] --> B[i>>1: 2 binary 10]
+    B --> C[ans[i] = ans[2] + 1]
+    C --> D[Result: 2]
 ```
 
-### Key Observations:
-
-- Bitwise operations (AND, OR, XOR, NOT) allow for $O(1)$ constant time operations on binary data.
-- XOR is particularly useful for finding single elements or toggling states, as $x \oplus x = 0$.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(N)$ (Output array)
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ where $N$ is the input integer.
+- **Space Complexity:** $\mathcal{O}(N)$ to store the array of bit counts.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you solve this without using any arithmetic operators (+, -, *, /)?
-- **Scale Question:** How do you handle bit operations on arbitrarily large integers (BigInt)?
-- **Edge Case Probe:** How does your code handle signed vs unsigned integers and overflow/underflow?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Use $\mathcal{O}(1)$ additional space (impossible here as we return an array).
+- **Alternative Data Structures:** Bit shifting vs. arithmetic.
 
 ## 🔗 Related Problems
-
-- [Reverse Bits](../reverse_bits/PROBLEM.md) — Next in category
-- [Number of 1 Bits](../number_of_1_bits/PROBLEM.md) — Previous in category
-- [Rotate Image](../../17_math_geometry/rotate_image/PROBLEM.md) — Prerequisite for Math & Geometry
-- [Climbing Stairs](../../13_1d_dynamic_programming/climbing_stairs/PROBLEM.md) — Prerequisite: 1-D Dynamic Programming
+- `[Number of 1 Bits](#)` — Single number bit counting.
+- `[Single Number](#)` — Using XOR.

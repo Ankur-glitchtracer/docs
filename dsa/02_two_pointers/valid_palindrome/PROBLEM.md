@@ -1,65 +1,74 @@
-#  ↔️ Two Pointers: Valid Palindrome
+---
+impact: "Low"
+nr: false
+confidence: 5
+---
+# ↔️ Two Pointers: Valid Palindrome
 
-## 📝 Description
-[LeetCode 125](https://leetcode.com/problems/valid-palindrome/)
+## 📝 Problem Description
 A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers. Given a string `s`, return `true` if it is a palindrome, or `false` otherwise.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Data validation, string processing in compilers, or DNA sequence analysis where palindromic sequences often have biological significance.
 
-- $1 <= s.length <= 2 * 10^5$
+## 🛠️ Constraints & Edge Cases
+- $1 \le s.length \le 2 \cdot 10^5$
 - `s` consists only of printable ASCII characters.
+- **Edge Cases to Watch:**
+    - Empty string or string with only non-alphanumeric characters (should be true).
+    - String with mixed case.
+    - String with numbers and special characters.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Memory Allocator." Creating a new string just to filter out non-alphanumeric characters or reverse it ($O(N)$ space).
+## 🧠 Approach & Intuition
 
-**The Hero:** "The In-Place Converger." Comparing characters from both ends inwards, skipping garbage characters on the fly.
+!!! success "The Aha! Moment"
+    Skip non-alphanumeric characters **on the fly** using two pointers. This allows you to check for a palindrome in $O(1)$ extra space, avoiding the need to create a new filtered string.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Create a new string by filtering out non-alphanumeric characters and converting to lowercase. Then, compare this string with its reverse. This takes $O(N)$ space.
 
-1. Initialize `left = 0`, `right = s.length - 1`.
-2. While `left < right`:
-   - If `s[left]` is not alphanumeric, increment `left`.
-   - If `s[right]` is not alphanumeric, decrement `right`.
-   - If `lower(s[left]) != lower(s[right])`, return `false`.
-   - Move both pointers inward.
+### 🐇 Optimal Approach
+1. Initialize `l = 0` and `r = len(s) - 1`.
+2. While `l < r`:
+    - If `s[l]` is not alphanumeric, increment `l` and continue.
+    - If `s[r]` is not alphanumeric, decrement `r` and continue.
+    - Compare `s[l].lower()` and `s[r].lower()`.
+    - If they don't match, return `false`.
+    - Increment `l` and decrement `r`.
+3. If the pointers meet, return `true`.
 
-**The Twist (Failure):** **The Empty String.** Handling strings with no valid characters (e.g., ".,"). The logic must ensure pointers don't cross bounds wildly.
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    S["'A man, a plan, a canal: Panama'"]
+    L[L: 'A'] --- R[R: 'a']
+    L_Next[L: 'm'] --- R_Next[R: 'm']
+    Skip["Skip ',' and ':'"]
+    L_Next --> Skip
+    Skip --> R_Next
+```
 
-**Interview Signal:** Mastery of **In-Place String Manipulation**.
-
-## 🚀 Approach & Intuition
-The core idea is to use two pointers starting at opposite ends of the string and moving toward the center. We only compare alphanumeric characters, effectively ignoring whitespace and punctuation without needing to pre-process the string into a new object.
-
-### Key Observations:
-
-- We can skip non-alphanumeric characters using nested `while` loops.
-- `tolower()` ensures the comparison is case-insensitive.
-- The `left < right` condition handles both even and odd length palindromes.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$ - We traverse the string at most once.
-    - **Space Complexity:** $O(1)$ - No extra space allocated.
+---
 
 ## 💻 Solution Implementation
 
 ```python
---8<-- "dsa/02_two_pointers/valid_palindrome/solution.py"
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    The trick is skipping "garbage" characters on the fly. By moving the pointers until they hit valid characters, we achieve $O(1)$ space, whereas a naive "filter and reverse" approach would use $O(N)$ space.
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — Each character is visited at most once.
+- **Space Complexity:** $\mathcal{O}(1)$ — No extra string is created.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** What if you are allowed to delete at most one character to make it a palindrome (Valid Palindrome II)?
-- **Scale Question:** How would you check if a massive file (e.g., 10GB) is a palindrome without loading it all into RAM?
-- **Edge Case Probe:** Does your solution correctly ignore non-alphanumeric characters and handle case sensitivity?
+## 🎤 Interview Toolkit
+
+- **Built-in methods:** Mention `isalnum()` and `lower()` in Python.
+- **Follow-up:** What if you could delete at most one character to make it a palindrome? (See Valid Palindrome II).
 
 ## 🔗 Related Problems
-
-- [Two Sum II](../two_sum_ii/PROBLEM.md) — Next in category
-- [Best Time to Buy/Sell Stock](../../03_sliding_window/best_time_to_buy_sell_stock/PROBLEM.md) — Prerequisite for Sliding Window
-- [Binary Search](../../05_binary_search/binary_search/PROBLEM.md) — Prerequisite for Binary Search
-- [Reverse Linked List](../../06_linked_list/reverse_list/PROBLEM.md) — Prerequisite for Linked List
+- [Valid Palindrome II](https://leetcode.com/problems/valid-palindrome-ii/)
+- [Two Sum II](../two_sum_ii/PROBLEM.md)

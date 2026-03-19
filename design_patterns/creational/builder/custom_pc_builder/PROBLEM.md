@@ -1,59 +1,153 @@
+---
+impact: "Medium"    # Low | Medium | High
+nr: false           # No Review Required (true/false)
+confidence: 2       # 1 (Learning) to 5 (Mastered)
+---
 # 🖥️ Builder Pattern: High-End Workstation Configurator
 
 ## 📝 Overview
-The **Builder Pattern** separates the construction of a complex object from its representation. This allows the same construction process to create different representations, which is perfect for assembling a computer with numerous optional components.
+The **Builder Pattern** separates the construction of a complex object from its representation, allowing the same construction process to create different representations. It is the perfect solution for objects with many optional components or configurations, eliminating the "telescoping constructor" anti-pattern.
 
 !!! abstract "Core Concepts"
+    - **Step-by-Step Assembly:** Constructing an object through a series of semantic method calls (e.g., `add_cpu()`, `add_gpu()`).
+    - **Fluent Interface:** Chaining methods together for a readable, configuration-like syntax.
+    - **Validation at Build:** Ensuring the final product is valid (e.g., "Has a CPU") before it is officially "born."
 
-    - **Step-by-Step Construction:** Breaking down a massive `__init__` into manageable, semantic methods.
-        - **Fluent Interface:** Chaining methods (e.g., `.add_cpu().add_ram()`) for a more readable, Pythonic API.
-        - **Object Integrity:** Ensuring the product is fully validated before it is returned to the client.
+---
 
-!!! info "Why Use This Pattern?"
+## 🏭 The Engineering Story & Problem
 
-    - **Simplifies complex object creation step-by-step**
-    - **Allows different representations of the same product**
-    - **Separates construction from representation**
-
-
-## 🚀 Problem Statement
-Creating a `Computer` object via a standard constructor is problematic when there are dozens of optional parts like different CPUs, RAM sizes, GPUs, and cooling systems. This "telescoping constructor" anti-pattern makes the code unreadable and error-prone.
-
-## 🛠️ Requirements
-
-1. Product: A complex Computer object.
-2. Builder Interface: Defines steps to build the computer.
-3. Validation: Ensure the computer is in a valid state before build returns.
-
-### Technical Constraints
-
-- **Validation:** Prevent the creation of "impossible" PCs (e.g., missing a CPU or insufficient PSU for a high-end GPU).
-- **Immutability:** Once `build()` is called, the resulting `Computer` object should be in a final, valid state.
-
-## 🧠 Thinking Process & Approach
-Complex objects with many optional parameters lead to 'telescoping constructors'. The approach is to use a step-by-step builder that separates the configuration of the parts from the final assembly. Adding a validation step in `build()` ensures the object is always born in a valid state.
-
-### Key Observations:
-
-- Fluent interface for readable configuration.
-- Internal validation before final object return.
-
-## 💻 Solution Implementation
-
+### 😡 The Villain (The Problem)
+You're building a `Computer` class. A computer can have many parts: CPU, RAM, GPU, HDD, SSD, Case, Cooling, PSU, etc.
+Most parts are optional. Some users want a gaming PC (RTX 4090), others want a server (No GPU, 128GB RAM).
+The "20-Parameter Constructor" looks like this:
 ```python
---8<-- "design_patterns/creational/builder/custom_pc_builder/custom_pc_builder.py"
+class Computer:
+    def __init__(self, cpu, ram, gpu=None, hdd=None, ssd=None, case="ATX", psu="750W", ...):
+        # 😡 Impossible to remember the order of arguments!
+        # 😡 Hard to add new optional parts without breaking everything.
+```
+Every time you add a new component (like "Sound Card"), you have to modify the constructor, and every existing line of code that creates a computer might break. It's unreadable and error-prone.
+
+### 🦸 The Hero (The Solution)
+The **Builder Pattern** introduces the "PC Architect."
+Instead of a giant constructor, we create a `ComputerBuilder`. It holds a "work-in-progress" PC. You tell the builder what you want, piece by piece, using a **Fluent API**.
+```python
+pc = ComputerBuilder() \
+    .set_cpu("Intel i9") \
+    .set_ram("64GB") \
+    .set_gpu("RTX 4090") \
+    .build()
+```
+The builder manages the complexity. When you call `.build()`, it performs "Quality Control"—checking that you didn't forget a CPU or a Motherboard—and returns the finished, fully-assembled `Computer` object. The construction logic is now separate from the product data.
+
+### 📜 Requirements & Constraints
+1.  **(Functional):** Build a computer with various optional components (CPU, RAM, GPU, etc.).
+2.  **(Technical):** Implement a fluent interface (method chaining).
+3.  **(Technical):** The `build()` method must validate that essential parts (CPU, Motherboard) are present.
+
+---
+
+## 🏗️ Structure & Blueprint
+
+### Class Diagram
+```mermaid
+classDiagram
+    direction TB
+    class Computer {
+        +cpu: str
+        +ram: str
+        +gpu: str
+        +display()
+    }
+    class ComputerBuilder {
+        -computer: Computer
+        +set_cpu(cpu) self
+        +set_ram(ram) self
+        +set_gpu(gpu) self
+        +build() Computer
+    }
+    
+    ComputerBuilder o-- Computer : constructs
 ```
 
-!!! success "Why this works"
-    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.
+### Runtime Context (Sequence)
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Builder
+    participant PC as Computer
+    
+    Client->>Builder: new()
+    Client->>Builder: set_cpu("i9")
+    Builder->>PC: set cpu
+    Client->>Builder: set_ram("32GB")
+    Builder->>PC: set ram
+    Client->>Builder: build()
+    Builder->>Builder: validate()
+    Builder-->>Client: Final Computer Object
+```
 
-## 🎤 Interview Follow-ups
+---
 
-- **Scalability Probe:** How would this design hold up under high load?
-- **Design Trade-off:** What are the pros/cons of this approach compared to alternatives?
+## 💻 Implementation & Code
+
+### 🧠 SOLID Principles Applied
+- **Single Responsibility:** The `Computer` class only stores data; the `ComputerBuilder` class handles assembly and validation.
+- **Open/Closed:** You can add new components (like `set_liquid_cooling()`) to the builder without changing the `Computer` class or existing client code.
+
+### 🐍 The Code
+
+??? failure "The Villain's Code (Without Pattern)"
+    ```python
+    class Computer:
+        def __init__(self, cpu, ram, gpu=None, storage=None, case="Generic"):
+            # 😡 Telescoping constructor: hard to read, hard to maintain
+            self.cpu = cpu
+            self.ram = ram
+            self.gpu = gpu
+            self.storage = storage
+            self.case = case
+
+    # 😡 Is the 3rd argument RAM or GPU? Who knows.
+    my_pc = Computer("i7", "16GB", "RTX 3060", "1TB", "NZXT")
+    ```
+
+???+ success "The Hero's Code (With Pattern)"
+    ```python
+    --8<-- "design_patterns/creational/builder/custom_pc_builder/custom_pc_builder.py"
+    ```
+
+---
+
+## ⚖️ Trade-offs & Testing
+
+| Pros (Why it works) | Cons (The Twist / Pitfalls) |
+| :--- | :--- |
+| **Readability:** Clear, semantic code (Fluent API). | **Verbosity:** More lines of code than a simple constructor. |
+| **Safety:** Final validation happens in one place (`build`). | **Incomplete State:** The builder itself is in a "partial" state until `build` is called. |
+| **Immutability:** The final product can be made read-only after assembly. | **Boilerplate:** Need a builder class for every complex product. |
+
+### 🧪 Testing Strategy
+1.  **Unit Test Builder:** Chain methods and verify the internal "work-in-progress" object has the correct values.
+2.  **Test Validation:** Try to call `.build()` without a CPU and verify it raises a `ValueError`.
+3.  **Test Immutability:** Verify that the returned `Computer` object's parts cannot be modified after creation.
+
+---
+
+## 🎤 Interview Toolkit
+
+- **Interview Signal:** mastery of **fluent APIs**, **object integrity**, and **separating configuration from data**.
+- **When to Use:**
+    - "Create an object with 10+ optional parameters..."
+    - "Build a complex tree structure (Composite)..."
+    - "Implement a SQL query builder or HTML generator..."
+- **Scalability Probe:** "How to handle 100 optional components?" (Answer: Use a dictionary in the builder for parts and a generic `add_part(key, value)` method.)
+- **Design Alternatives:**
+    - **Factory Method:** Good for creating objects in one shot; Builder is for step-by-step assembly.
+    - **Abstract Factory:** For families of related objects; Builder is for a single complex object.
 
 ## 🔗 Related Patterns
-
-- [Abstract Factory](../../abstract_factory/ui_toolkit/PROBLEM.md) — Abstract Factory returns the product immediately; Builder builds it step by step.
-- [Composite](../../../structural/composite/organisation_chart/PROBLEM.md) — Builder is often used to build complex Composite trees.
-- [Singleton](../../singleton/singleton_pattern/PROBLEM.md) — Builders can be Singletons.
+- [Abstract Factory](../../abstract_factory/ui_toolkit/PROBLEM.md) — Both are creational; Abstract Factory is for "what" to create, Builder is for "how" to assemble it.
+- [Composite](../../../structural/composite/organisation_chart/PROBLEM.md) — Builder is the standard way to construct deep Composite trees.
+- [Singleton](../../singleton/singleton_pattern/PROBLEM.md) — The Director (if used) is often a Singleton.

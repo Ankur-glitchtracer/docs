@@ -37,7 +37,12 @@ nav:
   - Interview Playbook: interview_playbook.md
   - Repo Index: repo_index.md
   - Progress Tracker: todo.md
-  - Engineering Metrics: engineering_metrics.md
+  - Engineering Metrics:
+    - Overview: dashboard/engineering_metrics.md
+    - DSA: dashboard/categories/dsa.md
+    - Design Patterns: dashboard/categories/design_patterns.md
+    - Machine Coding: dashboard/categories/machine_coding.md
+    - Infrastructure Challenges: dashboard/categories/infrastructure_challenges.md
   - Data Structures & Algorithms:
     - Roadmap: dsa/ROADMAP.md
     - Insights: dsa/INSIGHTS.md
@@ -52,6 +57,7 @@ nav:
         - Valid Sudoku: dsa/01_arrays_hashing/valid_sudoku/PROBLEM.md
         - Encode and Decode: dsa/01_arrays_hashing/encode_and_decode_strings/PROBLEM.md
         - Longest Consecutive: dsa/01_arrays_hashing/longest_consecutive_sequence/PROBLEM.md
+        - Maximum Subarray: dsa/01_arrays_hashing/maximum_subarray/PROBLEM.md
     - 02. Two Pointers:
         - Valid Palindrome: dsa/02_two_pointers/valid_palindrome/PROBLEM.md
         - Two Sum II: dsa/02_two_pointers/two_sum_ii/PROBLEM.md
@@ -166,6 +172,7 @@ nav:
         - Word Break: dsa/13_1d_dynamic_programming/word_break/PROBLEM.md
         - Longest Increasing Subseq: dsa/13_1d_dynamic_programming/longest_increasing_subsequence/PROBLEM.md
         - Partition Equal Subset: dsa/13_1d_dynamic_programming/partition_equal_subset_sum/PROBLEM.md
+        - Split Array Largest Sum: dsa/13_1d_dynamic_programming/split_array_largest_sum/PROBLEM.md
     - 14. 2D Dynamic Programming:
         - Unique Paths: dsa/14_2d_dynamic_programming/unique_paths/PROBLEM.md
         - Longest Common Subseq: dsa/14_2d_dynamic_programming/longest_common_subsequence/PROBLEM.md
@@ -331,30 +338,29 @@ nav:
       - Decoupling & Architecture: system_design_hld/pillars/microservices/MICROSERVICES_DECOUPLING.md
       - API Gateway & Messaging: system_design_hld/pillars/microservices/API_GATEWAY_AND_MESSAGING.md
       - LLD Design Principles (SOLID): system_design_hld/pillars/LLD_DESIGN_PRINCIPLES.md
+    - Deep Dives:
+      - Conflict Resolution (Vector Clocks): system_design_hld/deep_dives/CONFLICT_RESOLUTION.md
+      - Cassandra Tombstones: system_design_hld/deep_dives/CASSANDRA_TOMBSTONES.md
+      - Google File System (GFS): system_design_hld/deep_dives/GFS.md
+      - Hadoop (HDFS) High Availability: system_design_hld/deep_dives/HDFS_HIGH_AVAILABILITY.md
+      - BigTable Recovery: system_design_hld/deep_dives/BIGTABLE.md
+      - Kafka Deep Dive: system_design_hld/deep_dives/KAFKA_DEEP_DIVE.md
+      - Kafka Split Brain: system_design_hld/deep_dives/KAFKA_SPLIT_BRAIN.md
+      - Chubby Lock Service: system_design_hld/deep_dives/CHUBBY.md
+      - NoSQL (Dynamo/Cassandra/BigTable): system_design_hld/deep_dives/NOSQL_INTERNALS.md
     - Distributed Storage Internals:
       - Dynamo & Cassandra: system_design_hld/architectures/distributed_storage/DYNAMO_AND_CASSANDRA.md
-      - NoSQL (Dynamo/Cassandra/BigTable): system_design_hld/architectures/distributed_storage/NOSQL_INTERNALS.md
-      - Conflict Resolution (Vector Clocks): system_design_hld/architectures/distributed_storage/CONFLICT_RESOLUTION.md
-      - Cassandra Tombstones: system_design_hld/architectures/distributed_storage/CASSANDRA_TOMBSTONES.md
-      - Google File System (GFS): system_design_hld/architectures/distributed_storage/GFS.md
-      - Hadoop (HDFS) High Availability: system_design_hld/architectures/distributed_storage/HDFS_HIGH_AVAILABILITY.md
-      - BigTable Recovery: system_design_hld/architectures/distributed_storage/BIGTABLE.md
-      - Chubby Lock Service: system_design_hld/architectures/distributed_storage/CHUBBY.md
-      - Kafka Deep Dive: system_design_hld/architectures/distributed_storage/KAFKA_DEEP_DIVE.md
-      - Kafka Split Brain: system_design_hld/architectures/distributed_storage/KAFKA_SPLIT_BRAIN.md
       - Kafka & HDFS High-Level: system_design_hld/architectures/distributed_storage/KAFKA_AND_HDFS.md
     - Applied Architectures:
       - Social Media:
-        - Master Architecture Template: system_design_hld/architectures/social_media/MASTER_ARCHITECTURE_TEMPLATE.md
         - WhatsApp: system_design_hld/architectures/social_media/WHATSAPP.md
         - Facebook Newsfeed: system_design_hld/architectures/social_media/FACEBOOK_NEWSFEED.md
         - Facebook Capacity: system_design_hld/architectures/social_media/FACEBOOK_CAPACITY.md
         - Facebook Messenger: system_design_hld/architectures/social_media/FACEBOOK_MESSENGER.md
         - Instagram HLD: system_design_hld/architectures/social_media/INSTAGRAM_HLD.md
         - Twitter Timeline & Sharding: system_design_hld/architectures/social_media/TWITTER_HLD.md
-        - Netflix: system_design_hld/architectures/streaming/NETFLIX.md
       - Streaming & Storage:
-        - Netflix & YouTube: system_design_hld/architectures/social_media/YOUTUBE_NETFLIX_STREAMING.md
+        - Video Streaming (Netflix/YouTube): system_design_hld/architectures/streaming/VIDEO_STREAMING_SERVICE.md
         - Dropbox / Google Drive: system_design_hld/architectures/distributed_storage/DROPBOX_GOOGLE_DRIVE.md
         - S3 Lite (Storage): system_design_hld/architectures/distributed_storage/S3_LITE.md
         - Key-Value Store: system_design_hld/architectures/distributed_storage/KV_STORE.md

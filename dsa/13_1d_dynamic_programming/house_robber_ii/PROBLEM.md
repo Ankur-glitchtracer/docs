@@ -1,83 +1,65 @@
-#  🏠 DP: House Robber II
+---
+impact: "Medium"
+nr: false
+confidence: 4
+---
+# 🏠 DP: House Robber II
 
-## 📝 Description
-[LeetCode 213](https://leetcode.com/problems/house-robber-ii/)
-You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed. All houses at this place are arranged in a circle. That means the first house is the neighbor of the last one. Meanwhile, adjacent houses have a security system connected, and it will automatically contact the police if two adjacent houses were broken into on the same night. Given an integer array `nums` representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.
+## 📝 Problem Description
+You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed. This place has security systems connected, and all houses at this place are arranged in a circle. That means the first house is the neighbor of the last one. Meanwhile, the security system for two adjacent houses will automatically contact the police if two adjacent houses were broken into on the same night. Given an integer array `nums` representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This circular dependency constraint appears in network topology management and ring-buffer task scheduling where wrap-around interference must be prevented.
 
-- $1 \le n \le 1000$ (Problem size)
-- Values fit within a 64-bit integer.
+## 🛠️ Constraints & Edge Cases
+- $1 \le \text{nums.length} \le 100$
+- $0 \le \text{nums}[i] \le 1000$
+- **Edge Cases to Watch:** 
+    - Empty array (return 0)
+    - Single house (return the value)
+    - Two houses (return the max of the two)
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Circular Neighborhood." The street is a circle. The first and last houses are neighbors. You can't rob both.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Two-Pass Solver." Break the circle into two linear problems:
+!!! success "The Aha! Moment"
+    Since the houses are in a circle, the first and last cannot be robbed together. Therefore, the problem reduces to solving the linear "House Robber" problem twice: once for the range `[0, N-2]` (excluding the last) and once for `[1, N-1]` (excluding the first).
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+A naive approach would check all valid subsets of non-adjacent houses in a circular fashion, resulting in $\mathcal{O}(2^N)$ time complexity.
 
-1. If `nums` has 1 element, return it.
-2. Run standard House Robber on `nums[0...n-2]`.
-3. Run standard House Robber on `nums[1...n-1]`.
-4. Return `max(result1, result2)`.
+### 🐇 Optimal Approach
+Use the optimal linear solution (`rob1`, `rob2` state tracking) on the two slices of the array and take the maximum result of those two.
 
-**The Twist (Failure):** **The Single House.** If array has 1 element, slicing `0:-1` gives empty. Handle edge case.
-
-**Interview Signal:** **Problem Reduction** (Circular to Linear).
-
-## 🚀 Approach & Intuition
-Run House Robber twice: once excluding first, once excluding last.
-
-### C++ Pseudo-Code
-```cpp
-int rob(vector<int>& nums) {
-    if (nums.empty()) return 0;
-    if (nums.size() == 1) return nums[0];
-    
-    auto robLinear = [](vector<int>& arr, int start, int end) {
-        int rob1 = 0, rob2 = 0;
-        for (int i = start; i <= end; i++) {
-            int temp = max(arr[i] + rob1, rob2);
-            rob1 = rob2;
-            rob2 = temp;
-        }
-        return rob2;
-    };
-    
-    return max(robLinear(nums, 0, nums.size() - 2), 
-               robLinear(nums, 1, nums.size() - 1));
-}
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    H0((House 0)) --- H1((House 1))
+    H1 --- H2((House 2))
+    H2 --- H0
+    style H0 stroke:#f66,stroke-width:2px
 ```
 
-### Key Observations:
-
-- Break down the problem into smaller sub-problems and store their results to avoid redundant calculations.
-- Determine the base cases and the recurrence relation; bottom-up (tabulation) is often more space-efficient.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — We perform two passes, each taking linear time.
+- **Space Complexity:** $\mathcal{O}(1)$ — We use a constant amount of extra space beyond input storage.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you optimize the space complexity from $O(N^2)$ to $O(N)$? Can you solve it using a top-down vs bottom-up approach?
-- **Scale Question:** If the DP table is too large for memory, can you use 'Check-pointing' or a sliding window of rows to save space?
-- **Edge Case Probe:** What are the base cases for empty or single-element inputs? How do you handle negative values if they aren't expected?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** What if the circular constraint involves dynamic adding/removing of houses? Requires segment trees or similar advanced structures.
+- **Alternative Data Structures:** The logic is essentially a reuse of the linear sub-problem; the focus is on mastering the slicing logic.
 
 ## 🔗 Related Problems
-
-- [Longest Palindromic Substring](../longest_palindromic_substring/PROBLEM.md) — Next in category
-- [House Robber](../house_robber/PROBLEM.md) — Previous in category
-- [Unique Paths](../../14_2d_dynamic_programming/unique_paths/PROBLEM.md) — Prerequisite for 2-D Dynamic Programming
-- [Single Number](../../18_bit_manipulation/single_number/PROBLEM.md) — Prerequisite for Bit Manipulation
+- [House Robber](../house_robber/PROBLEM.md) — Fundamental linear version.
+- [Maximum Product Subarray](../maximum_product_subarray/PROBLEM.md) — Another array-based optimization problem.

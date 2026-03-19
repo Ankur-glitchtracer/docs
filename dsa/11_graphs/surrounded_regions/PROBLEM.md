@@ -1,97 +1,67 @@
-#  ❌ Graph: Surrounded Regions
+---
+impact: "Medium"
+nr: false
+confidence: 3
+---
+# ❌ Graph: Surrounded Regions
 
-## 📝 Description
-[LeetCode 130](https://leetcode.com/problems/surrounded-regions/)
+## 📝 Problem Description
 Given an `m x n` matrix board containing 'X' and 'O', capture all regions that are 4-directionally surrounded by 'X'. A region is captured by flipping all 'O's into 'X's in that surrounded region.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This problem is a foundational exercise in **Boundary Detection** and **Connected Component analysis**, which is used in image processing (e.g., segmenting objects in an image) and geographic information systems (GIS) for identifying bounded land masses.
 
-- $V, E \le 10^5$ (Nodes and Edges)
-- The graph can be directed or undirected.
+## 🛠️ Constraints & Edge Cases
+- $m, n \ge 1$
+- **Edge Cases to Watch:** 
+    - Board filled with only 'X's or 'O's.
+    - Regions touching the border (should not be captured).
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The False Capture." You see a '0' and want to flip it to 'X'. But wait! What if it's connected to a '0' that touches the border? Then it's not surrounded.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Border Patrol." Any '0' connected to the border *cannot* be captured. Everything else can.
+!!! success "The Aha! Moment"
+    Instead of trying to find the surrounded regions directly, flip the logic: identify all 'O's that are **NOT** surrounded by 'X's (i.e., those connected to the border) and protect them. Once identified, every remaining 'O' is guaranteed to be surrounded.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Trying to check every 'O' by BFS/DFS to see if it reaches the boundary is redundant and expensive if done per cell ($O((MN)^2)$).
 
-1. Scan the **borders** (rows 0/m-1, cols 0/n-1).
-2. If you find a '0', run DFS/BFS to mark it and all its connected '0's as "Safe" (e.g., change '0' to '#').
-3. Iterate the entire grid.
-   - If '0': It wasn't marked Safe. Capture it (flip to 'X').
-   - If '#': It was Safe. Restore it (flip back to '0').
+### 🐇 Optimal Approach
+1. Perform a DFS/BFS starting from all 'O's on the border. Mark these as "safe" (e.g., replace with '#').
+2. Once the traversal finishes, iterate through the entire board:
+   - Any remaining 'O' is surrounded $\to$ flip to 'X'.
+   - Any '#' is safe $\to$ flip back to 'O'.
 
-**The Twist (Failure):** **Internal Cycles.** '0's might form a loop inside. This doesn't matter; if they don't touch the border, the whole loop is captured.
-
-**Interview Signal:** **Boundary Traversal** logic.
-
-## 🚀 Approach & Intuition
-Mark border-connected 'O's first.
-
-### C++ Pseudo-Code
-```cpp
-class Solution {
-    int m, n;
-public:
-    void solve(vector<vector<char>>& board) {
-        m = board.size(); n = board[0].size();
-        // 1. Mark border-connected 'O's as '#'
-        for (int r = 0; r < m; r++) {
-            dfs(board, r, 0);
-            dfs(board, r, n-1);
-        }
-        for (int c = 0; c < n; c++) {
-            dfs(board, 0, c);
-            dfs(board, m-1, c);
-        }
-        // 2. Flip remaining 'O'->'X', '#'->'O'
-        for (int r = 0; r < m; r++) {
-            for (int c = 0; c < n; c++) {
-                if (board[r][c] == 'O') board[r][c] = 'X';
-                if (board[r][c] == '#') board[r][c] = 'O';
-            }
-        }
-    }
-    
-    void dfs(vector<vector<char>>& board, int r, int c) {
-        if (r < 0 || c < 0 || r >= m || c >= n || board[r][c] != 'O') return;
-        board[r][c] = '#';
-        dfs(board, r+1, c); dfs(board, r-1, c);
-        dfs(board, r, c+1); dfs(board, r, c-1);
-    }
-};
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    subgraph Grid
+        B[Border 'O'] --> I[Internal 'O']
+        B --> |Mark| M[Safe '#']
+        I --> |Not reached| R[Captured 'X']
+    end
 ```
 
-### Key Observations:
-
-- Represent the graph using an Adjacency List for space efficiency in sparse graphs.
-- Use DFS for path-finding/connectivity and BFS for finding the shortest path in unweighted graphs.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(M 	imes N)$
-    - **Space Complexity:** $O(M 	imes N)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(M \times N)$ — We traverse each cell a constant number of times.
+- **Space Complexity:** $\mathcal{O}(M \times N)$ — In the worst case (e.g., all 'O's), the recursion stack for DFS takes this much space.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you solve this using BFS for shortest paths or DFS for connectivity? When would you use Union-Find?
-- **Scale Question:** If the graph has billions of edges (like a social network), how would you use a Pregel or Giraph-style distributed processing model?
-- **Edge Case Probe:** How do you handle cycles, disconnected components, or self-loops in the graph?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** What if you need to use Union-Find instead of DFS/BFS? (Identify border nodes as part of a single "safe" set).
+- **Alternative Data Structures:** BFS is generally preferred for very deep recursions to avoid stack overflow.
 
 ## 🔗 Related Problems
-
-- [Course Schedule](../course_schedule/PROBLEM.md) — Next in category
-- [Pacific Atlantic Water Flow](../pacific_atlantic_water_flow/PROBLEM.md) — Previous in category
-- [Reconstruct Itinerary](../../12_advanced_graphs/reconstruct_itinerary/PROBLEM.md) — Prerequisite for Advanced Graphs
-- [Unique Paths](../../14_2d_dynamic_programming/unique_paths/PROBLEM.md) — Prerequisite for 2-D Dynamic Programming
+- [Pacific Atlantic Water Flow](../pacific_atlantic_water_flow/PROBLEM.md) — Another border-based DFS problem.
+- [Number of Islands](../number_of_islands/PROBLEM.md) — Similar connectivity logic.

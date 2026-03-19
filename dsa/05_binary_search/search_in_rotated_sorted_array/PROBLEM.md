@@ -1,65 +1,82 @@
-#  🔍 Searching: Search in Rotated Sorted Array
+---
+impact: "High"
+nr: false
+confidence: 3
+---
+# 🔍 Searching: Search in Rotated Sorted Array
 
-## 📝 Description
+## 📝 Problem Description
+There is an integer array `nums` sorted in ascending order (with distinct values). Prior to being passed to your function, `nums` is possibly rotated at an unknown pivot index `k` ($1 \le k < nums.length$).
+Given the array `nums` **after** the rotation and an integer `target`, return the index of `target` if it is in `nums`, or `-1` if it is not in `nums`.
+
 [LeetCode 33](https://leetcode.com/problems/search-in-rotated-sorted-array/)
-There is an integer array `nums` sorted in ascending order (with distinct values). Prior to being passed to your function, `nums` is possibly rotated at an unknown pivot index.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    **Log File Handling:** In systems with circular logging or ring buffers, data is written sequentially until it wraps around. Searching for a specific timestamp in these structures requires handling the "pivot" point where the newest data meets the oldest.
 
-- $1 \le nums.length \le 10^5$
-- Target value is within the range of the data type.
+## 🛠️ Constraints & Edge Cases
+- $1 \le nums.length \le 5000$
+- $-10^4 \le nums[i], target \le 10^4$
+- All values of `nums` are unique.
+- **Edge Cases to Watch:**
+    - Array not rotated (standard binary search)
+    - Pivot at first or last index
+    - Single element array `[1]`
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Pivot Pivot." A sorted array that has been rotated. You can't just binary search because the order is broken at the "inflection point."
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Half-Sorted Seeker." At any `mid` point, at least one half of the array MUST be sorted. Use this sorted half to decide where to go.
+!!! success "The Aha! Moment"
+    **The Half-Sorted Split:** In any rotated sorted array, when we pick a middle element `mid`, **at least one of the two halves (left or right) MUST be normally sorted.** We can check which half is sorted and whether the `target` lies within its boundaries to decide our next step.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+A simple linear search through the array takes $\mathcal{O}(N)$ time. This works but ignores the sorted property completely and fails for large datasets.
 
-1. Pick a `mid`.
-2. If `nums[left] <= nums[mid]`: The left half is sorted.
-   - If `target` is within the left range, go left.
-   - Else, go right.
-3. Else: The right half must be sorted.
-   - If `target` is within the right range, go right.
-   - Else, go left.
+### 🐇 Optimal Approach
+Modified Binary Search:
+1. Initialize `low = 0` and `high = n - 1`.
+2. Find `mid`. If `nums[mid] == target`, return `mid`.
+3. Check which half is sorted:
+   - If `nums[low] <= nums[mid]`: **Left half is sorted.**
+     - If `target` is between `nums[low]` and `nums[mid]`, go left: `high = mid - 1`.
+     - Otherwise, the target must be in the right half: `low = mid + 1`.
+   - Else: **Right half is sorted.**
+     - If `target` is between `nums[mid]` and `nums[high]`, go right: `low = mid + 1`.
+     - Otherwise, go left: `high = mid - 1`.
 
-**The Twist (Failure):** **The Duplicate Crisis.** This logic breaks if the array contains duplicates (e.g., `(To be detailed...)`), requiring a linear fallback.
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    subgraph "Rotated Array [4, 5, 6, 7, 0, 1, 2]"
+    A[4 5 6] --- B["7 (Mid)"] --- C[0 1 2]
+    end
+    B -- "nums[0] <= 7" --> D["Left is Sorted"]
+    D -- "Check Target" --> E{"Target in [4, 7]?"}
+    E -- Yes --> F[Go Left]
+    E -- No --> G[Go Right]
+```
 
-**Interview Signal:** Mastery of **Advanced Binary Search** and conditional logic.
-
-## 🚀 Approach & Intuition
-(To be detailed...)
-
-### Key Observations:
-
-- Binary search can be applied not just to sorted arrays, but to any monotonic search space (Search on Answer).
-- Be careful with the boundaries ($left, right$) and the condition for moving them to avoid infinite loops.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(\log N)$
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(\log N)$ — We still halve the search space at each step.
+- **Space Complexity:** $\mathcal{O}(1)$ — Only constant pointers used.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** What if the input is sorted or has a limited range? Can you optimize space from $O(N)$ to $O(1)$?
-- **Scale Question:** If the dataset is too large to fit in RAM, how would you use external sorting or a distributed hash table?
-- **Edge Case Probe:** How does your solution handle duplicates, empty inputs, or extremely large integers?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** [Search in Rotated Sorted Array II](https://leetcode.com/problems/search-in-rotated-sorted-array-ii/) where elements are NOT unique. (Aha! The duplicate case breaks the $O(\log N)$ guarantee because we can't tell which half is sorted if `nums[low] == nums[mid]`).
+- **Pivot Search:** Another way to solve this is to find the pivot first ($O(\log N)$) and then do binary search on the correct half.
 
 ## 🔗 Related Problems
-
-- [Time Based KV Store](../time_based_key_value_store/PROBLEM.md) — Next in category
-- [Find Min in Rotated Array](../find_minimum_in_rotated_sorted_array/PROBLEM.md) — Previous in category
-- [Invert Binary Tree](../../07_trees/invert_binary_tree/PROBLEM.md) — Prerequisite for Trees
-- [Valid Palindrome](../../02_two_pointers/valid_palindrome/PROBLEM.md) — Prerequisite: Two Pointers
+- [Find Minimum in Rotated Sorted Array](../find_minimum_in_rotated_sorted_array/PROBLEM.md)
+- [Time Based KV Store](../time_based_key_value_store/PROBLEM.md)
+- [Binary Search](../binary_search/PROBLEM.md)

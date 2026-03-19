@@ -1,80 +1,70 @@
-#  🌲 Tree: Count Good Nodes in Binary Tree
+---
+impact: "Medium"
+nr: false
+confidence: 2
+---
+# 🌲 Tree: Count Good Nodes in Binary Tree
 
 ## 📝 Description
 [LeetCode 1448](https://leetcode.com/problems/count-good-nodes-in-binary-tree/)
 Given a binary tree `root`, a node X in the tree is named good if in the path from root to X there are no nodes with a value greater than X. Return the number of good nodes in the binary tree.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This relates to **Monotonic Path Analysis** in time-series hierarchies or finding peaks/records in a decision tree path.
 
-- Number of nodes is between 0 and $10^4$.
-- $-1000 \le Node.val \le 1000$
+## 🛠️ Constraints & Edge Cases
+- Number of nodes is between 0 and $10^5$.
+- $-10^4 \le Node.val \le 10^4$
+- **Edge Cases to Watch:**
+    - Root is always good.
+    - Path values equal to max are good (`>=`).
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Memoryless Walk." Traversing the tree but forgetting the maximum value seen so far in the current path.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Path Context." Pass the `max_val` down during recursion.
+!!! success "The Aha! Moment"
+    A node is "good" if it's $\ge$ the maximum value seen *so far* on the path from the root. We just need to carry this `max_val` context down during recursion.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+For each node, trace back to root to check validity.
+- **Time Complexity:** $O(N^2)$ (skewed tree).
 
-1. DFS function `dfs(node, max_val)`.
-2. If `node.val >= max_val`: It's a good node! Increment count. Update `max_val`.
-3. Recurse left and right with the new (or existing) `max_val`.
+### 🐇 Optimal Approach (DFS)
+1.  Define `dfs(node, maxVal)`.
+2.  If `node.val >= maxVal`:
+    - Increment count (1).
+    - Update `maxVal = node.val`.
+3.  Recurse Left and Right with new `maxVal`.
+4.  Sum up results.
 
-**The Twist (Failure):** **Global vs Local Max.** The "max" is only relevant for the *current path*. When backtracking, the max should revert. Passing by value handles this automatically.
-
-**Interview Signal:** Passing **State in Recursion**.
-
-## 🚀 Approach & Intuition
-Pass maximum value seen so far down the recursion.
-
-### C++ Pseudo-Code
-```cpp
-class Solution {
-public:
-    int goodNodes(TreeNode* root) {
-        return dfs(root, root->val);
-    }
-    
-    int dfs(TreeNode* node, int maxVal) {
-        if (!node) return 0;
-        int res = (node->val >= maxVal) ? 1 : 0;
-        maxVal = max(maxVal, node->val);
-        res += dfs(node->left, maxVal);
-        res += dfs(node->right, maxVal);
-        return res;
-    }
-};
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    A[3 (Max:3)] --> B[1 (Max:3, Not Good)]
+    A --> C[4 (Max:4, Good)]
+    C --> D[1 (Max:4, Not Good)]
+    C --> E[5 (Max:5, Good)]
+    Res[Total: 3, 4, 5 = 3 nodes]
 ```
 
-### Key Observations:
-
-- Most tree problems can be solved using either DFS (recursion) or BFS (queue).
-- In-order traversal of a Binary Search Tree (BST) yields elements in sorted order.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(H)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — Visit every node once.
+- **Space Complexity:** $\mathcal{O}(H)$ — Recursion depth.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you solve this iteratively if you were worried about stack overflow from deep recursion?
-- **Scale Question:** If the tree is a multi-terabyte B-Tree in a database, how do you optimize node traversal to minimize disk hits?
-- **Edge Case Probe:** What if the tree is extremely skewed (effectively a linked list)? What if it's empty?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Find paths where *all* nodes are increasing?
 
 ## 🔗 Related Problems
-
-- [Validate BST](../validate_binary_search_tree/PROBLEM.md) — Next in category
-- [Right Side View](../binary_tree_right_side_view/PROBLEM.md) — Previous in category
-- [Implement Trie](../../08_tries/implement_trie/PROBLEM.md) — Prerequisite for Tries
-- [Kth Largest in Stream](../../09_heap_priority_queue/kth_largest_element_in_a_stream/PROBLEM.md) — Prerequisite for Heap / Priority Queue
+- [Validate Binary Search Tree](../validate_binary_search_tree/PROBLEM.md) — Next in category

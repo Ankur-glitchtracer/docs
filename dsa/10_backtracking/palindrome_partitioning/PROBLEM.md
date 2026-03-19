@@ -1,95 +1,73 @@
-#  🪞 Backtracking: Palindrome Partitioning
+---
+impact: "Medium"
+nr: false
+confidence: 2
+---
+# 🪞 Backtracking: Palindrome Partitioning
 
 ## 📝 Description
 [LeetCode 131](https://leetcode.com/problems/palindrome-partitioning/)
 Given a string `s`, partition `s` such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of `s`.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Algorithms that decompose data into valid substructures, such as **Bioinformatics** (DNA palindromic cutting), **Text Segmentation** (segmenting Chinese text into words), or decomposing packets.
 
-- Input size is usually small ($N \le 20$) due to exponential complexity.
-- All possible solutions must be returned.
+## 🛠️ Constraints & Edge Cases
+- $1 \le s.length \le 16$
+- **Edge Cases to Watch:**
+    - Single character (Always a palindrome).
+    - Entire string is palindrome.
+    - No palindromes longer than 1 char (partition into individual chars).
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Valid Split." How do you split "aab" into valid palindromes? "a", "a", "b"? "aa", "b"? Checking every possible cut location recursively.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The DFS Cutter." Try to cut at index `i`. Is `s[start...i]` a palindrome?
+!!! success "The Aha! Moment"
+    This is a "cut" problem. We can make a cut at any index `i` if `s[0...i]` is a palindrome. Then we recursively solve for the rest of the string `s[i+1...]`. The "state" is just the starting index.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Generate every possible partition (cut at every possible set of indices), then check if all parts are palindromes. $O(2^N \cdot N)$.
 
-1. Iterate `i` from `start` to end.
-2. Check `isPalindrome(s, start, i)`.
-3. If yes:
-   - Add substring to `current_partition`.
-   - Recurse for `i + 1`.
-   - Backtrack (remove substring).
-4. Base Case: `start == s.length` -> Add partition to results.
+### 🐇 Optimal Approach (DFS)
+1.  Define `dfs(i)`: partitions starting from index `i`.
+2.  **Loop** `j` from `i` to `len(s)`:
+    - Check if substring `s[i...j]` is a palindrome.
+    - If YES:
+        - Add `s[i...j]` to `current_part`.
+        - Recurse `dfs(j + 1)`.
+        - Backtrack (remove substring).
+3.  **Base Case:** If `i >= len(s)`, add `current_part` to result.
 
-**The Twist (Failure):** **Repeated Checks.** `isPalindrome` checks the same substrings repeatedly. Optimization: Use DP to precompute a palindrome table `dp[i][j]`.
-
-**Interview Signal:** Backtracking combined with **String Validation**.
-
-## 🚀 Approach & Intuition
-Try every valid prefix palindrome and recurse.
-
-### C++ Pseudo-Code
-```cpp
-vector<vector<string>> partition(string s) {
-    vector<vector<string>> res;
-    vector<string> curr;
-    
-    function<bool(int, int)> isPali = [&](int l, int r) {
-        while (l < r) if (s[l++] != s[r--]) return false;
-        return true;
-    };
-    
-    function<void(int)> backtrack = [&](int start) {
-        if (start == s.length()) {
-            res.push_back(curr);
-            return;
-        }
-        for (int i = start; i < s.length(); i++) {
-            if (isPali(start, i)) {
-                curr.push_back(s.substr(start, i - start + 1));
-                backtrack(i + 1);
-                curr.pop_back();
-            }
-        }
-    };
-    
-    backtrack(0);
-    return res;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    Root[s: aab] -->|Cut 'a'| A1[s: ab]
+    Root -->|Cut 'aa'| A2[s: b]
+    A1 -->|Cut 'a'| B1[s: b]
+    A1 -->|Cut 'ab' (No)| X
+    B1 -->|Cut 'b'| C1[Done: [a, a, b]]
+    A2 -->|Cut 'b'| C2[Done: [aa, b]]
 ```
 
-### Key Observations:
-
-- Backtracking is essentially a DFS on a state-space tree where we 'undo' the last move to explore other branches.
-- Pruning is the most important optimization to skip branches that cannot lead to a valid solution.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N \cdot 2^N)$
-    - **Space Complexity:** $O(N)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(2^N \cdot N)$ — $2^N$ possible subsets/partitions, $N$ to check palindrome/copy.
+- **Space Complexity:** $\mathcal{O}(N)$ — Recursion stack.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you use Pruning or Bitmasking to significantly reduce the search space?
-- **Scale Question:** How would you parallelize the search? Would you use Work Stealing to balance the load between threads?
-- **Edge Case Probe:** What is the maximum depth of recursion before you hit a stack overflow?
+## 🎤 Interview Toolkit
+
+- **Optimization:** Use Dynamic Programming (Table `dp[i][j]`) to check palindrome status in $O(1)$ instead of $O(N)$.
+- **Harder Variant:** Palindrome Partitioning II (Minimum cuts required).
 
 ## 🔗 Related Problems
-
-- [Letter Combinations](../letter_combinations_of_a_phone_number/PROBLEM.md) — Next in category
-- [Word Search](../word_search/PROBLEM.md) — Previous in category
-- [Number of Islands](../../11_graphs/number_of_islands/PROBLEM.md) — Prerequisite for Graphs
-- [Climbing Stairs](../../13_1d_dynamic_programming/climbing_stairs/PROBLEM.md) — Prerequisite for 1-D Dynamic Programming
+- [Word Break](https://leetcode.com/problems/word-break/) — Similar DP/Backtracking structure

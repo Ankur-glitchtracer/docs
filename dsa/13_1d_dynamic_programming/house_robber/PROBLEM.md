@@ -1,74 +1,66 @@
-#  🏠 DP: House Robber
+---
+impact: "Medium"
+nr: false
+confidence: 4
+---
+# 🏠 DP: House Robber
 
-## 📝 Description
-[LeetCode 198](https://leetcode.com/problems/house-robber/)
+## 📝 Problem Description
 You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected and it will automatically contact the police if two adjacent houses were broken into on the same night. Given an integer array `nums` representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This problem is a fundamental introduction to resource allocation under constraints. Similar logic is used in signal processing to maximize non-adjacent signal strength and in scheduling tasks on limited hardware to avoid interference.
 
-- $1 \le n \le 1000$ (Problem size)
-- Values fit within a 64-bit integer.
+## 🛠️ Constraints & Edge Cases
+- $1 \le \text{nums.length} \le 100$
+- $0 \le \text{nums}[i] \le 400$
+- **Edge Cases to Watch:** 
+    - Empty array (return 0)
+    - Single house (return the value)
+    - Two houses (return the max of the two)
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Alarm Trigger." Robbing adjacent houses triggers the alarm. You can't just rob the richest houses.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Skip-or-Take Decider." At every house, you have two choices:
+!!! success "The Aha! Moment"
+    The key insight is recognizing that for any house $i$, the maximum loot is either the loot from house $i-1$ (skipping house $i$) or the loot from house $i-2$ plus the value of house $i$ (robbing house $i$).
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+At each house, we decide to rob or skip. This creates a binary decision tree of depth $N$, resulting in $\mathcal{O}(2^N)$ time complexity, which is impractical for $N > 20$.
 
-1. `rob[i] = max(nums[i] + rob[i-2], rob[i-1])`.
-2. Optimize space: We only need `rob1` (i-2) and `rob2` (i-1).
-3. Loop through houses updating `rob1` and `rob2`.
+### 🐇 Optimal Approach
+We maintain two state variables: `rob1` (max money up to $i-2$) and `rob2` (max money up to $i-1$). For each new house value $n$, the new maximum is `max(n + rob1, rob2)`.
 
-**The Twist (Failure):** **The Sequence.** `[2, 1, 1, 2]`. Greedy might pick `2, 2` (4). But `2, 1` (3)? No. The pattern isn't always "every other house". It's strictly about maximizing the sum.
-
-**Interview Signal:** The quintessential **DP decision** problem.
-
-## 🚀 Approach & Intuition
-Maintain two variables for previous maximums.
-
-### C++ Pseudo-Code
-```cpp
-int rob(vector<int>& nums) {
-    int rob1 = 0, rob2 = 0;
-    for (int n : nums) {
-        int temp = max(n + rob1, rob2);
-        rob1 = rob2;
-        rob2 = temp;
-    }
-    return rob2;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    A[House 0: 1] --> B[House 1: 2]
+    B --> C[House 2: 3]
+    C --> D[House 3: 1]
+    style B stroke:#f66,stroke-width:2px
+    style D stroke:#f66,stroke-width:2px
 ```
 
-### Key Observations:
-
-- Break down the problem into smaller sub-problems and store their results to avoid redundant calculations.
-- Determine the base cases and the recurrence relation; bottom-up (tabulation) is often more space-efficient.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — We traverse the list exactly once.
+- **Space Complexity:** $\mathcal{O}(1)$ — We only store two integer variables regardless of input size.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you optimize the space complexity from $O(N^2)$ to $O(N)$? Can you solve it using a top-down vs bottom-up approach?
-- **Scale Question:** If the DP table is too large for memory, can you use 'Check-pointing' or a sliding window of rows to save space?
-- **Edge Case Probe:** What are the base cases for empty or single-element inputs? How do you handle negative values if they aren't expected?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** House Robber II (circular street), where the first and last houses are adjacent.
+- **Alternative Data Structures:** Can be solved with Top-Down recursion with memoization (storing intermediate values in a dictionary/array).
 
 ## 🔗 Related Problems
-
-- [House Robber II](../house_robber_ii/PROBLEM.md) — Next in category
-- [Min Cost Climbing Stairs](../min_cost_climbing_stairs/PROBLEM.md) — Previous in category
-- [Unique Paths](../../14_2d_dynamic_programming/unique_paths/PROBLEM.md) — Prerequisite for 2-D Dynamic Programming
-- [Single Number](../../18_bit_manipulation/single_number/PROBLEM.md) — Prerequisite for Bit Manipulation
+- [House Robber II](../house_robber_ii/PROBLEM.md) — Circular version of this problem.
+- [Min Cost Climbing Stairs](../min_cost_climbing_stairs/PROBLEM.md) — Another fundamental linear DP.

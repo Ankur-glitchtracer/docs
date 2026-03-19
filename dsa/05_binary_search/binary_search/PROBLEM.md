@@ -1,67 +1,74 @@
-#  🔍 Searching: Binary Search
+---
+impact: "High"
+nr: false
+confidence: 5
+---
+# 🔍 Binary Search: Binary Search
 
-## 📝 Description
-[LeetCode 704](https://leetcode.com/problems/binary-search/)
-Given an array of integers `nums` which is sorted in ascending order, and an integer `target`, write a function to search `target` in `nums`.
+## 📝 Problem Description
+Given an array of integers `nums` which is sorted in ascending order, and an integer `target`, write a function to search `target` in `nums`. If `target` exists, then return its index. Otherwise, return `-1`.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Binary search is the backbone of database indexing (B-Trees) and version control systems (e.g., `git bisect` to find the commit that introduced a bug).
 
-- $1 <= nums.length <= 10^4$
+## 🛠️ Constraints & Edge Cases
+- $1 \le nums.length \le 10^4$
 - $-10^4 < nums[i], target < 10^4$
 - All integers in `nums` are unique.
 - `nums` is sorted in ascending order.
+- **Edge Cases to Watch:**
+    - Array with a single element (match/no-match).
+    - Target is the first or last element.
+    - Target is smaller than the first or larger than the last element.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Linear Crawler." Checking every single element in a list of 1 billion items ($O(N)$). If the item is at the end, your user waits for minutes.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Great Divider." Halving the search space at every step ($O(\log N)$). 1 billion items are narrowed down to the target in just 30 steps.
+!!! success "The Aha! Moment"
+    The array is **sorted**. This allows us to eliminate half of the search space in each step by comparing the target with the middle element.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+A simple linear scan through the array would take $\mathcal{O}(N)$ time. For an array of 1 million elements, this could take up to 1 million comparisons.
 
-1. `low = 0`, `high = n-1`.
+### 🐇 Optimal Approach (Binary Search)
+1. Initialize two pointers: `low = 0` and `high = len(nums) - 1`.
 2. While `low <= high`:
-   - `mid = low + (high - low) // 2` (Avoiding overflow).
-   - If `target == nums[mid]`, return `mid`.
-   - If `target < nums[mid]`, search the left half (`high = mid - 1`).
-   - If `target > nums[mid]`, search the right half (`low = mid + 1`).
+    - Calculate the middle index: `mid = low + (high - low) // 2`.
+    - If `nums[mid] == target`, return `mid`.
+    - If `nums[mid] < target`, the target must be in the right half: `low = mid + 1`.
+    - Else, the target must be in the left half: `high = mid - 1`.
+3. If the loop ends, the target is not present: return `-1`.
 
-**The Twist (Failure):** **The Infinite Loop.** Forgetting to update `low` or `high` with `mid ± 1`, or using an incorrect `while` condition (`low < high` vs `low <= high`).
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    subgraph Iteration 1
+    A[0] --- B[1] --- C[2] --- D[3] --- E[4] --- F[5]
+    style C fill:#f9f,stroke:#333,stroke-width:4px
+    end
+    C -. "Target > Mid" .-> D
+```
 
-**Interview Signal:** Mastery of **Logarithmic Efficiency** and basic algorithm precision.
-
-## 🚀 Approach & Intuition
-Binary search leverages the sorted property of the input. By comparing the target with the middle element, we can discard half of the remaining elements in a single step.
-
-### Key Observations:
-
-- The array must be sorted.
-- `low <= high` ensures we check the last remaining element.
-- `mid = low + (high - low) // 2` is safer than `(low + high) // 2` to prevent integer overflow in some languages.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(\log N)$ - The search space is halved in each iteration.
-    - **Space Complexity:** $O(1)$ - Only a few pointers are used.
+---
 
 ## 💻 Solution Implementation
 
 ```python
---8<-- "dsa/05_binary_search/binary_search/solution.py"
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    The "sorted" property is the key. Without it, we are forced to use linear search. With it, we gain exponential speedup.
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(\log N)$ — The search space is halved in each iteration.
+- **Space Complexity:** $\mathcal{O}(1)$ — We only use a constant amount of extra space for pointers.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you find the first and last position of an element in a sorted array with duplicates?
-- **Scale Question:** If the 'array' is actually a massive sorted file on S3, how do you perform binary search using HTTP Range requests?
-- **Edge Case Probe:** How do you prevent integer overflow when calculating the 'mid' index in languages like C++ or Java?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** How would you find the first or last occurrence of a target in an array with duplicates?
+- **Integer Overflow:** Why use `low + (high - low) // 2` instead of `(low + high) // 2`? (To prevent overflow in languages with fixed-size integers like C++/Java).
 
 ## 🔗 Related Problems
-
-- [Search 2D Matrix](../search_2d_matrix/PROBLEM.md) — Next in category
-- [Invert Binary Tree](../../07_trees/invert_binary_tree/PROBLEM.md) — Prerequisite for Trees
-- [Valid Palindrome](../../02_two_pointers/valid_palindrome/PROBLEM.md) — Prerequisite: Two Pointers
-- [Bubble Sort](../../19_sorting/bubble_sort/PROBLEM.md) — Prerequisite: Sorting
+- `[Search a 2D Matrix](../search_2d_matrix/PROBLEM.md)` — Binary search on a flattened matrix.
+- `[Find Minimum in Rotated Sorted Array](../find_minimum_in_rotated_sorted_array/PROBLEM.md)` — Binary search with a twist.

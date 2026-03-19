@@ -1,90 +1,64 @@
-#  📥 Intervals: Insert Interval
+---
+impact: "Medium"
+nr: false
+confidence: 3
+---
+# 📥 Intervals: Insert Interval
 
-## 📝 Description
-[LeetCode 57](https://leetcode.com/problems/insert-interval/)
-You are given an array of non-overlapping intervals `intervals` where `intervals[i] = (To be detailed...)` represent the start and the end of the `i`th interval and `intervals` is sorted in ascending order by `start_i`. You are also given an interval `newInterval = [start, end]` that represents the start and end of another interval. Insert `newInterval` into `intervals` such that `intervals` is still sorted in ascending order by `start_i` and `intervals` still does not have any overlapping intervals (merge overlapping intervals if necessary). Return `intervals` after the insertion.
+## 📝 Problem Description
+Given a sorted list of non-overlapping intervals, insert `newInterval` and merge if necessary, maintaining order and no overlaps.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Used in scheduling systems (like Google Calendar) where new events must be added to an existing timeline, merging overlaps into a single "busy" block.
 
+## 🛠️ Constraints & Edge Cases
 - $1 \le \text{intervals.length} \le 10^5$
-- Intervals are given as $[start, end]$ pairs.
+- **Edge Cases:** Empty array input, `newInterval` outside, inside, or spanning all existing intervals.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Resorter." Adding the new interval and then sorting the whole list takes $O(N \log N)$.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Linear Merge." The list is already sorted. We can find the correct spot and merge in $O(N)$.
+!!! success "The Aha! Moment"
+    Since the intervals are sorted, we can process them in one pass. Anything ending before the `newInterval` starts is safe. Anything overlapping must be merged until we find the point to insert.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Append and re-sort: $\mathcal{O}(N \log N)$. Inefficient as the list is pre-sorted.
 
-1. **Left Part:** Add all intervals ending before `newInterval` starts.
-2. **Merge Part:** While intervals overlap with `newInterval` (start <= newEnd), merge them:
-   - `newStart = min(newStart, start)`
-   - `newEnd = max(newEnd, end)`
-3. Add the merged `newInterval`.
-4. **Right Part:** Add remaining intervals.
+### 🐇 Optimal Approach
+1. Iterate through intervals.
+2. If `newInterval` ends before current, append `newInterval` and the rest.
+3. If `newInterval` starts after current ends, append current.
+4. Otherwise, merge: `newInterval` = `[min(start), max(end)]`.
+5. Append `newInterval` at the end.
 
-**The Twist (Failure):** **Empty Inputs.** If intervals list is empty, just return `(To be detailed...)`.
-
-**Interview Signal:** Exploiting **Sorted Inputs** for linear time operations.
-
-## 🚀 Approach & Intuition
-Add left, merge middle, add right.
-
-### C++ Pseudo-Code
-```cpp
-vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
-    vector<vector<int>> res;
-    int i = 0, n = intervals.size();
-    
-    // Left part (non-overlapping)
-    while (i < n && intervals[i][1] < newInterval[0]) {
-        res.push_back(intervals[i++]);
-    }
-    
-    // Merging part
-    while (i < n && intervals[i][0] <= newInterval[1]) {
-        newInterval[0] = min(newInterval[0], intervals[i][0]);
-        newInterval[1] = max(newInterval[1], intervals[i][1]);
-        i++;
-    }
-    res.push_back(newInterval);
-    
-    // Right part
-    while (i < n) {
-        res.push_back(intervals[i++]);
-    }
-    
-    return res;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    A[Intervals] --> B{Overlap?}
+    B -- Yes --> C[Merge/Expand]
+    B -- No --> D[Append]
+    C --> B
 ```
 
-### Key Observations:
-
-- Sorting intervals by their start or end time is almost always the first step in interval-based problems.
-- Use a 'last end time' tracker or a Priority Queue to detect overlaps and manage active intervals.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(N)$ (Result array)
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — We traverse the list once.
+- **Space Complexity:** $\mathcal{O}(N)$ — To store the output list.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** What if the input is sorted or has a limited range? Can you optimize space from $O(N)$ to $O(1)$?
-- **Scale Question:** If the dataset is too large to fit in RAM, how would you use external sorting or a distributed hash table?
-- **Edge Case Probe:** How does your solution handle duplicates, empty inputs, or extremely large integers?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Merging with a huge number of updates (use a Segment Tree).
+- **Alternative Data Structures:** Not really applicable here, iteration is optimal.
 
 ## 🔗 Related Problems
-
-- [Merge Intervals](../merge_intervals/PROBLEM.md) — Next in category
-- [Kth Largest in Stream](../../09_heap_priority_queue/kth_largest_element_in_a_stream/PROBLEM.md) — Prerequisite: Heap / Priority Queue
+- [Merge Intervals](../merge_intervals/PROBLEM.md)

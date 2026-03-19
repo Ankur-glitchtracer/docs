@@ -1,78 +1,69 @@
-#  🪜 DP: Min Cost Climbing Stairs
+---
+impact: "Medium"
+nr: false
+confidence: 5
+---
+# 🪜 DP: Min Cost Climbing Stairs
 
-## 📝 Description
-[LeetCode 746](https://leetcode.com/problems/min-cost-climbing-stairs/)
-You are given an integer array `cost` where `cost[i]` is the cost of `i`th step on a staircase. Once you pay the cost, you can either climb one or two steps. You can either start from the step with index `0`, or the step with index `1`. Return the minimum cost to reach the top of the floor.
+## 📝 Problem Description
+You are given an integer array `cost` where `cost[i]` is the cost of $i^{th}$ step on a staircase. Once you pay the cost, you can either climb one or two steps. You can either start from the step with index `0` or the step with index `1`. Return the minimum cost to reach the top of the floor (one step beyond the last index).
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Used in optimization problems involving pathfinding with varying costs at nodes, such as resource scheduling or energy consumption minimization in hardware components.
 
-- $1 \le n \le 1000$ (Problem size)
-- Values fit within a 64-bit integer.
+## 🛠️ Constraints & Edge Cases
+- $2 \le \text{cost.length} \le 1000$
+- $0 \le \text{cost}[i] \le 999$
+- **Edge Cases:** Array with minimum size (2 elements), high cost variations.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Greedy Misstep." Picking the smaller cost at the current step might lead to a huge cost later. You can't just look one step ahead.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Cumulative Cost Tracker." Calculate the minimum cost to *reach* step `i`, which relies on the costs of reaching `i-1` and `i-2`.
+!!! success "The Aha! Moment"
+    The cost to reach step $i$ only depends on the minimum cost to reach step $i-1$ or $i-2$. We can compute this iteratively without storing the entire DP table.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Recursive approach: `cost(i) = cost[i] + min(cost(i-1), cost(i-2))`. This has exponential time complexity $\mathcal{O}(2^N)$ due to redundant calculations.
 
-1. Let `dp[i]` be the min cost to reach step `i`.
-2. Transition: `dp[i] = cost[i] + min(dp[i-1], dp[i-2])`.
-3. Base cases: `dp[0] = cost[0]`, `dp[1] = cost[1]`.
-4. The result is `min(dp[n-1], dp[n-2])` because we can stop at either of the last two steps.
+### 🐇 Optimal Approach
+Use bottom-up DP to compute costs iteratively. Since we only need the last two results, we use two variables to maintain $\mathcal{O}(1)$ space.
+1. Initialize `prev2 = cost[0]`, `prev1 = cost[1]`.
+2. For each step $i$ from 2 to $n-1$, compute `curr = cost[i] + min(prev1, prev2)`.
+3. Update `prev2` and `prev1` for the next iteration.
+4. The answer is `min(prev1, prev2)`.
 
-**The Twist (Failure):** **The Starting Step.** You can start at index 0 or 1. The recurrence naturally handles this if you consider the cost to *leave* step `i`.
-
-**Interview Signal:** Basic **1D DP** optimization.
-
-## 🚀 Approach & Intuition
-Track min cost to reach current step.
-
-### C++ Pseudo-Code
-```cpp
-int minCostClimbingStairs(vector<int>& cost) {
-    int n = cost.size();
-    int prev2 = cost[0];
-    int prev1 = cost[1];
-    
-    for (int i = 2; i < n; i++) {
-        int curr = cost[i] + min(prev1, prev2);
-        prev2 = prev1;
-        prev1 = curr;
-    }
-    return min(prev1, prev2);
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    S[Start] --> 0[0]
+    S --> 1[1]
+    0 --> 2[2]
+    1 --> 2
+    1 --> 3[3]
+    2 --> 3
+    style 2 fill:#f9f,stroke:#333,stroke-width:2px
 ```
 
-### Key Observations:
-
-- Break down the problem into smaller sub-problems and store their results to avoid redundant calculations.
-- Determine the base cases and the recurrence relation; bottom-up (tabulation) is often more space-efficient.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(1)$ (using two variables)
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — We iterate through the array once.
+- **Space Complexity:** $\mathcal{O}(1)$ — We use only two variables to store previous states.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you optimize the space complexity from $O(N^2)$ to $O(N)$? Can you solve it using a top-down vs bottom-up approach?
-- **Scale Question:** If the DP table is too large for memory, can you use 'Check-pointing' or a sliding window of rows to save space?
-- **Edge Case Probe:** What are the base cases for empty or single-element inputs? How do you handle negative values if they aren't expected?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** What if you can climb $k$ steps? (Requires a sliding window/queue or a deque to keep track of the minimum cost in the last $k$ steps, reducing complexity to $\mathcal{O}(NK)$ or $\mathcal{O}(N)$).
+- **Alternative Data Structures:** Not needed for the optimal approach, but a list could be used if space constraints were relaxed.
 
 ## 🔗 Related Problems
-
-- [House Robber](../house_robber/PROBLEM.md) — Next in category
-- [Climbing Stairs](../climbing_stairs/PROBLEM.md) — Previous in category
-- [Unique Paths](../../14_2d_dynamic_programming/unique_paths/PROBLEM.md) — Prerequisite for 2-D Dynamic Programming
-- [Single Number](../../18_bit_manipulation/single_number/PROBLEM.md) — Prerequisite for Bit Manipulation
+- [Climbing Stairs](../climbing_stairs/PROBLEM.md) — Base version of this problem.
+- [House Robber](../house_robber/PROBLEM.md) — Similar DP structure.

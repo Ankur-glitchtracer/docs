@@ -1,64 +1,74 @@
-#  🧶 Sorting: Merge Sort
+---
+impact: "Medium"
+nr: false
+confidence: 5
+---
+# 🧶 Sorting: Merge Sort
 
-## 📝 Description
+## 📝 Problem Description
 Implement Merge Sort to sort an array of integers in ascending order.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Merge sort is used in external sorting (when data is larger than RAM) and is the basis for Timsort (used in Python and Java's `sort()`), which combines Merge Sort and Insertion Sort for optimized performance on real-world data.
 
-- Implement an efficient $O(N \log N)$ sorting algorithm.
-- Handle arrays of various sizes including 0 and 1.
+## 🛠️ Constraints & Edge Cases
+- $0 \le N \le 10^5$
+- **Edge Cases to Watch:** 
+    - Empty array or array with one element (already sorted).
+    - Arrays with negative numbers or duplicates.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Scale Demon." $O(N^2)$ algorithms fail when $N=1,000,000$. We need a Divide and Conquer strategy.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Great Merger." Recursively split the array in half until you have single elements, then merge them back in sorted order.
+!!! success "The Aha! Moment"
+    Sorting two already-sorted lists is linear $O(N)$ work. By recursively splitting the array down to single elements—which are inherently sorted—we can build back up to a fully sorted array using only efficient linear merges.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Bubble sort or Selection sort ($O(N^2)$) are too slow for large datasets ($N > 10^4$). They perform redundant comparisons and swaps, leading to performance degradation as $N$ grows.
 
-1. **Divide:** Find the midpoint. `mergeSort(left)`, `mergeSort(right)`.
-2. **Conquer:** The base case is an array of size 1 (already sorted).
-3. **Combine (Merge):**
-   - Use two pointers to compare elements from the two sorted halves.
-   - Pick the smaller one and add to a temporary array.
-   - Copy the temp array back to the original.
+### 🐇 Optimal Approach
+Use the Divide and Conquer paradigm:
+1. **Divide:** Recursively split the array in half until base cases (size 1) are reached.
+2. **Conquer:** The base case (size 1) is already sorted.
+3. **Combine (Merge):** Merge two sorted subarrays by comparing elements using two pointers and building a new sorted array.
 
-**The Twist (Failure):** **The Memory Tax.** Merge sort is not in-place ($O(N)$ space). If memory is tight, Quick Sort is preferred.
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    A[8, 2, 4, 9] --> B[8, 2]
+    A --> C[4, 9]
+    B --> D[8]
+    B --> E[2]
+    C --> F[4]
+    C --> G[9]
+    D -.-> H[2, 8]
+    E -.-> H
+    F -.-> I[4, 9]
+    G -.-> I
+    H -.-> J[2, 4, 8, 9]
+    I -.-> J
+```
 
-**Interview Signal:** Mastery of **Divide and Conquer** and **Stable Sorting**.
-
-## 🚀 Approach & Intuition
-Merge Sort is a quintessential divide-and-conquer algorithm. It breaks the problem into smaller sub-problems (sorting halves), solves them recursively, and then combines the results (merging sorted lists).
-
-### Key Observations:
-
-- It is a stable sort (preserves relative order of equal elements).
-- Unlike Quick Sort, it has a guaranteed $O(N \log N)$ time complexity.
-- The merging process is where the actual sorting happens.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N \log N)$ - The array is split $\log N$ times, and each level of merging takes $O(N)$ time.
-    - **Space Complexity:** $O(N)$ - Temporary arrays are required for the merge step.
+---
 
 ## 💻 Solution Implementation
 
 ```python
---8<-- "dsa/19_sorting/merge_sort/solution.py"
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    Sorting two already-sorted lists is much easier ($O(N)$) than sorting an unsorted list. By recursively breaking the list down to single elements (which are inherently sorted), we can build back up using only this efficient merge operation.
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N \log N)$ — The array is divided $\log N$ times, and merging at each level takes linear $O(N)$ time.
+- **Space Complexity:** $\mathcal{O}(N)$ — Requires $O(N)$ auxiliary space for the temporary arrays during the merge process.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you make the sort 'Stable'? What if you need to sort elements that don't fit in memory (External Sort)?
-- **Scale Question:** How would you implement a distributed sort (like Terabyte Sort) using multiple machines?
-- **Edge Case Probe:** How does the algorithm perform on already sorted, reverse-sorted, or all-identical element arrays?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Can you perform this merge in-place? (Generally no, without sacrificing $O(N \log N)$ time). What about External Merge Sort for data larger than RAM?
+- **Alternative Data Structures:** Why not use a Min-Heap? (Heap sort uses $O(1)$ space but is generally slower in practice due to constant factors and cache locality).
 
 ## 🔗 Related Problems
-
-- [Quick Sort](../quick_sort/PROBLEM.md) — Next in category
-- [Selection Sort](../selection_sort/PROBLEM.md) — Previous in category
-- [Binary Search](../../05_binary_search/binary_search/PROBLEM.md) — Prerequisite for Binary Search
-- [Contains Duplicate](../../01_arrays_hashing/contains_duplicate/PROBLEM.md) — Prerequisite: Arrays & Hashing
+- `[Quick Sort](../quick_sort/PROBLEM.md)` — Efficient in-place alternative.
+- `[Selection Sort](../selection_sort/PROBLEM.md)` — Simpler, less efficient.

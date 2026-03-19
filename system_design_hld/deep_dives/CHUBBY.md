@@ -78,4 +78,4 @@ Explore low-level implementations of distributed consensus and locking:
 
 * [System Design: HDFS High Availability](./HDFS_HIGH_AVAILABILITY.md)
 * [System Design: NoSQL Internals](./NOSQL_INTERNALS.md)
-* [Infrastructure: Redis Rate Limiter](../../../infrastructure_challenges/redis_rate_limiter/PROBLEM.md)
+* [Infrastructure: Redis Rate Limiter](../../infrastructure_challenges/redis_rate_limiter/PROBLEM.md)

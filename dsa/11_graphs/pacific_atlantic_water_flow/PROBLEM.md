@@ -1,101 +1,70 @@
-#  🌊 Graph: Pacific Atlantic Water Flow
+---
+impact: "Medium"
+nr: false
+confidence: 4
+---
+# 🌊 Graphs: Pacific Atlantic Water Flow
 
-## 📝 Description
-[LeetCode 417](https://leetcode.com/problems/pacific-atlantic-water-flow/)
-There is an `m x n` rectangular island that borders both the Pacific Ocean and Atlantic Ocean. The Pacific Ocean touches the left and top edges of the island, and the Atlantic Ocean touches the right and bottom edges. Rain water flows to neighboring cells directly north, south, east, and west if the neighboring cell's height is less than or equal to the current cell's height. Return a list of grid coordinates where water can flow to both the Pacific and Atlantic oceans.
+## 📝 Problem Description
+There is an `m x n` rectangular island that borders both the Pacific and Atlantic oceans. The Pacific Ocean touches the left and top edges, and the Atlantic Ocean touches the right and bottom edges. Water flows to neighboring cells (N, S, E, W) only if the neighboring cell's height is $\le$ the current cell's height. Find all grid coordinates where rain water can flow to both the Pacific AND Atlantic oceans.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This is a classic problem in **Hydrology/Geography** (modeling drainage basins) and **Network Routing** (finding nodes reachable from multiple sources in a directed graph).
 
-- $V, E \le 10^5$ (Nodes and Edges)
-- The graph can be directed or undirected.
+## 🛠️ Constraints & Edge Cases
+- $m == heights.length$
+- $n == heights[i].length$
+- $1 \le m, n \le 200$
+- $0 \le heights[i][j] \le 10^5$
+- **Edge Cases to Watch:** 
+    - Grid with 1x1 size.
+    - Flat islands where all heights are equal.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Dual Flow Check." Checking every cell to see if it can flow to Pacific AND Atlantic ($O((MN)^2)$).
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Reverse Flow." Water flows downhill. So, from the ocean, water flows *uphill*.
+!!! success "The Aha! Moment"
+    Instead of asking "Can *this* cell flow to both oceans?" (which requires a search for every cell), reverse the problem: "From the ocean, can we flow *uphill* to this cell?" Run two independent searches starting from the Pacific borders and Atlantic borders respectively, moving to cells with $\ge$ height.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Running a DFS for every single cell to check reachability to both oceans results in $\mathcal{O}((M \times N)^2)$ complexity, which will timeout for larger grids.
 
-1. Create `pacific_reachable` and `atlantic_reachable` sets (boolean grids).
-2. Start DFS/BFS from the **Pacific borders** (Top row, Left col) moving only to *equal or higher* cells. Mark `pacific_reachable`.
-3. Start DFS/BFS from the **Atlantic borders** (Bottom row, Right col). Mark `atlantic_reachable`.
-4. Iterate the grid. If a cell is in BOTH sets, add to result.
+### 🐇 Optimal Approach
+1. Initialize two boolean matrices, `pacific_reachable` and `atlantic_reachable`.
+2. DFS from all Pacific border cells (top row, left col) into the island, following non-decreasing paths.
+3. DFS from all Atlantic border cells (bottom row, right col) into the island, following non-decreasing paths.
+4. Iterate through the grid; any cell marked `True` in both matrices is a valid coordinate.
 
-**The Twist (Failure):** **The Visited State.** You need distinct visited sets for Pacific and Atlantic traversals.
-
-**Interview Signal:** **Inverse Thinking** (Solving the problem backwards).
-
-## 🚀 Approach & Intuition
-Traverse from borders inward (uphill).
-
-### C++ Pseudo-Code
-{% raw %}
-```cpp
-class Solution {
-    int m, n;
-    vector<vector<int>> dirs = {{0,1}, {0,-1}, {1,0}, {-1,0}};
-public:
-    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
-        m = heights.size(); n = heights[0].size();
-        vector<vector<bool>> pac(m, vector<bool>(n, false));
-        vector<vector<bool>> atl(m, vector<bool>(n, false));
-
-        for (int c = 0; c < n; c++) {
-            dfs(heights, 0, c, pac, heights[0][c]);
-            dfs(heights, m-1, c, atl, heights[m-1][c]);
-        }
-        for (int r = 0; r < m; r++) {
-            dfs(heights, r, 0, pac, heights[r][0]);
-            dfs(heights, r, n-1, atl, heights[r][n-1]);
-        }
-
-        vector<vector<int>> res;
-        for (int r = 0; r < m; r++)
-            for (int c = 0; c < n; c++)
-                if (pac[r][c] && atl[r][c]) res.push_back({r, c});
-        return res;
-    }
-
-    void dfs(vector<vector<int>>& grid, int r, int c, vector<vector<bool>>& visit, int prevH) {
-        if (r < 0 || c < 0 || r >= m || c >= n || visit[r][c] || grid[r][c] < prevH)
-            return;
-        visit[r][c] = true;
-        for (auto& d : dirs)
-            dfs(grid, r+d[0], c+d[1], visit, grid[r][c]);
-    }
-};
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    subgraph Flow
+    A[Ocean] --uphill--> B[Cell]
+    B --uphill--> C[Cell]
+    end
+    style A fill:#bbf,stroke:#333
 ```
-{% endraw %}
 
-### Key Observations:
-
-- Represent the graph using an Adjacency List for space efficiency in sparse graphs.
-- Use DFS for path-finding/connectivity and BFS for finding the shortest path in unweighted graphs.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(M 	imes N)$
-    - **Space Complexity:** $O(M 	imes N)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(M \times N)$ — We visit each cell at most twice.
+- **Space Complexity:** $\mathcal{O}(M \times N)$ — For the two boolean matrices and recursion stack.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you solve this using BFS for shortest paths or DFS for connectivity? When would you use Union-Find?
-- **Scale Question:** If the graph has billions of edges (like a social network), how would you use a Pregel or Giraph-style distributed processing model?
-- **Edge Case Probe:** How do you handle cycles, disconnected components, or self-loops in the graph?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** "Find nodes in a directed graph reachable from two specific sets of source nodes."
+- **Alternative Data Structures:** BFS (Queue-based) is also standard; DFS is often more concise for implementation.
 
 ## 🔗 Related Problems
-
-- [Surrounded Regions](../surrounded_regions/PROBLEM.md) — Next in category
-- [Rotting Oranges](../rotting_oranges/PROBLEM.md) — Previous in category
-- [Reconstruct Itinerary](../../12_advanced_graphs/reconstruct_itinerary/PROBLEM.md) — Prerequisite for Advanced Graphs
-- [Unique Paths](../../14_2d_dynamic_programming/unique_paths/PROBLEM.md) — Prerequisite for 2-D Dynamic Programming
+- `Surrounded Regions` — Similar border-based traversal.
+- `Rotting Oranges` — Multi-source BFS/DFS pattern.

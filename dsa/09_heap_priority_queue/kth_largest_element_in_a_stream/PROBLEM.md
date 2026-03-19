@@ -1,82 +1,72 @@
-#  📊 Heap: Kth Largest Element in a Stream
+---
+impact: "Easy"
+nr: false
+confidence: 2
+---
+# 📊 Heap: Kth Largest Element in a Stream
 
 ## 📝 Description
 [LeetCode 703](https://leetcode.com/problems/kth-largest-element-in-a-stream/)
 Design a class to find the `k`th largest element in a stream. Note that it is the `k`th largest element in the sorted order, not the `k`th distinct element.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Used in **Leaderboards** (keeping track of the top 10 scores), **Network Monitoring** (tracking top K bandwidth consumers), and **Anomaly Detection** (thresholding).
 
-- $1 \le nums.length \le 10^5$
-- $-10^4 \le nums[i] \le 10^4$
+## 🛠️ Constraints & Edge Cases
+- $1 \le k \le 10^4$
+- $0 \le nums.length \le 10^4$
+- **Edge Cases to Watch:**
+    - Initial array size < k (must assume valid `add` calls will follow).
+    - Negative numbers.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Infinite Sorter." You have a continuous stream of numbers. If you sort the entire list every time a new number arrives ($O(N \log N)$), your system will crawl to a halt.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Gatekeeper Min-Heap." We only care about the *top k* largest elements. The smallest of these "top k" is our answer.
+!!! success "The Aha! Moment"
+    To find the $K^{th}$ largest element, we don't need to keep the *entire* history sorted. We only care about the "Top K" elements. If we have the Top K elements, the $K^{th}$ largest is simply the **smallest** of that group. A **Min-Heap** of size K is perfect for this.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Append to list and sort every time `add()` is called.
+- **Time Complexity:** $O(N \log N)$ per call.
 
-1. Maintain a Min-Heap of size `k`.
-2. When adding a number:
-   - Push to heap.
-   - If heap size > k, pop the smallest element.
-3. The top of the heap is always the $k^{th}$ largest seen so far.
+### 🐇 Optimal Approach (Min-Heap)
+1.  Maintain a Min-Heap.
+2.  If heap size < `k`, push `val`.
+3.  If heap size == `k` and `val > heap.top()`:
+    - Pop small root.
+    - Push new `val`.
+4.  The root of the heap is always the $K^{th}$ largest.
 
-**The Twist (Failure):** **The Max-Heap Trap.** A Max-Heap keeps the largest element at the top. We want the $k^{th}$ largest, which is the *smallest* of the big guys.
-
-**Interview Signal:** Efficiently processing **Streaming Data**.
-
-## 🚀 Approach & Intuition
-Keep only the K largest elements. The smallest of them is the Kth largest.
-
-### C++ Pseudo-Code
-```cpp
-class KthLargest {
-    priority_queue<int, vector<int>, greater<int>> pq;
-    int k;
-public:
-    KthLargest(int k, vector<int>& nums) {
-        this->k = k;
-        for (int x : nums) add(x);
-    }
-    
-    int add(int val) {
-        pq.push(val);
-        if (pq.size() > k) pq.pop();
-        return pq.top();
-    }
-};
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    A[Stream, K=3]
+    B[Add 4] --> H1[4]
+    C[Add 5] --> H2[4, 5]
+    D[Add 8] --> H3[4, 5, 8] -> Result: 4
+    E[Add 2] -->|2 < 4| H3 -> Result: 4
+    F[Add 10] -->|10 > 4| H4[5, 8, 10] -> Result: 5
 ```
 
-### Key Observations:
-
-- Heaps are the go-to for finding the $K$-th largest or smallest element in $O(N \log K)$ time.
-- Use a Min-Heap for $K$ largest elements and a Max-Heap for $K$ smallest elements to optimize space.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(\log k)$ per add.
-    - **Space Complexity:** $O(k)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(\log K)$ — Per `add` operation.
+- **Space Complexity:** $\mathcal{O}(K)$ — Store top K elements.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you implement a custom Heap from scratch? How would you implement a 'Decrease Key' operation?
-- **Scale Question:** How would you maintain a Top-K list across 100 machines with frequent updates?
-- **Edge Case Probe:** What if all elements have the same priority? How do you handle empty heap extractions?
+## 🎤 Interview Toolkit
+
+- **Question:** Why Min-Heap for Kth *Largest*? (Because we want to efficiently evict the smallest of the top group to make room for larger ones, and Min-Heap gives access to the minimum in $O(1)$).
 
 ## 🔗 Related Problems
-
-- [Last Stone Weight](../last_stone_weight/PROBLEM.md) — Next in category
-- [Reconstruct Itinerary](../../12_advanced_graphs/reconstruct_itinerary/PROBLEM.md) — Prerequisite for Advanced Graphs
-- [Maximum Subarray](../../15_greedy/maximum_subarray/PROBLEM.md) — Prerequisite for Greedy
-- [Insert Interval](../../16_intervals/insert_interval/PROBLEM.md) — Prerequisite for Intervals
+- [Kth Largest Element in an Array](../kth_largest_element_in_an_array/PROBLEM.md) — Static version
+- [Top K Frequent Elements](../../01_arrays_hashing/top_k_frequent_elements/PROBLEM.md) — Related

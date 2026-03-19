@@ -1,88 +1,76 @@
-#  ⚖️ Heap: Find Median from Data Stream
+---
+impact: "Hard"
+nr: false
+confidence: 2
+---
+# ⚖️ Heap: Find Median from Data Stream
 
 ## 📝 Description
 [LeetCode 295](https://leetcode.com/problems/find-median-from-data-stream/)
 The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value, and the median is the mean of the two middle values. Design a data structure that supports adding integers and finding the median.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Used in **Real-time Analytics** to calculate p50 latency or other percentiles on streaming data without storing/sorting the entire dataset history.
 
-- $1 \le nums.length \le 10^5$
-- $-10^4 \le nums[i] \le 10^4$
+## 🛠️ Constraints & Edge Cases
+- $1 \le \text{calls} \le 5 \cdot 10^4$
+- $-10^5 \le num \le 10^5$
+- **Edge Cases to Watch:**
+    - No elements (usually constraints say at least 1 for findMedian).
+    - Single element.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Dynamic Sorter." Keeping a list sorted as numbers arrive ($O(N)$ insertion) makes getting the median fast ($O(1)$) but insertion slow. Or, sorting on demand makes retrieval slow ($O(N \log N)$).
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Two-Heap Balance." We split the data into two halves: Small Half and Large Half.
+!!! success "The Aha! Moment"
+    We need the middle element. Sorting every time is $O(N \log N)$. Maintaining a sorted list is $O(N)$ insertion. We can maintain the **middle** property by splitting the data into two halves: a **Small Half** (Max-Heap) and a **Large Half** (Min-Heap). The top of these heaps will be the candidates for the median.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Append to list, sort on `findMedian`.
+- **Time Complexity:** $O(N \log N)$ per call.
 
-1. **Max-Heap (`small`):** Stores the smaller half of numbers. Top is the largest of the smalls (middle-left).
-2. **Min-Heap (`large`):** Stores the larger half. Top is the smallest of the bigs (middle-right).
-3. **Balancing Act:** Ensure `size(small) == size(large)` or `size(small) == size(large) + 1`.
-4. **Median:**
-   - If sizes equal: `(small.top + large.top) / 2`.
-   - If odd: `small.top`.
+### 🐇 Optimal Approach
+1.  **Heaps:**
+    - `small`: Max-Heap (stores lower half of numbers).
+    - `large`: Min-Heap (stores upper half of numbers).
+2.  **AddNum(num):**
+    - Push to `small` (Max-Heap).
+    - Pop max from `small` and push to `large` (Min-Heap).
+    - **Balance:** If `len(small) < len(large)`, move top of `large` back to `small`.
+    - Invariant: `len(small) >= len(large)`.
+3.  **FindMedian:**
+    - If `len(small) > len(large)`: Return `small.top`.
+    - Else: Return `(small.top + large.top) / 2.0`.
 
-**The Twist (Failure):** **The Cross-Over.** You can't just push to one heap blindly. You must push to one, pop its top, and push that to the other to ensure the order is maintained.
-
-**Interview Signal:** Managing **Data Structure Invariants**.
-
-## 🚀 Approach & Intuition
-Maintain two halves of the data.
-
-### C++ Pseudo-Code
-```cpp
-class MedianFinder {
-    priority_queue<int> small; // Max heap
-    priority_queue<int, vector<int>, greater<int>> large; // Min heap
-public:
-    void addNum(int num) {
-        small.push(num);
-        large.push(small.top());
-        small.pop();
-        
-        if (small.size() < large.size()) {
-            small.push(large.top());
-            large.pop();
-        }
-    }
-    
-    double findMedian() {
-        if (small.size() > large.size()) return small.top();
-        return (small.top() + large.top()) / 2.0;
-    }
-};
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    A[Input: 1, 2, 3]
+    B[Add 1] --> H1[Small: {1}, Large: {}]
+    C[Add 2] --> H2[Small: {1}, Large: {2}]
+    D[Add 3] --> H3[Small: {1, 2}, Large: {3}]
+    E[Median] --> Res[Small.top = 2]
 ```
 
-### Key Observations:
-
-- Heaps are the go-to for finding the $K$-th largest or smallest element in $O(N \log K)$ time.
-- Use a Min-Heap for $K$ largest elements and a Max-Heap for $K$ smallest elements to optimize space.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** Add: $O(\log N)$, Find: $O(1)$.
-    - **Space Complexity:** $O(N)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $O(\log N)$ for `addNum`, $O(1)$ for `findMedian`.
+- **Space Complexity:** $\mathcal{O}(N)$ — Store all numbers.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you implement a custom Heap from scratch? How would you implement a 'Decrease Key' operation?
-- **Scale Question:** How would you maintain a Top-K list across 100 machines with frequent updates?
-- **Edge Case Probe:** What if all elements have the same priority? How do you handle empty heap extractions?
+## 🎤 Interview Toolkit
+
+- **Follow-up:** If all integers are in range [0, 100], how to optimize? (Use a frequency array/Bucket Sort logic).
+- **Follow-up:** If 99% of calls are `addNum`, is this efficient? (Yes, log N is good).
 
 ## 🔗 Related Problems
-
-- [Design Twitter](../design_twitter/PROBLEM.md) — Previous in category
-- [Reconstruct Itinerary](../../12_advanced_graphs/reconstruct_itinerary/PROBLEM.md) — Prerequisite for Advanced Graphs
-- [Maximum Subarray](../../15_greedy/maximum_subarray/PROBLEM.md) — Prerequisite for Greedy
-- [Insert Interval](../../16_intervals/insert_interval/PROBLEM.md) — Prerequisite for Intervals
+- [Sliding Window Median](https://leetcode.com/problems/sliding-window-median/) — Harder variant

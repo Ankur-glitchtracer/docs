@@ -1,77 +1,73 @@
-#  🎯 Two Pointers: Two Sum II - Input Array Is Sorted
+---
+impact: "Medium"
+nr: false
+confidence: 5
+---
+# 🎯 Two Pointers: Two Sum II - Input Array Is Sorted
 
-## 📝 Description
-[LeetCode 167](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
-Given a 1-indexed array of integers `numbers` that is already sorted in non-decreasing order, find two numbers such that they add up to a specific `target` number.
+## 📝 Problem Description
+Given a 1-indexed array of integers `numbers` that is already sorted in non-decreasing order, find two numbers such that they add up to a specific `target` number. Return the indices of the two numbers, added by one, as an integer array `[index1, index2]` of length 2.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Finding pairs in sorted logs or sorted database indexes, where $O(1)$ space is preferred over the $O(N)$ space of a hash map.
 
-- $1 \le nums.length \le 10^5$
-- $-10^5 \le nums[i] \le 10^5$
+## 🛠️ Constraints & Edge Cases
+- $2 \le numbers.length \le 3 \cdot 10^4$
+- $-1000 \le numbers[i] \le 1000$
+- The tests are generated such that there is exactly one solution.
+- **Edge Cases to Watch:**
+    - Negative numbers in the array.
+    - The two numbers are the same (e.g., target 6, array `[3, 3]`).
+    - Indices must be 1-based.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Hash Map Overkill." Using $O(N)$ space when the input is already sorted. Or worse, sticking to the $O(N^2)$ brute force.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Conditional Squeeze." Since the array is sorted, we know exactly how to adjust our sum.
+!!! success "The Aha! Moment"
+    Since the array is **sorted**, we can use two pointers at opposite ends. If the current sum is too large, we move the right pointer left to decrease it. If the sum is too small, we move the left pointer right to increase it.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Use nested loops to check every pair. This takes $O(N^2)$ and doesn't leverage the fact that the array is sorted.
 
-1. Initialize `left = 0`, `right = n - 1`.
-2. Calculate `current_sum = numbers[left] + numbers[right]`.
-3. If `current_sum > target`: We need a smaller sum. Decrement `right`.
-4. If `current_sum < target`: We need a larger sum. Increment `left`.
-5. If match, return indices (1-based).
+### 🐇 Optimal Approach
+1. Initialize `l = 0` and `r = len(numbers) - 1`.
+2. While `l < r`:
+    - Calculate `curSum = numbers[l] + numbers[r]`.
+    - If `curSum > target`, decrement `r`.
+    - If `curSum < target`, increment `l`.
+    - If `curSum == target`, return `[l + 1, r + 1]`.
 
-**The Twist (Failure):** **The Indexing.** The problem asks for 1-based indexing, a classic "read the requirements" trap.
-
-**Interview Signal:** Leveraging **Sorted Inputs** for optimization.
-
-## 🚀 Approach & Intuition
-Use sorted property to converge on the target sum.
-
-### C++ Pseudo-Code
-```cpp
-vector<int> twoSum(vector<int>& numbers, int target) {
-    int l = 0, r = numbers.size() - 1;
-    while (l < r) {
-        int sum = numbers[l] + numbers[r];
-        if (sum == target) return {l + 1, r + 1};
-        else if (sum < target) l++;
-        else r--;
-    }
-    return {};
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    Input["[2, 7, 11, 15], Target: 9"]
+    L[L: 2] --- R[R: 15]
+    Sum1["Sum: 17 > 9"]
+    R -- Move Left --> R2[R: 7]
+    L --- R2
+    Sum2["Sum: 9 == 9 ✅"]
 ```
 
-### Key Observations:
-
-- Two-pointer techniques are often used on sorted arrays to find pairs or triplets in $O(N)$ or $O(N^2)$ time.
-- Converging pointers (left and right) are useful for searching, while fast/slow pointers are great for linked lists.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — Each element is visited at most once.
+- **Space Complexity:** $\mathcal{O}(1)$ — No extra data structures are used.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can this be extended to 3 pointers or $K$ pointers? How would the complexity change?
-- **Scale Question:** If the data is stored in a linked list on disk, how can you minimize seek time while moving pointers?
-- **Edge Case Probe:** What if the pointers meet immediately? What if the array has only one or two elements?
+## 🎤 Interview Toolkit
+
+- **Why not Binary Search?** You could use Binary Search for each element ($O(N \log N)$), but Two Pointers is faster ($O(N)$).
+- **Follow-up:** What if the array is not sorted? (Use a hash map or sort it first).
 
 ## 🔗 Related Problems
-
-- [3Sum](../3sum/PROBLEM.md) — Next in category
-- [Valid Palindrome](../valid_palindrome/PROBLEM.md) — Previous in category
-- [Best Time to Buy/Sell Stock](../../03_sliding_window/best_time_to_buy_sell_stock/PROBLEM.md) — Prerequisite for Sliding Window
-- [Binary Search](../../05_binary_search/binary_search/PROBLEM.md) — Prerequisite for Binary Search
+- [Two Sum](../../01_arrays_hashing/two_sum/PROBLEM.md)
+- [3Sum](../3sum/PROBLEM.md)

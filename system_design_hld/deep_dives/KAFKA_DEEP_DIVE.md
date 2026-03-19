@@ -65,4 +65,4 @@ HDFS is designed to **store massive, unstructured files** (terabytes) and **stre
 
 Explore low-level code implementations of publish/subscribe mechanisms:
 
-* [Machine Coding: Kafka Lite](../../../machine_coding/distributed/pub_sub/PROBLEM.md)
+* [Machine Coding: Kafka Lite](../../machine_coding/distributed/pub_sub/PROBLEM.md)

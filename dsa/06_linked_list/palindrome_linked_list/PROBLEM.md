@@ -1,59 +1,79 @@
-#  ↔️ Linked Lists: Palindrome Linked List
+---
+impact: "High"
+nr: false
+confidence: 5
+---
+# ↔️ Linked Lists: Palindrome Linked List
 
-## 📝 Description
-[LeetCode 234](https://leetcode.com/problems/palindrome-linked-list/)
+## 📝 Problem Description
 Given the `head` of a singly linked list, return `true` if it is a palindrome.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Biological sequence analysis (identifying DNA palindromic sequences), version control history comparison, and undo/redo stacks that must be reversible.
 
-- Number of nodes is between 0 and 5000.
-- $-1000 \le Node.val \le 1000$
+## 🛠️ Constraints & Edge Cases
+- $1 \le N \le 10^5$
+- $0 \le \text{Node.val} \le 9$
+- **Edge Cases to Watch:**
+    - **Single Node:** A single node is always a palindrome.
+    - **Two Nodes:** Must have identical values (e.g., `[1, 1]`).
+    - **Even vs Odd Length:** The algorithm must correctly identify the split point regardless of length parity.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Memory Double." Copying the list into an array to check for a palindrome ($O(N)$ space).
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Half-Flip." Find the middle, reverse the second half, and compare it to the first.
+!!! success "The Aha! Moment"
+    The core trick is to find the list's midpoint using **Slow and Fast Pointers**. Once we reach the middle, we **Reverse** the second half of the list. This allows us to compare values from the start and the end simultaneously using only $O(1)$ extra space.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+The simplest approach is to traverse the entire linked list and store all node values in an array. Then, use two pointers at the start and end of the array to check for a palindrome.
+- **Time Complexity:** $O(N)$
+- **Space Complexity:** $O(N)$ (to store the array)
 
-1. Use **Fast/Slow** pointers to find the middle.
-2. **Reverse** the second half of the list in-place.
-3. Compare the first half and the reversed second half node by node.
+### 🐇 Optimal Approach
+1. **Find Middle:** Use `slow` and `fast` pointers. When `fast` reaches the end, `slow` will be at the midpoint.
+2. **Reverse Second Half:** Starting from the node pointed to by `slow`, reverse the remaining list in-place.
+3. **Compare:** Use two pointers—one starting at the original `head` and the other at the new head of the reversed second half. Compare values node-by-node.
+4. **Restore (Best Practice):** Although usually not required by competitive programming, in real engineering, you should reverse the second half back before returning to avoid side effects.
 
-**The Twist (Failure):** **The Permanent Damage.** Leaving the list reversed, which might break other parts of the application that expect the original structure. (Best practice: reverse it back).
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    subgraph "Phase 1: Finding Middle & Reverse"
+    1[1] --> 2[2] --> 2R[2] --> 1R[1]
+    S[Slow] --- 2R
+    F[Fast] --- 1R
+    end
 
-**Interview Signal:** Mastery of **Algorithm Composition** (Combining Middle-Finding, Reversing, and Comparison).
+    subgraph "Phase 2: Compare"
+    L[Left Pointer] --> 1
+    R[Right Pointer] --> 1R
+    1R -.-> 2R
+    2R -.-> None
+    end
+```
 
-## 🚀 Approach & Intuition
-(To be detailed...)
-
-### Key Observations:
-
-- Always consider using a dummy head node to simplify edge cases like inserting at the head or deleting the only node.
-- Fast and slow pointers are a common pattern for finding the middle or detecting cycles.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — One pass to find the middle ($N/2$), one pass to reverse the second half ($N/2$), and one pass to compare ($N/2$). Total complexity remains linear.
+- **Space Complexity:** $\mathcal{O}(1)$ — We only use pointers; no additional data structures like arrays or stacks are required.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** What if the input is sorted or has a limited range? Can you optimize space from $O(N)$ to $O(1)$?
-- **Scale Question:** If the dataset is too large to fit in RAM, how would you use external sorting or a distributed hash table?
-- **Edge Case Probe:** How does your solution handle duplicates, empty inputs, or extremely large integers?
+## 🎤 Interview Toolkit
+
+- **The Space Trade-off:** If asked why $O(1)$ space is better than $O(N)$, mention memory-constrained environments like embedded systems or handling massive lists that might trigger swap space.
+- **Modifying Input:** Always ask the interviewer if it is acceptable to modify the original list. If not, you must mention you'll restore it or use $O(N)$ space.
 
 ## 🔗 Related Problems
-
-- `[Related Problem 1](../category/problem_name/PROBLEM.md)` — (To be detailed...)
-- `[Related Problem 2](../category/problem_name/PROBLEM.md)` — (To be detailed...)
+- `[Reverse Linked List](../reverse_list/PROBLEM.md)` — The fundamental building block for the reversal step.
+- `[Linked List Cycle](../linked_list_cycle/PROBLEM.md)` — Uses the same slow/fast pointer technique for middle detection.
+- `[Valid Palindrome](../../02_two_pointers/valid_palindrome/PROBLEM.md)` — The string-based version of this problem.

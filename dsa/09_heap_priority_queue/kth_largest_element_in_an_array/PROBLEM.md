@@ -1,89 +1,71 @@
-#  🔝 Heap: Kth Largest Element in an Array
+---
+impact: "Medium"
+nr: false
+confidence: 2
+---
+# 🔝 Heap: Kth Largest Element in an Array
 
 ## 📝 Description
 [LeetCode 215](https://leetcode.com/problems/kth-largest-element-in-an-array/)
 Given an integer array `nums` and an integer `k`, return the `k`th largest element in the array. Note that it is the `k`th largest element in the sorted order, not the `k`th distinct element. You must solve it in $O(N)$ time complexity.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Used in **Order Statistics**, finding medians, or selecting top candidates without fully sorting a massive dataset.
 
-- $1 \le nums.length \le 10^5$
-- $-10^4 \le nums[i] \le 10^4$
+## 🛠️ Constraints & Edge Cases
+- $1 \le k \le nums.length \le 10^5$
+- **Edge Cases to Watch:**
+    - Array is already sorted or reverse sorted.
+    - Duplicates.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Sorting Crutch." Just calling `sort()` is easy ($O(N \log N)$), but interviewers know it's not optimal for finding just *one* element.
+## 🧠 Approach & Intuition
 
-**The Hero:** "QuickSelect (or Min-Heap)."
+!!! success "The Aha! Moment"
+    Sorting is $O(N \log N)$. A Min-Heap of size K is $O(N \log K)$. To get $O(N)$, we need **QuickSelect** (partitioning logic from QuickSort). By partitioning, we place one element (the pivot) in its correct final sorted position. If that position is `N-K`, we are done! If not, we only recurse into *one* half.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Sort and pick index `N-k`.
+- **Time Complexity:** $O(N \log N)$.
 
-1. (To be detailed...)
-2. (To be detailed...)
+### 🐇 Optimal Approach (QuickSelect)
+1.  Choose a pivot (randomly to avoid worst case).
+2.  Partition array: elements <= pivot to left, > pivot to right.
+3.  Pivot ends at index `p`.
+4.  Target index is `N - k` (if sorting ascending).
+5.  If `p == target`: return `nums[p]`.
+6.  If `p < target`: Recurse Right.
+7.  If `p > target`: Recurse Left.
 
-**The Twist (Failure):** **Worst Case.** QuickSelect can degrade to $O(N^2)$ if already sorted. Random shuffling or "Median of Medians" fixes this.
-
-**Interview Signal:** Mastery of **Partitioning Algorithms**.
-
-## 🚀 Approach & Intuition
-Partitioning until the pivot lands at index `n - k`.
-
-### C++ Pseudo-Code
-```cpp
-int findKthLargest(vector<int>& nums, int k) {
-    int target = nums.size() - k;
-    int l = 0, r = nums.size() - 1;
-    
-    while (l <= r) {
-        int pivot = partition(nums, l, r);
-        if (pivot == target) return nums[pivot];
-        if (pivot < target) l = pivot + 1;
-        else r = pivot - 1;
-    }
-    return -1;
-}
-
-int partition(vector<int>& nums, int l, int r) {
-    int pivot = nums[r];
-    int p = l;
-    for (int i = l; i < r; i++) {
-        if (nums[i] <= pivot) {
-            swap(nums[i], nums[p]);
-            p++;
-        }
-    }
-    swap(nums[p], nums[r]);
-    return p;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    A[Arr: 3,2,1,5,6,4, K=2 (Target Idx 4)]
+    B[Pivot: 4] -->|Partition| C[3,2,1, 4 , 5,6]
+    C -->|4 is at Idx 3 < Target 4| RecurseRight
+    D[Right Sub: 5, 6] -->|Pivot 5| E[5, 6]
+    E -->|5 is at Idx 4 == Target| Return 5
 ```
 
-### Key Observations:
-
-- Heaps are the go-to for finding the $K$-th largest or smallest element in $O(N \log K)$ time.
-- Use a Min-Heap for $K$ largest elements and a Max-Heap for $K$ smallest elements to optimize space.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$ (Average)
-    - **Space Complexity:** $O(1)$ (Iterative QuickSelect)
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ average, $\mathcal{O}(N^2)$ worst case (without random pivot).
+- **Space Complexity:** $\mathcal{O}(1)$ (Iterative) or $\mathcal{O}(\log N)$ (Recursive stack).
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you implement a custom Heap from scratch? How would you implement a 'Decrease Key' operation?
-- **Scale Question:** How would you maintain a Top-K list across 100 machines with frequent updates?
-- **Edge Case Probe:** What if all elements have the same priority? How do you handle empty heap extractions?
+## 🎤 Interview Toolkit
+
+- **Comparison:** Min-Heap solution is more stable $O(N \log K)$ and easier to implement correctly. QuickSelect is faster on average but tricky.
+- **Libraries:** Python's `heapq.nlargest` is $O(N \log K)$.
 
 ## 🔗 Related Problems
-
-- [Task Scheduler](../task_scheduler/PROBLEM.md) — Next in category
-- [K Closest Points](../k_closest_points_to_origin/PROBLEM.md) — Previous in category
-- [Reconstruct Itinerary](../../12_advanced_graphs/reconstruct_itinerary/PROBLEM.md) — Prerequisite for Advanced Graphs
-- [Maximum Subarray](../../15_greedy/maximum_subarray/PROBLEM.md) — Prerequisite for Greedy
+- [Kth Largest in Stream](../kth_largest_element_in_a_stream/PROBLEM.md) — Streaming version

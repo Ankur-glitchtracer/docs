@@ -1,102 +1,69 @@
-#  🌳 Trie: Design Add and Search Words Data Structure
+---
+impact: "Medium"
+nr: false
+confidence: 2
+---
+# 🌳 Trie: Design Add and Search Words Data Structure
 
 ## 📝 Description
 [LeetCode 211](https://leetcode.com/problems/design-add-and-search-words-data-structure/)
 Design a data structure that supports adding new words and finding if a string matches any previously added string. The search string may contain dots '.' where a dot can be matched with any letter.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This simulates a **Spell Checker** with wildcard support or **File System Globbing** (e.g., searching for `*.txt`).
 
-- $1 \le \text{word.length} \le 2000$
-- Words consist of lowercase English letters.
+## 🛠️ Constraints & Edge Cases
+- $1 \le \text{word.length} \le 25$
+- At most $10^4$ calls.
+- **Edge Cases to Watch:**
+    - `.` at start, middle, or end.
+    - Word containing all dots.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Wildcard." Standard Tries handle exact matches. But how do you handle "b.d" where `.` can be any letter?
+## 🧠 Approach & Intuition
 
-**The Hero:** "The DFS Search." When we hit a `.`, we can't take just one path. We must try *all* possible children of the current node.
+!!! success "The Aha! Moment"
+    Standard Tries handle direct lookups easily. The dot `.` introduces branching. If we encounter `.`, we can't go down a single path—we must explore **all** existing children of the current node. This suggests a recursive DFS.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Store list of words. For `.` search, iterate all words and regex match.
+- **Time Complexity:** $O(N \cdot L)$ per search. Slow if many words.
 
-1. **AddWord:** Standard Trie insert.
-2. **Search:** Recursive DFS function `search(index, node)`.
-3. If `word[index]` is a letter: Go to `node->children[letter]`. If null, return False.
-4. If `word[index]` is `.`: Loop through all 26 children. If *any* recursive call returns True, then True.
+### 🐇 Optimal Approach
+1.  **Add:** Standard Trie insertion ($O(L)$).
+2.  **Search:** Recursive `dfs(index, root)`.
+3.  If char is letter: Move to specific child.
+4.  If char is `.`: Loop through **all 26 children**. If any path returns True, return True.
 
-**The Twist (Failure):** **The Base Case.** Don't forget `isEnd`. Just reaching the end of the string isn't enough; the current node must mark the end of a valid word.
-
-**Interview Signal:** Adapting Data Structures for **Fuzzy Matching**.
-
-## 🚀 Approach & Intuition
-Handle '.' by exploring all branches.
-
-### C++ Pseudo-Code
-```cpp
-class WordDictionary {
-    struct Node {
-        Node* children[26] = {nullptr};
-        bool isEnd = false;
-    };
-    Node* root;
-public:
-    WordDictionary() { root = new Node(); }
-    
-    void addWord(string word) {
-        Node* curr = root;
-        for (char c : word) {
-            if (!curr->children[c - 'a'])
-                curr->children[c - 'a'] = new Node();
-            curr = curr->children[c - 'a'];
-        }
-        curr->isEnd = true;
-    }
-    
-    bool search(string word) {
-        return dfs(word, 0, root);
-    }
-    
-    bool dfs(string& word, int i, Node* curr) {
-        if (!curr) return false;
-        if (i == word.size()) return curr->isEnd;
-        
-        if (word[i] != '.') {
-            return dfs(word, i + 1, curr->children[word[i] - 'a']);
-        } else {
-            for (int j = 0; j < 26; j++) {
-                if (dfs(word, i + 1, curr->children[j])) return true;
-            }
-            return false;
-        }
-    }
-};
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    Root --> B
+    B --> A
+    A --> D[bad (End)]
+    Root -->|Search b.d| ScanChildren
+    ScanChildren -->|Try 'a'| D
 ```
 
-### Key Observations:
-
-- Tries are ideal for prefix-based searches and autocomplete features, providing $O(L)$ time for words of length $L$.
-- Each node typically contains a hash map or array of size 26 for its children, plus a boolean flag for the end of a word.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(L)$ for Add. $O(26^L)$ worst case for Search with dots (basically DFS).
-    - **Space Complexity:** $O(N \cdot L)$.
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $O(L)$ for add. $O(26^L)$ worst case for search (all dots), but much faster on average due to pruning.
+- **Space Complexity:** $\mathcal{O}(N \cdot L)$ — Total characters stored.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you solve this iteratively if you were worried about stack overflow from deep recursion?
-- **Scale Question:** If the tree is a multi-terabyte B-Tree in a database, how do you optimize node traversal to minimize disk hits?
-- **Edge Case Probe:** What if the tree is extremely skewed (effectively a linked list)? What if it's empty?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Regex support (`*`, `?`). (LeetCode 10: Regular Expression Matching).
 
 ## 🔗 Related Problems
-
 - [Word Search II](../word_search_ii/PROBLEM.md) — Next in category
 - [Implement Trie](../implement_trie/PROBLEM.md) — Previous in category
-- [Invert Binary Tree](../../07_trees/invert_binary_tree/PROBLEM.md) — Prerequisite: Trees

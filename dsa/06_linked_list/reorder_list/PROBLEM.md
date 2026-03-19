@@ -1,99 +1,88 @@
-#  🔀 Linked Lists: Reorder List
+---
+impact: "High"
+nr: false
+confidence: 5
+---
+# 🔀 Linked Lists: Reorder List
 
-## 📝 Description
+## 📝 Problem Description
 [LeetCode 143](https://leetcode.com/problems/reorder-list/)
+
 You are given the head of a singly linked-list. The list can be represented as:
-`L0 → L1 → … → Ln - 1 → Ln`
+`L0 → L1 → … → Ln-1 → Ln`
+
 Reorder the list to be on the following form:
-`L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …`
+`L0 → Ln → L1 → Ln-1 → L2 → Ln-2 → …`
+
 You may not modify the values in the list's nodes. Only nodes themselves may be changed.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This pattern of interleaved merging is used in **Data Shuffling Algorithms** and **Memory Layout Optimization** where data needs to be rearranged for specific access patterns, such as bit-reversal in Fast Fourier Transforms (FFT) or zig-zag scans in image processing.
 
-- Number of nodes is between 0 and 5000.
-- $-1000 \le Node.val \le 1000$
+## 🛠️ Constraints & Edge Cases
+- The number of nodes in the list is in the range $[1, 5 \times 10^3]$.
+- $1 \le Node.val \le 1000$
+- **Edge Cases to Watch:**
+    - Single node: `[1]` → `[1]`
+    - Two nodes: `[1, 2]` → `[1, 2]`
+    - Three nodes: `[1, 2, 3]` → `[1, 3, 2]`
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Random Access Need." You need to merge `L[0], L[n], L[1], L[n-1]`. Linked lists don't support $O(1)$ random access, so fetching `L[n-1]` repeatedly makes this $O(N^2)$.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Split-Reverse-Merge Combo." Break the problem into three primitives we already know.
+!!! success "The Aha! Moment"
+    Since we can't easily traverse a singly linked list backwards, the trick is to **Reverse the Second Half**. By splitting the list in the middle, reversing the latter part, and then weaving the two halves together, we achieve the $O(1)$ space requirement.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+The naive approach involves storing all nodes in an array/list to gain $O(1)$ random access. We then use two pointers (left and right) to relink the nodes.
+- **Time Complexity:** $O(N)$
+- **Space Complexity:** $O(N)$ to store the nodes.
 
-1. **Find Middle:** Use slow/fast pointers to split the list into two halves.
-2. **Reverse Second Half:** Reverse the right half of the list ($O(N)$).
-3. **Merge:** Alternate nodes from the left and the (now reversed) right list.
+### 🐇 Optimal Approach
+The optimal solution breaks the problem into three modular steps:
+1.  **Find the Middle:** Use the slow and fast pointer technique.
+2.  **Reverse the Second Half:** Standard linked list reversal starting from the middle's next node.
+3.  **Merge (Weave) the Lists:** Alternatingly pick nodes from the first half and the reversed second half.
 
-**The Twist (Failure):** **The Cycle Risk.** If you don't sever the connection between the two halves (`middle.next = None`), you'll create a cycle during the merge.
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    subgraph "1. Find Middle & Split"
+    A1[1] --> B1[2] --> C1[3] --> D1[4]
+    style C1 stroke:#f66,stroke-width:2px
+    end
 
-**Interview Signal:** Mastery of **Algorithm Composition**.
+    subgraph "2. Reverse Second Half"
+    C2[3] -.-> D2[4]
+    D2 --> C2
+    end
 
-## 🚀 Approach & Intuition
-Combine three standard LL algorithms.
-
-### C++ Pseudo-Code
-```cpp
-void reorderList(ListNode* head) {
-    if (!head) return;
-    
-    // 1. Find middle
-    ListNode *slow = head, *fast = head;
-    while (fast && fast->next) {
-        slow = slow->next;
-        fast = fast->next->next;
-    }
-    
-    // 2. Reverse second half
-    ListNode *prev = nullptr, *curr = slow->next, *tmp;
-    slow->next = nullptr;
-    while (curr) {
-        tmp = curr->next;
-        curr->next = prev;
-        prev = curr;
-        curr = tmp;
-    }
-    
-    // 3. Merge
-    ListNode *first = head, *second = prev;
-    while (second) {
-        ListNode *tmp1 = first->next, *tmp2 = second->next;
-        first->next = second;
-        second->next = tmp1;
-        first = tmp1;
-        second = tmp2;
-    }
-}
+    subgraph "3. Interleave (Merge)"
+    M1[1] --> M4[4] --> M2[2] --> M3[3]
+    end
 ```
 
-### Key Observations:
-
-- Always consider using a dummy head node to simplify edge cases like inserting at the head or deleting the only node.
-- Fast and slow pointers are a common pattern for finding the middle or detecting cycles.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — We traverse the list to find the middle, then again to reverse the second half, and finally once more to merge.
+- **Space Complexity:** $\mathcal{O}(1)$ — All operations are done in-place by rearranging pointers.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** What if the input is sorted or has a limited range? Can you optimize space from $O(N)$ to $O(1)$?
-- **Scale Question:** If the dataset is too large to fit in RAM, how would you use external sorting or a distributed hash table?
-- **Edge Case Probe:** How does your solution handle duplicates, empty inputs, or extremely large integers?
+## 🎤 Interview Toolkit
+
+- **The Cycle Risk:** Always ensure the end of the first half points to `None` after splitting, otherwise you might create an infinite loop during merging.
+- **Why not Recursion?** While possible, recursion would use $O(N)$ stack space, violating the $O(1)$ space constraint often requested in interviews.
 
 ## 🔗 Related Problems
-
-- [Remove Nth Node From End](../remove_nth_node_from_end_of_list/PROBLEM.md) — Next in category
-- [Merge Two Sorted Lists](../merge_sorted_lists/PROBLEM.md) — Previous in category
-- [Invert Binary Tree](../../07_trees/invert_binary_tree/PROBLEM.md) — Prerequisite for Trees
-- [Valid Palindrome](../../02_two_pointers/valid_palindrome/PROBLEM.md) — Prerequisite: Two Pointers
+- [Remove Nth Node From End](../remove_nth_node_from_end_of_list/PROBLEM.md) — Finding nodes relative to the end.
+- [Palindrome Linked List](../palindrome_linked_list/PROBLEM.md) — Uses the same split-reverse-middle technique.
+- [Merge Two Sorted Lists](../merge_sorted_lists/PROBLEM.md) — Basic merging logic.

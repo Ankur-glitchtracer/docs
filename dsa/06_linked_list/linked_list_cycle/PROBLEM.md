@@ -1,62 +1,72 @@
-#  🏎️ Linked Lists: Linked List Cycle
+---
+impact: "Medium"
+nr: false
+confidence: 5
+---
+# 🏎️ Linked List: Linked List Cycle
 
-## 📝 Description
-[LeetCode 141](https://leetcode.com/problems/linked-list-cycle/)
-Given `head`, the head of a linked list, determine if the linked list has a cycle in it.
+## 📝 Problem Description
+Given `head`, the head of a linked list, determine if the linked list has a cycle in it. A cycle exists if there is some node in the list that can be reached again by continuously following the `next` pointer.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Cycle detection is used in distributed systems to detect routing loops in networks and in garbage collection algorithms (to identify circular references).
 
-- Number of nodes is between 0 and 5000.
-- $-1000 \le Node.val \le 1000$
+## 🛠️ Constraints & Edge Cases
+- The number of nodes in the list is in the range $[0, 10^4]$.
+- $-10^5 \le Node.val \le 10^5$
+- **Edge Cases to Watch:**
+    - Empty list or single node (no cycle possible unless it points to itself).
+    - Cycle at the very beginning (head points to itself).
+    - Cycle at the very end (last node points to an earlier node).
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Infinite Loop." Traversing a list that has a cycle will hang your program and crash the system.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Tortoise and the Hare." Two pointers moving at different speeds. If there's a cycle, the fast one will eventually lap the slow one.
+!!! success "The Aha! Moment"
+    Think of two runners on a track. If the track is a loop (cycle), the faster runner will eventually "lap" the slower runner and meet them again.
 
-**The Plot:**
+### 🐢 Brute Force (Hash Set)
+Iterate through the list and store each node's address/reference in a Hash Set. If we encounter a node already in the set, there's a cycle.
+- **Time:** $\mathcal{O}(N)$
+- **Space:** $\mathcal{O}(N)$
 
-1. Initialize `slow` and `fast` at the head.
-2. Move `slow` by 1 step and `fast` by 2 steps.
-3. If they ever point to the same node, a cycle exists.
-4. If `fast` reaches `None`, there is no cycle.
+### 🐇 Optimal Approach (Floyd's Tortoise and Hare)
+1. Initialize two pointers, `slow` and `fast`, at the head.
+2. While `fast` and `fast.next` are not `None`:
+    - Move `slow` forward by 1 step.
+    - Move `fast` forward by 2 steps.
+    - If `slow == fast`, return `True` (cycle detected).
+3. If the loop finishes, return `False` (no cycle).
 
-**The Twist (Failure):** **The Null Pointer.** Forgetting to check `fast.next` before moving `fast` 2 steps, leading to a crash on short lists.
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    A[1] --> B[2] --> C[3] --> D[4]
+    D --> B
+    style B stroke:#f66,stroke-width:2px
+    style D stroke:#f66,stroke-width:2px
+```
 
-**Interview Signal:** Mastery of **Relative Velocity** and Floyd's Cycle-Finding Algorithm.
-
-## 🚀 Approach & Intuition
-(To be detailed...)
-
-### Key Observations:
-
-- Always consider using a dummy head node to simplify edge cases like inserting at the head or deleting the only node.
-- Fast and slow pointers are a common pattern for finding the middle or detecting cycles.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — In the worst case, the fast pointer traverses the list twice.
+- **Space Complexity:** $\mathcal{O}(1)$ — We only use two pointers.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you find the exact node where the cycle begins (Linked List Cycle II / Floyd's Cycle-Finding Algorithm)?
-- **Scale Question:** If the linked list is distributed across multiple nodes in a network (each node points to a URI), how would you detect a cycle?
-- **Edge Case Probe:** How does your code handle a single node that points to itself? What about a list with no cycle?
+## 🎤 Interview Toolkit
+
+- **Cycle Start:** How do you find the *entry point* of the cycle? (Linked List Cycle II).
+- **Length:** How do you find the length of the cycle?
 
 ## 🔗 Related Problems
-
-- [Find the Duplicate Number](../find_the_duplicate_number/PROBLEM.md) — Next in category
-- [Add Two Numbers](../add_two_numbers/PROBLEM.md) — Previous in category
-- [Invert Binary Tree](../../07_trees/invert_binary_tree/PROBLEM.md) — Prerequisite for Trees
-- [Valid Palindrome](../../02_two_pointers/valid_palindrome/PROBLEM.md) — Prerequisite: Two Pointers
+- `[Linked List Cycle II](../linked_list_cycle_ii/PROBLEM.md)` — Finding the entry node.
+- `[Find the Duplicate Number](../find_the_duplicate_number/PROBLEM.md)` — Solving a cycle problem in an array.

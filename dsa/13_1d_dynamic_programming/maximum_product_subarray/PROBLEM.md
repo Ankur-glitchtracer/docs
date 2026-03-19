@@ -1,85 +1,64 @@
-#  ✖️ DP: Maximum Product Subarray
+---
+impact: "Medium"
+nr: false
+confidence: 4
+---
+# 📈 DP: Maximum Product Subarray
 
-## 📝 Description
-[LeetCode 152](https://leetcode.com/problems/maximum-product-subarray/)
-Given an integer array `nums`, find a contiguous non-empty subarray within the array that has the largest product, and return the product.
+## 📝 Problem Description
+Given an integer array `nums`, find a contiguous non-empty subarray within the array that has the largest product, and return the product. It is guaranteed that the answer will fit in a 32-bit integer.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Similar to the maximum sum subarray (Kadane's algorithm), this is used in financial modeling to identify high-growth periods in volatile data series where negative factors (e.g., losses) must be considered.
 
-- $1 \le n \le 1000$ (Problem size)
-- Values fit within a 64-bit integer.
+## 🛠️ Constraints & Edge Cases
+- $1 \le \text{nums.length} \le 2 \times 10^4$
+- $-10 \le \text{nums}[i] \le 10$
+- **Edge Cases to Watch:** 
+    - Array with zeros (breaks product chains)
+    - Array with negative numbers (flipping signs)
+    - Single element array
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Negative Flip." A negative number can turn a huge positive product into a huge negative one, OR a huge negative product into a massive positive one.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Min-Max Tracker." We must track *both* the maximum and minimum product ending at the current position.
+!!! success "The Aha! Moment"
+    The catch here is that a negative number can turn a very small negative product into a very large positive one. Thus, we must track both the running *maximum* and *minimum* product at each position.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Calculating the product of all $\mathcal{O}(N^2)$ subarrays results in $\mathcal{O}(N^2)$ time.
 
-1. Initialize `res`, `curMax`, `curMin` to `nums[0]`.
-2. Iterate `n` in `nums[1:]`:
-   - If `n` is negative, swap `curMax` and `curMin`. (Because max * neg = min, min * neg = max).
-   - `curMax = max(n, curMax * n)`.
-   - `curMin = min(n, curMin * n)`.
-   - `res = max(res, curMax)`.
+### 🐇 Optimal Approach
+Use an extension of Kadane's algorithm: track `curMax` and `curMin`. Update them by considering the current number, the current number times `curMax`, and the current number times `curMin`.
 
-**The Twist (Failure):** **Zero.** If `n` is 0, `curMax` and `curMin` reset to 0. The logic handles this (next iteration starts fresh from `n`), but be aware that 0 kills the streak.
-
-**Interview Signal:** Managing **Dual States**.
-
-## 🚀 Approach & Intuition
-Maintain both extremes to handle negative multiplications.
-
-### C++ Pseudo-Code
-```cpp
-int maxProduct(vector<int>& nums) {
-    int res = *max_element(nums.begin(), nums.end());
-    int curMin = 1, curMax = 1;
-    
-    for (int n : nums) {
-        if (n == 0) {
-            curMin = 1;
-            curMax = 1;
-            continue;
-        }
-        int tmp = curMax * n;
-        curMax = max({n * curMax, n * curMin, n});
-        curMin = min({tmp, n * curMin, n});
-        res = max(res, curMax);
-    }
-    return res;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    A[nums: -2, 3, -4] --> B{Track Min/Max}
+    B --> C[Max: 24, Min: -4]
+    style C fill:#f9f,stroke:#333
 ```
 
-### Key Observations:
-
-- Break down the problem into smaller sub-problems and store their results to avoid redundant calculations.
-- Determine the base cases and the recurrence relation; bottom-up (tabulation) is often more space-efficient.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — Single pass through the array.
+- **Space Complexity:** $\mathcal{O}(1)$ — Constant space for tracking variables.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you optimize the space complexity from $O(N^2)$ to $O(N)$? Can you solve it using a top-down vs bottom-up approach?
-- **Scale Question:** If the DP table is too large for memory, can you use 'Check-pointing' or a sliding window of rows to save space?
-- **Edge Case Probe:** What are the base cases for empty or single-element inputs? How do you handle negative values if they aren't expected?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Maximum product subarray of length $k$.
+- **Alternative Data Structures:** Prefix product arrays could solve this in $\mathcal{O}(N)$, but handling zeros requires splitting into subarrays.
 
 ## 🔗 Related Problems
-
-- [Word Break](../word_break/PROBLEM.md) — Next in category
-- [Coin Change](../coin_change/PROBLEM.md) — Previous in category
-- [Unique Paths](../../14_2d_dynamic_programming/unique_paths/PROBLEM.md) — Prerequisite for 2-D Dynamic Programming
-- [Single Number](../../18_bit_manipulation/single_number/PROBLEM.md) — Prerequisite for Bit Manipulation
+- [Maximum Subarray](../../01_arrays_hashing/maximum_subarray/PROBLEM.md) — Classic sum version.
+- [House Robber](../house_robber/PROBLEM.md) — Linear DP baseline.

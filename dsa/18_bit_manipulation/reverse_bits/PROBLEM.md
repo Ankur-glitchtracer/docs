@@ -1,75 +1,63 @@
-#  🔄 Bit Manipulation: Reverse Bits
+---
+impact: "Low"
+nr: true
+confidence: 4
+---
+# 🧩 Bit Manipulation: Reverse Bits
 
-## 📝 Description
-[LeetCode 190](https://leetcode.com/problems/reverse-bits/)
+## 📝 Problem Description
 Reverse bits of a given 32-bit unsigned integer.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Critical in **network protocol parsing** (e.g., bit-endianness swap between big-endian and little-endian systems), digital signal processing, and low-level communication drivers.
 
-- Inputs are typically 32-bit or 64-bit integers.
-- The number of operations is $O(1)$ relative to word size.
+## 🛠️ Constraints & Edge Cases
+- 32-bit input.
+- **Edge Cases:** All zeros, all ones.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Array Converter." Converting int to `bool[32]`, reversing array, converting back. Slow and heavy.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Bitwise Shifter."
+!!! success "The Aha! Moment"
+    Iterate 32 times. In each step, extract the last bit of the source (`n & 1`) and shift it into the result (`res = (res << 1) + bit`).
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Convert to string, reverse string, convert back to integer. $\mathcal{O}(N)$ but inefficient.
 
+### 🐇 Optimal Approach
 1. Initialize `res = 0`.
-2. Iterate 32 times:
-   - `res = (res << 1) | (n & 1)`: Shift result left to make room, add LSB of `n`.
-   - `n >>= 1`: Process next bit of `n`.
+2. Loop 32 times:
+    - `res = (res << 1) | (n & 1)`
+    - `n >>= 1`
 3. Return `res`.
 
-**The Twist (Failure):** **Logical Shift.** Ensure `n` is treated as unsigned so `>>` is logical (fills with 0) not arithmetic (fills with sign bit).
-
-**Interview Signal:** Basic **Bit Manipulation**.
-
-## 🚀 Approach & Intuition
-Build result bit by bit.
-
-### C++ Pseudo-Code
-```cpp
-uint32_t reverseBits(uint32_t n) {
-    uint32_t res = 0;
-    for (int i = 0; i < 32; i++) {
-        res = (res << 1) | (n & 1);
-        n >>= 1;
-    }
-    return res;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    A[Source] -->|Pop Bit| B[Res]
+    B -->|Push Bit| C[Shifted Res]
 ```
 
-### Key Observations:
-
-- Bitwise operations (AND, OR, XOR, NOT) allow for $O(1)$ constant time operations on binary data.
-- XOR is particularly useful for finding single elements or toggling states, as $x \oplus x = 0$.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(1)$ (32 iterations)
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(1)$ (fixed 32 iterations).
+- **Space Complexity:** $\mathcal{O}(1)$.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you solve this without using any arithmetic operators (+, -, *, /)?
-- **Scale Question:** How do you handle bit operations on arbitrarily large integers (BigInt)?
-- **Edge Case Probe:** How does your code handle signed vs unsigned integers and overflow/underflow?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Use Divide & Conquer (swap bit chunks: 16-bit, then 8-bit, etc.).
+- **Alternative Data Structures:** Lookup tables for 8-bit chunks.
 
 ## 🔗 Related Problems
-
-- [Missing Number](../missing_number/PROBLEM.md) — Next in category
-- [Counting Bits](../counting_bits/PROBLEM.md) — Previous in category
-- [Rotate Image](../../17_math_geometry/rotate_image/PROBLEM.md) — Prerequisite for Math & Geometry
-- [Climbing Stairs](../../13_1d_dynamic_programming/climbing_stairs/PROBLEM.md) — Prerequisite: 1-D Dynamic Programming
+- `[Number of 1 Bits](#)` — Counting bits.
+- `[Reverse Integer](#)` — Reversing digits.

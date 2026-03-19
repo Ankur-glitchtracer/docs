@@ -1,81 +1,74 @@
-#  📊 Stack: Largest Rectangle in Histogram
+---
+impact: "Hard"
+nr: false
+confidence: 2
+---
+# 📊 Stack: Largest Rectangle in Histogram
 
 ## 📝 Description
 [LeetCode 84](https://leetcode.com/problems/largest-rectangle-in-histogram/)
 Given an array of integers `heights` representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This algorithm is a key component in **Image Processing** (finding the largest clear area in a binary image) and **maximal rectangle** problems in matrices (e.g., finding the largest specific crop area).
 
-- $1 \le s.length \le 10^5$
-- Constraints vary depending on the specific stack application.
+## 🛠️ Constraints & Edge Cases
+- $1 \le \text{heights.length} \le 10^5$
+- $0 \le \text{heights}[i] \le 10^4$
+- **Edge Cases to Watch:**
+    - Sorted arrays (ascending/descending).
+    - All bars same height.
+    - Heights include 0.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Expanding Width." For every bar, expanding left and right to find the limit ($O(N^2)$).
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Monotonic Increasing Stack." We maintain indices of bars with increasing heights.
+!!! success "The Aha! Moment"
+    A rectangle's height is limited by the shortest bar within it. For any specific bar `h`, if we assume `h` is the height of the rectangle, how wide can we extend? To the left until we hit a smaller bar, and to the right until we hit a smaller bar. We can find these boundaries efficiently using a **Monotonic Increasing Stack**.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+For every pair of indices `i` and `j`, find the minimum height between them and calculate area.
+- **Time Complexity:** $O(N^2)$ — Too slow for $10^5$.
 
-1. Iterate through bars.
-2. If `current_height < stack.top_height`: The bar at `stack.top` cannot extend further right. It's time to process it.
-   - Pop the top. This is the `height`.
-   - The `width` is `i - stack.top() - 1` (distance between current index and the *new* top).
-   - `area = height * width`.
-3. Push current index.
+### 🐇 Optimal Approach
+1.  Maintain a stack of indices with increasing heights.
+2.  Iterate `i` from `0` to `N`.
+3.  If `heights[i]` is smaller than the bar at `stack.top()`, it means the bar at `stack.top()` cannot extend further right. We calculate its max area now.
+    - Pop the top index: `h = heights[pop()]`.
+    - Width `w = i - stack.top() - 1` (distance between current index and the new top).
+    - MaxArea = `max(MaxArea, h * w)`.
+4.  **Twist:** What about bars left in the stack? Push a `0` height at the end of the array to force-pop everything remaining.
 
-**The Twist (Failure):** **The Leftover Bars.** After the loop, the stack isn't empty. These bars extend all the way to the end. You must process them with `width = n - stack.top() - 1`.
-
-**Interview Signal:** Mastery of **Hard Monotonic Stack** problems.
-
-## 🚀 Approach & Intuition
-Find the nearest smaller element to the left and right for every bar.
-
-### C++ Pseudo-Code
-```cpp
-int largestRectangleArea(vector<int>& heights) {
-    stack<int> s;
-    heights.push_back(0); // Dummy bar to clear stack at end
-    int maxArea = 0;
-    
-    for (int i = 0; i < heights.size(); i++) {
-        while (!s.empty() && heights[i] < heights[s.top()]) {
-            int h = heights[s.top()]; s.pop();
-            int w = s.empty() ? i : i - s.top() - 1;
-            maxArea = max(maxArea, h * w);
-        }
-        s.push(i);
-    }
-    return maxArea;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    A[Stack: 1, 5] --> B[Next: 2]
+    B -->|2 < 5? Yes| Pop5
+    Pop5 -->|Height 5, Width 1| Area5
+    Pop5 -->|New Top: 1| Stack12
 ```
 
-### Key Observations:
-
-- Stacks are essential for problems involving nested structures, like parentheses or expression evaluation.
-- Monotonic stacks are a powerful variation used to find the next greater or smaller element in $O(N)$ time.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(N)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
+*(Note: This implementation pushes `start` index back, which is a clever variation of the standard index stack approach).*
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — Each element is pushed and popped exactly once.
+- **Space Complexity:** $\mathcal{O}(N)$ — For the stack.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you solve this using a single pass or by transforming the problem into a Monotonic Stack problem?
-- **Scale Question:** If the stack needs to be persistent (undo/redo functionality), how would you implement it using a functional data structure?
-- **Edge Case Probe:** What happens on an empty stack or when the input contains unexpected characters?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Maximal Rectangle in a 2D Binary Matrix (LeetCode 85).
+- **Alternative:** Divide and Conquer (Segment Tree) is $O(N \log N)$.
 
 ## 🔗 Related Problems
-
 - [Car Fleet](../car_fleet/PROBLEM.md) — Previous in category
-- [Contains Duplicate](../../01_arrays_hashing/contains_duplicate/PROBLEM.md) — Prerequisite: Arrays & Hashing
+- [Maximal Rectangle](https://leetcode.com/problems/maximal-rectangle/) — Extension

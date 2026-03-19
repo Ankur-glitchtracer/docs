@@ -1,116 +1,78 @@
-#  🐦 Heap: Design Twitter
+---
+impact: "Medium"
+nr: false
+confidence: 2
+---
+# 🐦 Heap: Design Twitter
 
 ## 📝 Description
 [LeetCode 355](https://leetcode.com/problems/design-twitter/)
 Design a simplified version of Twitter where users can post tweets, follow/unfollow another user and is able to see the 10 most recent tweets in the user's news feed.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This is a classic **News Feed** system design problem. It demonstrates **Fan-Out on Read** (Pull Model), where a user's feed is constructed on the fly by merging the sorted timelines of everyone they follow.
 
-- $1 \le nums.length \le 10^5$
-- $-10^4 \le nums[i] \le 10^4$
+## 🛠️ Constraints & Edge Cases
+- At most $500$ calls to each method.
+- **Edge Cases to Watch:**
+    - User follows themself (shouldn't double count tweets).
+    - User has no tweets or follows no one.
+    - Feed has fewer than 10 tweets total.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Feed Merger." A user follows 100 people. Each has posted 10,000 tweets. Generating a timeline of the top 10 most recent tweets efficiently is hard. Sorting 1 million tweets ($O(M \log M)$) is too slow.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The K-Way Merge (Min-Heap)." This is exactly like **Merge K Sorted Lists**.
+!!! success "The Aha! Moment"
+    Instead of sorting all tweets from all followed users ($O(N \log N)$), we can treat each user's tweet history as a sorted list (timestamp descending). The problem then becomes **Merging K Sorted Lists**. We can use a **Max-Heap** to efficiently pull the 10 most recent tweets.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Collect all tweets from all followees into a single list, sort by time, return top 10.
+- **Time Complexity:** $O(N \log N)$ where N is total tweets of all followees.
 
-1. **Data Model:**
-   - `User`: ID, Set of Followees.
-   - `Tweet`: ID, Timestamp (global counter), Next Tweet (LinkedList style for user history).
-   - `TweetMap`: UserID -> Head of Tweet List.
-2. **GetNewsFeed:**
-   - Gather head tweets of all followees.
-   - Push to Max-Heap (ordered by time).
-   - Pop 10 times. When popping a tweet, push its `next` tweet into the heap.
+### 🐇 Optimal Approach
+1.  **Data Structures:**
+    - `tweet_map`: `userId -> list of [count, tweetId]` (most recent first).
+    - `follow_map`: `userId -> set of followeeIds`.
+2.  **Get News Feed:**
+    - Initialize a Max-Heap.
+    - Push the *most recent* tweet from each followee (and self) into the heap: `(count, tweetId, followeeId, index_in_list)`.
+    - **Loop 10 times:**
+        - Pop max (most recent). Add to result.
+        - If the user has more older tweets, push the next one into the heap.
 
-**The Twist (Failure):** **Scalability.** In a real system, you'd Fan-Out on Write (push to followers' feeds). But for this problem, Fan-Out on Read (pull) is the expected solution.
-
-**Interview Signal:** System Design basics implemented with **OO Principles**.
-
-## 🚀 Approach & Intuition
-Pull-based feed generation.
-
-### C++ Pseudo-Code
-```cpp
-class Twitter {
-    struct Tweet {
-        int id;
-        int time;
-        Tweet* next = nullptr;
-        Tweet(int i, int t) : id(i), time(t) {}
-    };
-    
-    unordered_map<int, Tweet*> tweets;
-    unordered_map<int, unordered_set<int>> following;
-    int time = 0;
-    
-public:
-    void postTweet(int userId, int tweetId) {
-        Tweet* t = new Tweet(tweetId, time++);
-        t->next = tweets[userId];
-        tweets[userId] = t;
-    }
-    
-    vector<int> getNewsFeed(int userId) {
-        priority_queue<pair<int, Tweet*>> pq;
-        // Add self
-        if (tweets[userId]) pq.push({tweets[userId]->time, tweets[userId]});
-        // Add followees
-        for (int fId : following[userId]) {
-            if (tweets[fId]) pq.push({tweets[fId]->time, tweets[fId]});
-        }
-        
-        vector<int> res;
-        while (!pq.empty() && res.size() < 10) {
-            auto top = pq.top(); pq.pop();
-            res.push_back(top.second->id);
-            if (top.second->next) 
-                pq.push({top.second->next->time, top.second->next});
-        }
-        return res;
-    }
-    
-    void follow(int followerId, int followeeId) {
-        following[followerId].insert(followeeId);
-    }
-    
-    void unfollow(int followerId, int followeeId) {
-        following[followerId].erase(followeeId);
-    }
-};
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    User -->|Follows| A
+    User -->|Follows| B
+    A[User A Tweets: 100, 90, 80]
+    B[User B Tweets: 95, 85, 75]
+    Heap[Max-Heap: 100, 95]
+    Heap -->|Pop 100| Res[Feed: 100]
+    Heap -->|Push next A: 90| Heap2[Max-Heap: 95, 90]
+    Heap2 -->|Pop 95| Res2[Feed: 100, 95]
 ```
 
-### Key Observations:
-
-- Heaps are the go-to for finding the $K$-th largest or smallest element in $O(N \log K)$ time.
-- Use a Min-Heap for $K$ largest elements and a Max-Heap for $K$ smallest elements to optimize space.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** Post: $O(1)$, GetFeed: $O(10 \log F)$ where F is number of followees.
-    - **Space Complexity:** $O(U + T)$ users and tweets.
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** `getNewsFeed` is $O(10 \cdot \log K)$ where $K$ is number of followees.
+- **Space Complexity:** $O(U + T)$ for storing users and tweets.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you implement a custom Heap from scratch? How would you implement a 'Decrease Key' operation?
-- **Scale Question:** How would you maintain a Top-K list across 100 machines with frequent updates?
-- **Edge Case Probe:** What if all elements have the same priority? How do you handle empty heap extractions?
+## 🎤 Interview Toolkit
+
+- **Design Question:** How to scale this? (Fan-out on Write for celebrities, Cache recent feeds).
+- **Deep Dive:** Why min-heap with negative numbers vs max-heap? (Python only has min-heap).
 
 ## 🔗 Related Problems
-
-- [Find Median from Stream](../find_median_from_data_stream/PROBLEM.md) — Next in category
-- [Task Scheduler](../task_scheduler/PROBLEM.md) — Previous in category
-- [Reconstruct Itinerary](../../12_advanced_graphs/reconstruct_itinerary/PROBLEM.md) — Prerequisite for Advanced Graphs
-- [Maximum Subarray](../../15_greedy/maximum_subarray/PROBLEM.md) — Prerequisite for Greedy
+- [Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/) — Core algorithm used here
+- [Task Scheduler](../task_scheduler/PROBLEM.md) — Heap usage

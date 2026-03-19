@@ -1,64 +1,69 @@
-#  🔄 Backtracking: Permutations
+---
+impact: "Medium"
+nr: false
+confidence: 2
+---
+# 🔄 Backtracking: Permutations
 
 ## 📝 Description
 [LeetCode 46](https://leetcode.com/problems/permutations/)
 Given an array `nums` of distinct integers, return all the possible permutations. You can return the answer in any order.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Used in **Traveling Salesman Problem** (generating all routes), **Job Scheduling** (all orderings of tasks), and testing all interaction sequences in a system.
 
-- Input size is usually small ($N \le 20$) due to exponential complexity.
-- All possible solutions must be returned.
+## 🛠️ Constraints & Edge Cases
+- $1 \le nums.length \le 6$
+- Distinct integers.
+- **Edge Cases to Watch:**
+    - `n=1`: `[[1]]`.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Order Obsession." Generating all possible arrangements of a set. For $N=10$, there are $10! = 3.6M$ arrangements. Simple loops can't handle dynamic depths.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Decision Tree Explorer." A recursive function that swaps elements to build every possible order, then swaps them back (backtracks) to try the next path.
+!!! success "The Aha! Moment"
+    A permutation is an ordering. For the first position, we can pick any of the $N$ numbers. For the second, we can pick any of the remaining $N-1$, and so on. We can simulate this selection process by recursively picking a number, marking it as "used" (or removing it from available choices), and recurring.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Same as optimal. This is an exhaustive search problem.
 
-1. Base Case: If `current_path` length == `nums` length, you found a permutation.
-2. Recursive Step: Loop through all numbers.
-3. If number not in `current_path`:
-   - Add to path.
-   - Recurse.
-   - Remove from path (The "Backtrack").
+### 🐇 Optimal Approach
+1.  **Base Case:** If `len(current_perm) == len(nums)`, add to results.
+2.  **Loop:** Iterate through `nums`.
+3.  **Check:** If number is already in `current_perm` (or marked used), skip.
+4.  **Recurse:** Add number, recurse, remove number (backtrack).
 
-**The Twist (Failure):** **The Duplicate Dilemma.** If the input has duplicate numbers, this simple check fails. You need to sort and use a "used" array to avoid redundant paths.
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    Root[[]] -->|1| A[1]
+    Root -->|2| B[2]
+    A -->|2| C[1,2]
+    A -->|3| D[1,3]
+    B -->|1| E[2,1]
+    B -->|3| F[2,3]
+```
 
-**Interview Signal:** Mastery of **State-Space Search** and recursion cleanup.
-
-## 🚀 Approach & Intuition
-(To be detailed...)
-
-### Key Observations:
-
-- Backtracking is essentially a DFS on a state-space tree where we 'undo' the last move to explore other branches.
-- Pruning is the most important optimization to skip branches that cannot lead to a valid solution.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N 	imes N!)$
-    - **Space Complexity:** $O(N 	imes N!)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N \cdot N!)$ — There are $N!$ permutations, and each takes $O(N)$ to build/copy.
+- **Space Complexity:** $\mathcal{O}(N)$ — Recursion stack.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you use Pruning or Bitmasking to significantly reduce the search space?
-- **Scale Question:** How would you parallelize the search? Would you use Work Stealing to balance the load between threads?
-- **Edge Case Probe:** What is the maximum depth of recursion before you hit a stack overflow?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Permutations II (Inputs contain duplicates). Logic requires sorting and skipping duplicates (similar to Combination Sum II).
+- **Alternative:** Heap's Algorithm (swapping elements in place).
 
 ## 🔗 Related Problems
-
-- [Subsets II](../subsets_ii/PROBLEM.md) — Next in category
-- [Combination Sum](../combination_sum/PROBLEM.md) — Previous in category
-- [Number of Islands](../../11_graphs/number_of_islands/PROBLEM.md) — Prerequisite for Graphs
-- [Climbing Stairs](../../13_1d_dynamic_programming/climbing_stairs/PROBLEM.md) — Prerequisite for 1-D Dynamic Programming
+- [Permutations II](https://leetcode.com/problems/permutations-ii/) — With duplicates
+- [Combination Sum](../combination_sum/PROBLEM.md) — Selection without order

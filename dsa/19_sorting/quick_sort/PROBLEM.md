@@ -1,89 +1,67 @@
-#  ⚡ Sorting: Quick Sort
+---
+impact: "High"
+nr: false
+confidence: 5
+---
+# ⚡ Sorting: Quick Sort
 
-## 📝 Description
-Implement Quick Sort to sort an array of integers in ascending order. Compare Lomuto and Hoare partition schemes.
+## 📝 Problem Description
+Implement Quick Sort to sort an array of integers in ascending order, focusing on efficient partitioning schemes.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Quick sort is highly efficient in practice due to good cache locality and being in-place. It is widely used in systems libraries (e.g., C's `qsort`) and serves as the foundation for the QuickSelect algorithm used to find the K-th smallest element.
 
-- $1 \le nums.length \le 5 \cdot 10^4$
-- Values can be large, requiring $O(N \log N)$ sorting.
+## 🛠️ Constraints & Edge Cases
+- $1 \le N \le 10^5$
+- **Edge Cases to Watch:** 
+    - Arrays already sorted or reverse-sorted (can lead to $O(N^2)$ if pivot is poorly chosen).
+    - Arrays with all duplicate elements.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Pivot Choice." Choosing a bad pivot (like the first element of a sorted array) can turn this $O(N \log N)$ hero into an $O(N^2)$ villain.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Partition Master." Reorganize the array around a pivot such that everything to the left is smaller and everything to the right is larger.
+!!! success "The Aha! Moment"
+    By picking a pivot and partitioning the array such that all elements smaller than the pivot come before it and all larger elements come after, the array is partially sorted. Recursively doing this reduces the problem space exponentially.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Using an $O(N^2)$ algorithm like Bubble sort or Insertion sort is naive for large $N$. These algorithms do redundant work and do not scale to $10^5$ elements.
 
-1. Pick a `pivot` (last, middle, or random).
-2. **Lomuto Partition:** Use one pointer to track the "boundary" of smaller elements. Easy to code.
-3. **Hoare Partition:** Use two pointers from both ends moving inward. Faster and more efficient swaps.
-4. Recursively sort the two partitions.
+### 🐇 Optimal Approach
+1. **Choose a Pivot:** Pick an element (e.g., last, middle, or random).
+2. **Partition:** Reorder the array so elements $< pivot$ are to its left and elements $> pivot$ are to its right.
+3. **Recurse:** Recursively apply the process to the left and right subarrays.
 
-**The Twist (Failure):** **The Stack Overflow.** Deep recursion on skewed partitions. Using tail-call optimization or picking a random pivot helps.
-
-**Interview Signal:** Mastery of **In-Place Partitioning** and **QuickSelect** fundamentals.
-
-## 🚀 Approach & Intuition
-Partition around a pivot and recurse.
-
-### C++ Pseudo-Code (Lomuto Partition)
-```cpp
-int partitionLomuto(vector<int>& nums, int low, int high) {
-    int pivot = nums[high];
-    int i = low;
-    for (int j = low; j < high; j++) {
-        if (nums[j] < pivot) {
-            swap(nums[i++], nums[j]);
-        }
-    }
-    swap(nums[i], nums[high]);
-    return i;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    A[4, 2, 8, 9, 1] --> B{Pivot: 1}
+    B -- "< 1" --> C[ ]
+    B -- "> 1" --> D[4, 2, 8, 9]
+    D --> E{Pivot: 9}
+    E -- "< 9" --> F[4, 2, 8]
+    E -- "> 9" --> G[ ]
 ```
 
-### C++ Pseudo-Code (Hoare Partition)
-```cpp
-int partitionHoare(vector<int>& nums, int low, int high) {
-    int pivot = nums(To be detailed...);
-    int i = low - 1, j = high + 1;
-    while (true) {
-        do { i++; } while (nums[i] < pivot);
-        do { j--; } while (nums[j] > pivot);
-        if (i >= j) return j;
-        swap(nums[i], nums[j]);
-    }
-}
-```
-
-### Key Observations:
-
-- Understand the stability and space-time trade-offs between Merge Sort ($O(N \log N)$ space) and Quick Sort ($O(1)$ space).
-- For small datasets or specialized constraints, $O(N)$ algorithms like Counting Sort or Radix Sort may be applicable.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N \log N)$ (Average), $O(N^2)$ (Worst case - rare with good pivot)
-    - **Space Complexity:** $O(\log N)$ (Recursion stack)
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N \log N)$ (average), $\mathcal{O}(N^2)$ (worst case with bad pivot).
+- **Space Complexity:** $\mathcal{O}(\log N)$ — Due to the recursion stack.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you make the sort 'Stable'? What if you need to sort elements that don't fit in memory (External Sort)?
-- **Scale Question:** How would you implement a distributed sort (like Terabyte Sort) using multiple machines?
-- **Edge Case Probe:** How does the algorithm perform on already sorted, reverse-sorted, or all-identical element arrays?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Implement `QuickSelect` to find the $K$-th largest element in $O(N)$ average time.
+- **Pivot Optimization:** Use "Median-of-Three" or random pivot selection to avoid the $O(N^2)$ worst-case on sorted data.
 
 ## 🔗 Related Problems
-
-- [Merge Sort](../merge_sort/PROBLEM.md) — Previous in category
-- [Binary Search](../../05_binary_search/binary_search/PROBLEM.md) — Prerequisite for Binary Search
-- [Contains Duplicate](../../01_arrays_hashing/contains_duplicate/PROBLEM.md) — Prerequisite: Arrays & Hashing
+- `[Merge Sort](../merge_sort/PROBLEM.md)` — Consistent $O(N \log N)$ but not in-place.
+- `[Kth Largest Element](../../09_heap_priority_queue/kth_largest_element_in_an_array/PROBLEM.md)` — Can be solved with QuickSelect.

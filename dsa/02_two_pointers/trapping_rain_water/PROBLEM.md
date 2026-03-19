@@ -1,66 +1,75 @@
-#  🌧️ Arrays: Trapping Rain Water
+---
+impact: "High"
+nr: false
+confidence: 4
+---
+# 🌧️ Two Pointers: Trapping Rain Water
 
-## 📝 Description
-[LeetCode 42](https://leetcode.com/problems/trapping-rain-water/)
+## 📝 Problem Description
 Given `n` non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Used in geographical information systems (GIS) to model water runoff and flooding, or in industrial design to calculate the volume of irregular containers.
 
+## 🛠️ Constraints & Edge Cases
 - $n == height.length$
 - $1 \le n \le 2 \cdot 10^4$
 - $0 \le height[i] \le 10^5$
+- **Edge Cases to Watch:**
+    - Array with fewer than 3 bars (cannot trap water).
+    - Elevation map with only increasing or decreasing heights.
+    - Map with a large "valley" or multiple "peaks".
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Scan-Heavy $O(N^2)$." For every single bar, scanning the entire left and right side to find the tallest boundaries.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Two-Pointer Squeeze." Use two pointers at the ends and move the one with the shorter boundary inward, knowing that the shorter boundary is the limiting factor for water.
+!!! success "The Aha! Moment"
+    The water trapped above any bar is limited by the **shorter** of the tallest bars to its left and right. Instead of pre-calculating these for every bar, we use two pointers to converge from the ends. We always move the pointer with the smaller "max height" seen so far, because that side is the bottleneck.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+For each bar, scan the entire left and right sides to find the maximum height. The water trapped is `min(max_left, max_right) - height[i]`. This takes $O(N^2)$.
 
-1. `left = 0`, `right = n-1`.
-2. `left_max = 0`, `right_max = 0`.
-3. If `height[left] < height[right]`:
-   - If `height[left] >= left_max`, update `left_max`.
-   - Else, add `left_max - height[left]` to total.
-   - Move `left++`.
-4. Else, do the same for the right side.
+### 🐇 Optimal Approach
+1. Initialize `l = 0`, `r = n - 1`.
+2. Keep track of `leftMax` and `rightMax`.
+3. While `l < r`:
+    - If `leftMax < rightMax`:
+        - Increment `l`.
+        - Update `leftMax = max(leftMax, height[l])`.
+        - Add `leftMax - height[l]` to the total.
+    - Else:
+        - Decrement `r`.
+        - Update `rightMax = max(rightMax, height[r])`.
+        - Add `rightMax - height[r]` to the total.
 
-**The Twist (Failure):** **The Negative Water.** Forgetting that if the current bar is higher than the boundary, it traps zero water (not negative).
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    L[L Pointer] -->|Move if leftMax < rightMax| Center
+    R[R Pointer] -->|Move if rightMax <= leftMax| Center
+    Water["Water = min(leftMax, rightMax) - currentHeight"]
+```
 
-**Interview Signal:** Mastery of **Complex Two-Pointer Logic** and identifying limiting constraints.
-
-## 🚀 Approach & Intuition
-(To be detailed...)
-
-### Key Observations:
-
-- The amount of water at any point is determined by the minimum of the maximum heights to its left and right.
-- The two-pointer approach can solve this in $O(N)$ time and $O(1)$ space by keeping track of `leftMax` and `rightMax`.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — We traverse the array exactly once with two pointers.
+- **Space Complexity:** $\mathcal{O}(1)$ — We only use a few variables for pointers and max values.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you solve this in 3D (Trapping Rain Water II) where you have a grid of heights?
-- **Scale Question:** If the terrain is thousands of miles long, how would you use a MapReduce-like approach to calculate total water trapped?
-- **Edge Case Probe:** How does the solution handle a 'V' shaped valley vs an 'A' shaped mountain?
+## 🎤 Interview Toolkit
+
+- **Alternative Approach:** You can also use a monotonic stack or pre-compute prefix/suffix max arrays ($O(N)$ space).
+- **Follow-up:** How would you solve this if the input was a 2D grid of elevations? (Hint: Use a Min-Heap).
 
 ## 🔗 Related Problems
-
-- [Container With Most Water](../container_with_most_water/PROBLEM.md) — Previous in category
-- [Best Time to Buy/Sell Stock](../../03_sliding_window/best_time_to_buy_sell_stock/PROBLEM.md) — Prerequisite for Sliding Window
-- [Binary Search](../../05_binary_search/binary_search/PROBLEM.md) — Prerequisite for Binary Search
-- [Reverse Linked List](../../06_linked_list/reverse_list/PROBLEM.md) — Prerequisite for Linked List
+- [Container With Most Water](../container_with_most_water/PROBLEM.md)
+- [Product of Array Except Self](../../01_arrays_hashing/product_of_array_except_self/PROBLEM.md)

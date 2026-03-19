@@ -1,85 +1,69 @@
-#  🚫 Intervals: Non-overlapping Intervals
+---
+impact: "Medium"
+nr: false
+confidence: 5
+---
+# 🚫 Intervals: Non-overlapping Intervals
 
-## 📝 Description
-[LeetCode 435](https://leetcode.com/problems/non-overlapping-intervals/)
-Given an array of intervals `intervals` where `intervals[i] = (To be detailed...)`, return the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
+## 📝 Problem Description
+Given an array of intervals `intervals`, return the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Fundamental in job scheduling optimization, where you aim to fit the maximum number of non-conflicting tasks into a single resource.
 
+## 🛠️ Constraints & Edge Cases
 - $1 \le \text{intervals.length} \le 10^5$
-- Intervals are given as $[start, end]$ pairs.
+- $\text{intervals[i].length} == 2$
+- $-5 \times 10^4 \le \text{start}_i < \text{end}_i \le 5 \times 10^4$
+- **Edge Cases to Watch:** 
+    - Empty input list (0 removals needed).
+    - Intervals that share boundaries, e.g., `[1, 2]` and `[2, 3]` are NOT overlapping.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Greedy Confusion." Do I keep the interval that starts earliest? Or the longest one?
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Early Finisher." Keep the interval that ends *earliest*. Why? Because ending early leaves more room for future intervals.
+!!! success "The Aha! Moment"
+    This is an Interval Scheduling problem. The greedy strategy is to always pick the interval that **finishes the earliest**, as it leaves the maximum amount of time for subsequent intervals.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Try all possible subsets of intervals and check for overlaps. This would lead to an exponential $\mathcal{O}(2^N)$ time complexity.
 
-1. Sort by **End Time**.
-2. `end_limit = -inf`, `count = 0` (count non-overlapping).
-3. Iterate intervals:
-   - If `start >= end_limit`: No overlap.
-     - `count++`
-     - `end_limit = end`.
-   - Else: Overlap. Skip it (implicitly removed).
-4. Result = `Total - count`.
+### 🐇 Optimal Approach
+1. Sort the intervals by their end time: $\mathcal{O}(N \log N)$.
+2. Iterate through the intervals, keeping track of the `last_end` of the non-overlapping intervals selected.
+3. If an interval starts after or at `last_end`, it's compatible; update `last_end`.
+4. If it overlaps, it must be removed (increment counter).
 
-**The Twist (Failure):** **Sorting by Start Time.** It works too, but logic is slightly different: if overlap, discard the one with the *later* end time (keep the one that finishes first).
-
-**Interview Signal:** **Greedy Selection Criteria** (Activity Selection Problem).
-
-## 🚀 Approach & Intuition
-Select intervals that finish earliest to maximize capacity.
-
-### C++ Pseudo-Code
-```cpp
-int eraseOverlapIntervals(vector<vector<int>>& intervals) {
-    sort(intervals.begin(), intervals.end(), [](const auto& a, const auto& b) {
-        return a[1] < b[1];
-    });
-    
-    int count = 0;
-    int end = INT_MIN;
-    for (const auto& i : intervals) {
-        if (i[0] >= end) {
-            end = i[1];
-        } else {
-            count++;
-        }
-    }
-    return count;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    A[End Time: 2] --> B[End Time: 3]
+    B --> C[End Time: 5]
+    style A fill:#dfd
+    style B fill:#fdd
+    style C fill:#dfd
 ```
 
-### Key Observations:
-
-- Sorting intervals by their start or end time is almost always the first step in interval-based problems.
-- Use a 'last end time' tracker or a Priority Queue to detect overlaps and manage active intervals.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N \log N)$
-    - **Space Complexity:** $O(1)$ (ignoring sort stack)
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N \log N)$ for sorting. The scan is $\mathcal{O}(N)$.
+- **Space Complexity:** $\mathcal{O}(1)$ (excluding sorting space).
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** What if the input is sorted or has a limited range? Can you optimize space from $O(N)$ to $O(1)$?
-- **Scale Question:** If the dataset is too large to fit in RAM, how would you use external sorting or a distributed hash table?
-- **Edge Case Probe:** How does your solution handle duplicates, empty inputs, or extremely large integers?
+## 🎤 Interview Toolkit
+
+- **Alternative Approach:** This is equivalent to finding the maximum set of non-overlapping intervals. `Total intervals - Max Non-overlapping intervals = Min intervals to remove`.
+- **Harder Variant:** What if you had to return the actual intervals to keep instead of the number of removals?
 
 ## 🔗 Related Problems
-
-- [Meeting Rooms](../meeting_rooms/PROBLEM.md) — Next in category
-- [Merge Intervals](../merge_intervals/PROBLEM.md) — Previous in category
-- [Kth Largest in Stream](../../09_heap_priority_queue/kth_largest_element_in_a_stream/PROBLEM.md) — Prerequisite: Heap / Priority Queue
+- [Merge Intervals](../merge_intervals/PROBLEM.md)
+- [Meeting Rooms II](../meeting_rooms_ii/PROBLEM.md)

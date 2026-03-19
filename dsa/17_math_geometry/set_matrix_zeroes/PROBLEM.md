@@ -1,96 +1,62 @@
-#  0️⃣ Math: Set Matrix Zeroes
+---
+impact: "Medium"
+nr: true
+confidence: 4
+---
+# 🟦 Math & Geometry: Set Matrix Zeroes
 
-## 📝 Description
-[LeetCode 73](https://leetcode.com/problems/set-matrix-zeroes/)
-Given an `m x n` integer matrix `matrix`, if an element is `0`, set its entire row and column to `0`'s. You must do it in place.
+## 📝 Problem Description
+Given an $m \times n$ matrix, if an element is 0, set its entire row and column to 0. Do it in-place.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Common in **image processing** (applying filters) and database systems where zeroing out specific rows/columns is a form of data masking or marking invalidated states.
 
-- Numerical values fit within standard data types (int, long).
-- Coordinate ranges are typically within $10^4$.
+## 🛠️ Constraints & Edge Cases
+- $m, n \ge 1$.
+- **Edge Cases:** Empty matrix, matrix with no zeros, matrix with only zeros.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Cascading Zero." If you iterate and set rows/cols to zero immediately, those new zeros will cause *other* rows/cols to become zero in future steps. The whole matrix becomes zero.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The State Marker." We need to mark rows/cols for deletion without destroying the data we haven't processed yet.
+!!! success "The Aha! Moment"
+    Use the first row and first column of the matrix itself to store flags. `M[i][0]` represents row `i` should be zeroed, `M[0][j]` represents column `j` should be zeroed.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+When encountering a zero, traverse row and column and set elements to a special value (e.g., -1). Later, convert -1 to 0. Fails if -1 is a valid input. $\mathcal{O}(MN(M+N))$.
 
-1. Use the **first row** and **first column** as markers.
-2. If `matrix[i][j] == 0`: set `matrix[i][0] = 0` and `matrix[0][j] = 0`.
-3. Handle `matrix[0][0]` ambiguity (overlap of row 0 and col 0) with a separate flag `row0_zero`.
-4. Iterate inner matrix (`1..m`, `1..n`): if row/col marker is 0, set cell to 0.
-5. Handle first row and first column separately based on flags.
+### 🐇 Optimal Approach
+1. Use two boolean variables to track if the first row and first column need zeroing.
+2. Iterate through the matrix (excluding first row/col) to flag the row and column.
+3. Use flags to zero out marked rows and columns.
+4. Finally, zero out the first row/col if needed.
 
-**The Twist (Failure):** **Processing Order.** You must process the inner matrix first, using the markers. *Then* process the markers themselves. If you zero out the markers first, you lose the data needed for the inner matrix.
-
-**Interview Signal:** **In-place Space Optimization** ($O(1)$ space).
-
-## 🚀 Approach & Intuition
-Use the matrix itself to store state.
-
-### C++ Pseudo-Code
-```cpp
-void setZeroes(vector<vector<int>>& matrix) {
-    int m = matrix.size(), n = matrix[0].size();
-    bool firstRow = false, firstCol = false;
-    
-    for (int i = 0; i < m; i++) 
-        if (matrix[i][0] == 0) firstCol = true;
-        
-    for (int j = 0; j < n; j++) 
-        if (matrix[0][j] == 0) firstRow = true;
-        
-    for (int i = 1; i < m; i++) {
-        for (int j = 1; j < n; j++) {
-            if (matrix[i][j] == 0) {
-                matrix[i][0] = 0;
-                matrix[0][j] = 0;
-            }
-        }
-    }
-    
-    for (int i = 1; i < m; i++) {
-        for (int j = 1; j < n; j++) {
-            if (matrix[i][0] == 0 || matrix[0][j] == 0)
-                matrix[i][j] = 0;
-        }
-    }
-    
-    if (firstCol) for (int i = 0; i < m; i++) matrix[i][0] = 0;
-    if (firstRow) for (int j = 0; j < n; j++) matrix[0][j] = 0;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    A[M[i][j]==0] -->|Flag| B[M[i][0]=0]
+    B -->|Flag| C[M[0][j]=0]
 ```
 
-### Key Observations:
-
-- Use modular arithmetic to prevent integer overflow and the Euclidean algorithm for GCD/LCM problems.
-- In geometry, use cross products to determine orientation and the distance formula for proximity checks.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(M 	imes N)$
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(MN)$ as we traverse twice.
+- **Space Complexity:** $\mathcal{O}(1)$ since we use the matrix space.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you solve this without using any arithmetic operators (+, -, *, /)?
-- **Scale Question:** How do you handle bit operations on arbitrarily large integers (BigInt)?
-- **Edge Case Probe:** How does your code handle signed vs unsigned integers and overflow/underflow?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Use $\mathcal{O}(M+N)$ extra space to simplify logic.
+- **Alternative Data Structures:** Using bit-vectors for very large matrices.
 
 ## 🔗 Related Problems
-
-- [Happy Number](../happy_number/PROBLEM.md) — Next in category
-- [Spiral Matrix](../spiral_matrix/PROBLEM.md) — Previous in category
-- [Number of Islands](../../11_graphs/number_of_islands/PROBLEM.md) — Prerequisite: Graphs
-- [Single Number](../../18_bit_manipulation/single_number/PROBLEM.md) — Prerequisite: Bit Manipulation
+- `[Spiral Matrix](#)` — 2D Array traversal.
+- `[Rotate Image](#)` — Matrix manipulation.

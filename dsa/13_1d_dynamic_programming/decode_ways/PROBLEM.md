@@ -1,84 +1,68 @@
-#  🔐 DP: Decode Ways
+---
+impact: "Medium"
+nr: false
+confidence: 4
+---
+# 🧩 Dynamic Programming: Decode Ways
 
-## 📝 Description
-[LeetCode 91](https://leetcode.com/problems/decode-ways/)
-A message containing letters from A-Z can be encoded into numbers using the following mapping: 'A' -> "1", 'B' -> "2", ... 'Z' -> "26". Given a string `s` containing only digits, return the number of ways to decode it.
+## 📝 Problem Description
+A message containing letters from A-Z can be encoded into numbers using the mapping: 'A' -> "1", 'B' -> "2", ..., 'Z' -> "26". Given a string `s` containing only digits, return the number of ways to decode it.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This problem relates to parsing and ambiguity resolution in data streams. It is a foundational DP pattern for handling sequential dependencies with overlapping sub-choices, similar to how parsers interpret byte streams.
 
-- $1 \le n \le 1000$ (Problem size)
-- Values fit within a 64-bit integer.
+## 🛠️ Constraints & Edge Cases
+- $1 \le s.length \le 100$
+- $s$ contains only digits.
+- **Edge Cases to Watch:** 
+    - String starting with '0' (Invalid).
+    - Consecutive zeros (e.g., "100") (Invalid).
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Leading Zero." '06' cannot be mapped to 'F'. Also, '10' is 'J', but '0' alone is invalid. The parsing logic is brittle.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Fibonacci Decoder."
+!!! success "The Aha! Moment"
+    A character can be decoded as a single digit (if '1'-'9') or a two-digit number (if '10'-'26'). This creates overlapping subproblems where the number of ways to decode `s[i:]` depends on the ways to decode `s[i+1:]` and `s[i+2:]`.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Recursive branching at each step leads to $\mathcal{O}(2^N)$ time complexity, as many decoding paths for the same substring are re-calculated repeatedly.
 
-1. `dp[0] = 1` (Empty string has 1 way).
-2. Iterate `i` from 1 to `n`.
-3. If `s[i] != '0'`: `dp[i] += dp[i-1]`.
-4. If `s[i-1]s[i]` is valid (10-26): `dp[i] += dp[i-2]`.
+### 🐇 Optimal Approach (Tabulation)
+We use a DP array `dp[i]` where `dp[i]` is the number of ways to decode the prefix of length `i`.
+1. Initialize `dp[0] = 1` (base case for empty string).
+2. For each index `i` from 1 to `n`:
+    - Add `dp[i-1]` if `s[i-1]` is valid ('1'-'9').
+    - Add `dp[i-2]` if the two-digit number `s[i-2:i]` is in ['10', '26'].
 
-**The Twist (Failure):** **00.** A string like "100" or "05" has 0 ways. Handled correctly by checking `s[i] != '0'` and the validity of the pair.
-
-**Interview Signal:** Handling **Edge Cases in DP**.
-
-## 🚀 Approach & Intuition
-Check single digit and two-digit validity.
-
-### C++ Pseudo-Code
-```cpp
-int numDecodings(string s) {
-    if (s[0] == '0') return 0;
-    int n = s.length();
-    int dp1 = 1; // dp[i-1]
-    int dp2 = 1; // dp[i-2] (conceptually dp[-1])
-    
-    for (int i = 1; i < n; i++) {
-        int current = 0;
-        if (s[i] != '0') current += dp1;
-        
-        int twoDigit = stoi(s.substr(i-1, 2));
-        if (twoDigit >= 10 && twoDigit <= 26) current += dp2;
-        
-        dp2 = dp1;
-        dp1 = current;
-    }
-    return dp1;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    Root[String: 121] -->|1| One[Ways: 1, 21]
+    Root -->|12| Two[Ways: 12, 1]
+    One -->|2| Three[Ways: 1, 2, 1]
+    One -->|21| Four[Ways: 1, 21]
+    Two -->|1| Five[Ways: 12, 1]
 ```
 
-### Key Observations:
-
-- Break down the problem into smaller sub-problems and store their results to avoid redundant calculations.
-- Determine the base cases and the recurrence relation; bottom-up (tabulation) is often more space-efficient.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(1)$ (Optimized) or $O(N)$ (Array)
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — We traverse the string once.
+- **Space Complexity:** $\mathcal{O}(N)$ — To store the DP table (can be optimized to $\mathcal{O}(1)$).
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you optimize the space complexity from $O(N^2)$ to $O(N)$? Can you solve it using a top-down vs bottom-up approach?
-- **Scale Question:** If the DP table is too large for memory, can you use 'Check-pointing' or a sliding window of rows to save space?
-- **Edge Case Probe:** What are the base cases for empty or single-element inputs? How do you handle negative values if they aren't expected?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** What if the mapping includes different characters?
+- **Optimization:** Can this be solved with space optimization to $\mathcal{O}(1)$ since only the last two states matter?
 
 ## 🔗 Related Problems
-
-- [Coin Change](../coin_change/PROBLEM.md) — Next in category
-- [Palindromic Substrings](../palindromic_substrings/PROBLEM.md) — Previous in category
-- [Unique Paths](../../14_2d_dynamic_programming/unique_paths/PROBLEM.md) — Prerequisite for 2-D Dynamic Programming
-- [Single Number](../../18_bit_manipulation/single_number/PROBLEM.md) — Prerequisite for Bit Manipulation
+- [Climbing Stairs](../climbing_stairs/PROBLEM.md)

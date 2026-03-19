@@ -1,84 +1,69 @@
-#  ✖️ Arrays & Hashing: Product of Array Except Self
+---
+impact: "High"
+nr: false
+confidence: 5
+---
+# ✖️ Arrays & Hashing: Product of Array Except Self
 
-## 📝 Description
-[LeetCode 238](https://leetcode.com/problems/product-of-array-except-self/)
+## 📝 Problem Description
 Given an integer array `nums`, return an array `answer` such that `answer[i]` is equal to the product of all the elements of `nums` except `nums[i]`. You must write an algorithm that runs in $O(N)$ time and without using the division operation.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Used in probability calculations (calculating the joint likelihood of independent events excluding one) or in computer vision for pixel-wise normalization where division is computationally expensive or risky.
 
+## 🛠️ Constraints & Edge Cases
 - $2 \le nums.length \le 10^5$
-- The product of any prefix or suffix of $nums$ is guaranteed to fit in a 32-bit integer.
+- The product fits in a 32-bit integer.
+- **Edge Cases to Watch:**
+    - Array containing one zero (all products zero except at the index of zero).
+    - Array containing multiple zeros (all products zero).
+    - Array with negative numbers.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Forbidden Division." The easiest way is to multiply everything and divide by `nums[i]`. But what if `nums[i]` is zero? Division by zero crashes the system. Also, the problem explicitly bans division.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Prefix & Suffix Multiplier." The product of "everything except `i`" is simply: `(Product of everything to the left) * (Product of everything to the right)`.
+!!! success "The Aha! Moment"
+    The product of all elements except `i` is the **(Product of everything to the left of i) × (Product of everything to the right of i)**. By pre-calculating prefixes and suffixes, we avoid the need for division.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+For each element, iterate through the rest of the array to calculate the product. This results in $O(N^2)$, which is too slow. Using division is $O(N)$ but is explicitly forbidden and fails if any element is zero.
 
-1. Create a `result` array.
-2. **Pass 1 (Prefix):** Store the running product of elements to the *left* in `result`.
-3. **Pass 2 (Suffix):** Maintain a running product of elements to the *right* and multiply it with the value already in `result`.
+### 🐇 Optimal Approach
+1. Create an `output` array.
+2. **Left Pass:** Iterate forward, storing the cumulative product of all elements to the left of `i` in `output[i]`.
+3. **Right Pass:** Iterate backward, maintaining a running `right_product`. Multiply `output[i]` by this `right_product` and update `right_product` by multiplying it with `nums[i]`.
 
-**The Twist (Failure):** **Space Optimization.** A naive solution uses three arrays (prefix, suffix, result). A senior engineer does it in $O(1)$ extra space by using the result array for prefixes and a single variable for the running suffix product.
-
-**Interview Signal:** Mastery of **Prefix/Suffix Operations** without extra storage.
-
-## 🚀 Approach & Intuition
-Calculate prefix products in the output array, then multiply by suffix products on the fly.
-
-### C++ Pseudo-Code
-```cpp
-vector<int> productExceptSelf(vector<int>& nums) {
-    int n = nums.size();
-    vector<int> res(n, 1);
-    
-    // Prefix pass
-    int prefix = 1;
-    for (int i = 0; i < n; i++) {
-        res[i] = prefix;
-        prefix *= nums[i];
-    }
-    
-    // Suffix pass
-    int suffix = 1;
-    for (int i = n - 1; i >= 0; i--) {
-        res[i] *= suffix;
-        suffix *= nums[i];
-    }
-    return res;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    Input["[1, 2, 3, 4]"]
+    Prefix["Prefix: [1, 1, 2, 6]"]
+    Suffix["Suffix: [24, 12, 4, 1]"]
+    Result["Result: [24, 12, 8, 6]"]
+    Prefix --> Result
+    Suffix --> Result
 ```
 
-### Key Observations:
-
-- By calculating prefix products and suffix products, we can avoid the division operator.
-- We can optimize space to $O(1)$ by using the output array to store prefix products and a single variable for suffix products.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(1)$ (Excluding output array)
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — We make two linear passes over the array.
+- **Space Complexity:** $\mathcal{O}(1)$ — If we don't count the output array as extra space, we only use a single variable for the right product.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you solve this with $O(1)$ extra space (excluding the output array)?
-- **Scale Question:** If the array contains very large numbers that could cause overflow, how would you handle the products?
-- **Edge Case Probe:** How does your solution handle a single zero in the array? What about multiple zeros?
+## 🎤 Interview Toolkit
+
+- **Why no division?** Division by zero is a major edge case. Also, it tests your ability to think about prefix/suffix patterns.
+- **Follow-up:** Can you solve this in exactly one pass? (Not really, but you can compute prefix/suffix simultaneously).
 
 ## 🔗 Related Problems
-
-- [Valid Sudoku](../valid_sudoku/PROBLEM.md) — Next in category
-- [Top K Frequent Elements](../top_k_frequent_elements/PROBLEM.md) — Previous in category
-- [Valid Palindrome](../../02_two_pointers/valid_palindrome/PROBLEM.md) — Prerequisite for Two Pointers
-- [Valid Parentheses](../../04_stack/valid_parentheses/PROBLEM.md) — Prerequisite for Stack
+- [Trapping Rain Water](../../02_two_pointers/trapping_rain_water/PROBLEM.md)
+- [Valid Sudoku](../valid_sudoku/PROBLEM.md)

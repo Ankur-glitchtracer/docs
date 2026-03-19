@@ -1,89 +1,78 @@
-#  🔢 Arrays & Hashing: Valid Sudoku
+---
+impact: "Medium"
+nr: false
+confidence: 4
+---
+# 🔢 Arrays & Hashing: Valid Sudoku
 
-## 📝 Description
-[LeetCode 36](https://leetcode.com/problems/valid-sudoku/)
+## 📝 Problem Description
 Determine if a `9 x 9` Sudoku board is valid. Only the filled cells need to be validated according to the following rules:
-
 1. Each row must contain the digits `1-9` without repetition.
 2. Each column must contain the digits `1-9` without repetition.
 3. Each of the nine `3 x 3` sub-boxes must contain the digits `1-9` without repetition.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Validating user input in game engines, ensuring constraint satisfaction in scheduling problems, or checking for data integrity in 2D grid systems.
 
+## 🛠️ Constraints & Edge Cases
 - $board.length == 9$
 - $board[i].length == 9$
-- $board[i][j]$ is a digit 1-9 or '.'
+- $board[i][j]$ is a digit `1-9` or `'.'`.
+- **Edge Cases to Watch:**
+    - Empty board (valid).
+    - Board with multiple digits but no violations.
+    - Violations in the $3 \times 3$ sub-boxes that are not in rows or columns.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Complex Indexer." Trying to verify 3x3 sub-grids using nasty nested loops and confusing modulo arithmetic (`(r // 3) * 3 + c // 3`). Off-by-one errors abound.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Hash Set Trio." Simply maintain sets for Rows, Columns, and Boxes.
+!!! success "The Aha! Moment"
+    Use **Hash Sets** for each row, column, and $3 \times 3$ box. The key trick is mapping each `(r, c)` cell to its corresponding box index using the formula: `(r // 3, c // 3)`.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Verify rows, then verify columns, then verify each of the nine $3 \times 3$ boxes individually. While this works, it requires multiple passes over the board.
 
-1. Initialize sets (or boolean arrays) for `rows[9]`, `cols[9]`, and `boxes[3][3]`.
-2. Iterate through the entire board.
-3. If cell is not empty:
-   - Check if the number exists in the corresponding Row Set, Col Set, or Box Set.
-   - If yes -> Invalid.
-   - If no -> Add to all three sets.
+### 🐇 Optimal Approach
+1. Initialize three hash maps of sets: `cols`, `rows`, and `squares`.
+2. Iterate through every cell `(r, c)` in the $9 \times 9$ board.
+3. Skip empty cells (`'.'`).
+4. For a digit `v`:
+    - Check if `v` is in `rows[r]`, `cols[c]`, or `squares[(r // 3, c // 3)]`.
+    - If it is, the board is invalid; return `false`.
+    - Otherwise, add `v` to the respective sets.
+5. If the entire board is processed without conflict, return `true`.
 
-**The Twist (Failure):** **The Box Mapping.** Understanding that the box index for a cell at `(r, c)` is simply `(r / 3, c / 3)`.
-
-**Interview Signal:** Ability to simplify **2D Grid Logic** using sets.
-
-## 🚀 Approach & Intuition
-Use sets to track seen numbers for rows, columns, and 3x3 boxes.
-
-### C++ Pseudo-Code
-```cpp
-bool isValidSudoku(vector<vector<char>>& board) {
-    int rows[9][9] = {0}, cols[9][9] = {0}, boxes[3][3][9] = {0};
-    
-    for (int r = 0; r < 9; r++) {
-        for (int c = 0; c < 9; c++) {
-            if (board[r][c] == '.') continue;
-            int num = board[r][c] - '1'; // 0-8 index
-            
-            if (rows[r][num] || cols[c][num] || boxes[r/3][c/3][num])
-                return false;
-                
-            rows[r][num] = cols[c][num] = boxes[r/3][c/3][num] = 1;
-        }
-    }
-    return true;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    Cell["Cell (4, 4)"] --> Row["Row 4 Set"]
+    Cell --> Col["Col 4 Set"]
+    Cell --> Square["Square (1, 1) Set"]
+    Row -- Conflict? --> No
+    Col -- Conflict? --> No
+    Square -- Conflict? --> No
 ```
 
-### Key Observations:
-
-- We only need to validate the filled cells; empty cells can be ignored.
-- Using bitmasks or a set of strings like 'row_i_val', 'col_j_val', 'box_k_val' can simplify the validation logic.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(1)$ (Grid size is fixed at 9x9)
-    - **Space Complexity:** $O(1)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(1)$ — Since the board size is always $9 \times 9$, the number of operations is constant ($81$ iterations).
+- **Space Complexity:** $\mathcal{O}(1)$ — The size of the sets is also bounded by the board size.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Could you write a solver that fills in the empty cells (Sudoku Solver using Backtracking)?
-- **Scale Question:** How would you validate a $N^2 \times N^2$ Sudoku board efficiently?
-- **Edge Case Probe:** What if the board is partially filled but contains invalid characters instead of just digits and dots?
+## 🎤 Interview Toolkit
+
+- **Follow-up:** How would you solve a Sudoku board (fill in the blanks)? (Hint: Backtracking).
+- **Scaling:** How would you handle an $N^2 \times N^2$ board? (The logic remains the same, but complexity becomes $O(N^4)$).
 
 ## 🔗 Related Problems
-
-- [Encode and Decode Strings](../encode_and_decode_strings/PROBLEM.md) — Next in category
-- [Product of Array Except Self](../product_of_array_except_self/PROBLEM.md) — Previous in category
-- [Valid Palindrome](../../02_two_pointers/valid_palindrome/PROBLEM.md) — Prerequisite for Two Pointers
-- [Valid Parentheses](../../04_stack/valid_parentheses/PROBLEM.md) — Prerequisite for Stack
+- [Sudoku Solver](https://leetcode.com/problems/sudoku-solver/)
+- [Rotate Image](https://leetcode.com/problems/rotate-image/)

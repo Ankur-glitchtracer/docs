@@ -1,82 +1,72 @@
-#  🪨 Heap: Last Stone Weight
+---
+impact: "Medium"
+nr: false
+confidence: 4
+---
+# 🪨 Heaps: Last Stone Weight
 
-## 📝 Description
-[LeetCode 1046](https://leetcode.com/problems/last-stone-weight/)
-You are given an array of integers `stones` where `stones[i]` is the weight of the `i`th stone. We are playing a game with the stones. On each turn, we choose the heaviest two stones and smash them together. Suppose the heaviest two stones have weights `x` and `y` with `x <= y`. The result of this smash is:
+## 📝 Problem Description
+Given an array of stone weights, repeatedly smash the two heaviest stones together. If $x == y$, both are destroyed; if $x < y$, $x$ is destroyed and $y$ becomes $y - x$. Return the weight of the last stone remaining, or 0.
 
-- If `x == y`, both stones are destroyed, and
-- If `x != y`, the stone of weight `x` is destroyed, and the stone of weight `y` has new weight `y - x`.
-At the end of the game, there is at most one stone left. Return the weight of the last remaining stone. If there are no stones left, return `0`.
+!!! info "Real-World Application"
+    Priority Queues (Heaps) are essential for:
+    - **Task Scheduling:** Prioritizing jobs in operating systems.
+    - **Bandwidth Management:** Prioritizing critical network traffic.
+    - **Simulation:** Event-driven simulations (e.g., waiting lines in banks).
 
-## 🛠️ Requirements/Constraints
+## 🛠️ Constraints & Edge Cases
+- $1 \le \text{stones.length} \le 30$
+- $1 \le \text{stones[i]} \le 1000$
+- **Edge Cases to Watch:** 
+    - No stones left (return 0).
+    - Only one stone left (return its weight).
+    - Two stones of equal weight.
 
-- $1 \le nums.length \le 10^5$
-- $-10^4 \le nums[i] \le 10^4$
+---
 
-## 🧠 The Engineering Story
+## 🧠 Approach & Intuition
 
-**The Villain:** "The Repeated Maximum." You constantly need the two heaviest stones to smash together. Linear scanning ($O(N)$) or re-sorting ($O(N \log N)$) every turn is too slow.
+!!! success "The Aha! Moment"
+    Since we always need the *heaviest* two stones, a Max-Heap is ideal. Python’s `heapq` is a Min-Heap, so negate the weights to simulate a Max-Heap efficiently.
 
-**The Hero:** "The Max-Heap." A structure designed to always give you the maximum element in $O(1)$ (access) or $O(\log N)$ (removal).
+### 🐢 Brute Force (Naive)
+Sorting the array after every smash ($O(N^2 \log N)$), which is highly inefficient for frequent updates.
 
-**The Plot:**
+### 🐇 Optimal Approach
+Use a Max-Heap to manage stone weights.
+1. Build a Max-Heap from the `stones` list.
+2. While the heap size $> 1$:
+    - Pop the two heaviest stones, $y$ and $x$.
+    - If $y > x$, push $y - x$ back onto the heap.
+3. If the heap is empty, return 0, otherwise return the top element.
 
-1. Put all stones into a Max-Heap.
-2. While `size > 1`:
-   - `y = pop()` (Heaviest).
-   - `x = pop()` (Second heaviest).
-   - If `x != y`, push `y - x`.
-3. If heap is empty, return
-0. Else, return `top()`.
-
-**The Twist (Failure):** **The Zero Case.** If all stones smash completely, the heap is empty. The problem says return 0, not crash.
-
-**Interview Signal:** Mastery of **Simulation with Priority Queues**.
-
-## 🚀 Approach & Intuition
-Simulate the process efficiently.
-
-### C++ Pseudo-Code
-```cpp
-int lastStoneWeight(vector<int>& stones) {
-    priority_queue<int> pq(stones.begin(), stones.end());
-    while (pq.size() > 1) {
-        int y = pq.top(); pq.pop();
-        int x = pq.top(); pq.pop();
-        if (x != y) pq.push(y - x);
-    }
-    return pq.empty() ? 0 : pq.top();
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    H((Heap: [8, 7, 4, 2, 1])) -->|Smash 8, 7| S((8-7=1))
+    S -->|Push 1| H2((Heap: [4, 2, 1, 1]))
+    style H stroke:#333,stroke-width:2px
 ```
 
-### Key Observations:
-
-- Heaps are the go-to for finding the $K$-th largest or smallest element in $O(N \log K)$ time.
-- Use a Min-Heap for $K$ largest elements and a Max-Heap for $K$ smallest elements to optimize space.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N \log N)$ (Initial build + loops)
-    - **Space Complexity:** $O(N)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N \log N)$ — Each `heappop` and `heappush` is $\mathcal{O}(\log N)$, performed $N$ times.
+- **Space Complexity:** $\mathcal{O}(N)$ — To store the stones in the heap.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you implement a custom Heap from scratch? How would you implement a 'Decrease Key' operation?
-- **Scale Question:** How would you maintain a Top-K list across 100 machines with frequent updates?
-- **Edge Case Probe:** What if all elements have the same priority? How do you handle empty heap extractions?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Implement the Heap from scratch with `bubbleUp`/`bubbleDown` operations.
+- **Alternative Data Structures:** Balanced BST (like `std::set` in C++), but slower than a heap for this specific use case.
 
 ## 🔗 Related Problems
-
-- [K Closest Points](../k_closest_points_to_origin/PROBLEM.md) — Next in category
-- [Kth Largest in Stream](../kth_largest_element_in_a_stream/PROBLEM.md) — Previous in category
-- [Reconstruct Itinerary](../../12_advanced_graphs/reconstruct_itinerary/PROBLEM.md) — Prerequisite for Advanced Graphs
-- [Maximum Subarray](../../15_greedy/maximum_subarray/PROBLEM.md) — Prerequisite for Greedy
+- [Kth Largest Element in an Array](../kth_largest_element_in_an_array/PROBLEM.md) — Fundamental heap application.
+- [Task Scheduler](../task_scheduler/PROBLEM.md) — Complex task management using heaps.

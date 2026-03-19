@@ -1,80 +1,71 @@
-#  🌲 Tree: Subtree of Another Tree
+---
+impact: "Medium"
+nr: false
+confidence: 4
+---
+# 🌲 Trees: Subtree of Another Tree
 
-## 📝 Description
-[LeetCode 572](https://leetcode.com/problems/subtree-of-another-tree/)
-Given the roots of two binary trees `root` and `subRoot`, return `true` if there is a subtree of `root` with the same structure and node values of `subRoot` and `false` otherwise.
+## 📝 Problem Description
+Given the roots of two binary trees `root` and `subRoot`, return `true` if there is a subtree of `root` with the same structure and node values as `subRoot` and `false` otherwise.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    Tree pattern matching is frequently used in **compiler construction** (matching AST structures) and in **XML/JSON querying** where you look for a specific schema or sub-fragment within a larger document.
 
-- Number of nodes is between 0 and $10^4$.
-- $-1000 \le Node.val \le 1000$
+## 🛠️ Constraints & Edge Cases
+- Number of nodes in `root` is in $[1, 2000]$.
+- Number of nodes in `subRoot` is in $[1, 1000]$.
+- $-10^4 \le Node.val \le 10^4$.
+- **Edge Cases to Watch:**
+    - `subRoot` is null (technically a subtree).
+    - `root` is null, `subRoot` is not (cannot contain it).
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The False Positive." A tree containing nodes with value `2` might look like a subtree, but the structure must match exactly.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Recursive Matcher." For every node in the main tree `root`, check if the subtree rooted there is identical to `subRoot`.
+!!! success "The Aha! Moment"
+    A tree `A` contains `B` as a subtree if: `A` matches `B`, OR `A.left` contains `B`, OR `A.right` contains `B`.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+At every node in `root`, perform a structural comparison (like `isSameTree`). This leads to $\mathcal{O}(N \cdot M)$ complexity.
 
-1. Use `isSameTree` helper (from previous problem).
-2. Base Case: If `root` is `None`, return `False` (empty tree contains nothing).
-3. If `isSameTree(root, subRoot)` is true, return `True`.
-4. Otherwise, recurse: `isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot)`.
+### 🐇 Optimal Approach
+For small constraints, the recursive comparison is standard. For massive trees, we could use Merkle hashing or serialized string matching to reduce to $\mathcal{O}(N+M)$.
 
-**The Twist (Failure):** **Complexity.** This is $O(N \cdot M)$. For a faster $O(N+M)$ solution, you'd need Merkle Hashing or String Serialization.
-
-**Interview Signal:** Combining multiple **Recursive Functions**.
-
-## 🚀 Approach & Intuition
-Traverse root, calling isSameTree at each node.
-
-### C++ Pseudo-Code
-```cpp
-class Solution {
-public:
-    bool isSubtree(TreeNode* root, TreeNode* subRoot) {
-        if (!root) return false;
-        if (isSameTree(root, subRoot)) return true;
-        return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
-    }
-    
-    bool isSameTree(TreeNode* p, TreeNode* q) {
-        if (!p && !q) return true;
-        if (!p || !q || p->val != q->val) return false;
-        return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
-    }
-};
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    subgraph Root
+    A((3)) --> B((4))
+    A --> C((5))
+    B --> D((1))
+    B --> E((2))
+    end
+    subgraph SubRoot
+    F((4)) --> G((1))
+    F --> H((2))
+    end
 ```
 
-### Key Observations:
-
-- Most tree problems can be solved using either DFS (recursion) or BFS (queue).
-- In-order traversal of a Binary Search Tree (BST) yields elements in sorted order.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N \cdot M)$
-    - **Space Complexity:** $O(H)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N \cdot M)$ — Where $N$ is nodes in `root` and $M$ is nodes in `subRoot`. We potentially traverse $M$ nodes for each of $N$ nodes.
+- **Space Complexity:** $\mathcal{O}(H)$ — Recursion depth.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you solve this iteratively if you were worried about stack overflow from deep recursion?
-- **Scale Question:** If the tree is a multi-terabyte B-Tree in a database, how do you optimize node traversal to minimize disk hits?
-- **Edge Case Probe:** What if the tree is extremely skewed (effectively a linked list)? What if it's empty?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Optimize to $\mathcal{O}(N+M)$ using serialization or Merkle trees.
+- **Scale Question:** What if the trees are too large for memory? (Use stream-based traversal or disk-backed structures).
 
 ## 🔗 Related Problems
-
-- [LCA of BST](../lowest_common_ancestor_bst/PROBLEM.md) — Next in category
-- [Same Tree](../same_tree/PROBLEM.md) — Previous in category
-- [Implement Trie](../../08_tries/implement_trie/PROBLEM.md) — Prerequisite for Tries
-- [Kth Largest in Stream](../../09_heap_priority_queue/kth_largest_element_in_a_stream/PROBLEM.md) — Prerequisite for Heap / Priority Queue
+- [Same Tree](../same_tree/PROBLEM.md) — The fundamental helper function.
+- [Lowest Common Ancestor of BST](../lowest_common_ancestor_bst/PROBLEM.md) — Tree traversal logic.

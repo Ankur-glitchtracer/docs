@@ -1,89 +1,73 @@
-#  🎯 Backtracking: Combination Sum
+---
+impact: "Medium"
+nr: false
+confidence: 2
+---
+# 🎯 Backtracking: Combination Sum
 
 ## 📝 Description
 [LeetCode 39](https://leetcode.com/problems/combination-sum/)
-Given an array of distinct integers `candidates` and a target integer `target`, return a list of all unique combinations of `candidates` where the chosen numbers sum to `target`. You may return the combinations in any order. The same number may be chosen from `candidates` an unlimited number of times. Two combinations are unique if the frequency of at least one of the chosen numbers is different.
+Given an array of distinct integers `candidates` and a target integer `target`, return a list of all unique combinations of `candidates` where the chosen numbers sum to `target`. You may return the combinations in any order. The same number may be chosen from `candidates` an unlimited number of times.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This is the **Unbounded Knapsack Problem**. It's used in **Coin Change** (making change for a dollar using specific denominations) or resource allocation where you can use multiple instances of the same resource type.
 
-- Input size is usually small ($N \le 20$) due to exponential complexity.
-- All possible solutions must be returned.
+## 🛠️ Constraints & Edge Cases
+- $1 \le \text{candidates.length} \le 30$
+- $1 \le \text{target} \le 500$
+- **Edge Cases to Watch:**
+    - Target cannot be reached.
+    - Candidates are larger than target.
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Infinite Re-use." Unlike Subsets, you can reuse the same number infinitely. A simple loop causes infinite recursion (e.g., `2, 2, 2...` trying to reach 7).
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Controlled Repetition." We still have a choice: Pick `nums[i]` again, or move to `nums[i+1]`.
+!!! success "The Aha! Moment"
+    We need to make a series of decisions: "Do I take this number, or do I skip it?" Since we can reuse numbers, if we decide to *take* a number, we stay at the same index for the next recursion. If we *skip*, we move to the next index. This forms a decision tree.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Try every possible combination of every length. Without pruning (stopping when sum > target), this would be infinite.
 
-1. Base Case 1: `target == 0` -> Valid combination found. Add to results.
-2. Base Case 2: `target < 0` or `index >= nums.length` -> Invalid path. Return.
-3. **Branch 1 (Reuse):** Add `nums[i]`, recurse with `target - nums[i]` and SAME `index`.
-4. **Branch 2 (Skip):** Backtrack (remove `nums[i]`), recurse with ORIGINAL `target` and `index + 1`.
+### 🐇 Optimal Approach (DFS)
+1.  Define `backtrack(i, current_sum, current_list)`.
+2.  **Base Case:** If `current_sum == target`, add copy of `current_list` to result.
+3.  **Base Case:** If `current_sum > target` OR `i >= len(candidates)`, return.
+4.  **Branch 1 (Include):**
+    - Add `candidates[i]` to list.
+    - Recurse with `(i, current_sum + candidates[i])` -> *Note: index `i` stays same*.
+    - Backtrack (pop from list).
+5.  **Branch 2 (Exclude):**
+    - Recurse with `(i + 1, current_sum)`.
 
-**The Twist (Failure):** **The Duplicate Sets.** Why `index` instead of `0` in the loop? If we restarted from 0, we'd get `[2,3]` and `[3,2]`. Keeping `i` ensures we only move forward, preventing duplicate combinations.
-
-**Interview Signal:** Handling **Unbounded Knapsack** variants via recursion.
-
-## 🚀 Approach & Intuition
-Reuse current index for inclusion, move index for exclusion.
-
-### C++ Pseudo-Code
-```cpp
-vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-    vector<vector<int>> res;
-    vector<int> curr;
-    
-    function<void(int, int)> backtrack = [&](int i, int total) {
-        if (total == target) {
-            res.push_back(curr);
-            return;
-        }
-        if (i >= candidates.size() || total > target) return;
-        
-        // Include candidates[i]
-        curr.push_back(candidates[i]);
-        backtrack(i, total + candidates[i]);
-        curr.pop_back();
-        
-        // Skip candidates[i]
-        backtrack(i + 1, total);
-    };
-    
-    backtrack(0, 0);
-    return res;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    Root[Sum: 0, Candidates: 2,3,6,7] -->|Pick 2| Node2[Sum: 2]
+    Node2 -->|Pick 2| Node4[Sum: 4]
+    Node4 -->|Pick 3| Node7[Sum: 7 (Found!)]
+    Node2 -->|Skip 2, Pick 3| Node5[Sum: 5]
 ```
 
-### Key Observations:
-
-- Backtracking is essentially a DFS on a state-space tree where we 'undo' the last move to explore other branches.
-- Pruning is the most important optimization to skip branches that cannot lead to a valid solution.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(2^T)$ where T is target value.
-    - **Space Complexity:** $O(T)$ (recursion depth).
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(2^T)$ — Roughly exponential based on Target/MinCandidate.
+- **Space Complexity:** $\mathcal{O}(T)$ — Max depth of recursion (e.g., if we pick 1 repeated T times).
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you use Pruning or Bitmasking to significantly reduce the search space?
-- **Scale Question:** How would you parallelize the search? Would you use Work Stealing to balance the load between threads?
-- **Edge Case Probe:** What is the maximum depth of recursion before you hit a stack overflow?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Combination Sum II (No duplicates allowed).
+- **Optimization:** Sort candidates and break loop early if `current_sum + candidates[i] > target`.
 
 ## 🔗 Related Problems
-
-- [Permutations](../permutations/PROBLEM.md) — Next in category
-- [Subsets](../subsets/PROBLEM.md) — Previous in category
-- [Number of Islands](../../11_graphs/number_of_islands/PROBLEM.md) — Prerequisite for Graphs
-- [Climbing Stairs](../../13_1d_dynamic_programming/climbing_stairs/PROBLEM.md) — Prerequisite for 1-D Dynamic Programming
+- [Combination Sum II](../combination_sum_ii/PROBLEM.md) — Next in category
+- [Permutations](../permutations/PROBLEM.md) — Previous in category

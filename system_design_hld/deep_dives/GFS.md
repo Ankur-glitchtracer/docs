@@ -85,4 +85,4 @@ Explore low-level implementations of distributed file systems and append-only lo
 
 * [System Design: Kafka & HDFS Deep Dive](./KAFKA_DEEP_DIVE.md)
 * [System Design: NoSQL Internals](./NOSQL_INTERNALS.md)
-* [Machine Coding: Kafka Lite](../../../machine_coding/distributed/pub_sub/PROBLEM.md)
+* [Machine Coding: Kafka Lite](../../machine_coding/distributed/pub_sub/PROBLEM.md)

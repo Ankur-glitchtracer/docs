@@ -1,62 +1,73 @@
-#  🪟 Sliding Window: Longest Substring Without Repeating Characters
+---
+impact: "Medium"    # Low | Medium | High
+nr: false           # No Review Required (true/false)
+confidence: 2       # 1 (Learning) to 5 (Mastered)
+---
+# 🪟 Sliding Window: Longest Substring Without Repeating Characters
 
-## 📝 Description
+## 📝 Problem Description
 [LeetCode 3](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+
 Given a string `s`, find the length of the longest substring without repeating characters.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This logic is used in network protocols to identify non-repeating signal sequences and in compression algorithms (like LZ77) where finding unique substrings is a foundational step.
 
+## 🛠️ Constraints & Edge Cases
 - $0 \le s.length \le 5 \cdot 10^4$
-- `s` consists of English letters, digits, symbols and spaces.
+- `s` consists of English letters, digits, symbols, and spaces.
+- **Edge Cases to Watch:**
+    - Empty string (result = 0).
+    - String with all same characters (result = 1).
+    - String with no repeating characters (result = $s.length$).
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Redundant Scan." Re-calculating all possible substrings ($O(N^3)$) to find the longest unique one.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Sliding Window." Maintain a window of unique characters and expand/contract it in a single pass ($O(N)$).
+!!! success "The Aha! Moment"
+    The "Aha!" moment is the **Window Invariant**. Instead of checking all possible substrings $\mathcal{O}(N^3)$, maintain a window of unique characters. When you encounter a duplicate at the `right` pointer, move the `left` pointer forward until the uniqueness invariant is restored.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Checking every possible substring for unique characters takes $\mathcal{O}(N^3)$ (roughly $N^2$ substrings $\times$ $N$ to check uniqueness). For $N=5 \cdot 10^4$, this is approximately $10^{14}$ operations, which is way too slow.
 
-1. Use a `left` and `right` pointer.
-2. Expand `right` and add characters to a set.
-3. If a duplicate is found, shrink `left` until the duplicate is gone.
-4. Record the max window size at each step.
+### 🐇 Optimal Approach
+Use a sliding window with a Hash Set or Hash Map.
+1. Use two pointers, `left` and `right`, both starting at 0.
+2. Expand the `right` pointer and add the character at `s[right]` to a set.
+3. If `s[right]` is already in the set, a duplicate is found. Shrink the window by moving `left` forward and removing characters from the set until `s[right]` is unique again.
+4. Update the maximum window size at each step: `max_len = max(max_len, right - left + 1)`.
 
-**The Twist (Failure):** **The Shrinking Invariant.** Forgetting that the left pointer must "jump" efficiently to avoid a secondary loop, or failing to remove characters from the set as the left pointer moves.
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    subgraph "S = abcabc"
+    W1[a b c] -- "Add 'a'" --> W2[b c a]
+    style W2 stroke:#f66,stroke-width:2px
+    end
+    note1[left: 0, right: 2] --> note2[left: 1, right: 3]
+```
 
-**Interview Signal:** Expertise in **Linear Time String Processing** and Windowing techniques.
-
-## 🚀 Approach & Intuition
-A sliding window is perfect here because we are looking for a contiguous segment that satisfies a property (uniqueness). As we move the `right` pointer to include new characters, we check if they violate our uniqueness constraint. If they do, we move the `left` pointer to restore the constraint.
-
-### Key Observations:
-
-- A Hash Set is ideal for checking uniqueness in $O(1)$.
-- The window size is `right - left + 1`.
-- We only need to move the `left` pointer until the current `s[right]` is no longer in the set.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$ where $N$ is the length of the string. Each character is visited at most twice (once by each pointer).
-    - **Space Complexity:** $O(\min(M, N))$ where $M$ is the size of the character set (e.g., 26 for English letters, 128 for ASCII).
+---
 
 ## 💻 Solution Implementation
 
 ```python
---8<-- "dsa/03_sliding_window/longest_substring_without_repeating_characters/solution.py"
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    Don't restart the search when you hit a duplicate! Just shrink the "window of opportunity" from the left until the duplicate is gone, then keep moving forward.
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — Each character is visited at most twice (once by the `right` pointer and once by the `left` pointer).
+- **Space Complexity:** $\mathcal{O}(\min(M, N))$ — $M$ is the size of the character set (e.g., 26 for English letters, 128 for ASCII).
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** What if the window size is not fixed, or we need to find the count of all windows satisfying a condition?
-- **Scale Question:** In a streaming context (e.g., Flink or Spark Streaming), how would you maintain the window state efficiently?
-- **Edge Case Probe:** How do you handle cases where no window satisfies the condition? What about very small inputs?
+## 🎤 Interview Toolkit
+
+- **Optimization:** Use a Hash Map to store the *index* of each character. Instead of moving `left` one by one, you can "jump" `left` to `map[s[right]] + 1` directly.
+- **Edge Case Probe:** How does your solution handle space characters? (They should be treated like any other character in the ASCII set).
 
 ## 🔗 Related Problems
-
-- [Longest Repeating Replacement](../longest_repeating_character_replacement/PROBLEM.md) — Next in category
-- [Best Time to Buy/Sell Stock](../best_time_to_buy_sell_stock/PROBLEM.md) — Previous in category
-- [Valid Palindrome](../../02_two_pointers/valid_palindrome/PROBLEM.md) — Prerequisite: Two Pointers
+- [Longest Repeating Replacement](../longest_repeating_character_replacement/PROBLEM.md) — Dynamic sliding window.
+- [Permutation in String](../permutation_in_string/PROBLEM.md) — Fixed sliding window.
+- [Valid Palindrome](../../02_two_pointers/valid_palindrome/PROBLEM.md) — Foundation for pointer manipulation.

@@ -1,82 +1,77 @@
-#  🧮 Stack: Evaluate Reverse Polish Notation
+---
+impact: "Medium"
+nr: false
+confidence: 2
+---
+# 🧮 Stack: Evaluate Reverse Polish Notation
 
 ## 📝 Description
 [LeetCode 150](https://leetcode.com/problems/evaluate-reverse-polish-notation/)
-Evaluate the value of an arithmetic expression in Reverse Polish Notation. Valid operators are `+`, `-`, `*`, and `/`. Each operand may be an integer or another expression. Note that division between two integers should truncate toward zero.
+Evaluate the value of an arithmetic expression in Reverse Polish Notation (RPN). Valid operators are `+`, `-`, `*`, and `/`. Each operand may be an integer or another expression. Note that division between two integers should truncate toward zero.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    RPN is used in **PostScript** (printing language), **HP Calculators**, and **Stack-based Virtual Machines** (like the JVM or Python's bytecode interpreter) because it eliminates the need for parentheses and complex precedence rules.
 
-- $1 \le s.length \le 10^5$
-- Constraints vary depending on the specific stack application.
+## 🛠️ Constraints & Edge Cases
+- $1 \le \text{tokens.length} \le 10^4$
+- `tokens[i]` is either an operator or an integer.
+- **Edge Cases to Watch:**
+    - Division by zero (though problem constraints usually ensure validity).
+    - Negative result from division (should truncate towards zero, e.g., `-3 / 2 = -1`).
+    - Single number input (no operators).
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Order of Operations." Parsing `(3 + 4) * 5` is hard because you have to wait for the inner parenthesis. Infix notation requires complex precedence rules.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Postfix Stack." In RPN (`3 4 + 5 *`), the operator always comes *after* its operands. We never need parentheses.
+!!! success "The Aha! Moment"
+    In RPN, the operator always follows its operands. This is perfect for a **Stack**: when you see a number, remember it (push). When you see an operator, use the last two numbers you remembered (pop), calculate, and remember the result (push).
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Scanning the string repeatedly to find the first operator, evaluating it, and reconstructing the string. This is $O(N^2)$ due to string manipulation and repeated scanning.
 
-1. Iterate through tokens.
-2. If it's a number, push to stack.
-3. If it's an operator (`+`, `-`, `*`, `/`), pop the top two numbers.
-4. Perform the operation and push the result back.
-5. The final answer is the only item left in the stack.
+### 🐇 Optimal Approach
+1.  Initialize an empty stack.
+2.  Iterate through each token in the input.
+3.  If the token is a number, push it onto the stack.
+4.  If the token is an operator (`+`, `-`, `*`, `/`):
+    - Pop the top two elements: `b` (first pop) and `a` (second pop).
+    - **Note:** Order matters for `-` and `/`. It is `a - b` or `a / b`.
+    - Perform the operation.
+    - Push the result back onto the stack.
+5.  The final result is the only element remaining in the stack.
 
-**The Twist (Failure):** **The Subtraction Order.** `a - b` is not `b - a`. When you pop, the *first* popped item is the right operand (`b`), and the *second* is the left (`a`).
-
-**Interview Signal:** Understanding of **Expression Evaluation** and stack mechanics.
-
-## 🚀 Approach & Intuition
-Push numbers, pop for operators.
-
-### C++ Pseudo-Code
-```cpp
-int evalRPN(vector<string>& tokens) {
-    stack<int> s;
-    for (string& t : tokens) {
-        if (t == "+" || t == "-" || t == "*" || t == "/") {
-            int b = s.top(); s.pop();
-            int a = s.top(); s.pop();
-            if (t == "+") s.push(a + b);
-            else if (t == "-") s.push(a - b);
-            else if (t == "*") s.push(a * b);
-            else s.push(a / b);
-        } else {
-            s.push(stoi(t));
-        }
-    }
-    return s.top();
-}
+### 🧩 Visual Tracing
+```mermaid
+graph TD
+    A[Token: 4] -->|Push| S1([4])
+    B[Token: 13] -->|Push| S2([4, 13])
+    C[Token: 5] -->|Push| S3([4, 13, 5])
+    D[Token: /] -->|Pop 5, 13 -> 13/5 = 2| S4([4, 2])
+    E[Token: +] -->|Pop 2, 4 -> 4+2 = 6| S5([6])
 ```
 
-### Key Observations:
-
-- Stacks are essential for problems involving nested structures, like parentheses or expression evaluation.
-- Monotonic stacks are a powerful variation used to find the next greater or smaller element in $O(N)$ time.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(N)$
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ — We traverse the tokens once.
+- **Space Complexity:** $\mathcal{O}(N)$ — The stack can store up to N/2 operands.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** Can you solve this using a single pass or by transforming the problem into a Monotonic Stack problem?
-- **Scale Question:** If the stack needs to be persistent (undo/redo functionality), how would you implement it using a functional data structure?
-- **Edge Case Probe:** What happens on an empty stack or when the input contains unexpected characters?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Support more complex operators like `^` (power) or `sqrt`.
+- **Alternative Data Structures:** Could you use a recursive approach? (Yes, traversing from the end, but it's trickier).
+- **Edge Case:** How does your language handle integer division for negative numbers? (Python `//` floors `-3 // 2 = -2`, but C++ `/` truncates `-3 / 2 = -1`. The problem asks for truncation).
 
 ## 🔗 Related Problems
-
 - [Generate Parentheses](../generate_parentheses/PROBLEM.md) — Next in category
 - [Min Stack](../min_stack/PROBLEM.md) — Previous in category
-- [Contains Duplicate](../../01_arrays_hashing/contains_duplicate/PROBLEM.md) — Prerequisite: Arrays & Hashing
+- [Basic Calculator](https://leetcode.com/problems/basic-calculator/) — Related stack problem

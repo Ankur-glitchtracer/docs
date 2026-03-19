@@ -1,82 +1,64 @@
-#  ➕ Math: Plus One
+---
+impact: "Low"
+nr: true
+confidence: 5
+---
+# 🟦 Math & Geometry: Plus One
 
-## 📝 Description
-[LeetCode 66](https://leetcode.com/problems/plus-one/)
-You are given a large integer represented as an integer array `digits`, where each `digits[i]` is the `i`th digit of the integer. The digits are ordered from most significant to least significant in left-to-right order. The large integer does not contain any leading 0's. Increment the large integer by one and return the resulting array of digits.
+## 📝 Problem Description
+Given a non-empty array of digits representing a non-negative integer, increment the integer by one. The digits are stored such that the most significant digit is at the head of the list.
 
-## 🛠️ Requirements/Constraints
+!!! info "Real-World Application"
+    This problem simulates **basic overflow handling** in hardware and fixed-width integer arithmetic. It is essential for understanding how carries propagate through registers.
 
-- Numerical values fit within standard data types (int, long).
-- Coordinate ranges are typically within $10^4$.
+## 🛠️ Constraints & Edge Cases
+- $1 \le digits.length \le 100$
+- Digits are $0-9$.
+- **Edge Cases:** All 9s (e.g., [9, 9] -> [1, 0, 0]).
 
-## 🧠 The Engineering Story
+---
 
-**The Villain:** "The Domino Effect." Adding 1 to 999 requires carrying over 1 three times to get 1000.
+## 🧠 Approach & Intuition
 
-**The Hero:** "The Carry Propagator."
+!!! success "The Aha! Moment"
+    Start from the last element. If the digit is less than 9, increment it, and you're done. If it's 9, set it to 0 and continue to the next digit to propagate the carry.
 
-**The Plot:**
+### 🐢 Brute Force (Naive)
+Convert array to an integer, increment, and convert back to array. This fails when the integer exceeds the capacity of standard numeric types (e.g., 64-bit).
 
-1. Iterate backwards from the last digit.
-2. If digit < 9: Increment and return. We are done (no more carry).
-3. If digit == 9: Set to
-0. Continue loop (carry propagates).
-4. **The Twist:** If loop finishes (e.g., 99 -> 00), we need a new leading 1.
-   - Resize array or insert 1 at beginning.
-   - Or create new array of size $N+1$ with `1` followed by zeros.
+### 🐇 Optimal Approach
+1. Iterate backwards through the array.
+2. If `digits[i] < 9`, increment it and return.
+3. If `digits[i] == 9`, change it to 0 and continue.
+4. If the loop completes, it means we had a carry at the most significant digit (e.g., [9,9]), so prepend a 1.
 
-**The Twist (Failure):** (To be detailed...)
-
-**Interview Signal:** Basic **Array Manipulation** and edge cases.
-
-## 🚀 Approach & Intuition
-Propagate carry.
-
-### C++ Pseudo-Code
-```cpp
-vector<int> plusOne(vector<int>& digits) {
-    int n = digits.size();
-    for (int i = n - 1; i >= 0; i--) {
-        if (digits[i] < 9) {
-            digits[i]++;
-            return digits;
-        }
-        digits[i] = 0;
-    }
-    
-    digits.insert(digits.begin(), 1);
-    return digits;
-}
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    A[9, 9] -->|plus 1| B{Carry?}
+    B -->|Yes| C[0, 9]
+    C -->|Carry| D[1, 0, 0]
 ```
 
-### Key Observations:
-
-- Use modular arithmetic to prevent integer overflow and the Euclidean algorithm for GCD/LCM problems.
-- In geometry, use cross products to determine orientation and the distance formula for proximity checks.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(N)$
-    - **Space Complexity:** $O(1)$ (if resizing in place)
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(N)$ in the worst case (all 9s).
+- **Space Complexity:** $\mathcal{O}(1)$ (in-place modification).
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** How would you solve this without using any arithmetic operators (+, -, *, /)?
-- **Scale Question:** How do you handle bit operations on arbitrarily large integers (BigInt)?
-- **Edge Case Probe:** How does your code handle signed vs unsigned integers and overflow/underflow?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** Increment by N instead of 1.
+- **Alternative Data Structures:** Using a LinkedList if the number is too long (though array is efficient here).
 
 ## 🔗 Related Problems
-
-- [Pow(x, n)](../pow_x_n/PROBLEM.md) — Next in category
-- [Happy Number](../happy_number/PROBLEM.md) — Previous in category
-- [Number of Islands](../../11_graphs/number_of_islands/PROBLEM.md) — Prerequisite: Graphs
-- [Single Number](../../18_bit_manipulation/single_number/PROBLEM.md) — Prerequisite: Bit Manipulation
+- `[Multiply Strings](#)` — Complex big integer arithmetic.
+- `[Sum of Two Integers](#)` — Bitwise arithmetic.

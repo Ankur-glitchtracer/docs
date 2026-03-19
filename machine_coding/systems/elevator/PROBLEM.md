@@ -1,80 +1,112 @@
+---
+impact: "High"
+nr: false
+confidence: 3
+---
 # 🛗 Machine Coding: Multi-Elevator Dispatcher
 
 ## 📝 Overview
-Design an **Elevator Management System** for a high-rise building. This challenge involves complex state management, real-time request handling, and optimization algorithms to minimize passenger wait times.
+Design and implement a robust **Elevator Management System** for a high-rise building. This challenge involves managing multiple interacting state machines (elevators) to efficiently handle real-time passenger requests while optimizing for wait time and energy consumption.
 
 !!! info "Why This Challenge?"
+    - **Complex State Management:** Evaluates your ability to manage multiple concurrent state machines that share a common request pool.
+    - **Optimization Algorithms:** Tests your understanding of real-world scheduling (SCAN/LOOK) to maximize system throughput.
+    - **Concurrency & Event Handling:** Challenges you to coordinate asynchronous requests from floor panels and cabin interfaces without race conditions.
 
-    - **Complex State Management:** Learning how to manage multiple interacting state machines (elevators) that share a common request pool.
-    - **Optimization Algorithms:** Understanding how to implement real-world scheduling algorithms like SCAN or LOOK to optimize system throughput.
-    - **Concurrency & Event Handling:** Mastering the coordination of asynchronous requests from multiple floors and cabin panels.
+---
 
-!!! abstract "Core Concepts"
+## 🏭 The Scenario & Requirements
 
-    - **Request Scheduling:** Efficiently assigning `N` elevators to handle `M` floor requests.
-    - **State Control:** Managing the direction (Up, Down, Idle) and current floor for multiple independent units.
+### 😡 The Problem (The Villain)
+**"The Starvation Oscillation."** A poorly designed system where people on the 50th floor wait indefinitely because the elevators keep "short-cycling" between the lobby and the 5th floor to serve a high volume of local traffic. The elevators move inefficiently, frequently changing direction and wasting energy while passengers grow frustrated.
 
-## 🛠️ Requirements & Technical Constraints
-### Functional Requirements
+### 🦸 The System (The Hero)
+**"The Smart Dispatcher."** A centralized controller that implements the **LOOK algorithm**, ensuring elevators move steadily in one direction until all pending requests in that path are satisfied. It intelligently assigns the "closest" or "most compatible" elevator to new floor requests to minimize global wait time.
 
-1.  **Multi-Elevator Coordination:** Efficiently assign `N` elevators to handle incoming requests.
-2.  **Internal/External Requests:** Handle requests from both floor panels and elevator cabin panels.
-3.  **Real-Time Monitoring:** Track the floor, direction, and load of every elevator.
-4.  **Emergency Handling:** Provide mechanisms for fire alarms or manual overrides.
+### 📜 Requirements & Constraints
+1.  **Functional:**
+    -   **Multi-Elevator Coordination:** Efficiently manage $N$ elevators across $M$ floors.
+    -   **Dual Request Handling:** Support "External" (floor panel) and "Internal" (cabin panel) requests.
+    -   **Real-Time State:** Track floor position, movement direction (UP/DOWN/NONE), and status (MOVING/IDLE/STOPPED) for every unit.
+2.  **Technical:**
+    -   **Directional Priority:** Elevators must prioritize requests in their current direction to prevent "Ping-Ponging."
+    -   **Load Balancing:** Avoid redundant assignments where multiple elevators respond to the same floor request.
+    -   **Safety:** Doors must be fully closed before movement, and emergency stops must be supported.
 
-### Technical Constraints
+---
 
-- **Directional Logic:** An elevator moving Up should prioritize all Up requests on floors above it before switching directions.
-- **Load Balancing:** Avoid sending all elevators to the same floor for a single request.
-- **Starvation Prevention:** Ensure that requests from lower-traffic floors are eventually served.
+## 🏗️ Design & Architecture
 
-## 🧠 The Engineering Story
+### 🧠 Thinking Process
+To handle the complexity, we decouple the **Elevator** (the worker) from the **Controller** (the dispatcher).
+1.  **Elevator:** A state machine that maintains its own sorted queue of `Request` objects.
+2.  **Request:** Encapsulates the target floor and direction.
+3.  **ElevatorController:** The "Brain" that receives external floor calls and delegates them to the most suitable elevator based on proximity and current trajectory.
 
-**The Villain:** "The Starvation." People on the 50th floor wait forever because the elevator keeps oscillating between floors 1 and 5 to serve a high volume of lobby requests.
+### 🧩 Class Diagram
+```mermaid
+classDiagram
+    direction TB
+    class ElevatorController {
+        -List~Elevator~ elevators
+        -int floors
+        +assign_request(request)
+        -_init_elevator()
+    }
+    class Elevator {
+        +int id
+        +int current_floor
+        +Status status
+        +Direction direction
+        -List~Request~ requests
+        +add_request(request)
+        +step()
+        +move_floor()
+    }
+    class Request {
+        +int floor
+        +Direction direction
+        +Elevator elevator
+    }
+    ElevatorController --> Elevator : dispatches to
+    Elevator --> Request : processes
+```
 
-**The Hero:** "The SCAN Algorithm." A strategy that ensures the elevator moves in one direction until it hits the furthest request, picking up everyone along the way.
+### ⚙️ Design Patterns Applied
+- **State Pattern**: Manages the transitions between `IDLE`, `MOVING`, and `STOPPED` (door open) states.
+- **Strategy Pattern**: The `assign_request` logic can be swapped between "Nearest Idle" and "Directional Compatibility" strategies.
+- **Observer Pattern**: (Implicit) The controller "observes" floor button presses and notifies the elevator fleet.
 
-**The Plot:**
-
-1. Represent `Elevator` as a state machine (IDLE, UP, DOWN).
-2. Use a `Dispatcher` to assign requests based on proximity and direction.
-3. Manage a `RequestQueue` for internal and external button presses.
-
-**The Twist (Failure):** **The Ping-Pong Effect.** If two elevators are both assigned to the same floor, they arrive empty while other floors remain unserved.
-
-**Interview Signal:** Expertise in **State Machines** and **Optimization Algorithms** (LOOK/SCAN).
-
-## 🚀 Thinking Process & Approach
-Elevator scheduling is a classic optimization problem. The approach uses an event-driven system to handle floor requests and a strategy pattern to determine the most efficient moving direction to minimize wait time.
-
-### Key Observations:
-
-- State-based movement logic.
-- Optimized scheduling algorithms.
-
-## 🏗️ Design Patterns Used
-
-- **State Pattern**: To manage the individual states of each elevator (IDLE, MOVING_UP, MOVING_DOWN, DOOR_OPEN).
-- **Strategy Pattern**: For implementing different dispatching algorithms (SCAN, LOOK, Shortest Seek Time First).
-- **Observer Pattern**: To notify the Dispatcher when a new floor request is made.
-- **Singleton Pattern**: For the central Elevator Controller/Dispatcher.
+---
 
 ## 💻 Solution Implementation
 
-```python
---8<-- "machine_coding/systems/elevator/elevator_management_system.py"
-```
+!!! success "The Code"
+    ```python
+    --8<-- "machine_coding/systems/elevator/elevator_management_system.py"
+    ```
 
-!!! success "Why this works"
-    This design adheres to the Open/Closed principle and ensures high maintainability by decoupling concerns.
+### 🔬 Why This Works (Evaluation)
+The core logic resides in `Elevator.add_request`. Instead of a simple FIFO queue, it uses an **Insertion Sort** approach based on the current direction. If the elevator is moving **UP**, new requests are inserted into the queue such that the elevator stops at floors in increasing order, then handles "behind-it" requests on the way back down. This implements the **LOOK algorithm**, significantly reducing total travel distance.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Energy Optimization:** How would you modify the dispatcher to minimize energy consumption (e.g., minimizing elevator movement)?
-- **VIP/Emergency Mode:** How would you implement a priority override for emergency services?
-- **Load Sensing:** How do you handle the case where an elevator is full and should skip floor requests?
+## ⚖️ Trade-offs & Limitations
+
+| Decision | Pros | Cons / Limitations |
+| :--- | :--- | :--- |
+| **Sorted Request Queue** | Prevents starvation and minimizes direction changes. | Higher complexity in the `add_request` logic ($O(N)$ insertion). |
+| **Centralized Controller** | Perfect global knowledge for optimal dispatching. | Single point of failure; if the controller crashes, all elevators stop. |
+| **In-Memory State** | Near-zero latency for dispatching decisions. | System state (current floors/queues) is lost on power failure without persistence. |
+
+---
+
+## 🎤 Interview Toolkit
+
+- **Concurrency Probe:** How would you handle 100 people pressing floor buttons at the exact same time? (Use a `Lock` on the `Elevator.requests` list).
+- **Extensibility:** How would you implement "VIP Mode"? (Add a `priority` field to `Request` and sort the queue primarily by priority).
+- **Energy Optimization:** If two elevators are equally close to a request, which one do you pick? (Pick the one already moving in that direction to avoid "Starting/Stopping" costs of an IDLE elevator).
 
 ## 🔗 Related Challenges
-
-- [Parking Lot](../parking_lot/PROBLEM.md) — For another resource management system.
-- [Job Scheduler](../../distributed/job_scheduler/PROBLEM.md) — For distributing tasks (requests) across multiple workers (elevators).
+- [High-Concurrency Parking Lot](../parking_lot/PROBLEM.md) — Another resource allocation challenge involving physical constraints.
+- [Distributed Job Scheduler](../../distributed/job_scheduler/PROBLEM.md) — For mapping requests (jobs) to workers (elevators) at scale.

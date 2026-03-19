@@ -1,98 +1,95 @@
-#  💾 Linked Lists: LRU Cache
+---
+impact: "High"
+nr: false
+confidence: 4
+---
+# 💾 Linked Lists: LRU Cache
 
-## 📝 Description
+## 📝 Problem Description
 [LeetCode 146](https://leetcode.com/problems/lru-cache/)
-Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.
+Design a data structure that follows the constraints of a **Least Recently Used (LRU)** cache.
 
-## 🛠️ Requirements/Constraints
+Implement the `LRUCache` class:
+- `LRUCache(int capacity)` Initialize the cache with positive size capacity.
+- `int get(int key)` Return the value of the key if it exists, otherwise return -1.
+- `void put(int key, int value)` Update the value if the key exists. Otherwise, add the key-value pair. If the number of keys exceeds the capacity, **evict** the least recently used key.
 
-- Number of nodes is between 0 and 5000.
-- $-1000 \le Node.val \le 1000$
+!!! info "Real-World Application"
+    LRU Caching is ubiquitous in system design:
+    - **Redis:** Eviction policy for memory management.
+    - **Operating Systems:** Page replacement algorithms.
+    - **Web Browsers:** Managing local cache for static assets.
+    - **Database Buffers:** Keeping frequently accessed rows in RAM.
 
-## 🧠 The Engineering Story
+## 🛠️ Constraints & Edge Cases
+- $1 \le capacity \le 3000$
+- $0 \le key \le 10^4$, $0 \le value \le 10^5$
+- At most $2 \cdot 10^5$ calls will be made to `get` and `put`.
+- **Edge Cases to Watch:**
+    - Capacity of 1 (immediate eviction).
+    - Putting a key that already exists (update and promote to MRU).
+    - Getting a key that doesn't exist.
 
-**The Villain:** "The $O(N)$ Eviction." Keeping a list of used items is easy. Moving an item to the front or finding the least recently used item usually takes $O(N)$. We need $O(1)$.
+---
 
-**The Hero:** "The HashMap + Doubly Linked List."
+## 🧠 Approach & Intuition
 
-**The Plot:**
+!!! success "The Aha! Moment"
+    A **HashMap** gives us $O(1)$ access, but has no concept of order. A **Doubly Linked List** (DLL) maintains $O(1)$ ordering and eviction, but has $O(N)$ lookup. **Combine them!** The HashMap maps keys directly to DLL nodes for instant access and re-linking.
 
-1. **HashMap:** Maps `key` -> `Node*` (for $O(1)$ access).
-2. **Doubly Linked List:** Maintains order.
-   - **Head:** Most Recently Used (MRU).
-   - **Tail:** Least Recently Used (LRU).
-3. **Get:** Look up in map. If found, detach node and move to Head.
-4. **Put:**
-   - If key exists: Update value, move to Head.
-   - If new: Create node, add to Head, add to Map.
-   - If over capacity: Remove Tail node, remove from Map.
+### 🐢 Brute Force (Naive)
+Use a standard list or array of `(key, value, timestamp)` tuples.
+- `get`: $O(N)$ search.
+- `put`: $O(1)$ append, but if over capacity, $O(N)$ to find the oldest timestamp and $O(N)$ to delete.
 
-**The Twist (Failure):** **The Pointer Surgery.** Forgetting to update `prev.next` and `next.prev` when detaching a node. Using dummy head and tail simplifies this immensely.
+### 🐇 Optimal Approach
+1. **HashMap**: Stores `key` -> `Node reference`.
+2. **Doubly Linked List**: Maintains usage order.
+   - **Head (Dummy)**: Points to the Most Recently Used (MRU).
+   - **Tail (Dummy)**: Points to the Least Recently Used (LRU).
+3. **get(key)**:
+   - Check Map. If not found, return -1.
+   - If found, **move node to Head** (remove then insert at head).
+4. **put(key, value)**:
+   - If key exists, delete existing node.
+   - Create new node, **insert at Head**, add to Map.
+   - If capacity exceeded, delete the node at **Tail.prev** and remove from Map.
 
-**Interview Signal:** Designing **Composite Data Structures**.
-
-## 🚀 Approach & Intuition
-Map for access, DLL for ordering.
-
-### C++ Pseudo-Code
-```cpp
-class LRUCache {
-    // Node struct with prev, next, key, val
-    // Map<int, Node*>
-    // Dummy Head, Dummy Tail
-    
-    // Helper: removeNode(node)
-    // Helper: insertAfterHead(node)
-public:
-    int get(int key) {
-        if (!map.count(key)) return -1;
-        Node* node = map[key];
-        removeNode(node);
-        insertAfterHead(node);
-        return node->val;
-    }
-    
-    void put(int key, int value) {
-        if (map.count(key)) {
-            removeNode(map[key]);
-        }
-        if (map.size() == capacity) {
-            removeMap(tail->prev->key);
-            removeNode(tail->prev);
-        }
-        insertAfterHead(new Node(key, value));
-    }
-};
+### 🧩 Visual Tracing
+```mermaid
+graph LR
+    subgraph HashMap
+    K1[Key 1] --> N1[Node 1]
+    K2[Key 2] --> N2[Node 2]
+    end
+    subgraph DLL
+    H[Head] <--> N2 <--> N1 <--> T[Tail]
+    end
+    style H fill:#dfd
+    style T fill:#fdd
 ```
 
-### Key Observations:
-
-- Always consider using a dummy head node to simplify edge cases like inserting at the head or deleting the only node.
-- Fast and slow pointers are a common pattern for finding the middle or detecting cycles.
-
-!!! info "Complexity Analysis"
-
-    - **Time Complexity:** $O(1)$ for both `get` and `put`.
-    - **Space Complexity:** $O(C)$ where C is capacity.
+---
 
 ## 💻 Solution Implementation
 
 ```python
-(Implementation details to be added...)
+(Implementation details need to be added...)
 ```
 
-!!! success "Aha! Moment"
-    (To be detailed...)
+### ⏱️ Complexity Analysis
+- **Time Complexity:** $\mathcal{O}(1)$ for both `get` and `put`. Every operation (lookup, pointer update) is constant time.
+- **Space Complexity:** $\mathcal{O}(C)$ where $C$ is the capacity. We store at most $C$ nodes in the Map and DLL.
 
-## 🎤 Interview Follow-ups
+---
 
-- **Harder Variant:** What if the input is sorted or has a limited range? Can you optimize space from $O(N)$ to $O(1)$?
-- **Scale Question:** If the dataset is too large to fit in RAM, how would you use external sorting or a distributed hash table?
-- **Edge Case Probe:** How does your solution handle duplicates, empty inputs, or extremely large integers?
+## 🎤 Interview Toolkit
+
+- **Harder Variant:** How would you make this thread-safe for a concurrent environment? (Read-Write Locks or Concurrent HashMaps).
+- **Scale Question:** What if the cache is too large for one machine? (Distributed caching like Memcached or consistent hashing).
+- **Implementation Detail:** Why use Dummy Head/Tail? (It eliminates null checks when removing nodes or inserting into an empty list).
 
 ## 🔗 Related Problems
-
-- [Merge K Sorted Lists](../merge_k_sorted_lists/PROBLEM.md) — Next in category
-- [Find the Duplicate Number](../find_the_duplicate_number/PROBLEM.md) — Previous in category
-- [Invert Binary Tree](../../07_trees/invert_binary_tree/PROBLEM.md) — Prerequisite for Trees
-- [Valid Palindrome](../../02_two_pointers/valid_palindrome/PROBLEM.md) — Prerequisite: Two Pointers
+- [Merge K Sorted Lists](../merge_k_sorted_lists/PROBLEM.md)
+- [LFU Cache (Hard)](#)
+- [Design Browser History](#)

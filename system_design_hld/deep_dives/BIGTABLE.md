@@ -113,4 +113,4 @@ Explore the low-level implementations of LSM-Trees and wide-column storage:
 
 * [System Design: Distributed Storage (GFS)](./GFS.md)
 * [System Design: NoSQL Internals](./NOSQL_INTERNALS.md)
-* [Machine Coding: Cache System](../../../machine_coding/systems/cache_system/PROBLEM.md)
+* [Machine Coding: Cache System](../../machine_coding/systems/cache_system/PROBLEM.md)
