@@ -28,7 +28,6 @@ python scripts/update_dashboard.py --today
 <!-- ACTIVE_TABLE_START -->
 | Topic | Category | Impact | Last Reviewed | Confidence | Next Review |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-
 <!-- ACTIVE_TABLE_END -->
 
 ---
@@ -49,9 +48,9 @@ python scripts/update_dashboard.py --today
 *(Auto-generated — charts + distribution)*
 
 <!-- STATS_START -->
-* Active Topics: 207
+* Active Topics: 0
 * Needs Review: 0
-* Weak Areas (≤2): 207
+* Weak Areas (≤2): 0
 <!-- STATS_END -->
 
 ---
