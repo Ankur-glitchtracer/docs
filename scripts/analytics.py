@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from pathlib import Path
 
 def generate_chart(stats):
     labels = list(stats.keys())
@@ -13,7 +14,10 @@ def generate_chart(stats):
     plt.pie(values, labels=labels, autopct='%1.1f%%')
     plt.title("Topic Distribution")
 
-    plt.savefig("dashboard_stats.png")
+    # Save to docs/dashboard/
+    output_path = Path("docs/dashboard/dashboard_stats.png")
+    output_path.parent.mkdir(parents=True, exist_ok=True) # Ensure directory exists
+    plt.savefig(output_path)
     plt.close()
 
 
