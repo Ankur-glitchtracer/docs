@@ -1,7 +1,7 @@
 ---
-impact: "Medium"    # Low | Medium | High
-nr: false           # No Review Required (true/false)
-confidence: 2       # 1 (Learning) to 5 (Mastered)
+impact: "Medium"
+nr: false
+confidence: 2
 ---
 # 🖥️ Builder Pattern: High-End Workstation Configurator
 

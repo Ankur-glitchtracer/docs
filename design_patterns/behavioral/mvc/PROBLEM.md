@@ -1,7 +1,7 @@
 ---
-impact: "High"      # Low | Medium | High
-nr: false           # No Review Required (true/false)
-confidence: 2       # 1 (Learning) to 5 (Mastered)
+impact: "High"
+nr: false
+confidence: 2
 ---
 # 🏗️ MVC Pattern: CLI Task Manager
 

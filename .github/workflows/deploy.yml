@@ -1,9 +1,13 @@
 name: Deploy to GitHub Pages
 
 on:
-  push:
-    branches:
-      - main
+  # Triggers this workflow AFTER either of these workflows complete
+  workflow_run:
+    workflows: 
+      - "Update Engineering Dashboard"
+      - "Clear Solutions and Reset Dashboards"
+    types:
+      - completed
   workflow_dispatch:
 
 permissions:
@@ -18,10 +22,13 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # Only run the deployment if the dashboard update was actually successful
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        # We don't need a specific fetch-depth here unless you rely on git history for mkdocs plugins
 
       - name: Setup Python
         uses: actions/setup-python@v5
