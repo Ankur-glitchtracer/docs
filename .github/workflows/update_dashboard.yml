@@ -35,7 +35,8 @@ jobs:
           pip install -e .
 
       - name: Run dashboard updater
-        run: python scripts/update_dashboard.py --auto-add
+        run: python scripts/update_dashboard.py
+        # run: python scripts/update_dashboard.py --auto-add
 
       - name: Commit changes if needed
         run: |
