@@ -39,10 +39,14 @@ Compaction merges SSTables and permanently purges expired tombstones. The strate
 
 ```mermaid
 graph TD
-    subgraph STCS - Size-Tiered (Tombstone Trapping)
-        SST1[SSTable 10GB] 
+    subgraph STCS["STCS - Size-Tiered (Tombstone Trapping)"]
+        SST1[SSTable 10GB]
         SST2[SSTable 10GB]
         Tomb[(Tombstone inside SST2)]
-        Note over SST1,SST2: Will not compact until 2 more 10GB tables exist.<br/>Tombstone lingers causing read latency.
+        Note["Will not compact until 2 more 10GB tables exist. Tombstone lingers causing read latency."]
+        
+        SST2 --> Tomb
+        SST1 --- Note
+        SST2 --- Note
     end
 ```

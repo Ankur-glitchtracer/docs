@@ -43,10 +43,31 @@ Try every possible combination of every length. Without pruning (stopping when s
 ### 🧩 Visual Tracing
 ```mermaid
 graph TD
-    Root[Sum: 0, Candidates: 2,3,6,7] -->|Pick 2| Node2[Sum: 2]
-    Node2 -->|Pick 2| Node4[Sum: 4]
-    Node4 -->|Pick 3| Node7[Sum: 7 (Found!)]
-    Node2 -->|Skip 2, Pick 3| Node5[Sum: 5]
+    Root["Start: t=7"]
+
+    Root -->|+2| A["t=5 | [2]"]
+    A -->|+2| B["t=3 | [2,2]"]
+    B -->|+2| C["t=1 | [2,2,2]"]
+    C -->|+2| X1["t=-1 ✗"]
+    C -->|+3| X2["t=-2 ✗"]
+
+    B -->|+3| D["t=0 ✓ [2,2,3]"]
+    B -->|+6| X3["t=-3 ✗"]
+
+    A -->|+3| E["t=2 | [2,3]"]
+    E -->|+2| F["t=0 ✓ [2,3,2]"]
+    E -->|+3| X4["t=-1 ✗"]
+
+    A -->|+6| X5["t=-1 ✗"]
+
+    Root -->|+3| G["t=4 | [3]"]
+    G -->|+3| H["t=1 | [3,3]"]
+    H -->|+3| X6["t=-2 ✗"]
+
+    Root -->|+6| I["t=1 | [6]"]
+    I -->|+6| X7["t=-5 ✗"]
+
+    Root -->|+7| J["t=0 ✓ [7]"]
 ```
 
 ---

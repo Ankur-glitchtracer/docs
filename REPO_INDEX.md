@@ -304,7 +304,7 @@ A comprehensive, searchable index of every architectural pattern, system design,
 | [Elevator System](machine_coding/systems/elevator/PROBLEM.md) | Systems | High | `machine_coding/systems/elevator/` |
 | [Instagram Feed](machine_coding/systems/instagram/PROBLEM.md) | Systems | High | `machine_coding/systems/instagram/` |
 | [Parking Lot](machine_coding/systems/parking_lot/PROBLEM.md) | Systems | Medium | `machine_coding/systems/parking_lot/` |
-| [Cache System](machine_coding/systems/cache_system/PROBLEM.md) | Systems | Medium | `machine_coding/systems/cache_system/` |
+| [Cache System](machine_coding/systems/cache/PROBLEM.md) | Systems | Medium | `machine_coding/systems/cache/` |
 | [Job Scheduler](machine_coding/distributed/job_scheduler/PROBLEM.md) | Distributed | High | `machine_coding/distributed/job_scheduler/` |
 | [Rate Limiter](machine_coding/distributed/rate_limiter/PROBLEM.md) | Distributed | Medium | `machine_coding/distributed/rate_limiter/` |
 | [Pub-Sub System](machine_coding/distributed/pub_sub/PROBLEM.md) | Distributed | Medium | `machine_coding/distributed/pub_sub/` |

@@ -36,7 +36,7 @@ Use two pointers:
 graph LR
     A(n) --> B(sum_squares)
     B --> C(sum_squares)
-    C -- "Cycle detected if slow == fast" --> D{Is 1?}
+    C -- "Cycle detected\n if slow == fast" --> D{Is 1?}
 ```
 
 ---

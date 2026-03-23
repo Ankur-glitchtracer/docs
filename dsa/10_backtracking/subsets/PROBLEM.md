@@ -38,13 +38,38 @@ Generating all possible combinations using iterative loops is complex to manage.
 3. Base case: When `index == len(nums)`, append a copy of the current subset to results.
 
 ### 🧩 Visual Tracing
+<!-- ```mermaid
+graph TD
+    Root(("Start")) -->|"Include nums[0]"| I["Include"]
+    Root -->|"Exclude nums[0]"| E["Exclude"]
+    I -->|"Include nums[1]"| II["Include, Include"]
+    I -->|"Exclude nums[1]"| IE["Include, Exclude"]
+    style Root fill:#f9f,stroke:#333
+``` -->
 ```mermaid
 graph TD
-    Root(( )) -->|Include nums[0]| I[Include]
-    Root -->|Exclude nums[0]| E[Exclude]
-    I -->|Include nums[1]| II[Include, Include]
-    I -->|Exclude nums[1]| IE[Include, Exclude]
-    style Root fill:#f9f,stroke:#333
+    Root["[]"]
+
+    Root -->|+1| A["[1]"]
+    Root -->|skip 1| B["[]"]
+
+    A -->|+2| C["[1,2]"]
+    A -->|skip 2| D["[1]"]
+
+    C -->|+3| E["[1,2,3]"]
+    C -->|skip 3| F["[1,2]"]
+
+    D -->|+3| G["[1,3]"]
+    D -->|skip 3| H["[1]"]
+
+    B -->|+2| I["[2]"]
+    B -->|skip 2| J["[]"]
+
+    I -->|+3| K["[2,3]"]
+    I -->|skip 3| L["[2]"]
+
+    J -->|+3| M["[3]"]
+    J -->|skip 3| N["[]"]
 ```
 
 ---

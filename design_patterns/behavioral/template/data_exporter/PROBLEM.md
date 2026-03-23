@@ -18,18 +18,18 @@ The **Template Method** pattern defines the skeleton of an algorithm in a base c
 ## 🏭 The Engineering Story & Problem
 
 ### 😡 The Villain (The Problem)
-You're building a data export tool for a company. It needs to support `CSV`, `PDF`, and `JSON`.
-The "Copy-Paste Exporter" version has three separate classes. All three have identical code for connecting to the database, authenticating the user, and fetching the raw records. The only difference is the final formatting step.
+You're building a data export tool for a company. It needs to support `CSV`, `PDF`, and `JSON`. 
+The "Copy-Paste Exporter" version has three separate classes. All three have identical code for connecting to the database, authenticating the user, and fetching the raw records. The only difference is the final formatting step.    
 When you find a bug in the database connection logic, you have to fix it in three different files. If you add a `XML` exporter, you'll copy-paste the same 50 lines of boilerplate again. This is a maintenance nightmare.
 
 ### 🦸 The Hero (The Solution)
-The **Template Method** introduces the "Abstract Recipe."
-We create a base class `DataExporter` with a final method `export()`. This method defines the mandatory sequence:
-1.  `open_connection()` (Implemented in base class - **Invariant**)
-2.  `fetch_data()` (Implemented in base class - **Invariant**)
-3.  `format_data()` (Abstract - **Variant**)
-4.  `write_to_file()` (Abstract - **Variant**)
-5.  `close_connection()` (Implemented in base class - **Invariant**)
+The **Template Method** introduces the "Abstract Recipe."   
+We create a base class `DataExporter` with a final method `export()`. This method defines the mandatory sequence:   
+1.  `open_connection()` (Implemented in base class - **Invariant**) 
+2.  `fetch_data()` (Implemented in base class - **Invariant**)  
+3.  `format_data()` (Abstract - **Variant**)    
+4.  `write_to_file()` (Abstract - **Variant**)  
+5.  `close_connection()` (Implemented in base class - **Invariant**)    
 The `CSVExporter` subclass only has to implement `format_data()` and `write_to_file()`. It doesn't even know *how* the database connection works. The base class "calls back" to the subclass at the right moment.
 
 ### 📜 Requirements & Constraints

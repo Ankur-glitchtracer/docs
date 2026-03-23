@@ -41,11 +41,11 @@ For each node, trace back to root to check validity.
 ### 🧩 Visual Tracing
 ```mermaid
 graph TD
-    A[3 (Max:3)] --> B[1 (Max:3, Not Good)]
-    A --> C[4 (Max:4, Good)]
-    C --> D[1 (Max:4, Not Good)]
-    C --> E[5 (Max:5, Good)]
-    Res[Total: 3, 4, 5 = 3 nodes]
+    A["3 (Max:3)"] --> B["1 (Max:3, Not Good)"]
+    A --> C["4 (Max:4, Good)"]
+    C --> D["1 (Max:4, Not Good)"]
+    C --> E["5 (Max:5, Good)"]
+    E --> Res["Total: 3, 4, 5 = 3 nodes"]
 ```
 
 ---

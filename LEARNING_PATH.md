@@ -58,7 +58,7 @@ This roadmap tracks the progression from algorithmic foundations to complex dist
 | :--- | :--- | :--- |
 | **Pillars** | Fundamentals, Microservices, DB Scaling | [HLD Foundations](./system_design_hld/pillars/CONCEPTS.md) |
 | **Social** | WhatsApp, Facebook Capacity | [WhatsApp HLD](./system_design_hld/architectures/social_media/WHATSAPP.md) |
-| **Streaming** | Netflix, YouTube Scale | [Netflix HLD](./system_design_hld/architectures/streaming/NETFLIX.md) |
+| **Streaming** | Netflix, YouTube Scale | [Netflix HLD](./system_design_hld/architectures/streaming/VIDEO_STREAMING_SERVICE.md) |
 | **Storage** | S3 Lite, Distributed KV Store | [S3 Lite](./system_design_hld/architectures/distributed_storage/S3_LITE.md) |
 
 ---

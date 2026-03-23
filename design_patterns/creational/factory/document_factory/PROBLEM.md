@@ -29,10 +29,10 @@ class Editor:
 When the business asks for `PDF` and `DOCX` support, you start adding `if/elif` blocks to the `Editor` class. Soon, the `Editor` (which should handle UI and menus) is bloated with logic for every document format in existence. It's rigid, hard to test, and adding a new format requires hacking the core framework.
 
 ### 🦸 The Hero (The Solution)
-The **Factory Method** introduces "Subclass Responsibility."
-We define an abstract `Application` class with an abstract method: `create_document()`.
-1.  **PDFApplication:** Overrides `create_document()` to return a `PDFDocument`.
-2.  **WordApplication:** Overrides `create_document()` to return a `WordDocument`.
+The **Factory Method** introduces "Subclass Responsibility."    
+We define an abstract `Application` class with an abstract method: `create_document()`. 
+1.  **PDFApplication:** Overrides `create_document()` to return a `PDFDocument`.    
+2.  **WordApplication:** Overrides `create_document()` to return a `WordDocument`.  
 The base `Application` class has a method `run_editor()` that calls `self.create_document()`. It doesn't know *which* document it's getting; it just knows it's a `Document` that has a `render()` method. The high-level logic is decoupled from the low-level instantiation.
 
 ### 📜 Requirements & Constraints

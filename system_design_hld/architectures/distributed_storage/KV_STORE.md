@@ -66,7 +66,7 @@ A Distributed Key-Value Store is a highly scalable NoSQL database designed for e
 ```mermaid
 graph TD
     Client -->|get/put| Router[Client / Gateway Node]
-    Router -->|Hash(Key) = K| Coordinator[Coordinator Node]
+    Router -->|Hash Key to K| Coordinator[Coordinator Node]
     
     subgraph "Consistent Hashing Ring"
         Coordinator -->|1. Write Primary| NodeA[Node A]
@@ -83,6 +83,108 @@ graph TD
 2.  **Coordinator Node:** Any node can act as a coordinator. It receives the request, identifies the primary owner and the $N-1$ replica nodes on the ring, and forwards the read/write requests to them in parallel.
 3.  **Consistent Hashing Ring:** The logical arrangement of nodes. To prevent uneven data distribution when nodes have different hardware capabilities, physical servers are assigned multiple "Virtual Nodes" (vNodes) scattered across the ring.
 4.  **Storage Engine:** The local disk architecture on each node. High-throughput KV stores typically use Log-Structured Merge-Trees (LSM Trees) consisting of in-memory MemTables and on-disk SSTables to ensure writes are strictly sequential and blazing fast.
+
+
+```mermaid
+graph TD
+    Client -->|Query RW| Router[Client Gateway Node]
+    Router -->|Hash Key to Token| Coordinator[Coordinator Node]
+
+    subgraph "Consistent Hash Ring"
+        Coordinator -->|Write QUORUM| NodeA[Node A]
+        Coordinator -->|Replicate| NodeB[Node B]
+        Coordinator -->|Replicate| NodeC[Node C]
+
+        NodeA -->|Ack| Coordinator
+        NodeB -->|Ack| Coordinator
+        NodeC -->|Ack| Coordinator
+
+        NodeD[Node D] -.->|Gossip| NodeA
+        NodeD -.->|Gossip| NodeB
+        NodeD -.->|Gossip| NodeC
+    end
+
+    Coordinator -->|Response| Router
+
+    %% Hinted Handoff
+    NodeA -.->|Hint if NodeC down| NodeB
+
+    %% Read Path
+    Coordinator -->|Read Request| NodeA
+    Coordinator -->|Read Request| NodeB
+    NodeA -->|Data Digest| Coordinator
+    NodeB -->|Digest| Coordinator
+
+    Coordinator -->|Read Repair| NodeB
+```
+Nice 👍 — let’s level it up into a **clean Cassandra-style architecture diagram** with quorum, replication, gossip, and hinted handoff.
+
+---
+
+### 🚀 Enhanced Distributed System Diagram
+
+```mermaid id="cassandra-arch"
+graph TD
+    Client -->|Query (R/W)| Router[Client / Gateway Node]
+    Router -->|Hash Key to Token| Coordinator[Coordinator Node]
+
+    subgraph "Consistent Hash Ring"
+        Coordinator -->|Write (CL=QUORUM)| NodeA[Node A]
+        Coordinator -->|Replicate| NodeB[Node B]
+        Coordinator -->|Replicate| NodeC[Node C]
+
+        NodeA -->|Ack| Coordinator
+        NodeB -->|Ack| Coordinator
+        NodeC -->|Ack| Coordinator
+
+        NodeD[Node D] -.->|Gossip| NodeA
+        NodeD -.->|Gossip| NodeB
+        NodeD -.->|Gossip| NodeC
+    end
+
+    Coordinator -->|Respond to Client| Router
+
+    %% Hinted Handoff
+    NodeA -.->|Hint (if NodeC down)| NodeB
+
+    %% Read Path
+    Coordinator -->|Read Request| NodeA
+    Coordinator -->|Read Request| NodeB
+    NodeA -->|Data + Digest| Coordinator
+    NodeB -->|Digest| Coordinator
+
+    Coordinator -->|Read Repair (if mismatch)| NodeB
+```
+
+### 🧠 What this diagram now shows
+
+#### 1. **Coordinator role**
+
+* Receives request from client
+* Routes based on hash/token
+* Manages quorum logic
+
+#### 2. **Write path (QUORUM)**
+
+* Writes go to multiple replicas
+* Coordinator waits for majority (e.g., 2/3)
+
+#### 3. **Gossip protocol**
+
+* Nodes exchange cluster state
+* Helps detect failures and topology changes
+
+#### 4. **Hinted handoff**
+
+* If a node is down, another node stores a “hint”
+* Later delivers missed writes
+
+#### 5. **Read path + read repair**
+
+* Coordinator requests from multiple replicas
+* Uses digest comparison
+* Repairs inconsistencies automatically
+
 
 -----
 
@@ -124,4 +226,4 @@ If Node B goes offline during a write, the Coordinator writes the data to Node D
 
   - [System Design: NoSQL Internals](https://www.google.com/search?q=./NOSQL_INTERNALS.md) — Deep dive into LSM-Trees, Bloom Filters, and SSTables.
   - [System Design: S3 Lite](https://www.google.com/search?q=./S3_LITE.md) — How massive distributed object stores partition data.
-  - [Machine Coding: Cache System](../../../machine_coding/systems/cache_system/PROBLEM.md) — Localized KV store implementations (LRU/LFU).
+  - [Machine Coding: Cache System](../../../machine_coding/systems/cache/PROBLEM.md) — Localized KV store implementations (LRU/LFU).

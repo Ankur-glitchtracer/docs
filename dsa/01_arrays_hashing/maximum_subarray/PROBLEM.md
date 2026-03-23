@@ -13,7 +13,7 @@ Given an integer array `nums`, find the **contiguous subarray** (containing at l
 [LeetCode 53](https://leetcode.com/problems/maximum-subarray/)
 
 !!! info "Real-World Application"
-Used in **Financial Analysis** (max profit streak), **Signal Processing**, and **Performance Tracking** to identify the most beneficial continuous segment in a dataset.
+   Used in **Financial Analysis** (max profit streak), **Signal Processing**, and **Performance Tracking** to identify the most beneficial continuous segment in a dataset.
 
 ## 🛠️ Constraints & Edge Cases
 
@@ -30,9 +30,9 @@ Used in **Financial Analysis** (max profit streak), **Signal Processing**, and *
 ## 🧠 Approach & Intuition
 
 !!! success "The Aha! Moment"
-At every index, decide:
-👉 **Extend the current subarray** OR
-👉 **Start a new subarray from here**
+   At every index, decide:
+   👉 **Extend the current subarray** OR
+   👉 **Start a new subarray from here**
 
 ### 🐢 Brute Force (Naive)
 
@@ -57,7 +57,7 @@ Check all possible subarrays and compute their sums.
 
 ### 🧩 Visual Tracing
 
-```mermaid id="2m8kdl"
+```mermaid
 graph TD
     A[Start at index 0] --> B{Extend or Restart?}
     B -- "Extend (current + num)" --> C[Continue Subarray]

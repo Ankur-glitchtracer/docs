@@ -58,13 +58,83 @@ While sharding solves storage limits, it introduces significant operational and 
 
 ```mermaid
 graph TD
-    Client --> API[Application Server]
-    API --> Hash[Hash Function: Hash(UserID)]
-    
+    Client --> API["Application Server"]
+    API --> Hash["Hash Function: Hash(UserID)"]
+
     Hash -->|Hash % 3 = 0| Shard1[(Shard A)]
     Hash -->|Hash % 3 = 1| Shard2[(Shard B)]
     Hash -->|Hash % 3 = 2| Shard3[(Shard C)]
 ```
+
+---
+
+Perfect — here’s a **ready-to-present interview cheat sheet**: the **diagram + small talking bullets next to each part**. You can literally use this on a whiteboard or slide and narrate it fluently.
+
+---
+
+## 🚀 Consistent Hashing + Quorum System (Cheat Sheet)
+
+```mermaid
+graph TD
+    %% Client Layer
+    Client["Client"]
+    Client --> API["Application Server"]
+    subgraph "API Layer"
+        API -->|Write Request| Coord["Coordinator Node"]
+        API -->|Read Request| CoordR["Coordinator Node"]
+    end
+
+    %% Coordinator & Hash
+    Coord --> Hash["Hash(UserID)"]
+    CoordR --> Hash
+    Hash --> Ring["Consistent Hash Ring"]
+
+    %% Shard Nodes
+    Ring --> P["Primary Node"]
+    P --> R1["Replica 1"]
+    P --> R2["Replica 2"]
+
+    %% Write Path (ACKs)
+    P -->|Write| R1
+    P -->|Write| R2
+    R1 -->|ACK| Coord
+    R2 -->|ACK| Coord
+    P -->|ACK| Coord
+    Coord -->|Write quorum met| Client
+
+    %% Read Path
+    P -->|Data v3| CoordR
+    R1 -->|Data v2| CoordR
+    R2 -->|Data v3| CoordR
+    CoordR --> Result["Return latest (R=2)"]
+    Result --> Client
+```
+
+---
+
+### 🔹 Notes (for each part)
+
+| Diagram Part            | Talking Point                                                                           |
+| ----------------------- | --------------------------------------------------------------------------------------- |
+| **Client → API**        | Entry point for requests. Handles client communication.                                 |
+| **Coordinator Node**    | Determines responsible shards based on hash. Handles ACK collection.                    |
+| **Hash → Ring**         | Consistent hashing ensures minimal data movement on node changes.                       |
+| **Primary + Replicas**  | Each key is written to a primary + replicas. Provides durability and fault tolerance.   |
+| **Write Path & Quorum** | W=2 → coordinator waits for 2 ACKs before responding. Ensures strong consistency.       |
+| **Read Path & Quorum**  | R=2 → coordinator queries multiple nodes, returns latest version. Resolves stale reads. |
+| **Result Node**         | Represents final data returned to the client.                                           |
+| **Replication**         | Arrows from primary → replicas show replication flow.                                   |
+| **Failure Handling**    | Any node failure is automatically handled via replicas. Minimal disruption.             |
+
+---
+
+### 💡 Delivery Tips
+
+1. Start with **write flow** → explain **quorum and replication**.
+2. Then show **read flow** → explain **latest data & R quorum**.
+3. Emphasize **R+W>N** for consistency.
+4. Highlight **hash ring → shards → replicas** as the key design pattern.
+5. Optional: mention **vnodes, hinted handoff, read repair** if asked.
 
 ---
 

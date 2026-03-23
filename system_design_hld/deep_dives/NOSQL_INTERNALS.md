@@ -98,4 +98,4 @@ Explore the low-level implementations of LSM-Trees and distributed storage inter
 
 * [System Design: Dynamo & Cassandra](../architectures/distributed_storage/DYNAMO_AND_CASSANDRA.md)
 * [System Design: Conflict Resolution](./CONFLICT_RESOLUTION.md)
-* [Machine Coding: Cache System](../../machine_coding/systems/cache_system/PROBLEM.md)
+* [Machine Coding: Cache System](../../machine_coding/systems/cache/PROBLEM.md)

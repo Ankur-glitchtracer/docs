@@ -18,11 +18,11 @@ The **Chain of Responsibility** pattern allows you to pass requests along a dyna
 ## 🏭 The Engineering Story & Problem
 
 ### 😡 The Villain (The Problem)
-Imagine a "Monolithic Middleware" function for a web server. It handles everything: logging, authentication, rate limiting, data validation, and caching. This single function is 1,000 lines long, filled with nested `if-else` statements.
+Imagine a "Monolithic Middleware" function for a web server. It handles everything: logging, authentication, rate limiting, data validation, and caching. This single function is 1,000 lines long, filled with nested `if-else` statements.    
 Every time you need to add a new check (like CORS or CSRF protection), you have to modify this giant, fragile function. Testing is a nightmare because all the logic is tightly coupled; you can't test authentication without also triggering logging and rate limiting.
 
 ### 🦸 The Hero (The Solution)
-The **Chain of Responsibility** introduces a "Linked Pipeline." Instead of one giant function, each responsibility (Logging, Auth, Throttling) is encapsulated in its own small, focused class. These classes are linked together like a chain.
+The **Chain of Responsibility** introduces a "Linked Pipeline." Instead of one giant function, each responsibility (Logging, Auth, Throttling) is encapsulated in its own small, focused class. These classes are linked together like a chain. 
 When a request comes in, it's passed to the first handler. That handler does its job and then calls the `next` handler. If a handler decides the request is invalid (e.g., Auth fails), it stops the chain immediately. The client just sends the request to the first link and doesn't care about the rest.
 
 ### 📜 Requirements & Constraints

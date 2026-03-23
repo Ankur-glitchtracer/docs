@@ -37,10 +37,13 @@ Use bottom-up DP:
 ### 🧩 Visual Tracing
 ```mermaid
 graph LR
-    S[s = applepenapple] --> D1[dp[0]=T]
-    D1 -- "apple" --> D2[dp[5]=T]
-    D2 -- "pen" --> D3[dp[8]=T]
-    D3 -- "apple" --> D4[dp[13]=T]
+    S["s = applepenapple"] --> D1["dp[0] = T"]
+    D1 --> D2["dp[5] = T"] 
+    D2 --> D3["dp[8] = T"]
+    D3 --> D4["dp[13] = T"]
+    D1 -->|apple| D2
+    D2 -->|pen| D3
+    D3 -->|apple| D4
     style D4 fill:#cfc,stroke:#333,stroke-width:2px
 ```
 

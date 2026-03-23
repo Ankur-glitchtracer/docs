@@ -62,9 +62,9 @@ Use **Binary Search** on the answer:
 
 ```mermaid
 graph TD
-    A[Range: max(nums) to sum(nums)] --> B{Check max sum mid}
-    B -- "Can split into ≤ k" --> C[Search Left: minimize further]
-    B -- "Need > k splits" --> D[Search Right: increase limit]
+    A["Range: max(nums) to sum(nums)"] --> B{"Check max sum mid"}
+    B -->|Can split into ≤ k| C["Search Left: minimize further"]
+    B -->|Need > k splits| D["Search Right: increase limit"]
     style C fill:#ccffcc,stroke:#00aa00
     style D fill:#ffcccc,stroke:#aa0000
 ```

@@ -22,9 +22,9 @@ Imagine a "Hardcoded Rule System" for a smart home. Users want to define automat
 In the bad version, you write a parser that spits out a massive nested `if-else` block or, worse, uses Python's dangerous `eval()` function on raw strings. Adding a new operator like "XOR" or "NOT" requires hacking the core parsing logic. The business logic is buried in the parser, making it rigid and unsafe.
 
 ### 🦸 The Hero (The Solution)
-The **Interpreter Pattern** treats the rule as a "Sentence" in a language. We break the sentence down into small grammatical parts (Tokens).
--   **Terminal Expressions:** The leaves of the tree (e.g., `30`, `temp`).
--   **Non-Terminal Expressions:** The branches (e.g., `AndExpression`, `GreaterThanExpression`).
+The **Interpreter Pattern** treats the rule as a "Sentence" in a language. We break the sentence down into small grammatical parts (Tokens).    
+-   **Terminal Expressions:** The leaves of the tree (e.g., `30`, `temp`).  
+-   **Non-Terminal Expressions:** The branches (e.g., `AndExpression`, `GreaterThanExpression`).    
 We build a tree: `And(GreaterThan(temp, 30), Equals(motion, detected))`. To run it, we just call `root.interpret(context)`. The `And` node calls `interpret` on its two children and combines the result.
 
 ### 📜 Requirements & Constraints

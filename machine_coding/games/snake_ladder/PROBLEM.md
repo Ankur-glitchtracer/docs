@@ -39,10 +39,10 @@ Design and implement a robust **Snake & Ladder** game engine. This challenge foc
 ## 🏗️ Design & Architecture
 
 ### 🧠 Thinking Process
-To transform these requirements into a clean system, we identify four core entities:
-1.  **Player:** Tracks identity and current position on the board.
-2.  **Board:** Acts as a data structure containing the "jump" mappings (Snakes/Ladders).
-3.  **Dice:** A utility for generating random movements.
+To transform these requirements into a clean system, we identify four core entities:    
+1.  **Player:** Tracks identity and current position on the board.  
+2.  **Board:** Acts as a data structure containing the "jump" mappings (Snakes/Ladders).    
+3.  **Dice:** A utility for generating random movements.    
 4.  **Game:** The orchestrator that manages the loop, turn transitions, and win conditions.
 
 ### 🧩 Class Diagram

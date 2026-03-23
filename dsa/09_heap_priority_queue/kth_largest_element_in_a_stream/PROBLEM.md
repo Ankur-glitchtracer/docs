@@ -41,12 +41,15 @@ Append to list and sort every time `add()` is called.
 ### 🧩 Visual Tracing
 ```mermaid
 graph TD
-    A[Stream, K=3]
-    B[Add 4] --> H1[4]
-    C[Add 5] --> H2[4, 5]
-    D[Add 8] --> H3[4, 5, 8] -> Result: 4
-    E[Add 2] -->|2 < 4| H3 -> Result: 4
-    F[Add 10] -->|10 > 4| H4[5, 8, 10] -> Result: 5
+    A["Stream, K=3"]
+    B["Add 4"] --> H1["4"]
+    C["Add 5"] --> H2["4, 5"]
+    D["Add 8"] --> H3["4, 5, 8"]
+    H3 --> R1["Result: 4"]
+    E["Add 2"] -->|2 < 4| H3
+    H3 --> R2["Result: 4"]
+    F["Add 10"] -->|10 > 4| H4["5, 8, 10"]
+    H4 --> R3["Result: 5"]
 ```
 
 ---

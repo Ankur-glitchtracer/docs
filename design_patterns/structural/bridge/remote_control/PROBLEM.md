@@ -119,11 +119,6 @@ sequenceDiagram
     --8<-- "design_patterns/structural/bridge/remote_control/remote_control.py"
     ```
 
-???+ success "The Hero's Code (With Pattern)"
-    ```python
-    --8<-- "design_patterns/structural/bridge/remote_control/remote_control.py"
-    ```
-
 ---
 
 ## ⚖️ Trade-offs & Testing

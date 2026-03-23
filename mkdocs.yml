@@ -34,7 +34,9 @@ theme:
 
 nav:
   - Home: index.md
-  - Interview Playbook: interview_playbook.md
+  - Interview:
+    - Playbook: interview_playbook.md
+    - Reference: references.md
   - Repo Index: repo_index.md
   - Progress Tracker: todo.md
   - Engineering Metrics:
@@ -268,11 +270,15 @@ nav:
     - Games:
       - Snake & Ladder: machine_coding/games/snake_ladder/PROBLEM.md
       - Tic-Tac-Toe: machine_coding/games/tic_tac_toe/PROBLEM.md
+      - Deck of Cards: machine_coding/games/deck_of_cards/PROBLEM.md
     - Systems:
       - Elevator: machine_coding/systems/elevator/PROBLEM.md
       - Instagram: machine_coding/systems/instagram/PROBLEM.md
       - Parking Lot: machine_coding/systems/parking_lot/PROBLEM.md
-      - Cache System: machine_coding/systems/cache_system/PROBLEM.md
+      - Cache System: machine_coding/systems/cache/PROBLEM.md
+      - Call Center: machine_coding/systems/call_center/PROBLEM.md
+      - Online Chat: machine_coding/systems/online_chat/PROBLEM.md
+      - Hash Map: machine_coding/systems/hash_map/PROBLEM.md
     - Distributed:
       - Job Scheduler: machine_coding/distributed/job_scheduler/PROBLEM.md
       - Rate Limiter: machine_coding/distributed/rate_limiter/PROBLEM.md
@@ -337,6 +343,7 @@ nav:
     - Microservices & LLD:
       - Decoupling & Architecture: system_design_hld/pillars/microservices/MICROSERVICES_DECOUPLING.md
       - API Gateway & Messaging: system_design_hld/pillars/microservices/API_GATEWAY_AND_MESSAGING.md
+      - Asynchronism: system_design_hld/pillars/microservices/ASYNCHRONISM.md
       - LLD Design Principles (SOLID): system_design_hld/pillars/LLD_DESIGN_PRINCIPLES.md
     - Deep Dives:
       - Conflict Resolution (Vector Clocks): system_design_hld/deep_dives/CONFLICT_RESOLUTION.md
@@ -372,6 +379,11 @@ nav:
         - Web Crawler: system_design_hld/architectures/utilities/WEB_CRAWLER.md
         - Typeahead Suggestion: system_design_hld/architectures/search_systems/TYPEAHEAD_SUGGESTION.md
         - Twitter Search: system_design_hld/architectures/search_systems/TWITTER_SEARCH.md
+        - System Scaling (AWS): system_design_hld/architectures/utilities/SCALING_AWS.md
+        - Amazon Sales Rank: system_design_hld/architectures/utilities/SALES_RANK.md
+        - Search Query Cache: system_design_hld/architectures/utilities/QUERY_CACHE.md
+        - Social Graph Search: system_design_hld/architectures/utilities/SOCIAL_GRAPH.md
+        - Personal Finance (Mint): system_design_hld/architectures/payment_systems/MINT.md
 
 markdown_extensions:
   - admonition

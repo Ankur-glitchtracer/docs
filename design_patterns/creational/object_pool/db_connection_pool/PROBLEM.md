@@ -18,8 +18,8 @@ The **Object Pool Pattern** manages a set of initialized objects kept ready to u
 ## 🏭 The Engineering Story & Problem
 
 ### 😡 The Villain (The Problem)
-You're building a high-speed trading application. Every millisecond counts.
-To log a trade, your app must connect to a database. However, the database takes **20ms** to perform a TLS handshake and authenticate.
+You're building a high-speed trading application. Every millisecond counts. 
+To log a trade, your app must connect to a database. However, the database takes **20ms** to perform a TLS handshake and authenticate.  
 If you create a new connection for every trade:
 ```python
 def log_trade(trade):
@@ -30,12 +30,12 @@ def log_trade(trade):
 Your app is limited to 50 trades per second, and your server will eventually crash because it runs out of available network ports (Port Exhaustion). The "Handshake Latency" is killing your performance.
 
 ### 🦸 The Hero (The Solution)
-The **Object Pool** introduces the "Stable Reservoir."
-When the app starts, it creates a pool of 10 connections and keeps them alive.
-When a trade needs to be logged:
-1.  The app asks the pool for an available connection (`acquire`).
-2.  The pool hands over an already-authenticated connection immediately (**0ms** latency).
-3.  The app logs the trade and returns the connection to the pool (`release`).
+The **Object Pool** introduces the "Stable Reservoir."  
+When the app starts, it creates a pool of 10 connections and keeps them alive.  
+When a trade needs to be logged:    
+1.  The app asks the pool for an available connection (`acquire`).  
+2.  The pool hands over an already-authenticated connection immediately (**0ms** latency).  
+3.  The app logs the trade and returns the connection to the pool (`release`).  
 The 20ms penalty is only paid once at startup. The app can now handle thousands of trades per second using just a few persistent connections.
 
 ### 📜 Requirements & Constraints

@@ -34,10 +34,10 @@ class DiscountEngine:
 Every time a new coupon type is added, you have to modify the core `DiscountEngine`. This violates the Open/Closed Principle and makes the engine risky to change.
 
 ### 🦸 The Hero (The Solution)
-The **Factory Pattern** introduces the "Specialized Creator."
-We pull the "How to create a coupon" logic out into a `CouponFactory`.
-The `DiscountEngine` now just says: `coupon = CouponFactory.get_coupon(code_data)`.
-It doesn't care if the factory returns a `PercentageDiscount` or a `BOGODiscount`. It just knows the result is a `Coupon` that has an `apply()` method.
+The **Factory Pattern** introduces the "Specialized Creator."   
+We pull the "How to create a coupon" logic out into a `CouponFactory`.  
+The `DiscountEngine` now just says: `coupon = CouponFactory.get_coupon(code_data)`. 
+It doesn't care if the factory returns a `PercentageDiscount` or a `BOGODiscount`. It just knows the result is a `Coupon` that has an `apply()` method. 
 You can now add 50 new coupon types by just updating the Factory. The `DiscountEngine` remains clean and never needs to change.
 
 ### 📜 Requirements & Constraints

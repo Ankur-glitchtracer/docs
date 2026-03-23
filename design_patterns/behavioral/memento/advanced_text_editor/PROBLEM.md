@@ -18,12 +18,13 @@ The **Memento Pattern** captures and externalizes an object's internal state so 
 ## 🏭 The Engineering Story & Problem
 
 ### 😡 The Villain (The Problem)
-Imagine a "Complex Text Editor" with text content, cursor position, scroll position, and text selection. You want to implement `Ctrl+Z` (Undo).
-The naive approach is to have a `HistoryManager` that forcefully reads the `Editor`'s private variables (`editor._content`, `editor._cursor_x`) and saves them. This breaks **Encapsulation**. If you change the `Editor`'s internal implementation (e.g., renaming `_cursor_x` to `_position`), the `HistoryManager` breaks. The `HistoryManager` knows too much about the `Editor`.
+Imagine a "Complex Text Editor" with text content, cursor position, scroll position, and text selection. You want to implement `Ctrl+Z` (Undo). 
+The naive approach is to have a `HistoryManager` that forcefully reads the `Editor`'s private variables (`editor._content`, `editor._cursor_x`) and saves them. 
+This breaks **Encapsulation**. If you change the `Editor`'s internal implementation (e.g., renaming `_cursor_x` to `_position`), the `HistoryManager` breaks. The `HistoryManager` knows too much about the `Editor`.
 
 ### 🦸 The Hero (The Solution)
-The **Memento Pattern** introduces a "Black Box" snapshot.
-The `Editor` (Originator) has a method `save()` that returns a `Memento` object containing a copy of its internal state. The `HistoryManager` (Caretaker) grabs this object and puts it in a stack. It *cannot* look inside the Memento; it just holds it.
+The **Memento Pattern** introduces a "Black Box" snapshot.  
+The `Editor` (Originator) has a method `save()` that returns a `Memento` object containing a copy of its internal state. The `HistoryManager` (Caretaker) grabs this object and puts it in a stack. It *cannot* look inside the Memento; it just holds it.  
 When the user presses Undo, the `HistoryManager` pops the Memento and passes it back to the `Editor.restore(memento)`. The `Editor` opens the box and restores its own state. The secrets remain with the Editor.
 
 ### 📜 Requirements & Constraints
@@ -61,7 +62,7 @@ classDiagram
     
     Editor ..> EditorMemento : Creates
     History o-- EditorMemento : Stores
-    EditorMemento --+ Editor : Nested/Friend
+    EditorMemento -- Editor : Nested/Friend
 ```
 
 ### Runtime Context (Sequence)

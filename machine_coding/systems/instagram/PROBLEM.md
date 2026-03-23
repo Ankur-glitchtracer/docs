@@ -39,9 +39,9 @@ Design a simplified **Social Media Feed** system. This challenge focuses on mana
 ## 🏗️ Design & Architecture
 
 ### 🧠 Thinking Process
-To build this, we model three primary entities:
-1.  **Post:** A value object containing content and a creation timestamp.
-2.  **User:** An entity that owns a list of its own `Post` objects and a `set` of other `User` objects it follows.
+To build this, we model three primary entities:     
+1.  **Post:** A value object containing content and a creation timestamp.   
+2.  **User:** An entity that owns a list of its own `Post` objects and a `set` of other `User` objects it follows.  
 3.  **Feed Manager (Logic):** Embedded within the `User` class (in this lite version) to aggregate and sort posts on-demand (Pull model).
 
 ### 🧩 Class Diagram
@@ -101,4 +101,4 @@ The implementation uses a **Pull-on-Read** approach. When a user requests their 
 
 ## 🔗 Related Challenges
 - [Persistent Pub-Sub](../../distributed/pub_sub/PROBLEM.md) — For a more generic "Broadcast" infrastructure.
-- [High-Performance Cache](../cache_system/PROBLEM.md) — For caching pre-computed feeds for high-traffic users.
+- [High-Performance Cache](../cache/PROBLEM.md) — For caching pre-computed feeds for high-traffic users.

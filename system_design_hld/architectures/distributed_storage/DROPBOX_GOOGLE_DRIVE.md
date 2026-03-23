@@ -133,4 +133,4 @@ If two users upload the exact same file (or if a user copies a file), the system
 
   - [System Design: S3 Lite](./S3_LITE.md) — To understand the underlying blob storage tier where the chunks actually live.
   - [System Design: Distributed KV Store](./KV_STORE.md) — For deep-diving into the chunk hash lookup mechanics.
-  - [Machine Coding: Cache System](../../../machine_coding/systems/cache_system/PROBLEM.md)
+  - [Machine Coding: Cache System](../../../machine_coding/systems/cache/PROBLEM.md)

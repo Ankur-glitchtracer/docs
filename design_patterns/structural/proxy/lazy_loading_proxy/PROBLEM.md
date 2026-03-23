@@ -108,11 +108,6 @@ sequenceDiagram
     --8<-- "design_patterns/structural/proxy/lazy_loading_proxy/lazy_loading_proxy.py"
     ```
 
-???+ success "The Hero's Code (With Pattern)"
-    ```python
-    --8<-- "design_patterns/structural/proxy/lazy_loading_proxy/lazy_loading_proxy.py"
-    ```
-
 ---
 
 ## ⚖️ Trade-offs & Testing

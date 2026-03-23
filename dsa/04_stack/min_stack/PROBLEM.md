@@ -43,10 +43,10 @@ Use a standard list. `getMin()` iterates the list to find the minimum.
 ### 🧩 Visual Tracing
 ```mermaid
 graph TD
-    A[Push -2] -->|Main: [-2], Min: [-2]| B
-    B[Push 0] -->|Main: [-2, 0], Min: [-2]| C
-    C[Push -3] -->|Main: [-2, 0, -3], Min: [-2, -3]| D
-    D[Pop] -->|Main: [-2, 0], Min: [-2]| E
+    A["Push -2"] -->|"Main: [-2], Min: [-2]"| B
+    B["Push 0"] -->|"Main: [-2, 0], Min: [-2]"| C
+    C["Push -3"] -->|"Main: [-2, 0, -3], Min: [-2, -3]"| D
+    D["Pop"] -->|"Main: [-2, 0], Min: [-2]"| E
 ```
 
 ---

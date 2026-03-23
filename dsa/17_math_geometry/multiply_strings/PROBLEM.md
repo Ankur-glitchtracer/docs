@@ -35,9 +35,9 @@ Convert strings to integers, multiply, and convert back. This fails for very lar
 ### 🧩 Visual Tracing
 ```mermaid
 graph LR
-    A[num1: '12'] -->|x| B[num2: '34']
-    B --> C{pos[i+j] + carry}
-    C --> D[Result: '408']
+    A["num1: '12'"] -->|x| B["num2: '34'"]
+    B --> C{"pos[i+j] + carry"}
+    C --> D["Result: '408'"]
 ```
 
 ---

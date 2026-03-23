@@ -3,88 +3,91 @@ impact: "Medium"
 nr: false
 confidence: 4
 ---
-# 🅿️ Machine Coding: High-Concurrency Parking Lot
+# 🅿️ Machine Coding: Multi-Level Parking Lot
 
 ## 📝 Overview
-Design and implement a robust **Multi-Floor Parking Lot** system. This challenge focuses on efficient resource allocation, specialized spot management for different vehicle types, and maintaining thread-safe operations in a high-traffic environment with multiple entry/exit gates.
+Design and implement a robust **Multi-Floor Parking Lot** system. This challenge focuses on efficient hierarchical resource allocation, specialized spot management for different vehicle sizes, and handling complex spatial constraints (like assigning consecutive spots for large vehicles).
 
 !!! info "Why This Challenge?"
-    - **Resource Allocation Mastery:** Evaluates your ability to match diverse resources (spots) with varied requests (vehicle types) optimally.
-    - **Concurrency & Synchronization:** Tests your ability to use locks or thread-safe collections to prevent "double-booking" of spots.
-    - **Clean Domain Modeling:** Mastery of representing physical entities (Floors, Spots, Vehicles, Tickets) as a clean, interacting object hierarchy.
+    - **Resource Allocation Mastery:** Evaluates your ability to match diverse resources (spots) with varied physical requests (vehicle sizes).
+    - **Spatial/Array Logic:** Tests your algorithmic approach to finding contiguous blocks of available memory/spots (e.g., parking a Bus).
+    - **Clean Domain Modeling:** Mastery of representing physical entities (`ParkingLot`, `Level`, `ParkingSpot`, `Vehicle`) as a cleanly interacting, composite object hierarchy.
 
 ---
 
 ## 🏭 The Scenario & Requirements
 
 ### 😡 The Problem (The Villain)
-**"The Double-Booker Gridlock."** Two cars enter a busy parking lot from different gates at the exact same millisecond. Without synchronization, the system assigns "Spot #101" to both. They collide at the spot, causing a literal gridlock and manual ticket voiding. Meanwhile, a truck is circling because the system assigned it a "Bike-only" spot.
+**"The Double-Booker & The Bus Problem."** A naive parking system assigns cars strictly to the first open spot. However, a motorcycle can technically fit anywhere, a car needs a compact or large spot, and a bus needs *five consecutive large spots*. A poorly modeled system will either reject the bus or attempt to park its 5 sections in random, non-contiguous spots across the lot, causing a physical impossibility.
 
 ### 🦸 The System (The Hero)
-**"The Thread-Safe Allocator."** A centralized parking engine that uses synchronized methods or atomic checks to ensure every spot is granted to exactly one valid vehicle. It intelligently filters spots based on vehicle type and proximity to the entry gate, ensuring smooth flow and accurate billing.
+**"The Hierarchical Allocator."** A centralized parking engine that models the physical world perfectly. It cascades requests down from the `ParkingLot` to individual `Level`s. Each Level intelligently scans its array of `ParkingSpot`s to find valid, contiguous blocks that satisfy the specific `VehicleSize` and `required_spots` polymorphic rules of the incoming vehicle.
 
 ### 📜 Requirements & Constraints
-1.  **Functional:**
-    -   **Hierarchical Management:** Manage multiple floors with a configurable number of spots.
-    -   **Vehicle Diversity:** Handle Motorcycles, Cars, and Trucks, each requiring specific spot types.
-    -   **Entry/Exit Workflow:** Automatically find/reserve a spot on entry and free it on exit.
-    -   **Billing (Optional):** Calculate fees based on the duration of stay and vehicle type.
-2.  **Technical:**
-    -   **Thread Safety:** The `park_vehicle` operation must be atomic across multiple entry gates.
-    -   **Efficiency:** Finding an available spot should be $O(1)$ or $O(N)$ (where $N$ is the number of spots per floor).
-    -   **Encapsulation:** Vehicles should not be able to "claim" a spot without going through the `ParkingLot` manager.
+1.  **(Functional):** Manage multiple floors/levels, each with a configurable number of spots of varying sizes (Motorcycle, Compact, Large).
+2.  **(Functional):** Handle distinct vehicle types:
+    -   *Motorcycles:* Can park in any spot.
+    -   *Cars:* Can park in Compact or Large spots.
+    -   *Buses:* Can ONLY park in 5 *consecutive* Large spots.
+3.  **(Functional):** Automatically find/reserve a spot on entry and free it seamlessly on exit without leaving orphaned memory pointers.
+4.  **(Technical):** Finding an available block of spots must be resolved efficiently without scanning the entire lot if a level is already full.
 
 ---
 
 ## 🏗️ Design & Architecture
 
 ### 🧠 Thinking Process
-To handle these requirements, we adopt a bottom-up modeling approach:
-1.  **Vehicle (Abstract):** Base class for `Car`, `Bike`, etc., defining the required spot type.
-2.  **ParkingSpot:** Represents a single unit of storage with a fixed type and availability state.
-3.  **ParkingLot:** The orchestrator that contains a list of `ParkingSpot` objects and manages the allocation logic.
+To handle these physical constraints, we must adopt a strict composite approach:    
+1.  **Vehicle (Abstract):** Base class defining the `VehicleSize` and the number of `required_spots`. It delegates the exact fitting logic (`can_fit_in_spot`) to its concrete subclasses.  
+2.  **ParkingSpot:** Represents a single unit of storage with a fixed size category and an availability state.  
+3.  **Level:** Represents a single floor. It manages the array of spots and contains the sliding-window logic required to find contiguous empty spaces. 
+4.  **ParkingLot:** The global orchestrator containing a list of `Level` objects.
 
 ### 🧩 Class Diagram
+*(The Object-Oriented Blueprint. Who owns what?)*
 ```mermaid
 classDiagram
     direction TB
-    class Vehicle {
-        <<abstract>>
-        +string number_plate
-        +vehicle_type()*
+    class ParkingLot {
+        -List~Level~ levels
+        +park_vehicle(vehicle) bool
     }
-    class Car {
-        +vehicle_type() "Car"
-    }
-    class Bike {
-        +vehicle_type() "Bike"
+    class Level {
+        -int floor
+        -int available_spots
+        -List~ParkingSpot~ spots
+        +park_vehicle(vehicle) bool
+        -_find_available_spots(vehicle) int
     }
     class ParkingSpot {
-        +int spot_id
-        +string spot_type
-        +bool is_free
+        +VehicleSize spot_size
+        +bool is_available()
         +park_vehicle(vehicle)
         +remove_vehicle()
     }
-    class ParkingLot {
-        +string name
-        -List~ParkingSpot~ spots
-        +add_spot(spot)
-        +find_free_spot(type)
-        +park_vehicle(vehicle)
+    class Vehicle {
+        <<abstract>>
+        +VehicleSize vehicle_size
+        +int required_spots
+        +take_spot(spot)
+        +clear_spots()
+        +can_fit_in_spot(spot)* bool
     }
-    ParkingLot o-- ParkingSpot : contains
-    ParkingSpot --> Vehicle : holds
+    
+    ParkingLot *-- Level : manages
+    Level *-- ParkingSpot : contains
+    ParkingSpot o-- Vehicle : holds
     Vehicle <|-- Car
-    Vehicle <|-- Bike
+    Vehicle <|-- Bus
+    Vehicle <|-- Motorcycle
 ```
 
 ### ⚙️ Design Patterns Applied
-- **Factory Pattern**: (Potential) To create the correct `Vehicle` object from a license plate scan.
-- **Strategy Pattern**: For implementing different "Spot Finding" algorithms (e.g., nearest-to-gate, cheapest-floor).
-- **Singleton Pattern**: Ensures only one `ParkingLot` instance exists to manage the global state.
 
----
+  - **Composite Pattern (Conceptual)**: Cascading the `park_vehicle` request down the structural tree (`ParkingLot` $\rightarrow$ `Level` $\rightarrow$ `ParkingSpot`).
+  - **Strategy / Polymorphism**: Resolving the spatial rules. Instead of the `ParkingSpot` writing massive `if/else` checks for every vehicle type, it asks the vehicle itself: `vehicle.can_fit_in_spot(self)`.
+
+-----
 
 ## 💻 Solution Implementation
 
@@ -94,26 +97,136 @@ classDiagram
     ```
 
 ### 🔬 Why This Works (Evaluation)
-The implementation follows the **Open/Closed Principle**. By using an abstract `Vehicle` base class, we can add new vehicle types (like `ElectricCar` or `Truck`) without modifying the `ParkingLot` or `ParkingSpot` logic. The `find_free_spot` method acts as a simple but effective dispatcher, ensuring type-safe allocation.
 
----
+The system is highly robust because of the **Polymorphic Fitting Logic** and **Contiguous Scanning**.   
+When a `Bus` arrives, the `Level` does not just check `available_spots >= 5`. It iterates through its spot array using a sliding counter. Because a `Bus` overrides `can_fit_in_spot()` to strictly require `VehicleSize.LARGE`, the `Level` will only return an index if it finds 5 consecutive spots that all return `True` to the Bus's size checks.
+
+-----
 
 ## ⚖️ Trade-offs & Limitations
 
 | Decision | Pros | Cons / Limitations |
 | :--- | :--- | :--- |
-| **Linear Search for Spots** | Simple to implement and debug for small/medium lots. | Becomes slow ($O(N)$) for massive parking structures with 10,000+ spots. |
-| **Simple Flag for `is_free`** | Minimal memory overhead. | No history or "reserved but not yet occupied" state. |
-| **Global Lock (Implicit)** | Prevents all race conditions. | Can cause a bottleneck if 100 entry gates are all trying to park at once. |
+| **Array Scanning for Contiguous Spots** | Perfectly models the physical constraints of parking a massive vehicle. | $O(N)$ time complexity per level. Can be slow for a level with 10,000 spots. |
+| **Storing Spots inside the Vehicle** | $O(1)$ cleanup. The vehicle knows exactly which spots to clear when leaving. | Creates a circular reference (`Spot` knows `Vehicle`, `Vehicle` knows `Spot`). |
+| **Greedy Allocation (First-Fit)** | Fast assignment without complex sorting. | Can lead to fragmentation (e.g., parking a motorcycle in a large spot prevents a bus from parking later). |
 
----
+-----
 
 ## 🎤 Interview Toolkit
 
-- **Concurrency Probe:** How would you handle 10 entry gates simultaneously? (Use a `threading.Lock` around the `find_free_spot` and `park_vehicle` methods).
-- **Scalability:** How would you optimize finding a spot for 1 million spots? (Use a **Min-Heap** or **Bitmask** per floor to track available indices in $O(1)$).
-- **Dynamic Pricing:** How would you implement "Surge Pricing" during peak hours? (Inject a `PricingStrategy` into the exit logic).
+  - **Optimization Probe:** "Your Level scanning is $O(N)$ to find 5 consecutive spots. How would you optimize this?" -\> *(Maintain a free-list or a Segment Tree / Max-Heap that tracks the lengths of available contiguous blocks. This allows $O(\log N)$ lookups).*
+  - **Concurrency Probe:** "How would you handle 10 entry gates simultaneously trying to park cars?" -\> *(Place a `threading.Lock` at the `Level` class. Granular locking per level prevents the entire lot from halting while one car parks, massively increasing throughput).*
+  - **Edge Case:** "What happens to fragmentation if a Motorcycle parks in the middle of 5 Large spots?" -\> *(The system allows it currently. To fix it, you should enforce strict sizing or sort spots by size so small vehicles fill small spots first).*
 
 ## 🔗 Related Challenges
-- [Multi-Elevator Dispatcher](../elevator/PROBLEM.md) — For another resource-matching challenge with moving targets.
-- [High-Performance Cache](../cache_system/PROBLEM.md) — For managing a fixed-capacity resource pool with eviction/release logic.
+
+  - [Elevator Management System](../elevator/PROBLEM.md) — For another resource-matching challenge with strict physical capacity limits.
+  - [High-Performance Cache](../cache/PROBLEM.md) — For managing a fixed-capacity resource pool with programmatic eviction logic.
+
+---
+
+
+<!-- 
+from abc import ABC, abstractmethod
+
+# -----------------------------
+# Abstract Base Class for Vehicles
+# -----------------------------
+class Vehicle(ABC):
+    def __init__(self, number_plate):
+        self.number_plate = number_plate
+
+    @abstractmethod
+    def vehicle_type(self):
+        pass
+
+
+class Car(Vehicle):
+    def vehicle_type(self):
+        return "Car"
+
+
+class Bike(Vehicle):
+    def vehicle_type(self):
+        return "Bike"
+
+
+# -----------------------------
+# Parking Spot
+# -----------------------------
+class ParkingSpot:
+    def __init__(self, spot_id, spot_type):
+        self.spot_id = spot_id
+        self.spot_type = spot_type  # e.g., "Car" or "Bike"
+        self.is_free = True
+        self.vehicle = None
+
+    def park_vehicle(self, vehicle):
+        if not self.is_free:
+            raise Exception("Spot already occupied")
+        if vehicle.vehicle_type() != self.spot_type:
+            raise Exception("Wrong vehicle type for this spot")
+        self.vehicle = vehicle
+        self.is_free = False
+
+    def remove_vehicle(self):
+        if self.is_free:
+            raise Exception("Spot is already empty")
+        self.vehicle = None
+        self.is_free = True
+
+
+# -----------------------------
+# Parking Lot
+# -----------------------------
+class ParkingLot:
+    def __init__(self, name):
+        self.name = name
+        self.spots = []
+
+    def add_spot(self, spot):
+        self.spots.append(spot)
+
+    def find_free_spot(self, vehicle_type):
+        for spot in self.spots:
+            if spot.is_free and spot.spot_type == vehicle_type:
+                return spot
+        return None
+
+    def park_vehicle(self, vehicle):
+        spot = self.find_free_spot(vehicle.vehicle_type())
+        if not spot:
+            print(f"No free spot available for {vehicle.vehicle_type()}")
+            return
+        spot.park_vehicle(vehicle)
+        print(f"{vehicle.vehicle_type()} parked at spot {spot.spot_id}")
+
+    def remove_vehicle(self, number_plate):
+        for spot in self.spots:
+            if not spot.is_free and spot.vehicle.number_plate == number_plate:
+                spot.remove_vehicle()
+                print(f"Vehicle {number_plate} removed from spot {spot.spot_id}")
+                return
+        print("Vehicle not found.")
+
+
+# -----------------------------
+# Demo Usage
+# -----------------------------
+if __name__ == "__main__":
+    lot = ParkingLot("TechPark")
+
+    # Add spots
+    lot.add_spot(ParkingSpot(1, "Car"))
+    lot.add_spot(ParkingSpot(2, "Car"))
+    lot.add_spot(ParkingSpot(3, "Bike"))
+
+    # Vehicles
+    car1 = Car("KA-01-HH-1234")
+    bike1 = Bike("KA-09-BB-4321")
+
+    lot.park_vehicle(car1)
+    lot.park_vehicle(bike1)
+    lot.remove_vehicle("KA-01-HH-1234")
+ -->

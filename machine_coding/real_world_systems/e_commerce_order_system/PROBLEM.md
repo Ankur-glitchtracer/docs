@@ -39,9 +39,9 @@ An **Order Processing Engine** is the core of any e-commerce platform. It coordi
 ## 🏗️ Design & Architecture
 
 ### 🧠 Thinking Process
-To handle these requirements, we adopt a triple-pattern design:
-1.  **State Pattern:** Encapsulates behavior for each order status (e.g., `PaidOrder` can ship, but `PendingOrder` cannot).
-2.  **Strategy Pattern:** Decouples "Payment Logic" from "Order Management."
+To handle these requirements, we adopt a triple-pattern design:     
+1.  **State Pattern:** Encapsulates behavior for each order status (e.g., `PaidOrder` can ship, but `PendingOrder` cannot).     
+2.  **Strategy Pattern:** Decouples "Payment Logic" from "Order Management."    
 3.  **Observer Pattern:** Acts as a "Pub-Sub" mechanism, notifying other services when an order moves to a new state.
 
 ### 🧩 Class Diagram

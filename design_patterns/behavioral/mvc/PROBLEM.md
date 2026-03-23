@@ -18,15 +18,15 @@ The **Model-View-Controller (MVC)** pattern is an architectural pattern that sep
 ## 🏭 The Engineering Story & Problem
 
 ### 😡 The Villain (The Problem)
-You're building a simple CLI To-Do app. You start with a single `main.py`.
+You're building a simple CLI To-Do app. You start with a single `main.py`.  
 You mix SQL queries with `print()` statements.
 ```python
 if user_input == "add":
     db.execute("INSERT INTO tasks...")
     print(f"{green_color}Task Added!{reset_color}")
 ```
-This is "Spaghetti Code."
--   **Hard to Test:** You can't test the "Add Task" logic without seeing the print output.
+This is "Spaghetti Code."   
+-   **Hard to Test:** You can't test the "Add Task" logic without seeing the print output.  
 -   **Hard to Change:** If you want to switch from CLI to a Web API, you have to rewrite the whole application because the database logic is tangled with `print` statements.
 
 ### 🦸 The Hero (The Solution)

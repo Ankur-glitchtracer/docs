@@ -11,9 +11,9 @@ Microservices architecture decomposes a monolithic application into small, indep
 
 ## 🚀 Key Patterns
 ### 1. The Saga Pattern
-How to handle distributed transactions without 2PC.
-- **Goal:** Maintain data consistency across multiple microservices.
-- **Trade-off:** Eventual Consistency vs. Complexity.
+How to handle distributed transactions without 2PC.     
+    - **Goal:** Maintain data consistency across multiple microservices.    
+    - **Trade-off:** Eventual Consistency vs. Complexity.
 
 ### 2. CQRS & Event Sourcing
 - **CQRS:** Separating read and write models to optimize performance.

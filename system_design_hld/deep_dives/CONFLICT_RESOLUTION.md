@@ -61,4 +61,4 @@ Explore low-level implementations of distributed consensus and conflict resoluti
 
 * [System Design: NoSQL Internals](./NOSQL_INTERNALS.md)
 * [System Design: Dynamo & Cassandra](../architectures/distributed_storage/DYNAMO_AND_CASSANDRA.md)
-* [Machine Coding: Cache System](../../machine_coding/systems/cache_system/PROBLEM.md)
+* [Machine Coding: Cache System](../../machine_coding/systems/cache/PROBLEM.md)

@@ -18,7 +18,7 @@ The **Prototype Pattern** allows you to create new objects by copying an existin
 ## 🏭 The Engineering Story & Problem
 
 ### 😡 The Villain (The Problem)
-You're building a real-time strategy (RTS) game. When a battle starts, the game needs to spawn 100 `Soldier` NPCs at once.
+You're building a real-time strategy (RTS) game. When a battle starts, the game needs to spawn 100 `Soldier` NPCs at once.  
 In the "Stuttering Spawner" version, the `Soldier` constructor looks like this:
 ```python
 class Soldier:
@@ -30,9 +30,9 @@ class Soldier:
 Spawning 100 soldiers takes 20 seconds of pure CPU time! The game freezes, the frame rate drops to zero, and the player is frustrated. You can't just call `new Soldier()` in a high-speed game loop.
 
 ### 🦸 The Hero (The Solution)
-The **Prototype Pattern** introduces the "Instant Copy."
-We create one "Master Soldier" at startup and store it in a `Registry`.
-When we need 100 soldiers, we don't call the constructor. We call `master_soldier.clone()`.
+The **Prototype Pattern** introduces the "Instant Copy."    
+We create one "Master Soldier" at startup and store it in a `Registry`. 
+When we need 100 soldiers, we don't call the constructor. We call `master_soldier.clone()`. 
 Cloning a pre-loaded object in memory is **thousands of times faster** than loading it from disk. The game stays at a smooth 60 FPS because we're just copying bytes in RAM instead of re-parsing heavy assets. Each clone is an independent "Twin" that can have its own health and position.
 
 ### 📜 Requirements & Constraints

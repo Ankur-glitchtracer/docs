@@ -18,18 +18,18 @@ The **Mediator Pattern** reduces chaotic dependencies between objects by forcing
 ## 🏭 The Engineering Story & Problem
 
 ### 😡 The Villain (The Problem)
-Imagine an airport without an Air Traffic Control tower. Every pilot has to talk to every other pilot to coordinate landings.
-"Flight A calling Flight B: I'm landing."
-"Flight B calling Flight A: Wait, I'm taking off!"
-"Flight C calling Flight A: I'm also landing!"
+Imagine an airport without an Air Traffic Control tower. Every pilot has to talk to every other pilot to coordinate landings.   
+"Flight A calling Flight B: I'm landing."   
+"Flight B calling Flight A: Wait, I'm taking off!"  
+"Flight C calling Flight A: I'm also landing!"  
 This "N-squared" communication chaos leads to a spaghetti network of dependencies. If you add one more plane, it has to connect to all existing planes. The system is fragile, hard to maintain, and dangerous.
 
 ### 🦸 The Hero (The Solution)
-The **Mediator Pattern** introduces the "Tower" (ATC).
-Pilots (Colleagues) never talk to each other directly. They only talk to the Tower.
--   Flight A: "Tower, requesting to land."
--   Tower: "Flight A, hold position. Flight B is taking off."
--   Tower: "Flight B, runway is yours."
+The **Mediator Pattern** introduces the "Tower" (ATC).  
+Pilots (Colleagues) never talk to each other directly. They only talk to the Tower. 
+-   Flight A: "Tower, requesting to land."  
+-   Tower: "Flight A, hold position. Flight B is taking off."   
+-   Tower: "Flight B, runway is yours." 
 The logic for *who goes when* stays in the Tower. The planes are simple; they just follow orders. You can change the landing rules in the Tower without modifying the planes.
 
 ### 📜 Requirements & Constraints

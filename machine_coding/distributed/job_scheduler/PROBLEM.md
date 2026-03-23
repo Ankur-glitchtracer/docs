@@ -39,10 +39,10 @@ A **Distributed Job Scheduler** is a system responsible for managing the executi
 ## 🏗️ Design & Architecture
 
 ### 🧠 Thinking Process
-To build a scalable scheduler, we decouple the **Scheduler** (the Brain) from the **Worker** (the Brawn):
-1.  **Job Store:** A persistent database (or Redis) to track job state and priorities.
-2.  **Topological Sorter:** A module to resolve job dependencies, ensuring parents finish before children.
-3.  **Heartbeat Monitor:** A background process that marks workers as "Timed Out" if they don't ping within $X$ seconds.
+To build a scalable scheduler, we decouple the **Scheduler** (the Brain) from the **Worker** (the Brawn):   
+1.  **Job Store:** A persistent database (or Redis) to track job state and priorities.  
+2.  **Topological Sorter:** A module to resolve job dependencies, ensuring parents finish before children.  
+3.  **Heartbeat Monitor:** A background process that marks workers as "Timed Out" if they don't ping within $X$ seconds.    
 4.  **State Machine:** Strictly manages transitions to prevent illegal states (e.g., re-running a completed job).
 
 ### 🧩 Class Diagram

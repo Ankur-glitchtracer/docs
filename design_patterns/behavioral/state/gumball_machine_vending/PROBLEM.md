@@ -18,7 +18,7 @@ The **State Pattern** allows an object to alter its behavior when its internal s
 ## 🏭 The Engineering Story & Problem
 
 ### 😡 The Villain (The Problem)
-You're building the software for a classic Gumball Machine. It has four states: `No Quarter`, `Has Quarter`, `Gumball Sold`, and `Out of Gumballs`.
+You're building the software for a classic Gumball Machine. It has four states: `No Quarter`, `Has Quarter`, `Gumball Sold`, and `Out of Gumballs`. 
 The "Nested If-Else Monster" version looks like this:
 ```python
 class GumballMachine:
@@ -36,11 +36,11 @@ class GumballMachine:
 Every time you add a new feature (like a "Winner" state where users occasionally get two gumballs for one quarter), you have to touch *every single method* and add more `if/elif` blocks. the code becomes a tangled web of conditional logic that is impossible to test or extend.
 
 ### 🦸 The Hero (The Solution)
-The **State Pattern** introduces "State Objects."
-Instead of the machine checking its state, we create classes like `NoQuarterState`, `HasQuarterState`, and `SoldState`.
-The `GumballMachine` (Context) just holds a reference to the `current_state`. When you turn the crank, it just says: `self.current_state.turn_crank()`.
--   If it's in `HasQuarterState`, the crank works and it dispenses a gumball.
--   If it's in `NoQuarterState`, it tells you to insert money.
+The **State Pattern** introduces "State Objects."   
+Instead of the machine checking its state, we create classes like `NoQuarterState`, `HasQuarterState`, and `SoldState`. 
+The `GumballMachine` (Context) just holds a reference to the `current_state`. When you turn the crank, it just says: `self.current_state.turn_crank()`. 
+-   If it's in `HasQuarterState`, the crank works and it dispenses a gumball.   
+-   If it's in `NoQuarterState`, it tells you to insert money.  
 Each state is a small, focused class. To add a "Winner" feature, you just add one new `WinnerState` class and update the transition in `HasQuarterState`. You don't have to touch the `GumballMachine` or `SoldOutState` at all.
 
 ### 📜 Requirements & Constraints

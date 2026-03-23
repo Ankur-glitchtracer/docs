@@ -18,17 +18,17 @@ The **Visitor Pattern** allows you to add new operations to an existing object s
 ## 🏭 The Engineering Story & Problem
 
 ### 😡 The Villain (The Problem)
-You're building a shopping cart. You have `Food`, `Electronics`, and `Luxury` items.
-Initially, you just need to calculate the price. But then the government introduces a 10% tax on `Electronics`. Then they introduce a variable VAT on `Food`. Then a "Luxury Surcharge."
+You're building a shopping cart. You have `Food`, `Electronics`, and `Luxury` items.    
+Initially, you just need to calculate the price. But then the government introduces a 10% tax on `Electronics`. Then they introduce a variable VAT on `Food`. Then a "Luxury Surcharge."    
 If you keep adding methods like `calculate_vat()`, `calculate_gst()`, and `calculate_luxury_tax()` to every `Item` class, your simple data objects will become bloated "God Objects." Every time the tax law changes, you have to modify and re-test your core `Item` classes.
 
 ### 🦸 The Hero (The Solution)
-The **Visitor Pattern** pulls the tax logic *out* of the items.
-We create a `TaxVisitor` class that has three methods: `visit_food()`, `visit_electronics()`, and `visit_luxury()`.
-The `Item` classes are now simple again. They only have one extra method: `accept(visitor)`.
-When you call `item.accept(tax_visitor)`:
-1.  If the item is `Food`, it calls `visitor.visit_food(self)`.
-2.  If the item is `Electronics`, it calls `visitor.visit_electronics(self)`.
+The **Visitor Pattern** pulls the tax logic *out* of the items. 
+We create a `TaxVisitor` class that has three methods: `visit_food()`, `visit_electronics()`, and `visit_luxury()`. 
+The `Item` classes are now simple again. They only have one extra method: `accept(visitor)`.    
+When you call `item.accept(tax_visitor)`:   
+1.  If the item is `Food`, it calls `visitor.visit_food(self)`. 
+2.  If the item is `Electronics`, it calls `visitor.visit_electronics(self)`.   
 The item just says "Hello, I am Food, please process me." The visitor handles the math. You can add a `NewYorkTaxVisitor` or a `LondonTaxVisitor` without ever changing the `Food` class again.
 
 ### 📜 Requirements & Constraints

@@ -1,4 +1,4 @@
-# Distributed Systems Theorems & Constraints
+# Distributed Systems Theorems & Patterns
 
 Before designing large-scale systems, architects must understand the foundational theorems and mathematical constraints that govern distributed computing. These principles dictate the unavoidable trade-offs between **latency**, **consistency**, and **availability**.
 
@@ -8,26 +8,57 @@ Before designing large-scale systems, architects must understand the foundationa
 
 In a distributed system, network partitions are inevitable (e.g., hardware failures, packet loss). The **CAP theorem** states that a distributed data store can only provide **two of the following three guarantees simultaneously**:
 
-**Consistency (C):**  
-Every read receives the most recent write or an error. All nodes see the same data at the same time.
+* **Consistency (C):** Every read receives the most recent write or an error. All nodes see the same data at the same time.
+* **Availability (A):** Every request receives a (non-error) response, without the guarantee that it contains the most recent write.
+* **Partition Tolerance (P):** The system continues to operate despite an arbitrary number of messages being dropped or delayed by the network between nodes.
 
-**Availability (A):**  
-Every request receives a (non-error) response, without the guarantee that it contains the most recent write.
-
-**Partition Tolerance (P):**  
-The system continues to operate despite an arbitrary number of messages being dropped or delayed by the network between nodes.
-
-Because **Partition Tolerance (P)** is a hard requirement over WANs, the real choice is always between **CP** and **AP**.
+Because networks aren't reliable, distributed systems must support partition tolerance. You will need to make a software tradeoff between consistency and availability.
 
 | System Type | Description | Examples |
 |---|---|---|
-| **CP** | Chooses consistency over availability. Waits for partitioned nodes, which may result in timeouts. | MongoDB, HBase, Redis, Zookeeper |
-| **AP** | Chooses availability over consistency. Returns the most recent local data, which may be stale. | Cassandra, DynamoDB, CouchDB |
+| **CP** | Chooses consistency over availability. Waits for a response from the partitioned node, which might result in a timeout error. | MongoDB, HBase, Redis, Zookeeper |
+| **AP** | Chooses availability over consistency. Responses return the most readily available version of the data available on any node, which might not be the latest. | Cassandra, DynamoDB, CouchDB |
 | **CA** | Technically impossible in WAN distributed systems. Exists only in local, single-node contexts. | RDBMS (MySQL, Postgres) |
 
 ---
 
-## 2. The PACELC Theorem
+## 2. Consistency Patterns
+
+With multiple copies of the same data, we are faced with options on how to synchronize them so clients have a consistent view of the data:
+
+* **Weak Consistency:** After a write, reads may or may not see it. A best effort approach is taken. This approach is seen in systems such as memcached and works well in real time use cases such as VoIP, video chat, and realtime multiplayer games.
+* **Eventual Consistency:** After a write, reads will eventually see it (typically within milliseconds). Data is replicated asynchronously. This approach is seen in systems such as DNS and email, and works well in highly available systems.
+* **Strong Consistency:** After a write, reads will see it. Data is replicated synchronously. This approach is seen in file systems and RDBMSes, and works well in systems that need transactions.
+
+---
+
+## 3. Availability Patterns
+
+There are two complementary patterns to support high availability: fail-over and replication.
+
+### Fail-over Architectures
+* **Active-Passive:** With active-passive fail-over, heartbeats are sent between the active and the passive server on standby. If the heartbeat is interrupted, the passive server takes over the active's IP address and resumes service.
+* **Active-Active:** In active-active, both servers are managing traffic, spreading the load between them. If the servers are public-facing, the DNS would need to know about the public IPs of both servers.
+
+### Availability in Numbers
+Availability is often quantified by uptime (or downtime) as a percentage of time the service is available. 
+
+| Metric | 99.9% Availability ("Three 9s") | 99.99% Availability ("Four 9s") |
+|---|---|---|
+| **Downtime per year** | 8h 45min 57s | 52min 35.7s |
+| **Downtime per month** | 43m 49.7s | 4m 23s |
+| **Downtime per week** | 10m 4.8s | 1m 5s |
+| **Downtime per day** | 1m 26.4s | 8.6s |
+
+*Note:* The above downtime figures are standard industry metrics.
+
+**Calculating Overall Availability:**
+* **In Sequence:** Overall availability decreases when two components with availability < 100% are in sequence. The formula is: `Availability (Total) = Availability (Foo) * Availability (Bar)`.
+* **In Parallel:** Overall availability increases when two components with availability < 100% are in parallel. The formula is: `Availability (Total) = 1 - (1 - Availability (Foo)) * (1 - Availability (Bar))`.
+
+---
+
+## 4. The PACELC Theorem
 
 The **PACELC theorem** extends CAP by addressing system behavior during normal operations (when no partition exists).
 
@@ -46,7 +77,7 @@ If there is a **Partition (P)**, a distributed system must trade off between **A
 
 ---
 
-## 3. Capacity Estimation & Back-of-the-Envelope Math
+## 5. Capacity Estimation & Back-of-the-Envelope Math
 
 Designing scalable systems requires estimating resource requirements using rough calculations.
 

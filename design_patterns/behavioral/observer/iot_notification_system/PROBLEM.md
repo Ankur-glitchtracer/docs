@@ -18,7 +18,7 @@ The **Observer Pattern** defines a one-to-many dependency between objects. When 
 ## 🏭 The Engineering Story & Problem
 
 ### 😡 The Villain (The Problem)
-You're building a smart security system. When a `MotionSensor` triggers, it needs to sound the `Siren`, send a `PushNotification`, and turn on the `SmartLights`.
+You're building a smart security system. When a `MotionSensor` triggers, it needs to sound the `Siren`, send a `PushNotification`, and turn on the `SmartLights`.   
 In the "Hardcoded Dependency" version, the sensor code looks like this:
 ```python
 class MotionSensor:
@@ -30,9 +30,9 @@ class MotionSensor:
 Next week, the client wants to add a `SmartLock` to lock the doors when motion is detected. You have to open the `MotionSensor` class and add `self.lock.close()`. The sensor becomes a "God Object" that is tightly coupled to every device in the house.
 
 ### 🦸 The Hero (The Solution)
-The **Observer Pattern** introduces an "Event Bus."
-The `MotionSensor` is now a **Subject**. It doesn't know about Sirens or Locks. It just has a list of generic `Observers`.
-When motion is detected, it shouts: "Motion detected at 10:00 PM!" to its list.
+The **Observer Pattern** introduces an "Event Bus." 
+The `MotionSensor` is now a **Subject**. It doesn't know about Sirens or Locks. It just has a list of generic `Observers`.  
+When motion is detected, it shouts: "Motion detected at 10:00 PM!" to its list. 
 The `Siren`, `PhoneApp`, and `SmartLock` are all **Observers**. They subscribe to the sensor. When they hear the shout, they decide how to react (Siren wails, App notifies, Lock closes). You can add a `CoffeeMaker` to start brewing when motion is detected in the morning without ever touching the sensor's code.
 
 ### 📜 Requirements & Constraints

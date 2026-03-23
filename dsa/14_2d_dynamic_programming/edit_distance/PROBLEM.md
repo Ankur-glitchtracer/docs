@@ -37,9 +37,9 @@ Use 2D DP. Let `dp[i][j]` be the minimum operations to convert `word1[:i]` to `w
 ### 🧩 Visual Tracing
 ```mermaid
 graph TD
-    A[word1[:i]] -->|Replace| B[word2[:j]]
-    A -->|Insert| C[word2[:j]]
-    A -->|Delete| D[word2[:j]]
+    A["word1[:i]"] -->|Replace| B["word2[:j]"]
+    A -->|Insert| C["word2[:j]"]
+    A -->|Delete| D["word2[:j]"]
 ```
 
 ---

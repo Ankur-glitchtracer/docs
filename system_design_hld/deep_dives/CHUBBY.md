@@ -60,7 +60,7 @@ graph TD
         R2((Replica)) --- Master
         R3((Replica)) --- Master
         R4((Replica)) --- Master
-        Note bottom of Master: Elected via Paxos
+        Paxos[Elected via Paxos] --> Master
     end
 
     Client[Application Client] -->|1. Find Master| Master

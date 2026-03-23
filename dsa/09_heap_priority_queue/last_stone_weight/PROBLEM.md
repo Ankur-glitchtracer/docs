@@ -43,8 +43,8 @@ Use a Max-Heap to manage stone weights.
 ### 🧩 Visual Tracing
 ```mermaid
 graph LR
-    H((Heap: [8, 7, 4, 2, 1])) -->|Smash 8, 7| S((8-7=1))
-    S -->|Push 1| H2((Heap: [4, 2, 1, 1]))
+    H["Heap: [8, 7, 4, 2, 1]"] -->|Smash 8, 7| S["8-7 = 1"]
+    S -->|Push 1| H2["Heap: [4, 2, 1, 1]"]
     style H stroke:#333,stroke-width:2px
 ```
 

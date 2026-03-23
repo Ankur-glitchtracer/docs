@@ -36,9 +36,9 @@ Use a set to track all possible sums reachable using the elements seen so far:
 ### 🧩 Visual Tracing
 ```mermaid
 graph TD
-    S[Start: {0}] -- num: 1 --> A[{0, 1}]
-    A -- num: 5 --> B[{0, 1, 5, 6}]
-    B -- num: 11 --> C[{0, 1, 5, 6, 11, 12, 16, 17}]
+    S["Start: {0}"] -->|num: 1| A["{0, 1}"]
+    A -->|num: 5| B["{0, 1, 5, 6}"]
+    B -->|num: 11| C["{0, 1, 5, 6, 11, 12, 16, 17}"]
     style C fill:#ccf,stroke:#333,stroke-width:2px
 ```
 

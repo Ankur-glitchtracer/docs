@@ -19,11 +19,11 @@ The **Command Pattern** encapsulates a request as a standalone object, allowing 
 ## 🏭 The Engineering Story & Problem
 
 ### 😡 The Villain (The Problem)
-Imagine a "Hardwired Remote Control" where every button is soldered directly to a specific device's circuit. Button 1 is hardwired to the Living Room Light. Button 2 to the Stereo.
+Imagine a "Hardwired Remote Control" where every button is soldered directly to a specific device's circuit. Button 1 is hardwired to the Living Room Light. Button 2 to the Stereo.    
 If you want to change Button 1 to turn on the Kitchen Light instead, you have to physically rewire the remote (change the `Remote` class code). The remote acts like a God Object that needs to know the specific API of every device (`light.turnOn()`, `stereo.setVolume()`, `door.lock()`). This tight coupling makes the system rigid and hard to extend.
 
 ### 🦸 The Hero (The Solution)
-The **Command Pattern** introduces a "Universal Connector." We create a standard `Command` interface with an `execute()` method. We wrap every specific device action (like "Turn on Light") into its own little class (e.g., `LightOnCommand`).
+The **Command Pattern** introduces a "Universal Connector." We create a standard `Command` interface with an `execute()` method. We wrap every specific device action (like "Turn on Light") into its own little class (e.g., `LightOnCommand`).    
 The remote just holds a list of these Command objects. When you press a button, it just says `command.execute()`. It doesn't care if it's turning on a light or launching a missile. You can swap commands in and out dynamically without touching the remote's code.
 
 ### 📜 Requirements & Constraints

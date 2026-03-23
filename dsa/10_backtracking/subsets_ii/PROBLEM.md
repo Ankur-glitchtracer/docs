@@ -41,11 +41,22 @@ Generate all subsets ($2^N$), sort elements within each subset, convert to Set t
 ### 🧩 Visual Tracing
 ```mermaid
 graph TD
-    Root[Input: 1, 2, 2] --> A[Subset: []]
-    A -->|Pick 1| B[1]
-    B -->|Pick 2a| C[1, 2a]
-    C -->|Pick 2b| D[1, 2a, 2b]
-    B -->|Skip 2a, Pick 2b? NO (Dup)| Skip
+    Root["[]"]
+
+    Root -->|+1| A["[1]"]
+    Root -->|skip 1| B["[]"]
+
+    A -->|+2a| C["[1,2]"]
+    A -->|skip 2a → skip 2b| D["[1]"]
+
+    C -->|+2b| E["[1,2,2]"]
+    C -->|skip 2b| F["[1,2]"]
+
+    B -->|+2a| G["[2]"]
+    B -->|skip 2a → skip 2b| H["[]"]
+
+    G -->|+2b| I["[2,2]"]
+    G -->|skip 2b| J["[2]"]
 ```
 
 ---

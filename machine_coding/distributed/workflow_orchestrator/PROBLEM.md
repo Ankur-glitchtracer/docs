@@ -39,10 +39,10 @@ An **Enterprise Workflow Orchestrator** is a system that manages the execution o
 ## 🏗️ Design & Architecture
 
 ### 🧠 Thinking Process
-To orchestrate complex workflows, we use a graph-based approach:
-1.  **Node/Task:** Encapsulates the actual work to be done.
-2.  **DAG Manager:** Validates the graph for cycles and maintains the in-degree of every node.
-3.  **Executor:** A thread-pool based worker that picks up nodes with an in-degree of 0 (all dependencies met) and executes them.
+To orchestrate complex workflows, we use a graph-based approach:    
+1.  **Node/Task:** Encapsulates the actual work to be done.     
+2.  **DAG Manager:** Validates the graph for cycles and maintains the in-degree of every node.  
+3.  **Executor:** A thread-pool based worker that picks up nodes with an in-degree of 0 (all dependencies met) and executes them.   
 4.  **State Machine:** Updates the graph state as tasks finish, triggering the next set of available nodes.
 
 ### 🧩 Class Diagram

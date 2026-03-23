@@ -33,9 +33,9 @@ Use DP:
 ### 🧩 Visual Tracing
 ```mermaid
 graph LR
-    A[i: 5 binary 101] --> B[i>>1: 2 binary 10]
-    B --> C[ans[i] = ans[2] + 1]
-    C --> D[Result: 2]
+    A["i: 5 binary 101"] --> B["i >> 1: 2 binary 10"]
+    B --> C["ans[i] = ans[2] + 1"]
+    C --> D["Result: 2"]
 ```
 
 ---

@@ -237,7 +237,7 @@
 - [x] **Snake & Ladder:** `machine_coding/games/snake_ladder/PROBLEM.md`
 - [x] **Tic-Tac-Toe:** `machine_coding/games/tic_tac_toe/PROBLEM.md`
 - [x] **Instagram Feed:** `machine_coding/systems/instagram/PROBLEM.md`
-- [x] **Cache System:** `machine_coding/systems/cache_system/PROBLEM.md`
+- [x] **Cache System:** `machine_coding/systems/cache/PROBLEM.md`
 - [ ] **Vending Machine:** `machine_coding/systems/vending_machine/PROBLEM.md`
 
 ### Distributed & Real-World

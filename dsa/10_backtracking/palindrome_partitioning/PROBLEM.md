@@ -42,12 +42,14 @@ Generate every possible partition (cut at every possible set of indices), then c
 ### 🧩 Visual Tracing
 ```mermaid
 graph TD
-    Root[s: aab] -->|Cut 'a'| A1[s: ab]
-    Root -->|Cut 'aa'| A2[s: b]
-    A1 -->|Cut 'a'| B1[s: b]
-    A1 -->|Cut 'ab' (No)| X
-    B1 -->|Cut 'b'| C1[Done: [a, a, b]]
-    A2 -->|Cut 'b'| C2[Done: [aa, b]]
+    Root["s: aab"] -->|"Cut 'a'"| A1["s: ab"]
+    Root -->|"Cut 'aa'"| A2["s: b"]
+
+    A1 -->|"Cut 'a'"| B1["s: b"]
+    A1 -->|"Cut 'ab' (No)"| X["Invalid ✗"]
+
+    B1 -->|"Cut 'b'"| C1["Done: [a, a, b] ✓"]
+    A2 -->|"Cut 'b'"| C2["Done: [aa, b] ✓"]
 ```
 
 ---

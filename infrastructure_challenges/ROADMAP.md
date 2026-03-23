@@ -39,8 +39,8 @@ sequenceDiagram
 **Focus:** Immutable infrastructure, environment parity, and multi-service orchestration.
 
 ### 🧠 The Engineering Story
-**The Villain:** "The Dependency Hell." A Python job scheduler that works on macOS but fails on Linux because of a missing `libpq` version.
-**The Hero:** "The Immutable Container Image." Packaging the OS, runtimes, and code into a single, portable layer that runs everywhere.
+**The Villain:** "The Dependency Hell." A Python job scheduler that works on macOS but fails on Linux because of a missing `libpq` version. 
+**The Hero:** "The Immutable Container Image." Packaging the OS, runtimes, and code into a single, portable layer that runs everywhere. 
 **The Twist:** "The Bloated Image." A 2GB container image that takes 10 minutes to pull, causing auto-scaling events to lag and fail.
 
 ### 📦 Modules
@@ -52,8 +52,8 @@ sequenceDiagram
 **Focus:** Traffic control, distributed state management, and atomicity.
 
 ### 🧠 The Engineering Story
-**The Villain:** "The Noisy Neighbor." A single user scripts 10,000 requests per second, taking down the entire API for everyone else.
-**The Hero:** "The Distributed Rate Limiter." Using Redis and Lua scripting to enforce limits across multiple application nodes atomically.
+**The Villain:** "The Noisy Neighbor." A single user scripts 10,000 requests per second, taking down the entire API for everyone else.  
+**The Hero:** "The Distributed Rate Limiter." Using Redis and Lua scripting to enforce limits across multiple application nodes atomically. 
 **The Twist:** "The Race Condition." If you check a counter and then increment it in two separate steps, multiple users can bypass your limits simultaneously.
 
 ### 📦 Modules
@@ -65,8 +65,8 @@ sequenceDiagram
 **Focus:** Persistent connections, bi-directional communication, and state management.
 
 ### 🧠 The Engineering Story
-**The Villain:** "The Ghost Connection." A user loses Wi-Fi in a tunnel, but your server still thinks they are "Online," wasting threads and memory.
-**The Hero:** "The WebSocket Heartbeat." Using low-level PING/PONG frames and TTL-based state stores to purge stale connections.
+**The Villain:** "The Ghost Connection." A user loses Wi-Fi in a tunnel, but your server still thinks they are "Online," wasting threads and memory.    
+**The Hero:** "The WebSocket Heartbeat." Using low-level PING/PONG frames and TTL-based state stores to purge stale connections.    
 **The Twist:** "The Thundering Herd." 100,000 clients all trying to reconnect at the exact same millisecond after a transient network failure.
 
 ### 📦 Modules

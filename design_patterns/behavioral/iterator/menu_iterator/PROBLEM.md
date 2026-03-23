@@ -18,16 +18,16 @@ The **Iterator Pattern** provides a way to access the elements of an aggregate o
 ## 🏭 The Engineering Story & Problem
 
 ### 😡 The Villain (The Problem)
-Meet "The Frustrated Waitress." She works for a company that just merged two restaurants: "Objectville Diner" and "Pancake House."
--   **Pancake House** stores their menu items in a Python `List` (`[]`).
--   **Objectville Diner** stores their menu items in a Python `Dictionary` (`{}`).
+Meet "The Frustrated Waitress." She works for a company that just merged two restaurants: "Objectville Diner" and "Pancake House."  
+-   **Pancake House** stores their menu items in a Python `List` (`[]`).    
+-   **Objectville Diner** stores their menu items in a Python `Dictionary` (`{}`).  
 To print the combined menu, the Waitress has to write two completely different loops. One uses an index `for i in range(len(list))` and the other iterates over keys `for key in dict`. If a third restaurant joins (using a Tree or Set), she has to write *another* specific loop. Her code is tightly coupled to the internal data structures of every restaurant.
 
 ### 🦸 The Hero (The Solution)
-The **Iterator Pattern** introduces a standard "Remote Control" for traversal. We define an `Iterator` interface with just two methods: `has_next()` and `next()`.
-Each restaurant implements its own `create_iterator()` method.
--   Pancake House returns a `ListIterator`.
--   Diner returns a `DictIterator`.
+The **Iterator Pattern** introduces a standard "Remote Control" for traversal. We define an `Iterator` interface with just two methods: `has_next()` and `next()`.  
+Each restaurant implements its own `create_iterator()` method.  
+-   Pancake House returns a `ListIterator`. 
+-   Diner returns a `DictIterator`. 
 The Waitress now just asks for an iterator. She runs a simple `while iterator.has_next(): print(iterator.next())`. She doesn't know if it's a list, an array, or a database cursor.
 
 ### 📜 Requirements & Constraints

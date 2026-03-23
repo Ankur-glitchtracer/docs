@@ -32,10 +32,10 @@ Initialize `res = 0`. Iterate through the array and `res ^= nums[i]`. `res` will
 ### 🧩 Visual Tracing
 ```mermaid
 graph LR
-    A[nums: 4, 1, 2, 1, 2] -->|XOR all| B[4 ^ 1 ^ 2 ^ 1 ^ 2]
-    B -->|Commutativity| C[4 ^ (1 ^ 1) ^ (2 ^ 2)]
-    C -->|Cancel| D[4 ^ 0 ^ 0]
-    D --> E[Result: 4]
+    A["nums: 4, 1, 2, 1, 2"] -->|XOR all elements| B["4 ^ 1 ^ 2 ^ 1 ^ 2"]
+    B -->|Group duplicates| C["4 ^ (1 ^ 1) ^ (2 ^ 2)"]
+    C -->|Cancel pairs| D["4 ^ 0 ^ 0"]
+    D -->|Simplify| E["Result: 4"]
 ```
 
 ---

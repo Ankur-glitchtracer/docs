@@ -38,9 +38,9 @@ Design and implement a robust **Elevator Management System** for a high-rise bui
 ## 🏗️ Design & Architecture
 
 ### 🧠 Thinking Process
-To handle the complexity, we decouple the **Elevator** (the worker) from the **Controller** (the dispatcher).
-1.  **Elevator:** A state machine that maintains its own sorted queue of `Request` objects.
-2.  **Request:** Encapsulates the target floor and direction.
+To handle the complexity, we decouple the **Elevator** (the worker) from the **Controller** (the dispatcher).   
+1.  **Elevator:** A state machine that maintains its own sorted queue of `Request` objects.     
+2.  **Request:** Encapsulates the target floor and direction.   
 3.  **ElevatorController:** The "Brain" that receives external floor calls and delegates them to the most suitable elevator based on proximity and current trajectory.
 
 ### 🧩 Class Diagram

@@ -18,19 +18,19 @@ The **Strategy Pattern** defines a family of algorithms, encapsulates each one, 
 ## 🏭 The Engineering Story & Problem
 
 ### 😡 The Villain (The Problem)
-You're building a "Smart Sprinkler Controller." It needs to handle many rules:
--   If it's raining, don't water.
--   If it's a heatwave, water for 60 minutes.
--   If there's a drought restriction, only water on Tuesdays for 10 minutes.
+You're building a "Smart Sprinkler Controller." It needs to handle many rules:  
+-   If it's raining, don't water.   
+-   If it's a heatwave, water for 60 minutes.   
+-   If there's a drought restriction, only water on Tuesdays for 10 minutes.    
 The "Conditional Nightmare" version is a 500-line `activate()` method filled with nested `if/else` statements. Every time the city changes its water restrictions, you have to rewrite and re-deploy the entire controller's core logic. The code is brittle, hard to test, and violates the Open/Closed principle.
 
 ### 🦸 The Hero (The Solution)
-The **Strategy Pattern** introduces the "Playbook."
-Instead of one giant method, we extract each watering rule into its own class: `RainyDayStrategy`, `HeatwaveStrategy`, and `DroughtStrategy`.
-The `SprinklerController` (Context) is now just a shell. It holds a reference to a `WateringStrategy`.
-1.  At 5:00 AM, the controller checks the weather.
-2.  It picks the right "play" (e.g., `controller.set_strategy(RainyDayStrategy())`).
-3.  When it's time to water, it just calls `strategy.get_duration()`.
+The **Strategy Pattern** introduces the "Playbook." 
+Instead of one giant method, we extract each watering rule into its own class: `RainyDayStrategy`, `HeatwaveStrategy`, and `DroughtStrategy`.   
+The `SprinklerController` (Context) is now just a shell. It holds a reference to a `WateringStrategy`.  
+1.  At 5:00 AM, the controller checks the weather.  
+2.  It picks the right "play" (e.g., `controller.set_strategy(RainyDayStrategy())`).    
+3.  When it's time to water, it just calls `strategy.get_duration()`.   
 The controller doesn't care *why* it's watering for 0 or 60 minutes; it just follows the strategy it was given. You can add a `HolidayStrategy` next month without touching the controller's code.
 
 ### 📜 Requirements & Constraints

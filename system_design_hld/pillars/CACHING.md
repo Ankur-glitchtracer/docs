@@ -74,5 +74,5 @@ graph TD
 Explore low-level implementations and related challenges:
 
 - **Distributed Caching (Redis)**: [Infrastructure: Redis Rate Limiter](../../infrastructure_challenges/redis_rate_limiter/PROBLEM.md)
-- **System Design Implementation**: [Machine Coding: Cache System](../../machine_coding/systems/cache_system/PROBLEM.md)
+- **System Design Implementation**: [Machine Coding: Cache System](../../machine_coding/systems/cache/PROBLEM.md)
 - **DSA Algorithm**: [LeetCode: LRU Cache Implementation](../../dsa/06_linked_list/lru_cache/PROBLEM.md)

@@ -43,8 +43,8 @@ sequenceDiagram
 **Focus:** Entity modeling, separation of concerns, and clean interfaces.
 
 ### 🧠 The Engineering Story
-**The Villain:** "The God Class." Mixing board logic, player state, and game rules into a single 2,000-line file.
-**The Hero:** "The Entity-Component Separation." Decoupling the physical board from the game rules and player actions.
+**The Villain:** "The God Class." Mixing board logic, player state, and game rules into a single 2,000-line file.   
+**The Hero:** "The Entity-Component Separation." Decoupling the physical board from the game rules and player actions.  
 **The Twist:** "The Infinite Loop." A snake leading to a ladder that leads back to the same snake—testing your validation logic.
 
 ### 📦 Modules
@@ -57,14 +57,14 @@ sequenceDiagram
 **Focus:** Thread safety, state machines, and scheduling algorithms.
 
 ### 🧠 The Engineering Story
-**The Villain:** "The Race Condition." Two users calling the same elevator or booking the same parking spot at the exact same millisecond.
-**The Hero:** "The Thread-Safe State Machine." Using locks, semaphores, and atomic operations to manage shared resources.
+**The Villain:** "The Race Condition." Two users calling the same elevator or booking the same parking spot at the exact same millisecond.  
+**The Hero:** "The Thread-Safe State Machine." Using locks, semaphores, and atomic operations to manage shared resources.   
 **The Twist:** "The Starvation." An elevator algorithm that serves the middle floors but leaves the penthouse waiting forever.
 
 ### 📦 Modules
 *   **M3: [Elevator System](./systems/elevator/PROBLEM.md)** — Master the SCAN algorithm and thread-safe request queues.
 *   **M4: [Parking Lot](./systems/parking_lot/PROBLEM.md)** — Design for multiple vehicle types and various spot allocation strategies.
-*   **M5: [Cache System](./systems/cache_system/PROBLEM.md)** — Implement LRU/LFU eviction policies with $O(1)$ access and update.
+*   **M5: [Cache System](./systems/cache/PROBLEM.md)** — Implement LRU/LFU eviction policies with $O(1)$ access and update.
 *   **M6: [Instagram Feed](./systems/instagram/PROBLEM.md)** — Handle "Fan-out on Load" vs "Fan-out on Write" for social graphs.
 
 ---
@@ -73,8 +73,8 @@ sequenceDiagram
 **Focus:** Distributed state, reliability, and complex business workflows.
 
 ### 🧠 The Engineering Story
-**The Villain:** "The Double Execution." Two workers picking up the same job from the database simultaneously in a distributed cluster.
-**The Hero:** "The Distributed Lock & Idempotency." Using Redis/Zookeeper for synchronization and ensuring actions can be safely retried.
+**The Villain:** "The Double Execution." Two workers picking up the same job from the database simultaneously in a distributed cluster. 
+**The Hero:** "The Distributed Lock & Idempotency." Using Redis/Zookeeper for synchronization and ensuring actions can be safely retried.   
 **The Twist:** "The Zombie Job." A worker crashes after claiming a job but before releasing the lock, blocking the system until a timeout occurs.
 
 ### 📦 Modules

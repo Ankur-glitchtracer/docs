@@ -41,10 +41,10 @@ Simulate the scheduler using a Heap and a Queue. Pick max frequency task, execut
 ### 🧩 Visual Tracing
 ```mermaid
 graph TD
-    A[Tasks: A, A, A, B, B, B, n=2]
-    B[Max Freq: 3 (A, B)]
-    C[Pattern: A B _ | A B _ | A B]
-    D[Calc: (3-1)*(2+1) + 2 = 8]
+    A["Tasks: A, A, A, B, B, B, n=2"]
+    A --> B["Max Frequency = 3 (A, B)"]
+    B --> C["Build Pattern: A B _ | A B _ | A B"]
+    C --> D["Formula: (3-1)*(2+1) + 2 = 8"]
 ```
 
 ---

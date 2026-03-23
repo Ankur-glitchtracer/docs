@@ -39,10 +39,10 @@ A **Pub-Sub (Publisher-Subscriber) System** is a distributed messaging pattern t
 ## 🏗️ Design & Architecture
 
 ### 🧠 Thinking Process
-To achieve scalability and durability, we model the system around the **Log** abstraction:
-1.  **Partition:** The unit of storage. Each partition is a file where messages are appended.
-2.  **Producer:** Writes messages to a partition based on a key or round-robin strategy.
-3.  **Consumer Group:** Tracks its current "Read Offset" per partition in a separate persistent store.
+To achieve scalability and durability, we model the system around the **Log** abstraction:  
+1.  **Partition:** The unit of storage. Each partition is a file where messages are appended.   
+2.  **Producer:** Writes messages to a partition based on a key or round-robin strategy.    
+3.  **Consumer Group:** Tracks its current "Read Offset" per partition in a separate persistent store.  
 4.  **Broker:** The orchestrator that handles metadata (Topic $\rightarrow$ Partition mappings).
 
 ### 🧩 Class Diagram

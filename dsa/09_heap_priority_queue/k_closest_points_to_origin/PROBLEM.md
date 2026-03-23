@@ -41,13 +41,13 @@ Sort the entire list by distance. Return first K.
 ### 🧩 Visual Tracing
 ```mermaid
 graph TD
-    A[Points: (1,3), (-2,2), (5,8), K=2]
-    B[Distances: 10, 8, 89]
-    C[Heap Push -10] --> H1[-10]
-    D[Heap Push -8] --> H2[-10, -8]
-    E[Heap Push -89] --> H3[-89, -10, -8]
-    F[Size > 2: Pop -89] --> H4[-10, -8]
-    G[Result: (1,3), (-2,2)]
+    A["Points: (1,3), (-2,2), (5,8), K=2"]
+    A --> B["Distances: 10, 8, 89"]
+    B --> C["Push -10"] --> H1["-10"]
+    H1 --> D["Push -8"] --> H2["-10, -8"]
+    H2 --> E["Push -89"] --> H3["-89, -10, -8"]
+    H3 --> F["Size > 2 → Pop -89"] --> H4["-10, -8"]
+    H4 --> G["Result: (1,3), (-2,2)"]
 ```
 
 ---

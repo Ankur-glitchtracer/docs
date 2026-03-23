@@ -39,10 +39,10 @@ A **Ride-Sharing Service** is a complex system that matches demand (riders) with
 ## 🏗️ Design & Architecture
 
 ### 🧠 Thinking Process
-To handle the dynamic nature of ride-sharing, we use four key modules:
-1.  **Driver Manager:** Maintains the spatial index of all active drivers.
-2.  **Ride Manager:** Orchestrates the matching logic and trip lifecycle.
-3.  **Pricing Engine:** Implements strategies to calculate fares based on distance, time, and demand.
+To handle the dynamic nature of ride-sharing, we use four key modules:  
+1.  **Driver Manager:** Maintains the spatial index of all active drivers.  
+2.  **Ride Manager:** Orchestrates the matching logic and trip lifecycle.   
+3.  **Pricing Engine:** Implements strategies to calculate fares based on distance, time, and demand.   
 4.  **Observer (Notification):** Broadcasts requests to drivers in the matching radius.
 
 ### 🧩 Class Diagram

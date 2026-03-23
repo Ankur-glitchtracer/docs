@@ -43,13 +43,13 @@ For each day `i`, iterate through `j = i+1` to `N` to find the first `temperatur
 ### 🧩 Visual Tracing
 ```mermaid
 graph TD
-    A[Input: 73, 74, 75]
-    B[i=0, Val=73] -->|Push 0| Stack([0])
-    C[i=1, Val=74] -->|74 > 73? Yes| Pop0
-    Pop0 -->|Ans[0] = 1-0 = 1| StackEmpty
+    A["Input: 73, 74, 75"]
+    B["i=0, Val=73"] -->|Push 0| Stack([0])
+    C["i=1, Val=74"] -->|"74 > 73? Yes"| Pop0
+    Pop0 -->|"Ans[0] = 1-0 = 1"| StackEmpty
     StackEmpty -->|Push 1| Stack1([1])
-    D[i=2, Val=75] -->|75 > 74? Yes| Pop1
-    Pop1 -->|Ans[1] = 2-1 = 1| Stack2([2])
+    D["i=2, Val=75"] -->|"75 > 74? Yes"| Pop1
+    Pop1 -->|"Ans[1] = 2-1 = 1"| Stack2([2])
 ```
 
 ---

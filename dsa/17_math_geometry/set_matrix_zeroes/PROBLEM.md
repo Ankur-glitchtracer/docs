@@ -34,8 +34,8 @@ When encountering a zero, traverse row and column and set elements to a special 
 ### 🧩 Visual Tracing
 ```mermaid
 graph LR
-    A[M[i][j]==0] -->|Flag| B[M[i][0]=0]
-    B -->|Flag| C[M[0][j]=0]
+    A["M[i][j] == 0"] -->|Flag| B["M[i][0] = 0"]
+    B -->|Flag| C["M[0][j] = 0"]
 ```
 
 ---

@@ -39,9 +39,9 @@ A **CI/CD (Continuous Integration / Continuous Deployment) Pipeline Engine** aut
 ## 🏗️ Design & Architecture
 
 ### 🧠 Thinking Process
-To ensure reliability, we combine three behavioral patterns:
-1.  **Template Method:** Defines the skeleton (invariant) of the pipeline. Subclasses can override specific steps but cannot change the order.
-2.  **Command Pattern:** Encapsulates each step (e.g., `GitPullCommand`, `DockerBuildCommand`) to manage execution and undo logic.
+To ensure reliability, we combine three behavioral patterns:    
+1.  **Template Method:** Defines the skeleton (invariant) of the pipeline. Subclasses can override specific steps but cannot change the order.  
+2.  **Command Pattern:** Encapsulates each step (e.g., `GitPullCommand`, `DockerBuildCommand`) to manage execution and undo logic.  
 3.  **Chain of Responsibility:** Acts as the "Pre-flight" check, ensuring the environment is ready before expensive build steps begin.
 
 ### 🧩 Class Diagram

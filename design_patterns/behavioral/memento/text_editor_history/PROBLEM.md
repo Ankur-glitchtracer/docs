@@ -18,13 +18,13 @@ The **Memento Pattern** provides the ability to capture and externalize an objec
 ## 🏭 The Engineering Story & Problem
 
 ### 😡 The Villain (The Problem)
-You're building a professional text editor. You need an "Undo" feature.
-The "Snapshot Leaker" approach is to let the `HistoryManager` read the `Editor`'s private variables (`_text`, `_cursor`, `_scroll_y`) and copy them into a list.
+You're building a professional text editor. You need an "Undo" feature. 
+The "Snapshot Leaker" approach is to let the `HistoryManager` read the `Editor`'s private variables (`_text`, `_cursor`, `_scroll_y`) and copy them into a list.    
 This creates **Tight Coupling**. The `HistoryManager` now depends on the internal implementation of the `Editor`. If you refactor the `Editor` to use a `GapBuffer` instead of a string, the `HistoryManager` breaks. You've leaked the internal state, violating encapsulation.
 
 ### 🦸 The Hero (The Solution)
-The **Memento Pattern** solves this by creating a "Sealed Envelope" (the Memento).
-The `Editor` (Originator) packs its own state into a `Memento` object. It hands this sealed envelope to the `HistoryManager` (Caretaker). The `HistoryManager` keeps it safe but **cannot open it**.
+The **Memento Pattern** solves this by creating a "Sealed Envelope" (the Memento).  
+The `Editor` (Originator) packs its own state into a `Memento` object. It hands this sealed envelope to the `HistoryManager` (Caretaker). The `HistoryManager` keeps it safe but **cannot open it**.    
 When the user hits Undo, the `HistoryManager` hands the envelope back to the `Editor`. The `Editor` opens it and restores its state. The `HistoryManager` never saw the data, preserving encapsulation.
 
 ### 📜 Requirements & Constraints

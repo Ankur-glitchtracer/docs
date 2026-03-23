@@ -46,11 +46,11 @@ Append to list, sort on `findMedian`.
 ### 🧩 Visual Tracing
 ```mermaid
 graph TD
-    A[Input: 1, 2, 3]
-    B[Add 1] --> H1[Small: {1}, Large: {}]
-    C[Add 2] --> H2[Small: {1}, Large: {2}]
-    D[Add 3] --> H3[Small: {1, 2}, Large: {3}]
-    E[Median] --> Res[Small.top = 2]
+    A["Input: 1, 2, 3"]
+    A --> B["Add 1 → Small: {1}, Large: {}"]
+    B --> C["Add 2 → Small: {1}, Large: {2}"]
+    C --> D["Add 3 → Rebalance → Small: {1,2}, Large: {3}"]
+    D --> E["Median = 2"]
 ```
 
 ---

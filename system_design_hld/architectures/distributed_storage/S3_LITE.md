@@ -131,4 +131,4 @@ If a user requests a list of all 1 Billion files inside a bucket, querying the r
 
   - [System Design: Distributed KV Store](KV_STORE.md) — Deep dive into the Cassandra/Dynamo-style databases used for the Metadata layer.
   - [System Design: Distributed Storage (GFS)](../../deep_dives/GFS.md) — The precursor to modern object stores, focusing heavily on master-node chunk allocation.
-  - [Machine Coding: Cache System](../../../machine_coding/systems/cache_system/PROBLEM.md) — Understanding the caching layers often placed in front of object storage.
+  - [Machine Coding: Cache System](../../../machine_coding/systems/cache/PROBLEM.md) — Understanding the caching layers often placed in front of object storage.

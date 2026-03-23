@@ -41,12 +41,23 @@ Generate all subsets, filter by sum, convert to tuple/set to remove duplicates.
 ### 🧩 Visual Tracing
 ```mermaid
 graph TD
-    A[Input: 1, 1, 2, 5, Target: 4]
-    Root -->|Pick 1a| B[Target: 3]
-    B -->|Pick 1b| C[Target: 2]
-    C -->|Pick 2| D[Target: 0 (Found [1,1,2])]
-    Root -->|Skip 1a| E[Must also skip 1b!]
-    E -->|Pick 2| F[Target: 2]
+    Root["Start: target = 4"] 
+    
+    Root -->|+1a| A["t=3 | [1]"]
+    A -->|+1b| B["t=2 | [1,1]"]
+    B -->|+2| C["t=0 ✓ [1,1,2]"]
+    B -->|+5| X1["t=-3 ✗"]
+    
+    A -->|+2| D["t=1 | [1,2]"]
+    D -->|+5| X2["t=-4 ✗"]
+    
+    A -->|+5| X3["t=-2 ✗"]
+
+    Root -->|skip 1a & 1b| E["t=4 | []"]
+    E -->|+2| F["t=2 | [2]"]
+    F -->|+5| X4["t=-3 ✗"]
+    
+    E -->|+5| G["t=-1 ✗"]
 ```
 
 ---

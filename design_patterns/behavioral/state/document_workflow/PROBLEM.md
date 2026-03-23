@@ -18,11 +18,11 @@ The **State Pattern** allows an object to change its behavior when its internal 
 ## 🏭 The Engineering Story & Problem
 
 ### 😡 The Villain (The Problem)
-You're building a Document Management System. A document has stages: `Draft`, `Moderation`, and `Published`.
-The rules are complex:
--   In `Draft`, you can edit and publish.
--   In `Moderation`, you can't edit, and only an admin can publish.
--   In `Published`, you can't edit or publish.
+You're building a Document Management System. A document has stages: `Draft`, `Moderation`, and `Published`.    
+The rules are complex:  
+-   In `Draft`, you can edit and publish.   
+-   In `Moderation`, you can't edit, and only an admin can publish. 
+-   In `Published`, you can't edit or publish.  
 The "Workflow Spaghetti" code looks like this:
 ```python
 class Document:
@@ -37,11 +37,11 @@ class Document:
 Every time you add a new state (like `Archived` or `Rejected`), you have to go into *every single method* and add more `if/elif` blocks. The `Document` class becomes a giant, unreadable mess.
 
 ### 🦸 The Hero (The Solution)
-The **State Pattern** introduces "State Delegates."
-Instead of one giant class, we create `DraftState`, `ModerationState`, and `PublishedState` classes.
-The `Document` class is now simple. When you call `doc.publish()`, it just says: `self.state.publish(self)`.
--   If it's in `DraftState`, the `publish()` method moves it to `Moderation`.
--   If it's in `PublishedState`, the `publish()` method does nothing.
+The **State Pattern** introduces "State Delegates." 
+Instead of one giant class, we create `DraftState`, `ModerationState`, and `PublishedState` classes.    
+The `Document` class is now simple. When you call `doc.publish()`, it just says: `self.state.publish(self)`.    
+-   If it's in `DraftState`, the `publish()` method moves it to `Moderation`.   
+-   If it's in `PublishedState`, the `publish()` method does nothing.   
 Each state knows its own rules. To add an `Archived` state, you just create one new class and point the `PublishedState` to it. You don't touch the `Document` or `DraftState` at all.
 
 ### 📜 Requirements & Constraints

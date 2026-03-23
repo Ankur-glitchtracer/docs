@@ -38,9 +38,9 @@ A **Distributed Rate Limiter** controls the rate of traffic allowed into a servi
 ## 🏗️ Design & Architecture
 
 ### 🧠 Thinking Process
-Rate limiting requires a global source of truth. We use a **Key-Value Store** (like Redis) and assign keys based on user/API identifiers.
-1.  **Token Bucket:** Maintains a bucket of tokens that refills at a fixed rate.
-2.  **Sliding Window:** Maintains a timestamp log of requests within the last $T$ seconds.
+Rate limiting requires a global source of truth. We use a **Key-Value Store** (like Redis) and assign keys based on user/API identifiers.   
+1.  **Token Bucket:** Maintains a bucket of tokens that refills at a fixed rate.    
+2.  **Sliding Window:** Maintains a timestamp log of requests within the last $T$ seconds.  
 3.  **Atomicity:** We use **Atomic Increments** or **Lua Scripts** to ensure the counter doesn't suffer from "Read-Modify-Write" race conditions.
 
 ### 🧩 Class Diagram

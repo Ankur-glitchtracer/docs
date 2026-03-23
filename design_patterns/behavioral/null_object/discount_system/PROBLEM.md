@@ -18,7 +18,7 @@ The **Null Object Pattern** uses a special object to represent the absence of a 
 ## 🏭 The Engineering Story & Problem
 
 ### 😡 The Villain (The Problem)
-You're building an e-commerce checkout. Users *might* have a discount code, or they might not.
+You're building an e-commerce checkout. Users *might* have a discount code, or they might not.  
 The "Null-Check Minefield" code looks like this:
 ```python
 discount = get_discount(code)
@@ -31,9 +31,9 @@ else:
 This check has to be repeated *everywhere* the discount is used (UI display, invoice generation, email receipt). If a developer forgets the check in just one place, the app crashes with `AttributeError: 'NoneType' object has no attribute 'apply'`.
 
 ### 🦸 The Hero (The Solution)
-The **Null Object Pattern** introduces a "Safety Net."
-We create a `NoDiscount` class that implements the `Discount` interface. Its `apply()` method simply returns the price unchanged.
-Now, the `get_discount(code)` function *never* returns `None`. If the code is invalid, it returns `NoDiscount()`.
+The **Null Object Pattern** introduces a "Safety Net."  
+We create a `NoDiscount` class that implements the `Discount` interface. Its `apply()` method simply returns the price unchanged.   
+Now, the `get_discount(code)` function *never* returns `None`. If the code is invalid, it returns `NoDiscount()`.   
 The client code becomes:
 ```python
 total = get_discount(code).apply(total)

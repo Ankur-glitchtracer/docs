@@ -41,11 +41,11 @@ Sort and pick index `N-k`.
 ### 🧩 Visual Tracing
 ```mermaid
 graph TD
-    A[Arr: 3,2,1,5,6,4, K=2 (Target Idx 4)]
-    B[Pivot: 4] -->|Partition| C[3,2,1, 4 , 5,6]
-    C -->|4 is at Idx 3 < Target 4| RecurseRight
-    D[Right Sub: 5, 6] -->|Pivot 5| E[5, 6]
-    E -->|5 is at Idx 4 == Target| Return 5
+    A["Arr: 3,2,1,5,6,4, K=2 (Target Idx 4)"]
+    B["Pivot: 4"] -->|Partition| C["3,2,1, 4, 5,6"]
+    C -->|"4 is at Idx 3 < Target 4"| R["Recurse Right"]
+    D["Right Sub: 5, 6"] -->|"Pivot 5"| E["5, 6"]
+    E -->|"5 is at Idx 4 == Target"| F["Return 5"]
 ```
 
 ---

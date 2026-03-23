@@ -39,9 +39,9 @@ Use Dynamic Programming to store results of sub-problems:
 ### 🧩 Visual Tracing
 ```mermaid
 graph TD
-    A[Start: 0,0] --> B[Try s1]
-    A --> C[Try s2]
-    B --> D{Match s3[k]?}
+    A["Start: 0,0"] --> B["Try s1"]
+    A --> C["Try s2"]
+    B --> D{"Match s3[k]?"}
     C --> D
     style D fill:#f9f,stroke:#333,stroke-width:2px
 ```

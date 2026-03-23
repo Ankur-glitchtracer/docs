@@ -39,10 +39,10 @@ Store list of words. For `.` search, iterate all words and regex match.
 ### 🧩 Visual Tracing
 ```mermaid
 graph TD
-    Root --> B
-    B --> A
-    A --> D[bad (End)]
-    Root -->|Search b.d| ScanChildren
+    Root["Root"] --> B["b"]
+    B --> A["a"]
+    A --> D["bad (End)"]
+    Root -->|Search b.d| ScanChildren["Scan Children"]
     ScanChildren -->|Try 'a'| D
 ```
 
