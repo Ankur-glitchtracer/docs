@@ -28,7 +28,21 @@ python scripts/update_dashboard.py --today
 <!-- ACTIVE_TABLE_START -->
 | Topic | Category | Impact | Last Reviewed | Confidence | Next Review |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-
+| Valid Parentheses | DSA | Medium | N/A | 0/5 | TBD |
+| Merge Intervals | DSA | "High" | N/A | 0/5 | TBD |
+| Non Overlapping Intervals | DSA | "Medium" | N/A | 0/5 | TBD |
+| Minimum Interval To Include Each Query | DSA | "High" | N/A | 0/5 | TBD |
+| Meeting Rooms | DSA | "Low" | N/A | 0/5 | TBD |
+| Meeting Rooms Ii | DSA | "High" | N/A | 0/5 | TBD |
+| Insert Interval | DSA | "Medium" | N/A | 0/5 | TBD |
+| Palindrome Partitioning | DSA | "Medium" | N/A | 0/5 | TBD |
+| Word Search | DSA | "Medium" | N/A | 0/5 | TBD |
+| Permutations | DSA | "Medium" | N/A | 0/5 | TBD |
+| Subsets Ii | DSA | "Medium" | N/A | 0/5 | TBD |
+| Combination Sum | DSA | "Medium" | N/A | 0/5 | TBD |
+| Letter Combinations Of A Phone Number | DSA | "Medium" | N/A | 0/5 | TBD |
+| Subsets | DSA | "High" | N/A | 0/5 | TBD |
+| N Queens | DSA | "Hard" | N/A | 0/5 | TBD |
 <!-- ACTIVE_TABLE_END -->
 
 ---
@@ -49,9 +63,9 @@ python scripts/update_dashboard.py --today
 *(Auto-generated — charts + distribution)*
 
 <!-- STATS_START -->
-* Active Topics: 0
+* Active Topics: 207
 * Needs Review: 0
-* Weak Areas (≤2): 0
+* Weak Areas (≤2): 207
 <!-- STATS_END -->
 
 ---
