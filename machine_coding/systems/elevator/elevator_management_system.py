@@ -102,73 +102,43 @@ class Elevator:
 
     def add_request(self: Elevator, request: Request) -> None:
         if self._has_request(request.floor):
-            return None
+            return
 
-        if not self.requests:
-            return self.requests.append(request)
-        
-        len_request = len(self.requests)
-
+        # Simple insertion sort for SCAN/LOOK based on direction
+        self.requests.append(request)
         if self.direction == Direction.UP:
-            if request.floor == self.current_floor:
-                return self.requests.insert(0,request)
-            elif request.floor > self.current_floor:
-                for i in range(0, len_request):
-                    floor = self.requests[i].floor
-                    if floor > request.floor or floor < self.current_floor:
-                        return self.requests.insert(i,request)
-                return self.requests.append(request)
-            else:
-                for i in range(0, len_request):
-                    floor = self.requests[i].floor
-                    if floor < request.floor:
-                        return self.requests.insert(i,request)
-                return self.requests.append(request)
+            self.requests.sort(key=lambda r: (r.floor if r.floor >= self.current_floor else r.floor + 1000))
+        elif self.direction == Direction.DOWN:
+            self.requests.sort(key=lambda r: (-r.floor if r.floor <= self.current_floor else -r.floor + 1000))
         else:
-            if request.floor == self.current_floor:
-                return self.requests.insert(0,request)
-            elif request.floor > self.current_floor:
-                for i in range(0, len_request):
-                    floor = self.requests[i].floor
-                    if floor > request.floor:
-                        return self.requests.insert(i,request)
-                return self.requests.append(request)
-            else:
-                for i in range(0, len_request):
-                    floor = self.requests[i].floor
-                    if floor < request.floor or self.current_floor < floor:
-                        return self.requests.insert(i,request)
-                return self.requests.append(request)
-
-    def get_next_request(self: Elevator) -> Request:
-        return self.requests[0]
+            self.requests.sort(key=lambda r: abs(r.floor - self.current_floor))
 
     def step(self: Elevator) -> None:
         if not self.requests:
             self.status = Status.IDLE
             self.direction = Direction.NONE
-            return None
+            return
         
-        target = self.get_next_request().floor
+        # Sort current requests based on current position and direction
+        if self.direction == Direction.NONE:
+            target = min(self.requests, key=lambda r: abs(r.floor - self.current_floor)).floor
+            self.direction = Direction.UP if target >= self.current_floor else Direction.DOWN
+        else:
+            target = self.requests[0].floor
 
         if self.current_floor == target:
             self.status = Status.STOPPED
-            self.direction = Direction.NONE
             self.door = Door.OPENED
             print(f"Elevator {self.id} stopped at floor {target}")
-            self.requests.pop(0)
-
+            self.requests = [r for r in self.requests if r.floor != target]
             self.door = Door.CLOSED
-
-        elif self.current_floor < target:
-            self.status = Status.MOVING
-            self.direction = Direction.UP
-            self.move_floor()
-
+            if not self.requests:
+                self.status = Status.IDLE
+                self.direction = Direction.NONE
         else:
             self.status = Status.MOVING
-            self.direction = Direction.DOWN
             self.move_floor()
+
 
 
 class ElevatorController:
@@ -197,30 +167,49 @@ class ElevatorController:
         return floors
 
     def assign_request(self: ElevatorController, request: Request) -> None:
-        e = None
-        for elevator in self.elevators:
-            if elevator.is_idle():
-                if not e:
-                    e = elevator
-                elif abs(request.floor - e.current_floor) > abs(request.floor - elevator.current_floor):
-                    e = elevator
-        if e:
-            request.assign_request(elevator=e, floor=request.floor)
-            return e.add_request(request=request)
+        # Strategy: Prioritize idle elevators, then elevators moving in the same direction, then nearest elevator
+        best_elevator = None
+        min_dist = float('inf')
 
-        for elevator in self.elevators:
-            if(elevator.direction == request.direction):
-                request.assign_request(elevator=elevator, floor=request.floor)
-                return elevator.add_request(request=request)
+        # Try to find an idle elevator
+        for e in self.elevators:
+            if e.is_idle():
+                dist = abs(e.current_floor - request.floor)
+                if dist < min_dist:
+                    min_dist = dist
+                    best_elevator = e
+        
+        if best_elevator:
+            request.assign_request(best_elevator, request.floor)
+            best_elevator.add_request(request)
+            return
 
+        # Try to find an elevator moving in the same direction
+        for e in self.elevators:
+            if e.direction == request.direction:
+                if (request.direction == Direction.UP and e.current_floor <= request.floor) or \
+                   (request.direction == Direction.DOWN and e.current_floor >= request.floor):
+                    request.assign_request(e, request.floor)
+                    e.add_request(request)
+                    return
+
+        # Fallback to nearest elevator
+        min_dist = float('inf')
+        best_elevator = self.elevators[0]
+        for e in self.elevators:
+            dist = abs(e.current_floor - request.floor)
+            if dist < min_dist:
+                min_dist = dist
+                best_elevator = e
+        
+        request.assign_request(best_elevator, request.floor)
+        best_elevator.add_request(request)
+
+    def step(self: ElevatorController) -> None:
         for elevator in self.elevators:
-            if not e:
-                e = elevator
-            elif abs(request.floor - e.current_floor) < abs(request.floor - elevator.current_floor):
-                e = elevator
-        if e:
-            request.assign_request(elevator=e, floor=request.floor)
-            return e.add_request(request=request)
+            elevator.step()
+
+
 
 
 if __name__ == "__main__":

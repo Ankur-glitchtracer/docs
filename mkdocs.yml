@@ -37,6 +37,22 @@ nav:
   - Interview:
     - Playbook: interview_playbook.md
     - Reference: references.md
+  - Company Guide:
+    - Amazon:
+      - L5: company_guides/amazon/L5_guide.md
+      - L6: company_guides/amazon/L6_guide.md
+    - Google:
+      - L4: company_guides/google/L4_guide.md
+      - L5: company_guides/google/L5_guide.md
+      - L6 Staff: company_guides/google/L6_guide_staff.md
+      - L6 Manager: company_guides/google/L6_guide_manager.md
+    - Meta:
+      - E4: company_guides/meta/e4_guide.md
+      - E5: company_guides/meta/e5_guide.md
+      - E6: company_guides/meta/e6_guide.md
+      - M1: company_guides/meta/m1_guide.md
+    - Microsoft:
+      - L63-L64: company_guides/microsoft/l63-l64_guide.md
   - Repo Index: repo_index.md
   - Progress Tracker: todo.md
   - Engineering Metrics:
@@ -267,17 +283,26 @@ nav:
     - Roadmap: machine_coding/ROADMAP.md
     - Insights: machine_coding/INSIGHTS.md
     - Machine Coding Template: machine_coding/MACHINE_CODING_TEMPLATE.md
+    - Guide:
+      - Concurrency: machine_coding/guides/concurrency.md
+      - Delivery Framework: machine_coding/guides/delivery_framework.md
+      - Design Patterns: machine_coding/guides/design_patterns.md
+      - Principles and OOPs: machine_coding/guides/principles_and_oop.md
     - Games:
+      - Connect Four: machine_coding/games/connect_four/PROBLEM.md
       - Snake & Ladder: machine_coding/games/snake_ladder/PROBLEM.md
       - Tic-Tac-Toe: machine_coding/games/tic_tac_toe/PROBLEM.md
       - Deck of Cards: machine_coding/games/deck_of_cards/PROBLEM.md
     - Systems:
+      - Amazon Locker: machine_coding/systems/amazon_locker/PROBLEM.md
       - Elevator: machine_coding/systems/elevator/PROBLEM.md
       - Instagram: machine_coding/systems/instagram/PROBLEM.md
       - Parking Lot: machine_coding/systems/parking_lot/PROBLEM.md
       - Cache System: machine_coding/systems/cache/PROBLEM.md
+      - File System: machine_coding/systems/file_system/PROBLEM.md
       - Call Center: machine_coding/systems/call_center/PROBLEM.md
       - Online Chat: machine_coding/systems/online_chat/PROBLEM.md
+      - Inventory Management: machine_coding/systems/inventory_management/PROBLEM.md
       - Hash Map: machine_coding/systems/hash_map/PROBLEM.md
     - Distributed:
       - Job Scheduler: machine_coding/distributed/job_scheduler/PROBLEM.md
@@ -297,32 +322,6 @@ nav:
     - Socket Chat: infrastructure_challenges/socket_chat_app/PROBLEM.md
   - High-Level Design (HLD):
     - Roadmap: system_design_hld/ROADMAP.md
-    - Mastery Program:
-      - Overview: system_design_hld/mastery_program/index.md
-      - "Phase 1: Foundations":
-        - "M1: Network": system_design_hld/mastery_program/phase_1/m1_network.md
-        - "M2: Storage": system_design_hld/mastery_program/phase_1/m2_storage.md
-        - "M3: Caching": system_design_hld/mastery_program/phase_1/m3_caching.md
-        - "M4: Load Balancing": system_design_hld/mastery_program/phase_1/m4_load_balancing.md
-        - "M5: API Design": system_design_hld/mastery_program/phase_1/m5_api_design.md
-      - "Phase 2: Distributed Systems":
-        - "M6: Partitioning": system_design_hld/mastery_program/phase_2/m6_partitioning.md
-        - "M7: Replication": system_design_hld/mastery_program/phase_2/m7_replication.md
-        - "M8: Message Queues": system_design_hld/mastery_program/phase_2/m8_queues.md
-        - "M9: Microservices": system_design_hld/mastery_program/phase_2/m9_microservices.md
-        - "M10: Transactions": system_design_hld/mastery_program/phase_2/m10_transactions.md
-        - "M11: Observability": system_design_hld/mastery_program/phase_2/m11_observability.md
-      - "Phase 3: Data & GenAI":
-        - "M12: Pipelines": system_design_hld/mastery_program/phase_3/m12_pipelines.md
-        - "M13: Search": system_design_hld/mastery_program/phase_3/m13_search.md
-        - "M14: ML Serving": system_design_hld/mastery_program/phase_3/m14_ml_serving.md
-        - "M15: RAG Scale": system_design_hld/mastery_program/phase_3/m15_rag.md
-        - "M16: LLM Orchestration": system_design_hld/mastery_program/phase_3/m16_llm_orchestration.md
-      - "Phase 4: Advanced Architecture":
-        - "M17: SaaS": system_design_hld/mastery_program/phase_4/m17_saas.md
-        - "M18: Collaboration": system_design_hld/mastery_program/phase_4/m18_collaboration.md
-        - "M19: Cost Optimization": system_design_hld/mastery_program/phase_4/m19_cost.md
-        - "M20: Interview Prep": system_design_hld/mastery_program/phase_4/m20_interviews.md
     - Insights: system_design_hld/INSIGHTS.md
     - HLD Template: system_design_hld/HLD_TEMPLATE.md
     - Pillars:
@@ -340,6 +339,11 @@ nav:
       - Data Partitioning: system_design_hld/pillars/DATA_PARTITIONING.md
       - Proxies & Networking: system_design_hld/pillars/microservices/PROXIES_AND_NETWORKING.md
       - SQL vs NoSQL: system_design_hld/pillars/database_scaling/SQL_VS_NOSQL.md
+      - Contention: system_design_hld/pillars/CONTENTION.md
+      - Long Running Tasks: system_design_hld/pillars/LONG_RUNNING_TASKS.md
+      - Networking Essentials: system_design_hld/pillars/NETWORKING_ESSENTIALS.md
+      - Real Time Updates: system_design_hld/pillars/REAL_TIME_UPDATES.md
+      - Scaling: system_design_hld/pillars/SCALING.md
     - Microservices & LLD:
       - Decoupling & Architecture: system_design_hld/pillars/microservices/MICROSERVICES_DECOUPLING.md
       - API Gateway & Messaging: system_design_hld/pillars/microservices/API_GATEWAY_AND_MESSAGING.md
@@ -384,6 +388,35 @@ nav:
         - Search Query Cache: system_design_hld/architectures/utilities/QUERY_CACHE.md
         - Social Graph Search: system_design_hld/architectures/utilities/SOCIAL_GRAPH.md
         - Personal Finance (Mint): system_design_hld/architectures/payment_systems/MINT.md
+        - AD Click Aggregator: system_design_hld/architectures/utilities/AD_CLICK_AGGREGATOR.md
+        - LeetCode: system_design_hld/architectures/utilities/LEETCODE.md
+        - YouTube Top K: system_design_hld/architectures/utilities/YOUTUBE_TOP_K.md
+    - Mastery Program:
+      - Overview: system_design_hld/mastery_program/index.md
+      - "Phase 1: Foundations":
+        - "M1: Network": system_design_hld/mastery_program/phase_1/m1_network.md
+        - "M2: Storage": system_design_hld/mastery_program/phase_1/m2_storage.md
+        - "M3: Caching": system_design_hld/mastery_program/phase_1/m3_caching.md
+        - "M4: Load Balancing": system_design_hld/mastery_program/phase_1/m4_load_balancing.md
+        - "M5: API Design": system_design_hld/mastery_program/phase_1/m5_api_design.md
+      - "Phase 2: Distributed Systems":
+        - "M6: Partitioning": system_design_hld/mastery_program/phase_2/m6_partitioning.md
+        - "M7: Replication": system_design_hld/mastery_program/phase_2/m7_replication.md
+        - "M8: Message Queues": system_design_hld/mastery_program/phase_2/m8_queues.md
+        - "M9: Microservices": system_design_hld/mastery_program/phase_2/m9_microservices.md
+        - "M10: Transactions": system_design_hld/mastery_program/phase_2/m10_transactions.md
+        - "M11: Observability": system_design_hld/mastery_program/phase_2/m11_observability.md
+      - "Phase 3: Data & GenAI":
+        - "M12: Pipelines": system_design_hld/mastery_program/phase_3/m12_pipelines.md
+        - "M13: Search": system_design_hld/mastery_program/phase_3/m13_search.md
+        - "M14: ML Serving": system_design_hld/mastery_program/phase_3/m14_ml_serving.md
+        - "M15: RAG Scale": system_design_hld/mastery_program/phase_3/m15_rag.md
+        - "M16: LLM Orchestration": system_design_hld/mastery_program/phase_3/m16_llm_orchestration.md
+      - "Phase 4: Advanced Architecture":
+        - "M17: SaaS": system_design_hld/mastery_program/phase_4/m17_saas.md
+        - "M18: Collaboration": system_design_hld/mastery_program/phase_4/m18_collaboration.md
+        - "M19: Cost Optimization": system_design_hld/mastery_program/phase_4/m19_cost.md
+        - "M20: Interview Prep": system_design_hld/mastery_program/phase_4/m20_interviews.md
 
 markdown_extensions:
   - admonition

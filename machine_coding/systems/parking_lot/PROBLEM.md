@@ -87,7 +87,7 @@ classDiagram
   - **Composite Pattern (Conceptual)**: Cascading the `park_vehicle` request down the structural tree (`ParkingLot` $\rightarrow$ `Level` $\rightarrow$ `ParkingSpot`).
   - **Strategy / Polymorphism**: Resolving the spatial rules. Instead of the `ParkingSpot` writing massive `if/else` checks for every vehicle type, it asks the vehicle itself: `vehicle.can_fit_in_spot(self)`.
 
------
+---
 
 ## 💻 Solution Implementation
 
@@ -101,7 +101,7 @@ classDiagram
 The system is highly robust because of the **Polymorphic Fitting Logic** and **Contiguous Scanning**.   
 When a `Bus` arrives, the `Level` does not just check `available_spots >= 5`. It iterates through its spot array using a sliding counter. Because a `Bus` overrides `can_fit_in_spot()` to strictly require `VehicleSize.LARGE`, the `Level` will only return an index if it finds 5 consecutive spots that all return `True` to the Bus's size checks.
 
------
+---
 
 ## ⚖️ Trade-offs & Limitations
 
@@ -111,13 +111,13 @@ When a `Bus` arrives, the `Level` does not just check `available_spots >= 5`. It
 | **Storing Spots inside the Vehicle** | $O(1)$ cleanup. The vehicle knows exactly which spots to clear when leaving. | Creates a circular reference (`Spot` knows `Vehicle`, `Vehicle` knows `Spot`). |
 | **Greedy Allocation (First-Fit)** | Fast assignment without complex sorting. | Can lead to fragmentation (e.g., parking a motorcycle in a large spot prevents a bus from parking later). |
 
------
+---
 
 ## 🎤 Interview Toolkit
 
-  - **Optimization Probe:** "Your Level scanning is $O(N)$ to find 5 consecutive spots. How would you optimize this?" -\> *(Maintain a free-list or a Segment Tree / Max-Heap that tracks the lengths of available contiguous blocks. This allows $O(\log N)$ lookups).*
-  - **Concurrency Probe:** "How would you handle 10 entry gates simultaneously trying to park cars?" -\> *(Place a `threading.Lock` at the `Level` class. Granular locking per level prevents the entire lot from halting while one car parks, massively increasing throughput).*
-  - **Edge Case:** "What happens to fragmentation if a Motorcycle parks in the middle of 5 Large spots?" -\> *(The system allows it currently. To fix it, you should enforce strict sizing or sort spots by size so small vehicles fill small spots first).*
+  - **Optimization Probe:** "Your Level scanning is $O(N)$ to find 5 consecutive spots. How would you optimize this?" -> *(Maintain a free-list or a Segment Tree / Max-Heap that tracks the lengths of available contiguous blocks. This allows $O(\log N)$ lookups).*
+  - **Concurrency Probe:** "How would you handle 10 entry gates simultaneously trying to park cars?" -> *(Place a `threading.Lock` at the `Level` class. Granular locking per level prevents the entire lot from halting while one car parks, massively increasing throughput).*
+  - **Edge Case:** "What happens to fragmentation if a Motorcycle parks in the middle of 5 Large spots?" -> *(The system allows it currently. To fix it, you should enforce strict sizing or sort spots by size so small vehicles fill small spots first).*
 
 ## 🔗 Related Challenges
 
